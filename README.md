@@ -1,0 +1,76 @@
+# La Congiunta, Giornico – interaktives 3D-Modell
+
+Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus für Reliefs und Halbfiguren von Hans Josephsohn, gebaut 1986–1992 nach Plänen von Peter Märkli. Die ganze Website besteht aus einer einzigen Datei (`index.html`) und läuft im Browser, auf Rechnern ebenso wie auf Tablets und Handys.
+
+**Online ansehen:** https://elreqanolo.github.io/la_congiunta_giorinco/
+
+**Inhalt des Modells**
+
+- Gebäude nach den Plänen und Schnitten bei Pireddu (2025), Länge und Lage am Luftbild von swisstopo nachgemessen
+- Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
+- Gelände aus den Höhenmodellen und Luftbildern von swisstopo, Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
+- Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
+- Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
+
+## Bedienung
+
+| | Rechner | Tablet und Handy |
+|---|---|---|
+| Drehen | Maus ziehen | mit einem Finger ziehen |
+| Zoomen | Mausrad | zwei Finger |
+| Fliegen, Rundgang | W A S D, E / Q, Shift | Pfeiltasten unten rechts |
+| Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
+
+Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“.
+
+**Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
+
+**Ansichten per Link:** An die Adresse lässt sich ein Anker hängen, zum Beispiel
+
+- `#raum3-t0930-winter` – Raum 3 an einem Wintermorgen
+- `#zelle`, `#raum1`, `#raum2`, `#eingang`, `#decke`
+- `#flachrelief`, `#hochrelief`, `#halbfigur` – direkt vor einem Exponat
+- `#tal`, `#aussen`, `#innen`, `#drauf`
+- `#schild4` – direkt vor Infoschild 4
+- `#hoch`, `#mittel`, `#niedrig`, `#auto` – Grafikqualität
+- `#diag` – technische Angaben (Grafikchip, Bildrate, Ladezeiten)
+
+## Als Website veröffentlichen (GitHub Pages)
+
+1. Auf GitHub ein neues, öffentliches Repository anlegen, zum Beispiel `la-congiunta-3d`.
+2. „Add file“ → „Upload files“ und `index.html` sowie diese `README.md` hochladen (die leere Datei `.nojekyll` kann mit, nötig ist sie nicht). Mit „Commit changes“ bestätigen.
+3. Im Repository „Settings“ → „Pages“ öffnen. Unter „Build and deployment“ als Quelle „Deploy from a branch“ wählen, Branch `main` und Ordner `/ (root)`, dann „Save“.
+4. Nach ein bis zwei Minuten ist die Seite unter `https://BENUTZERNAME.github.io/la-congiunta-3d/` erreichbar.
+
+Mit git auf der Kommandozeile geht es ebenso:
+
+```bash
+git init
+git add index.html README.md .nojekyll
+git commit -m "La Congiunta 3D"
+git branch -M main
+git remote add origin https://github.com/BENUTZERNAME/la-congiunta-3d.git
+git push -u origin main
+```
+
+Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub Pages veröffentlicht sie nach kurzer Zeit.
+
+## Technik
+
+- Eine Datei ohne Build-Schritt: Höhenmodelle, Luftbilder und Texturen sind in `index.html` eingebettet (rund 1,9 MB).
+- 3D mit [three.js](https://threejs.org) r128; die Bibliothek wird beim Start von `cdn.jsdelivr.net` geladen. Dafür ist eine Internetverbindung nötig, und jsDelivr sieht dabei die IP-Adresse der Besucher. Wer das vermeiden will, legt die neun Dateien, die am Ende von `index.html` aufgeführt sind (`build/three.min.js` und acht Dateien aus `examples/js/`), in denselben Ordnerstrukturen ins Repository und ersetzt dort die Adresse `https://cdn.jsdelivr.net/npm/three@0.128.0/` durch `./three/`.
+- Keine Cookies, kein Tracking, keine Formulare.
+- Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
+
+## Quellen und Lizenzen
+
+Die vollständige Quellenliste steht in der Seite unter „Bedienung, Quellen und Legende“. Wichtig für die Weitergabe:
+
+- Höhenmodelle swissALTI3D und DHM25, Luftbild SWISSIMAGE: © swisstopo (Bundesamt für Landestopografie), freie Geodaten mit Quellenangabe.
+- Kartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL 1.0.
+- three.js: MIT-Lizenz.
+- Pläne und Angaben nach A. Pireddu, „Peter Märkli – La Congiunta“, *Firenze Architettura* 29 (2025), doi:10.36253/FiA-16824 (CC BY-SA 4.0); im Modell nur zitiert und nachgezeichnet.
+- **Bitte vor der Veröffentlichung prüfen:** Die Fototexturen für Beton, Boden, Innenwände und Laternenblech stammen aus der Vorlage-Datei „La Congiunta – schematisches 3D-Modell“; ihre Herkunft ist dort nicht angegeben. Vor einer öffentlichen Website sollten die Rechte daran geklärt oder die Texturen durch eigene Fotos bzw. frei lizenzierte (z. B. CC0) Texturen ersetzt werden.
+- Die Werke von Hans Josephsohn sind urheberrechtlich geschützt. Das Modell zeigt keine Abbilder einzelner Werke, sondern frei nachempfundene, prozedural erzeugte Formen in Anzahl und Anordnung nach den Quellen.
+
+Für den eigenen Code des Modells ist keine Lizenz festgelegt; wer ihn anderen zur Nutzung freigeben möchte, ergänzt eine Lizenzdatei (zum Beispiel MIT).
