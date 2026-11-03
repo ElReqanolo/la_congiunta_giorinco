@@ -1066,9 +1066,20 @@ function buildInfra(){
   var sI=inst(new THREE.BoxGeometry(2.6,0.13,0.26),slM,slp.length,infG);sI.receiveShadow=true;slp.forEach(function(s,i){setI(sI,i,s[0],s[1],s[2],1,1,1,s[3])});sI.instanceMatrix.needsUpdate=true;
   /* Brücken (A2-Viadukte und kleinere Brücken) */
   var widths={1:11.5,2:9,3:8.5,4:7,5:5.5,6:4.5,7:3.5,8:2.5},piers=[];
+  /* die zwei alten Steinbrücken zwischen Dorf, Insel und Westufer: gewölbt, aus Naturstein */
+  var OLDB=[[367.5,388],[288,369]],stoneM=patch(new THREE.MeshStandardMaterial({color:0x8b8376,roughness:0.95,side:THREE.DoubleSide,flatShading:true}),{});
+  function isOld(p){var mx=0,mz=0;p.forEach(function(q){mx+=q[0];mz+=q[1]});mx/=p.length;mz/=p.length;return OLDB.some(function(o){return Math.hypot(mx-o[0],mz-o[1])<12})}
+  /* Bogenkörper: Fahrbahn oben, Stirnmauern seitlich, Gewölbe unten (Kämpfer unter dem Ufer, Scheitel 1 m unter der Fahrbahn) */
+  function archBody(p,ys,w,cum,S){var pos=[],idx=[],n=p.length,ya=hW(p[0][0],p[0][1]),yb=hW(p[n-1][0],p[n-1][1]),ysp=Math.min(ya,yb)-1.2,crown=ys[n>>1]-1.0;
+    for(var i=0;i<n;i++){var d=dirAt(p,i),nx=-d[1],nz=d[0],x=p[i][0],z=p[i][1],f=S?cum[i]/S:0,yt=ys[i]-0.05,yi=Math.min(yt-0.6,ysp+(crown-ysp)*Math.pow(Math.sin(Math.PI*f),0.5));
+      pos.push(x+nx*w/2,yt,z+nz*w/2,x-nx*w/2,yt,z-nz*w/2,x+nx*w/2,yi,z+nz*w/2,x-nx*w/2,yi,z-nz*w/2)}
+    for(i=0;i<n-1;i++){var k=i*4,q=k+4;idx.push(k,k+1,q,k+1,q+1,q,k,q,k+2,q,q+2,k+2,k+1,k+3,q+1,q+1,k+3,q+3,k+2,q+2,k+3,k+3,q+2,q+3)}
+    var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g}
   (O.hw||[]).forEach(function(h){if(!h.b)return;var p=resample(polyPts(h.p),3);if(p.length<2)return;
-    var w=widths[h.c]||4,th=h.c<=2?2.4:0.7,ya=hW(p[0][0],p[0][1]),yb=hW(p[p.length-1][0],p[p.length-1][1]),S=0,cum=[0];for(var i=1;i<p.length;i++){S+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);cum.push(S)}
-    var ys=cum.map(function(c){return ya+(yb-ya)*(S?c/S:0)+0.35});
+    var old=isOld(p),w=old?Math.min(widths[h.c]||4,3.6):(widths[h.c]||4),th=h.c<=2?2.4:0.7,ya=hW(p[0][0],p[0][1]),yb=hW(p[p.length-1][0],p[p.length-1][1]),S=0,cum=[0];for(var i=1;i<p.length;i++){S+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);cum.push(S)}
+    var rise=old?Math.min(2.2,S*0.08):0,ys=cum.map(function(c){var f=S?c/S:0;return ya+(yb-ya)*f+0.35+rise*Math.sin(Math.PI*f)});
+    if(old){var ab=new THREE.Mesh(archBody(p,ys,w,cum,S),stoneM);ab.castShadow=ab.receiveShadow=true;infG.add(ab);
+      [-1,1].forEach(function(sg){var sh=p.map(function(q,i){var d=dirAt(p,i);return [q[0]-d[1]*sg*(w/2-0.2),q[1]+d[0]*sg*(w/2-0.2)]});var pr=new THREE.Mesh(ribbonG(sh,ys.map(function(y){return y+0.6}),0.4,0.65),stoneM);pr.castShadow=pr.receiveShadow=true;infG.add(pr)});return}
     var dk=new THREE.Mesh(ribbonG(p,ys,w,th),concM);dk.castShadow=dk.receiveShadow=true;infG.add(dk);
     [-1,1].forEach(function(sg){var sh=p.map(function(q,i){var d=dirAt(p,i);return [q[0]-d[1]*sg*(w/2-0.15),q[1]+d[0]*sg*(w/2-0.15)]});var pr=new THREE.Mesh(ribbonG(sh,ys.map(function(y){return y+0.9}),0.3,0.9),concM);pr.receiveShadow=true;infG.add(pr)});
     if(w>=7){var nx=0;for(i=0;i<p.length;i++){if(cum[i]<nx)continue;nx=cum[i]+40;var gy=hW(p[i][0],p[i][1]),hh=ys[i]-th-gy;if(hh>3&&cum[i]>15&&cum[i]<S-15){var d=dirAt(p,i);piers.push([p[i][0],gy-1,p[i][1],hh+1,Math.atan2(d[0],d[1])])}}}});
@@ -1279,7 +1290,13 @@ function render(t){
       var a0=x-tg.bw/2-3,a1=x+tg.bw/2+3,b0=y-tg.bh/2-2,b1=y+tg.bh/2+2;for(var q=0;q<placed.length;q++){var P=placed[q];if(a0<P[2]&&a1>P[0]&&b0<P[3]&&b1>P[1]){hide=true;break}}
       if(!hide){placed.push([a0,b0,a1,b1]);el.style.left=x+'px';el.style.top=y+'px'}}
     el.hidden=hide});
-  envTags.forEach(function(tg,i){v.copy(tg.p).project(camera);var el=envTagEls[i];var hide=v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05||(FILM.on?!tg.film:(r<130||fly||tg.film===2));el.hidden=hide;if(!hide){el.style.left=((v.x*0.5+0.5)*w)+'px';el.style.top=((-v.y*0.5+0.5)*h-12)+'px'}});
+  /* Orts-Beschriftungen ebenfalls ohne Überdeckung; „La Congiunta“ hat Vorrang */
+  var eo=envTags.map(function(tg,i){return i}).sort(function(a2,b2){return (envTags[b2].film===2?1:0)-(envTags[a2].film===2?1:0)});
+  eo.forEach(function(i){var tg=envTags[i];v.copy(tg.p).project(camera);var el=envTagEls[i];var hide=v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05||(FILM.on?(!tg.film||FILM.t>=FMT.arrive-1):(r<130||fly||tg.film===2));
+    if(!hide){var x=(v.x*0.5+0.5)*w,y=(-v.y*0.5+0.5)*h-12;if(el.hidden)el.hidden=false;if(!tg.bw){tg.bw=el.offsetWidth||90;tg.bh=el.offsetHeight||20}
+      var a0=x-tg.bw/2-3,a1=x+tg.bw/2+3,b0=y-tg.bh/2-2,b1=y+tg.bh/2+2;for(var q=0;q<placed.length;q++){var P=placed[q];if(a0<P[2]&&a1>P[0]&&b0<P[3]&&b1>P[1]){hide=true;break}}
+      if(!hide){placed.push([a0,b0,a1,b1]);el.style.left=x+'px';el.style.top=y+'px'}}
+    el.hidden=hide});
   var a=new THREE.Vector3(camera.position.x,0,camera.position.z),dir=new THREE.Vector3();camera.getWorldDirection(dir);var yaw=Math.atan2(dir.x,dir.z),ny=Math.atan2(NORTH[0],NORTH[1]);
   if(needle)needle.style.transform='rotate('+((yaw-ny)*180/Math.PI)+'deg)';
 }
@@ -1471,6 +1488,12 @@ var FMB={1:[[384,386],[351,390]],2:[[274,378.5],[297,362.5],[300,361.5]]};
 /* Zeitplan in Sekunden: Überblick, Osteria, Weg (Zeitraffer), Ankunft, Ende */
 var FMT={ost:6,key:11,walk:15,walkEnd:72,arrive:72,end:82};
 var FILM={on:false,t:0,paused:false,lt:0,snap:true,chap:-1,focus:new THREE.Vector3(),save:null,ph:0},fmS=null,fmL=0,fmG=null,fmW=null,fmKey=null,fmPin=null,fmRib=null,fmSeg=0,fmB={};
+var fmRN=null;
+/* Breite der Routenlinie wächst mit dem Abstand zur Kamera, damit sie auch aus der Luft zu sehen ist */
+function fmRibUpd(){var a=fmRib.geometry.attributes.position,A=a.array,cx=fmCam.x,cy=fmCam.y,cz=fmCam.z;
+  for(var i=0;i<fmS.length;i++){var p=fmS[i],n=fmRN[i],d=Math.sqrt((p.x-cx)*(p.x-cx)+(p.y-cy)*(p.y-cy)+(p.z-cz)*(p.z-cz)),hw=clamp(0.9+d*d*0.00002,0.9,8),y=n[2]+d*0.0015,o=i*6;
+    A[o]=p.x+n[0]*hw;A[o+1]=y;A[o+2]=p.z+n[1]*hw;A[o+3]=p.x-n[0]*hw;A[o+4]=y;A[o+5]=p.z-n[1]*hw}
+  a.needsUpdate=true}
 var fmCam=new THREE.Vector3(),fmLook=new THREE.Vector3(),fmV=new THREE.Vector3(),fmV2=new THREE.Vector3();
 /* Höhe auf der tatsächlich gezeichneten Geländefläche (gleiche Dreiecke wie das Geländenetz) */
 function hT(x,z){if(!TERR)return hW(x,z);var ax=TERR.ax,N=TERR.N;
@@ -1481,7 +1504,8 @@ function hT(x,z){if(!TERR)return hW(x,z);var ax=TERR.ax,N=TERR.N;
 function fmDeck(B,x,z){var tot=0,cum=[0],i;for(i=1;i<B.length;i++){tot+=Math.hypot(B[i][0]-B[i-1][0],B[i][1]-B[i-1][1]);cum.push(tot)}
   var best=1e9,f=0;for(i=1;i<B.length;i++){var ax=B[i-1][0],az=B[i-1][1],vx=B[i][0]-ax,vz=B[i][1]-az,l=vx*vx+vz*vz,t=clamp(((x-ax)*vx+(z-az)*vz)/l,0,1),qx=ax+vx*t-x,qz=az+vz*t-z,d=qx*qx+qz*qz;
     if(d<best){best=d;f=(cum[i-1]+t*Math.sqrt(l))/tot}}
-  var ya=hW(B[0][0],B[0][1]),yb=hW(B[B.length-1][0],B[B.length-1][1]);return ya+(yb-ya)*f+0.35}
+  /* gleiche Wölbung wie die Steinbrücken im Modell */
+  var ya=hW(B[0][0],B[0][1]),yb=hW(B[B.length-1][0],B[B.length-1][1]);return ya+(yb-ya)*f+0.35+Math.min(2.2,tot*0.08)*Math.sin(Math.PI*f)}
 function fmBuild(){if(fmS)return;
   /* Route im Meterabstand abtasten, Höhe vom Gelände bzw. von der Brückenfahrbahn, in Szenenkoordinaten umrechnen */
   var P=[],i,k;
@@ -1497,8 +1521,9 @@ function fmBuild(){if(fmS)return;
   var b1=-1,b2=-1;fmS.forEach(function(p){if(p.br===1&&b1<0)b1=p.s;if(p.br===2)b2=p.s});fmB={b1:b1,b2:b2};
   /* Linie der Route: Band knapp über Boden bzw. Brücke; wird beim Überblick nach und nach gezeichnet */
   var pts=fmS.map(function(p){return [p.x,p.z]}),yy=fmS.map(function(p){return p.y+(p.br?0.07:0.16)});
-  var rm=new THREE.MeshBasicMaterial({color:0xffb347,transparent:true,opacity:0.88,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-6,polygonOffsetUnits:-6});
-  fmRib=new THREE.Mesh(ribbonG(pts,yy,2.0,0),rm);fmRib.frustumCulled=false;fmRib.renderOrder=3;fmSeg=pts.length-1;
+  var rm=new THREE.MeshBasicMaterial({color:0xffb347,transparent:true,opacity:0.88,depthWrite:false,side:THREE.DoubleSide,toneMapped:false,polygonOffset:true,polygonOffsetFactor:-6,polygonOffsetUnits:-6});
+  fmRib=new THREE.Mesh(ribbonG(pts,yy,3.2,0),rm);fmRib.frustumCulled=false;fmRib.renderOrder=3;fmSeg=pts.length-1;
+  fmRN=pts.map(function(p,i){var d=dirAt(pts,i);return [-d[1],d[0],yy[i]]});
   /* Besucherin oder Besucher (1,75 m) */
   function sm(c,ro,me){return patch(new THREE.MeshStandardMaterial({color:c,roughness:ro,metalness:me||0}),{})}
   var jk=sm(0xb8352b,0.7),tr=sm(0x2c3340,0.85),sk=sm(0xd7ad88,0.6);
@@ -1509,9 +1534,9 @@ function fmBuild(){if(fmS)return;
   var ag=new THREE.CylinderGeometry(0.05,0.045,0.62,8).translate(0,-0.31,0),armL=new THREE.Mesh(ag,jk),armR=new THREE.Mesh(ag,jk);armL.position.set(-0.25,1.5,0);armR.position.set(0.25,1.5,0);
   [body,head,legL,legR,armL,armR].forEach(function(m){m.castShadow=true;fmW.add(m)});fmW.userData={legL:legL,legR:legR,armL:armL,armR:armR};
   /* Markierung über der Figur, wächst mit dem Abstand der Kamera */
-  fmPin=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.3,18).rotateX(Math.PI),new THREE.MeshBasicMaterial({color:0xffb347}));
+  fmPin=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.3,18).rotateX(Math.PI),new THREE.MeshBasicMaterial({color:0xffa630,toneMapped:false}));
   /* Schlüssel aus Messing */
-  var gold=patch(new THREE.MeshStandardMaterial({color:0xd9aa4a,metalness:1,roughness:0.3}),{});
+  var gold=patch(new THREE.MeshStandardMaterial({color:0xd9aa4a,metalness:1,roughness:0.3,emissive:0x8a5a10,emissiveIntensity:0.9}),{});
   fmKey=new THREE.Group();
   var bow=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.055,10,28),gold),shaft=new THREE.Mesh(new THREE.BoxGeometry(0.62,0.07,0.06),gold),bit1=new THREE.Mesh(new THREE.BoxGeometry(0.07,0.17,0.06),gold),bit2=new THREE.Mesh(new THREE.BoxGeometry(0.07,0.12,0.06),gold);
   shaft.position.x=0.5;bit1.position.set(0.68,-0.11,0);bit2.position.set(0.56,-0.085,0);fmKey.add(bow,shaft,bit1,bit2);
@@ -1564,26 +1589,28 @@ function stopFilm(keepView){if(!FILM.on)return;FILM.on=false;U.uNearCut.value=0;
 /* Kamera und Figuren für den Zeitpunkt t */
 function fmTick(dt){FILM.t=Math.min(FMT.end,FILM.t+dt);if(FILM.t>=FMT.end&&!FILM.paused)fmPause(true)}
 function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),des=new THREE.Vector3(),look=new THREE.Vector3(),ost=fmS[0];
-  if(t<FMT.ost){/* Überblick von Südosten über das Dorf auf die ganze Route */
-    var u=sm01(t/FMT.ost);fmW2S(780+(560-780)*u,0,900+(500-900)*u,des);des.y=hT(780+(560-780)*u,900+(500-900)*u)+300+(95-300)*u;
-    look.set(0,0,0);fmW2S(250+(452-250)*u,0,220+(370-220)*u,look);look.y=ost.y+5*u}
+  if(t<FMT.ost){/* Überblick von Osten über das Dorf auf die ganze Route */
+    var u=sm01(t/FMT.ost),ux=900+(540-900)*u,uz=330+(320-330)*u;fmW2S(ux,0,uz,des);des.y=hT(ux,uz)+320+(110-320)*u;
+    fmW2S(250+(452-250)*u,0,220+(370-220)*u,look);look.y=ost.y+5*u}
   else if(t<FMT.walk){/* über der Osteria, steil von oben, damit Figur und Schlüssel zwischen den Dächern sichtbar bleiben */
-    var u2=sm01((t-FMT.ost)/(FMT.walk-FMT.ost));fmW2S(492+(474-492)*u2,0,420+(396-420)*u2,des);des.y=ost.y+52+(40-52)*u2;look.set(ost.x,ost.y+1.5,ost.z)}
+    /* von Nordosten auf die Strassenseite der Osteria: das Haus steht hinter der Figur, nicht davor */
+    var u2=sm01((t-FMT.ost)/(FMT.walk-FMT.ost));fmW2S(474+(462-474)*u2,0,330+(346-330)*u2,des);des.y=ost.y+48+(34-48)*u2;look.set(ost.x,ost.y+2,ost.z)}
   else if(t<FMT.arrive){/* Verfolgerkamera: über dem Weg, an den Brücken seitlich, zum Schluss höher mit Blick auf den Bau */
     /* im Dorf steil von oben (Dächer), an den Brücken seitlich, am Westufer über den Baumkronen */
     var wBr=sm01((s-(fmB.b1-30))/25)*(1-sm01((s-(fmB.b2+8))/30)),wApp=sm01((s-(fmL-260))/90),wV=1-sm01((s-(fmB.b1-45))/30);
     var bBack=12*wV+18*(1-wV),bUp=30,bSide=4;
-    var back=(bBack+(12-bBack)*wBr)*(1-wApp)+40*wApp,up=(bUp+(15-bUp)*wBr)*(1-wApp)+30*wApp,side=(bSide+(22-bSide)*wBr)*(1-wApp)+5*wApp;
+    var back=(bBack+(12-bBack)*wBr)*(1-wApp)+40*wApp,up=(bUp+(20-bUp)*wBr)*(1-wApp)+30*wApp,side=(bSide+(19-bSide)*wBr)*(1-wApp)+5*wApp;
     var ea=w2b(1,0),no=NORTH,px=-D.z,pz=D.x,qx=ea[0]*(1-wBr)+no[0]*wBr,qz=ea[1]*(1-wBr)+no[1]*wBr,dp=px*qx+pz*qz;
     des.set(W.x-D.x*back+px*dp*side,W.y+up,W.z-D.z*back+pz*dp*side);
-    look.set(W.x+D.x*12,W.y+1.4,W.z+D.z*12);look.lerp(fmTA.set(0,6,0),wApp*0.55)}
+    /* Blickpunkt knapp hinter und unter der Figur: sie steht im oberen Bilddrittel, über den Untertiteln */
+    var dn=9*(1-wBr)+5*wBr;look.set(W.x+D.x*2,W.y+1.4-dn*(1-wApp),W.z+D.z*2);look.lerp(fmTA.set(0,6,0),wApp*0.55)}
   else{/* Ankunft vor dem Eingang an der Nordseite */
     des.set(DOFF-7,hB(DOFF-7,-TOT/2-12)+2.4,-TOT/2-12);look.set(DOFF,2.1,-TOT/2)}
   var wg=b2w(des.x,des.z),gmin=hT(wg[0],wg[1])+2.5;if(des.y<gmin)des.y=gmin;
   if(FILM.snap||dt<=0){fmCam.copy(des);fmLook.copy(look);FILM.snap=false}
   else{var k1=1-Math.exp(-dt/0.55),k2=1-Math.exp(-dt/0.35);fmCam.lerp(des,k1);fmLook.lerp(look,k2)}
   U.uNearCut.value=(t>=FMT.walk-1&&t<FMT.arrive)?9:0;
-  camera.position.copy(fmCam);camera.lookAt(fmLook);if(Math.abs(camera.near-0.3)>0.01){camera.near=0.3;camera.updateProjectionMatrix()}
+  camera.position.copy(fmCam);camera.lookAt(fmLook);fmRibUpd();if(Math.abs(camera.near-0.3)>0.01){camera.near=0.3;camera.updateProjectionMatrix()}
   FILM.focus.copy(t<FMT.walk?fmTB.set(ost.x,ost.y,ost.z):W);
   /* Figur: erscheint an der Osteria, geht los, schaut am Ende zur Tür */
   fmW.visible=t>=FMT.ost-0.5;fmW.position.copy(W);
@@ -1591,11 +1618,11 @@ function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),
   var walking=t>FMT.walk&&t<FMT.walkEnd,ud=fmW.userData;FILM.ph+=walking?dt*9:0;var sw=walking?Math.sin(FILM.ph)*0.55:0;
   ud.legL.rotation.x=sw;ud.legR.rotation.x=-sw;ud.armL.rotation.x=-sw*0.7;ud.armR.rotation.x=sw*0.7;
   /* Markierung über der Figur */
-  var dist=fmCam.distanceTo(W),kk=clamp(dist/32,0.7,9);fmPin.visible=t<FMT.arrive;fmPin.scale.setScalar(kk);fmPin.position.set(W.x,W.y+2.2+kk*1.1+Math.sin(FILM.t*3)*0.12*kk,W.z);
+  var dist=fmCam.distanceTo(W),kk=clamp(dist/20,1,12);fmW.scale.setScalar(clamp(dist/40,1,2.2));fmPin.visible=t>=FMT.key+1.4&&t<FMT.arrive;fmPin.scale.setScalar(kk);fmPin.position.set(W.x,W.y+2.2+kk*1.1+Math.sin(FILM.t*3)*0.12*kk,W.z);
   /* Schlüssel: schwebt über der Osteria, wandert zur Figur und verschwindet in der Tasche */
   var kp=clamp((t-FMT.key)/1.4,0,1);fmKey.visible=kp<1;
-  if(fmKey.visible){var hov=fmTA.set(ost.x,ost.y+4.2+Math.sin(FILM.t*2)*0.25,ost.z),hand=fmTB.set(W.x,W.y+1.15,W.z);fmKey.position.copy(hov).lerp(hand,sm01(kp));
-    fmKey.scale.setScalar(2.6+(0.45-2.6)*sm01(kp));fmKey.rotation.set(0,FILM.t*1.6,0.35)}
+  if(fmKey.visible){var hov=fmTA.set(ost.x,ost.y+7+Math.sin(FILM.t*2)*0.3,ost.z),hand=fmTB.set(W.x,W.y+1.15,W.z);fmKey.position.copy(hov).lerp(hand,sm01(kp));
+    fmKey.scale.setScalar(4+(0.45-4)*sm01(kp));fmKey.rotation.set(0,FILM.t*1.6,0.35)}
   document.getElementById('filmKey').hidden=kp<1;
   /* Route zeichnen */
   var rp=clamp((t-0.8)/4.7,0,1);fmRib.geometry.setDrawRange(0,6*Math.floor(fmSeg*rp));
