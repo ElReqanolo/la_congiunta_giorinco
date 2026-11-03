@@ -100,6 +100,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
 .film-bar{display:flex;align-items:center;gap:10px;width:min(680px,100%);box-sizing:border-box;padding:6px 8px;border-radius:999px;background:rgba(18,17,15,.7)}
 .film-bar button{min-width:40px;height:36px;padding:0 12px;border-radius:999px;font-size:14px}
 .film-track{position:relative;flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.22);cursor:pointer;touch-action:none}
+.film-track::before{content:"";position:absolute;left:0;right:0;top:-14px;bottom:-14px}
 .film-track:focus-visible{outline:2px solid #e9b35e;outline-offset:4px}
 .film-track i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:#e9b35e}
 .film-track .tick{position:absolute;top:-3px;width:2px;height:12px;margin-left:-1px;border-radius:1px;background:rgba(255,255,255,.55);pointer-events:none}
@@ -1366,8 +1367,14 @@ flyBtn.addEventListener('click',function(){stopFilm(true);if(walk){stopFly();ret
   fly=true;keys={};flyBtn.setAttribute('aria-pressed','true');pad.hidden=false;hint.innerHTML=HINT0;showHint();last=performance.now();setPressed(null);draw()});
 var kmap={KeyW:'f',ArrowUp:'f',KeyS:'b',ArrowDown:'b',KeyA:'l',ArrowLeft:'l',KeyD:'r',ArrowRight:'r',KeyE:'u',Space:'u',KeyQ:'d',KeyC:'d'};
 window.addEventListener('keydown',function(e){
-  if(FILM.on){var tg=e.target&&e.target.tagName;if(tg==='BUTTON'||tg==='INPUT'||tg==='SELECT'||tg==='SUMMARY')return;
-    if(e.code==='Space'){fmPause(!FILM.paused);e.preventDefault()}else if(e.code==='Escape')stopFilm();else if(e.code==='ArrowRight')fmSeek(FILM.t+5);else if(e.code==='ArrowLeft')fmSeek(FILM.t-5);return}
+  if(FILM.on){var el=e.target||document.body,tg=el.tagName;if(tg==='INPUT'||tg==='SELECT'||tg==='TEXTAREA'||e.altKey||e.ctrlKey||e.metaKey)return;
+    /* Esc beendet den Film immer (ausser ein Aufklappfeld ist offen). Leertaste und Pfeile wirken im Bild und auch dann,
+       wenn zuletzt der Film-Knopf angeklickt wurde; die Knöpfe der Filmleiste behalten ihre eigene Leertaste. */
+    if(e.code==='Escape'){if(hdr&&hdr.classList.contains('open'))return;stopFilm();e.preventDefault();return}
+    if(el!==document.body&&el!==document.documentElement&&el.id!=='filmBtn'&&!stage.contains(el))return;
+    if(e.code==='Space'){if(tg==='BUTTON'&&el.id!=='filmBtn')return;fmPause(!FILM.paused);e.preventDefault()}
+    else if(e.code==='ArrowRight'||e.code==='ArrowLeft'){fmSeek(FILM.t+(e.code==='ArrowRight'?5:-5));e.preventDefault()}
+    return}
   if(!fly)return;if(walk){if(e.code==='KeyE'||e.code==='Enter'){interact();e.preventDefault();return}if(e.code==='Escape'){closeCard();return}}
   if(kmap[e.code]){keys[kmap[e.code]]=1;e.preventDefault()}if(e.code.indexOf('Shift')===0)keys[e.code]=1});
 window.addEventListener('keyup',function(e){if(kmap[e.code])delete keys[kmap[e.code]];if(e.code.indexOf('Shift')===0)delete keys[e.code]});
@@ -1564,7 +1571,7 @@ function fmChapters(){var m=Math.round(fmL/10)*10,min=Math.max(1,Math.round(fmL/
 var fmUI=null,fmCH=[];
 function fmBuildUI(){if(fmUI)return;
   fmUI=document.getElementById('filmUI');fmCH=fmChapters();
-  var tr=document.getElementById('filmTrack');fmCH.forEach(function(c,i){if(!i)return;var e=document.createElement('span');e.className='tick';e.style.left=(100*c.t/FMT.end)+'%';tr.appendChild(e)});
+  var tr=document.getElementById('filmTrack');tr.setAttribute('aria-valuemin','0');tr.setAttribute('aria-valuemax',String(FMT.end));fmCH.forEach(function(c,i){if(!i)return;var e=document.createElement('span');e.className='tick';e.style.left=(100*c.t/FMT.end)+'%';tr.appendChild(e)});
   function seekEv(e){var r=tr.getBoundingClientRect();if(!r.width)return;fmSeek(clamp((e.clientX-r.left)/r.width,0,1)*FMT.end)}
   tr.addEventListener('pointerdown',function(e){e.stopPropagation();tr.setPointerCapture(e.pointerId);seekEv(e);tr.onpointermove=seekEv});
   tr.addEventListener('pointerup',function(){tr.onpointermove=null});
@@ -1579,10 +1586,13 @@ function startFilm(){fmBuild();fmBuildUI();if(fly)stopFly();closeCard();setOpen&
   if(!FILM.save)FILM.save={th:th,ph:ph,r:r,tgt:tgt.clone(),clear:clear,time:timeR.value,pressed:[].map.call(btns,function(b){return b.getAttribute('aria-pressed')})};
   /* nachts gäbe es nichts zu sehen: dann Vormittagslicht */
   if(sunEl<0.1){timeR.value='10.5';applySun()}
-  clear=false;FILM.on=true;FILM.t=0;FILM.paused=false;FILM.snap=true;FILM.chap=-1;FILM.lt=0;fmG.visible=true;fmUI.hidden=false;stage.classList.add('filming');
+  clear=false;FILM.on=true;FILM.t=0;FILM.paused=false;FILM.snap=true;FILM.chap=-1;FILM.sec=-1;FILM.lt=0;fmG.visible=true;fmUI.hidden=false;stage.classList.add('filming');
   var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','true');setPressed(null);fmPause(false);logPush('zeit','Film gestartet ('+Math.round(fmL)+' m Weg)');draw()}
-function stopFilm(keepView){if(!FILM.on)return;FILM.on=false;U.uNearCut.value=0;fmG.visible=false;fmUI.hidden=true;stage.classList.remove('filming');
+function stopFilm(keepView){if(!FILM.on)return;var ae=document.activeElement,lost=!ae||ae===document.body||fmUI.contains(ae);
+  FILM.on=false;U.uNearCut.value=0;fmG.visible=false;fmUI.hidden=true;stage.classList.remove('filming');
   var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','false');
+  /* Tastaturfokus nicht im Leeren lassen: zurück auf den Film-Knopf */
+  if(lost&&fb&&!keepView)fb.focus({preventScroll:true});
   var s=FILM.save;FILM.save=null;
   if(s){if(s.time!==timeR.value){timeR.value=s.time;applySun()}if(!keepView){th=s.th;ph=s.ph;r=s.r;tgt.copy(s.tgt);clear=s.clear;btns.forEach(function(b,i){b.setAttribute('aria-pressed',s.pressed[i])})}}
   draw()}
@@ -1630,9 +1640,12 @@ function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),
   var ci=0;for(var i=0;i<fmCH.length;i++)if(t>=fmCH[i].t-0.01)ci=i;
   if(ci!==FILM.chap){FILM.chap=ci;var c=fmCH[ci],cap=document.getElementById('filmCap');
     cap.innerHTML='<b>'+c.h+'</b><span>'+c.x+'</span>'+(c.end?'<span class="film-end"><button type="button" data-a="again">Nochmal</button><button type="button" data-a="walk">Rundgang starten</button><button type="button" data-a="close">Schließen</button></span>':'');
-    cap.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var a=b.dataset.a;if(a==='again'){fmSeek(0);fmPause(false)}else if(a==='walk'){stopFilm(true);startWalk()}else stopFilm()})});
+    cap.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var a=b.dataset.a;if(a==='again'){fmSeek(0);fmPause(false);document.getElementById('filmPlay').focus({preventScroll:true})}else if(a==='walk'){stopFilm(true);startWalk()}else stopFilm()})});
     cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in')}
-  document.getElementById('filmFill').style.width=(100*t/FMT.end)+'%'}
+  document.getElementById('filmFill').style.width=(100*t/FMT.end)+'%';
+  /* Position für Bildschirmleser, nur bei jeder vollen Sekunde neu */
+  var sec=Math.round(t);if(sec!==FILM.sec){FILM.sec=sec;var trk=document.getElementById('filmTrack');trk.setAttribute('aria-valuenow',String(sec));trk.setAttribute('aria-valuetext',fmMS(sec)+' von '+fmMS(FMT.end)+', '+fmCH[ci].h)}}
+function fmMS(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
 
 /* ---------- Aufbau ---------- */
 function detTex(){return canvasTex(256,256,function(x,w,h){var d=x.createImageData(w,h),r=mb32(17),F=[];for(var k=0;k<14;k++)F.push([1+Math.floor(r()*9),Math.floor(r()*9)-4,r()*6.283,0.5/(1+k*0.35)]);
