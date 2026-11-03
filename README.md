@@ -11,6 +11,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 - Gelände aus den Höhenmodellen und Luftbildern von swisstopo, Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
 - Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
 - Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
+- Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
 ## Bedienung
 
@@ -20,8 +21,9 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Zoomen | Mausrad | zwei Finger |
 | Fliegen, Rundgang | W A S D, E / Q, Shift | Pfeiltasten unten rechts |
 | Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
+| Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
 
-Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“.
+Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen.
 
 **Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
 
@@ -30,6 +32,7 @@ Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; 
 - `#raum3-t0930-winter` – Raum 3 an einem Wintermorgen
 - `#zelle`, `#raum1`, `#raum2`, `#eingang`, `#decke`
 - `#flachrelief`, `#hochrelief`, `#halbfigur` – direkt vor einem Exponat
+- `#film` – Film starten, `#film-s40` ab Sekunde 40
 - `#tal`, `#aussen`, `#innen`, `#drauf`
 - `#schild4` – direkt vor Infoschild 4
 - `#hoch`, `#mittel`, `#niedrig`, `#auto` – Grafikqualität
@@ -64,7 +67,7 @@ Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub P
 
 ## Quellen und Lizenzen
 
-Die vollständige Quellenliste steht in der Seite unter „Bedienung, Quellen und Legende“. Wichtig für die Weitergabe:
+Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig für die Weitergabe:
 
 - Höhenmodelle swissALTI3D und DHM25, Luftbild SWISSIMAGE: © swisstopo (Bundesamt für Landestopografie), freie Geodaten mit Quellenangabe.
 - Kartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL 1.0.

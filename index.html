@@ -46,7 +46,10 @@ footer summary{cursor:pointer;font-weight:600;padding-block:2px;width:max-conten
 footer summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 footer .fp{margin:6px 0 0}
 footer code{font:12px ui-monospace,Menlo,monospace;background:var(--bg);padding:0 3px;border-radius:3px}
-footer .srch{font:600 14px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;margin:12px 0 4px}
+footer{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 22px}
+footer details{min-width:0}
+footer details[open]{flex:1 1 100%}
+footer ol.src{margin-top:8px}
 footer ol.src{margin:0;padding-left:22px;display:grid;gap:3px}
 footer ol.src li{padding-left:2px}
 footer a{color:var(--accent);text-underline-offset:2px}
@@ -84,6 +87,26 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
 .compass{position:absolute;left:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:var(--panel);border:1px solid var(--rule);pointer-events:none}
 .compass span{position:absolute;left:50%;top:50%;width:2px;height:18px;margin:-18px 0 0 -1px;background:var(--accent);transform-origin:50% 100%;border-radius:1px}
 .compass b{position:absolute;left:50%;top:50%;font-size:10px;font-weight:700;transform:translate(-50%,-50%)}
+/* Film: Untertitel, Fortschritt und Steuerung über dem Bild */
+.film{position:absolute;left:0;right:0;bottom:0;padding:0 12px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:5;pointer-events:none}
+.film>*{pointer-events:auto}
+.film-cap{width:min(680px,100%);box-sizing:border-box;padding:11px 15px 12px;border-radius:10px;background:rgba(18,17,15,.8);color:#f5f3ee;font-size:15px;line-height:1.45;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.film-cap b{display:block;font:600 12.5px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#e9b35e;margin-bottom:3px}
+.film-cap.in{animation:fmIn .45s ease-out}
+@keyframes fmIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.film-end{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.film-end button,.film-bar button{color:#f5f3ee;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.06)}
+.film-end button:first-child{background:#e9b35e;border-color:#e9b35e;color:#1c1b19}
+.film-bar{display:flex;align-items:center;gap:10px;width:min(680px,100%);box-sizing:border-box;padding:6px 8px;border-radius:999px;background:rgba(18,17,15,.7)}
+.film-bar button{min-width:40px;height:36px;padding:0 12px;border-radius:999px;font-size:14px}
+.film-track{position:relative;flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.22);cursor:pointer;touch-action:none}
+.film-track:focus-visible{outline:2px solid #e9b35e;outline-offset:4px}
+.film-track i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:#e9b35e}
+.film-track .tick{position:absolute;top:-3px;width:2px;height:12px;margin-left:-1px;border-radius:1px;background:rgba(255,255,255,.55);pointer-events:none}
+.film-key{font-size:13px;color:#f5f3ee;white-space:nowrap}
+.filming .compass,.filming .prog,.filming .use,.filming .pad,.filming .hint,.filming .tip{display:none!important}
+.filming{cursor:default}
+@media (max-width:600px){.film{padding:0 8px 8px}.film-cap{font-size:14px;padding:9px 12px 10px}.film-key{display:none}}
 /* Hinweis bei langsamer Grafik */
 .tip{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);font-size:13px;padding:8px 10px 8px 12px;border-radius:8px;background:var(--panel);border:1px solid var(--rule);box-shadow:0 6px 20px var(--shade);z-index:6}
 .tip button{padding:3px 9px;font-size:12.5px;margin-left:4px}
@@ -142,7 +165,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <button data-v="top" aria-pressed="false">Draufsicht</button>
     <button data-v="val" aria-pressed="false">Tal</button>
   </nav>
-  <nav aria-label="Anzeige"><button id="dimBtn" aria-pressed="true">Maße</button><button id="flyBtn" aria-pressed="false">Fliegen</button><button id="walkBtn" aria-pressed="false">Rundgang (Spiel)</button></nav>
+  <nav aria-label="Anzeige"><button id="dimBtn" aria-pressed="true">Maße</button><button id="flyBtn" aria-pressed="false">Fliegen</button><button id="walkBtn" aria-pressed="false">Rundgang (Spiel)</button><button id="filmBtn" aria-pressed="false">Film: Weg zum Museum</button></nav>
   </div>
   <div class="light" id="lightP" role="group" aria-label="Licht und Qualität">
     <label for="timeR">Uhrzeit (Sonnenzeit)</label>
@@ -164,10 +187,14 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
   <div id="prog" class="prog" hidden></div>
   <button id="useBtn" class="use" hidden></button>
   <div id="card" class="card" hidden role="dialog" aria-live="polite"></div>
+  <div id="filmUI" class="film" hidden>
+    <div id="filmCap" class="film-cap" aria-live="polite"></div>
+    <div class="film-bar"><button id="filmPlay" type="button" aria-label="Pause">❚❚</button><div id="filmTrack" class="film-track" role="slider" tabindex="0" aria-label="Position im Film (Pfeiltasten springen 5 s)"><i id="filmFill"></i></div><span id="filmKey" class="film-key" hidden>&#x1F511; Schlüssel dabei</span><button id="filmClose" type="button" aria-label="Film beenden">✕</button></div>
+  </div>
 </div>
 <footer>
-  <details id="legend"><summary>Bedienung, Quellen und Legende</summary>
-  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit und Qualität stehen dort unter „Licht &amp; Qualität“. „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
+  <details id="legend"><summary>Bedienung und Legende</summary>
+  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit und Qualität stehen dort unter „Licht &amp; Qualität“. „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
   <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7]; Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
   <ul class="leg">
     <li><i style="background:#a29f96"></i><span><b>Länge ≈ 42,4 m außen</b>, Breite 5,0 m <span class="st">Länge am Orthofoto gemessen (±0,5 m) [7]; die Plan-Mittellängen 6,9 / 16,6 / 16,6 m [1] sind im selben Verhältnis gestreckt</span></span></li>
@@ -179,7 +206,8 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <li><i style="background:#7a5a30"></i><span><b>Exponate von Hans Josephsohn:</b> 6 Flachreliefs, 8 Hochreliefs, 3 Halbfiguren, spätere Hochreliefs, weitere Werke in den Zellen; in Gips geformt, in Messing gegossen, grob bearbeitete Oberflächen <span class="st">Anzahl nach [1], Material nach [13]; Formen frei nachempfunden (keine Abbilder der einzelnen Werke), Lage angenähert, je Zelle ein Relief angenommen</span></span></li>
     <li><i style="background:transparent;border-style:dashed"></i><span><b>Angenommen bzw. nicht modelliert:</b> Oberlichter der Zellen, Untergeschoss (≈ 2,2 m unter Raum 3 und den Zellen [1]), Schwellen, Weinreben nördlich des Eingangs nur schematisch, Dorfhäuser mit typisierten Fassaden</span></li>
   </ul>
-  <h2 class="srch" id="quellen">Quellen</h2>
+  </details>
+  <details id="quellen"><summary>Quellen</summary>
   <ol class="src">
     <li>Alberto Pireddu: „Peter Märkli – La Congiunta. Giornico, Svizzera“. In: <i>Firenze Architettura</i> 29 (2025), Heft 1 „silenzio“, S. 122–133, Firenze University Press, <a href="https://doi.org/10.36253/FiA-16824" target="_blank" rel="noopener">doi:10.36253/FiA-16824</a> (CC BY-SA 4.0). Genutzt: Text; Fußnote 6 (Stiftung und Satzung, dort nach L. Windhöfel: „Kargheit als Prinzip“, <i>Bauwelt</i> 35/1993, S. 1838–1839); Fußnote 10 (Raumhöhen); Pläne und Schnitte S. 126–127; Projektangaben S. 133.</li>
     <li>Stiftung La Congiunta: <a href="https://lacongiunta.ch/standort/" target="_blank" rel="noopener">lacongiunta.ch, „Standort“</a> (Schlüssel in der Osteria, Öffnungszeiten) und <a href="https://lacongiunta.ch/" target="_blank" rel="noopener">Startseite</a> (Weg über zwei alte Steinbrücken, kein Kunstlicht). Abgerufen am 3.11.2026.</li>
@@ -318,7 +346,7 @@ var camera=new THREE.PerspectiveCamera(40,1,0.3,22000);
 scene.fog=new THREE.FogExp2(0xb8c4cf,0.00009);
 var env=new THREE.Group();env.rotation.y=-TH;scene.add(env);env.updateMatrixWorld(true);
 /* ---------- gemeinsame Shader-Uniforms ---------- */
-var U={uTime:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
+var U={uTime:{value:0},uNearCut:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
   uSnow:{value:5000},uSeason:{value:1},uSunB:{value:new THREE.Vector3(0,1,0)},uSunC:{value:new THREE.Color(1,1,1)},uClear:{value:0}};
 function rep(s,a,b,tag){if(s.indexOf(a)<0){console.warn('[LC] Shader-Anpassung nicht gefunden:',tag||a.slice(0,50));return s}return s.split(a).join(b)}
 function f6(v){return v.toFixed(6)}
@@ -359,7 +387,7 @@ function patch(mat,o){
     if(o.wind)vs=rep(vs,'#include <begin_vertex>','#include <begin_vertex>'+WIND_CODE);
     vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':''));
     if(o.depth){sh.vertexShader=vs;return}
-    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK;\n'+GLSL_TS+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
+    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut;\n'+GLSL_TS+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
     var lb=THREE.ShaderChunk.lights_fragment_begin;
     lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*=terrSun(vWP)'+(o.interior?'*uAmber':'')+';','dir-light');
     fs=rep(fs,'#include <lights_fragment_begin>',lb);
@@ -371,7 +399,7 @@ function patch(mat,o){
     if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uSkyL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
       'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uSkyL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');
     if(o.leaf)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 vd_=normalize(vWP-cameraPosition);float bl_=pow(max(dot(vd_,uSunB),0.0),3.0);reflectedLight.indirectDiffuse+=diffuseColor.rgb*uSunC*bl_*uLeafK*terrSun(vWP);}');
-    if(o.foliage)fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\ndiffuseColor.a=min(1.0,diffuseColor.a*uAlphaK*(1.0+0.012*distance(vWP,cameraPosition)));');
+    if(o.foliage)fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\n{float cd_=distance(vWP,cameraPosition);diffuseColor.a=min(1.0,diffuseColor.a*uAlphaK*(1.0+0.012*cd_))*clamp((cd_-uNearCut)/max(uNearCut,0.001),0.0,1.0);}');
     if(o.foliage)fs=rep(fs,'#include <normal_fragment_begin>','#include <normal_fragment_begin>\n#ifdef DOUBLE_SIDED\nnormal=normal*(float(gl_FrontFacing)*2.0-1.0);\n#endif');
     if(o.plexi)fs=rep(fs,'#include <emissivemap_fragment>','#include <emissivemap_fragment>\nif(!gl_FrontFacing){totalEmissiveRadiance+=uSkyL*0.9;diffuseColor.rgb*=0.15;}');
     if(o.season)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n{float lm_=dot(diffuseColor.rgb,vec3(0.3,0.59,0.11));vec3 dry_=vec3(lm_*1.25,lm_*1.05,lm_*0.62);diffuseColor.rgb=mix(diffuseColor.rgb,dry_,uSeasonK*clamp(uSeason,0.0,1.0));}');
@@ -509,10 +537,11 @@ TERRAIN_MAP='{vec2 p=vW.xz;float m=max(abs(p.x),abs(p.y));\n'+
   'col=mix(col,vec3(0.86,0.88,0.92),clamp(sn,0.0,0.95));\n'+
   'diffuseColor.rgb*=col;}\n';
 var terrain=null;
+var TERR=null;
 function buildTerrain(){
   if(terrain){env.remove(terrain);terrain.geometry.dispose()}
   var u32=isGL2||!!renderer.extensions.get('OES_element_index_uint'),N=u32?QP.grid:Math.min(QP.grid,254),Aa=9000,K=5.8,SH=Math.sinh(K),ax=new Float32Array(N+1),i,j;
-  for(i=0;i<=N;i++){var s=-1+2*i/N;ax[i]=Aa*Math.sinh(K*s)/SH}
+  for(i=0;i<=N;i++){var s=-1+2*i/N;ax[i]=Aa*Math.sinh(K*s)/SH}TERR={ax:ax,N:N};
   var n1=N+1,pos=new Float32Array(n1*n1*3),idx=u32?new Uint32Array(N*N*6):new Uint16Array(N*N*6),t=0;
   for(j=0;j<=N;j++)for(i=0;i<=N;i++){var k=(j*n1+i)*3;pos[k]=ax[i];pos[k+1]=hW(ax[i],ax[j]);pos[k+2]=ax[j]}
   for(j=0;j<N;j++)for(i=0;i<N;i++){var a=j*n1+i,b=a+1,c=a+n1,d=c+1;idx[t++]=a;idx[t++]=c;idx[t++]=b;idx[t++]=b;idx[t++]=c;idx[t++]=d}
@@ -1081,6 +1110,8 @@ function buildInfra(){
   var q2=nearestOn((O.rail||[]).map(function(r){return r.p}),-60,-70);if(q2)tagW(q2[0],q2[1],13,'Gotthardbahn');
   var q3=nearestOn((O.lane||[]).filter(function(l){return l.c===3}).map(function(l){return l.p}),110,-60);if(q3)tagW(q3[0],q3[1],11,'Kantonsstrasse');
   var mw=(O.hw||[]).filter(function(h){return h.c===1});if(mw.length){var bestP=null,bd=1e9;mw.forEach(function(h){var p=polyPts(h.p);p.forEach(function(q){var d=Math.hypot(q[0]+150,q[1]+250);if(d<bd){bd=d;bestP=q}})});if(bestP)tagW(bestP[0],bestP[1],22,'Autobahn A2')}
+  /* im Film: Osteria, Ticino, San Nicolao und der Bau selbst */
+  envTags.forEach(function(t){if(/Osteria|Ticino|Nicolao/.test(t.t))t.film=1});envTags.push({p:new THREE.Vector3(0,16,0),t:'La Congiunta',film:2});
 }
 
 /* ---------- Infoschilder für den Rundgang ----------
@@ -1212,12 +1243,13 @@ var fly=false,fp=new THREE.Vector3(),fyaw=0,fpitch=0,keys={},last=0,walk=false,n
 var tagEls=[],envTagEls=[],lastR=0,needs=true,expo=0.65,expoT=0.65,svB=new THREE.Vector3(0,1,0),svW=new THREE.Vector3(0,1,0),sunEl=0.5,sunK=1;
 var needle=document.getElementById('needle'),NORTH=w2b(0,-1);
 function place(){
+  if(FILM.on){fmPlace(FILM.pdt||0);return}
   if(fly){camera.position.copy(fp);camera.rotation.set(fpitch,fyaw,0,'YXZ');if(camera.near!==0.08){camera.near=0.08;camera.updateProjectionMatrix()}return}
   camera.position.set(tgt.x+r*Math.sin(ph)*Math.sin(th),tgt.y+r*Math.cos(ph),tgt.z+r*Math.sin(ph)*Math.cos(th));
   var gy=hB(camera.position.x,camera.position.z)+1.6;if(camera.position.y<gy)camera.position.y=gy;
   camera.lookAt(tgt);var nr=clamp(r*0.004,0.15,2);if(Math.abs(camera.near-nr)>0.01){camera.near=nr;camera.updateProjectionMatrix()}
 }
-function fitShadow(){var c=fly?fp:tgt,R=fly?32:QP.shR*(r>160?1.7:1);var sc=sun.shadow.camera,tx=Math.round(c.x/2)*2,tz=Math.round(c.z/2)*2;
+function fitShadow(){var c=FILM.on?FILM.focus:(fly?fp:tgt),R=FILM.on?70:(fly?32:QP.shR*(r>160?1.7:1));var sc=sun.shadow.camera,tx=Math.round(c.x/2)*2,tz=Math.round(c.z/2)*2;
   sun.target.position.set(tx,0,tz);sun.position.set(tx+svB.x*320,svB.y*320,tz+svB.z*320);sun.target.updateMatrixWorld();
   if(sc.right!==R){sc.left=-R;sc.right=R;sc.top=R;sc.bottom=-R;sc.near=20;sc.far=700;sc.updateProjectionMatrix()}}
 function inside(p){return p.x>CX0-0.1&&p.x<W/2&&p.z>-TOT/2&&p.z<TOT/2&&p.y<6.9&&(p.x>-W/2||p.z>CZ0)}
@@ -1230,7 +1262,7 @@ function render(t){
   U.uTime.value=animT;
   var cl=clear?1:0;U.uClear.value=cl;
   clearMats.forEach(function(c){if(c.transparent!==!!cl){c.transparent=!!cl;c.depthWrite=!cl;c.needsUpdate=true}c.opacity=cl?0.16:1});
-  dimG.visible=dims&&!walk&&!fly;
+  dimG.visible=dims&&!walk&&!fly&&!FILM.on;
   if(sky)sky.position.copy(camera.position);
   var tin=(fly&&inside(camera.position))?1.8:1;expoT=expoBase*tin;expo+=(expoT-expo)*(fly?0.08:1);
   if(finPass)finPass.uniforms.exposure.value=expo;else renderer.toneMappingExposure=expo;
@@ -1241,13 +1273,13 @@ function render(t){
   var w=stage.clientWidth,h=stage.clientHeight,v=new THREE.Vector3();
   /* Beschriftungen: überdeckt eine Marke eine bereits gesetzte, wird sie ausgeblendet (wichtig auf schmalen Bildschirmen) */
   var placed=[];
-  tags.forEach(function(tg,i){v.copy(tg.p).project(camera);var el=tagEls[i];var hide=v.z>1||(tg.m&&!dims)||r>260||fly;
+  tags.forEach(function(tg,i){v.copy(tg.p).project(camera);var el=tagEls[i];var hide=v.z>1||(tg.m&&!dims)||r>260||fly||FILM.on;
     if(!hide){var x=(v.x*0.5+0.5)*w,y=(-v.y*0.5+0.5)*h;if(el.hidden)el.hidden=false;if(!tg.bw){tg.bw=el.offsetWidth||90;tg.bh=el.offsetHeight||20}
       if(tg.bw+8<w)x=Math.max(tg.bw/2+4,Math.min(w-tg.bw/2-4,x));
       var a0=x-tg.bw/2-3,a1=x+tg.bw/2+3,b0=y-tg.bh/2-2,b1=y+tg.bh/2+2;for(var q=0;q<placed.length;q++){var P=placed[q];if(a0<P[2]&&a1>P[0]&&b0<P[3]&&b1>P[1]){hide=true;break}}
       if(!hide){placed.push([a0,b0,a1,b1]);el.style.left=x+'px';el.style.top=y+'px'}}
     el.hidden=hide});
-  envTags.forEach(function(tg,i){v.copy(tg.p).project(camera);var el=envTagEls[i];var hide=v.z>1||r<130||fly||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05;el.hidden=hide;if(!hide){el.style.left=((v.x*0.5+0.5)*w)+'px';el.style.top=((-v.y*0.5+0.5)*h-12)+'px'}});
+  envTags.forEach(function(tg,i){v.copy(tg.p).project(camera);var el=envTagEls[i];var hide=v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05||(FILM.on?!tg.film:(r<130||fly||tg.film===2));el.hidden=hide;if(!hide){el.style.left=((v.x*0.5+0.5)*w)+'px';el.style.top=((-v.y*0.5+0.5)*h-12)+'px'}});
   var a=new THREE.Vector3(camera.position.x,0,camera.position.z),dir=new THREE.Vector3();camera.getWorldDirection(dir);var yaw=Math.atan2(dir.x,dir.z),ny=Math.atan2(NORTH[0],NORTH[1]);
   if(needle)needle.style.transform='rotate('+((yaw-ny)*180/Math.PI)+'deg)';
 }
@@ -1256,10 +1288,11 @@ function frame(t){requestAnimationFrame(frame);if(document.hidden)return;
   var dt=Math.min(0.05,(t-last)/1000);last=t;
   if(fly){if(walk)walkStep(dt);else flyStep(dt)}
   var windOn=QP.wind&&!slowWind&&!cardOpen&&(t-lastAct<20000);
-  var anim=windOn&&(t-lastR>38);
-  if(!needs&&!anim&&!fly)return;
+  var anim=windOn&&(t-lastR>38),fplay=FILM.on&&!FILM.paused;
+  if(FILM.on){var fdt=FILM.lt?Math.min(0.1,(t-FILM.lt)/1000):0;FILM.lt=t;FILM.pdt=fdt;if(fplay)fmTick(fdt)}
+  if(!needs&&!anim&&!fly&&!fplay)return;
   if(windOn)animT+=Math.min(0.06,(t-lastR)/1000);
-  var inter=needs||fly;needs=false;lastR=t;render(t);prTick(t,inter);
+  var inter=needs||fly||fplay;needs=false;lastR=t;render(t);prTick(t,inter);
   /* zu langsame Grafik: Windanimation abschalten, damit die Seite bedienbar bleibt */
   if(anim&&!document.hidden){if(lastAnim&&t-lastAnim<250){aAcc+=t-lastAnim;aN++;if(aN>=30){if(aAcc/aN>115){slowN++;if(slowN>=2){slowWind=true;logPush('zeit','Windanimation aus (Bildabstand '+(aAcc/aN).toFixed(0)+' ms)')}}else slowN=0;aAcc=0;aN=0}}lastAnim=t}else lastAnim=0;
   if(fpsLast&&t-fpsLast<1000){fpsAcc+=t-fpsLast;fpsN++;if(fpsN>=20){fpsNow=1000*fpsN/fpsAcc;fpsAcc=0;fpsN=0}}fpsLast=t;
@@ -1292,30 +1325,33 @@ function pickSign(cx,cy){var rc=renderer.domElement.getBoundingClientRect();if(!
   var hits=rayc.intersectObjects(signBoards,false);for(var k=0;k<hits.length;k++){var si=hits[k].object.userData.si,h=HS[si];if(hits[k].distance<6&&(!h.room||h.room(fp))){interact(si);return true}}return false}
 stage.addEventListener('pointerup',function(e){var p=ptr[e.pointerId];delete ptr[e.pointerId];if(walk&&!cardOpen&&p&&Math.hypot(e.clientX-p.sx,e.clientY-p.sy)<6&&performance.now()-p.t<600)pickSign(e.clientX,e.clientY)});
 stage.addEventListener('pointercancel',function(e){delete ptr[e.pointerId]});
-stage.addEventListener('pointermove',function(e){var p=ptr[e.pointerId];if(!p)return;var ids=Object.keys(ptr);
+stage.addEventListener('pointermove',function(e){var p=ptr[e.pointerId];if(!p||FILM.on)return;var ids=Object.keys(ptr);
   if(ids.length===2){var o=ptr[ids[0]==e.pointerId?ids[1]:ids[0]],d0=Math.hypot(p.x-o.x,p.y-o.y),d1=Math.hypot(e.clientX-o.x,e.clientY-o.y);if(d1>0&&!fly)r=clamp(r*d0/d1,10,1400)}
   else{if(fly){fyaw-=(e.clientX-p.x)*0.004;fpitch=clamp(fpitch-(e.clientY-p.y)*0.004,-1.5,1.5)}else{th-=(e.clientX-p.x)*0.008;ph=clamp(ph-(e.clientY-p.y)*0.006,0.05,1.52);setPressed(null)}}
   p.x=e.clientX;p.y=e.clientY;draw()});
-stage.addEventListener('wheel',function(e){e.preventDefault();
+stage.addEventListener('wheel',function(e){e.preventDefault();if(FILM.on)return;
   if(fly){if(walk)return;var wv=new THREE.Vector3();camera.getWorldDirection(wv);fp.addScaledVector(wv,-e.deltaY*0.03);var gy=hB(fp.x,fp.z)+0.3;if(fp.y<gy)fp.y=gy;draw();return}
   r=clamp(r*(1+e.deltaY*0.0012),10,1400);draw()},{passive:false});
 var btns=document.querySelectorAll('nav[aria-label="Ansicht"] button');
 function setPressed(v){btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v))})}
 var VIEWS={out:{c:0,th:0.8,ph:1.1,r:75,t:[0,2.5,0]},in:{c:1,th:0.8,ph:1.0,r:62,t:[0,2.5,0]},top:{c:1,th:0,ph:0.05,r:85,t:[0,0,0]},val:{c:0,th:3.49,ph:1.27,r:500,t:[110,0,250]}};
-btns.forEach(function(b){b.addEventListener('click',function(){var v=VIEWS[b.dataset.v];stopFly();clear=!!v.c;th=v.th;ph=v.ph;r=v.r;tgt.set(v.t[0],v.t[1],v.t[2]);setPressed(b.dataset.v);draw()})});
+btns.forEach(function(b){b.addEventListener('click',function(){var v=VIEWS[b.dataset.v];stopFilm(true);stopFly();clear=!!v.c;th=v.th;ph=v.ph;r=v.r;tgt.set(v.t[0],v.t[1],v.t[2]);setPressed(b.dataset.v);draw()})});
 var dimBtn=document.getElementById('dimBtn');dimBtn.addEventListener('click',function(){dims=!dims;dimBtn.setAttribute('aria-pressed',String(dims));draw()});
 var flyBtn=document.getElementById('flyBtn'),pad=document.getElementById('pad'),hint=document.getElementById('hint');
 function flyStep(dt){var agl=fp.y-hB(fp.x,fp.z),sp=((keys.ShiftLeft||keys.ShiftRight)?22:8)*clamp(agl/25,1,12)*dt,f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0),u=(keys.u?1:0)-(keys.d?1:0);
   if(f||sd||u){var dv=new THREE.Vector3(-Math.sin(fyaw)*Math.cos(fpitch),Math.sin(fpitch),-Math.cos(fyaw)*Math.cos(fpitch)),rv=new THREE.Vector3(Math.cos(fyaw),0,-Math.sin(fyaw));
     fp.addScaledVector(dv,f*sp).addScaledVector(rv,sd*sp);fp.y+=u*sp;fp.x=clamp(fp.x,-3000,3000);fp.z=clamp(fp.z,-3000,3000);var gy=hB(fp.x,fp.z)+0.3;if(fp.y<gy)fp.y=gy;fp.y=Math.min(fp.y,2600)}
   draw()}
-flyBtn.addEventListener('click',function(){if(walk){stopFly();return}
+flyBtn.addEventListener('click',function(){stopFilm(true);if(walk){stopFly();return}
   if(fly){stopFly();return}
   /* zuerst die aktuelle Kameraposition der Umlaufansicht bestimmen, dann in den Flugmodus wechseln */
   place();var wd=new THREE.Vector3();camera.getWorldDirection(wd);fp.copy(camera.position);fyaw=Math.atan2(-wd.x,-wd.z);fpitch=Math.asin(clamp(wd.y,-1,1));
   fly=true;keys={};flyBtn.setAttribute('aria-pressed','true');pad.hidden=false;hint.innerHTML=HINT0;showHint();last=performance.now();setPressed(null);draw()});
 var kmap={KeyW:'f',ArrowUp:'f',KeyS:'b',ArrowDown:'b',KeyA:'l',ArrowLeft:'l',KeyD:'r',ArrowRight:'r',KeyE:'u',Space:'u',KeyQ:'d',KeyC:'d'};
-window.addEventListener('keydown',function(e){if(!fly)return;if(walk){if(e.code==='KeyE'||e.code==='Enter'){interact();e.preventDefault();return}if(e.code==='Escape'){closeCard();return}}
+window.addEventListener('keydown',function(e){
+  if(FILM.on){var tg=e.target&&e.target.tagName;if(tg==='BUTTON'||tg==='INPUT'||tg==='SELECT'||tg==='SUMMARY')return;
+    if(e.code==='Space'){fmPause(!FILM.paused);e.preventDefault()}else if(e.code==='Escape')stopFilm();else if(e.code==='ArrowRight')fmSeek(FILM.t+5);else if(e.code==='ArrowLeft')fmSeek(FILM.t-5);return}
+  if(!fly)return;if(walk){if(e.code==='KeyE'||e.code==='Enter'){interact();e.preventDefault();return}if(e.code==='Escape'){closeCard();return}}
   if(kmap[e.code]){keys[kmap[e.code]]=1;e.preventDefault()}if(e.code.indexOf('Shift')===0)keys[e.code]=1});
 window.addEventListener('keyup',function(e){if(kmap[e.code])delete keys[kmap[e.code]];if(e.code.indexOf('Shift')===0)delete keys[e.code]});
 pad.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){e.stopPropagation();b.setPointerCapture(e.pointerId);keys[b.dataset.k]=1});
@@ -1345,7 +1381,7 @@ function interact(idx){if(cardOpen){closeCard();return}var si=(typeof idx==='num
   cardEl.hidden=false;cardOpen=true;document.getElementById('cardClose').addEventListener('click',closeCard);
   document.getElementById('cardSrc').addEventListener('click',showSources)}
 /* Quellenliste im Fußbereich öffnen und hinscrollen */
-function showSources(){closeCard();var lg2=document.getElementById('legend'),qs=document.getElementById('quellen');if(lg2)lg2.open=true;if(qs)setTimeout(function(){try{qs.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){qs.scrollIntoView()}},60)}
+function showSources(){closeCard();stopFilm();var qs=document.getElementById('quellen');if(qs)qs.open=true;if(qs)setTimeout(function(){try{qs.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){qs.scrollIntoView()}},60)}
 function startWalk(){fly=true;walk=true;clear=false;keys={};
   flyBtn.setAttribute('aria-pressed','false');walkBtn.setAttribute('aria-pressed','true');setPressed(null);
   fp.set(DOFF,1.65+hB(DOFF,-TOT/2-12.5),-TOT/2-12.5);fyaw=Math.PI;fpitch=-0.05;
@@ -1356,7 +1392,9 @@ function stopFly(){if(!fly&&!walk)return;fly=false;walk=false;keys={};
   flyBtn.setAttribute('aria-pressed','false');walkBtn.setAttribute('aria-pressed','false');
   pad.hidden=hint.hidden=true;pad.querySelectorAll('[data-k=u],[data-k=d]').forEach(function(b){b.hidden=false});
   progEl.hidden=true;useBtn.hidden=true;closeCard();stage.classList.remove('walking');hsG.forEach(function(o){o.g.visible=false});hint.innerHTML=HINT0;draw()}
-walkBtn.addEventListener('click',function(){if(walk){stopFly()}else{if(fly)stopFly();startWalk()}});
+walkBtn.addEventListener('click',function(){stopFilm(true);if(walk){stopFly()}else{if(fly)stopFly();startWalk()}});
+/* Film: Schlüssel holen und Weg zum Museum */
+var filmBtn=document.getElementById('filmBtn');if(filmBtn)filmBtn.addEventListener('click',function(){if(FILM.on)stopFilm();else startFilm()});
 /* Ansichten über den Link-Anker, z. B. #raum3-t0930-winter oder #tal */
 var WALKP={eingang:[DOFF,-TOT/2-7,Math.PI,0.05],raum1:[DOFF+0.3,-TOT/2+1.3,Math.PI,0.08],raum2:[DOFF,zS[1]+1.0,Math.PI,0.05],raum3:[-0.6,zS[2]+1.4,Math.PI,0.16],decke:[-0.2,zS[2]+7.5,Math.PI,1.05],zelle:[-2.75,1.05,0.94,0.38],
   /* vor einzelnen Exponaten: Flachrelief in Raum 1, Hochrelief in Raum 2, Halbfigur in Raum 3 */
@@ -1369,7 +1407,9 @@ function applyHash(){var tk=(location.hash||'').replace('#','').toLowerCase().sp
   if(v&&v.indexOf('w:')===0){var p=WALKP[v.slice(2)];if(fly)stopFly();startWalk();var pz=v==='w:zelle'?cellZ(1)+p[1]:p[1];fp.set(p[0],1.65+hB(p[0],pz),pz);fyaw=p[2];fpitch=p[3];draw()}
   /* #schild3 usw.: im Rundgang direkt vor das Schild stellen */
   else if(v&&v.indexOf('s:')===0){var hs=HS[+v.slice(2)],d=hs.k==='wall'?1.25:1.35,sx=hs.x+Math.sin(hs.ry)*d,sz=hs.z+Math.cos(hs.ry)*d;if(fly)stopFly();startWalk();fp.set(sx,1.65+hB(sx,sz),sz);fyaw=hs.ry;fpitch=hs.k==='wall'?-0.06:-0.42;draw()}
-  else if(v){var b=document.querySelector('nav[aria-label="Ansicht"] button[data-v="'+v+'"]');if(b)b.click()}}
+  else if(v){var b=document.querySelector('nav[aria-label="Ansicht"] button[data-v="'+v+'"]');if(b)b.click()}
+  /* #film startet den Film; #film-s40 springt zu Sekunde 40, #film-s40-pause hält dort an */
+  if(tk.indexOf('film')>=0){if(!prOn){FILM.pend=true;return}if(!FILM.on)startFilm();var fs_=tk.filter(function(t){return /^s\d+$/.test(t)})[0];if(fs_)fmSeek(parseInt(fs_.slice(1),10));if(tk.indexOf('pause')>=0)fmPause(true)}}
 window.addEventListener('hashchange',applyHash);
 useBtn.addEventListener('click',interact);
 /* ---------- Sonnenstand ---------- */
@@ -1422,6 +1462,151 @@ function afterSun(){
 [timeR,seasonS,beamsOn].forEach(function(e){e.addEventListener('input',applySun);e.addEventListener('change',applySun)});
 var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){theme();draw()});
 
+/* ---------- Film: Schlüssel in der Osteria holen, dann zu Fuß zum Museum ----------
+   Weg nach der Beschreibung der Stiftung [2]: Schlüssel in der Osteria im Dorfzentrum (Via San Gottardo 37 [3]),
+   über zwei alte Steinbrücken über den Ticino, talaufwärts zum Bau. Linienführung aus OpenStreetMap [8]
+   (Gebäude, Brücken, Feldweg), zwischen den Häusern ausgewichen – im Modell angenähert. Koordinaten: Welt (x Ost, z Süd). */
+var FMR=[[452,370,0],[450,368,0],[447,367,0],[436,367,0],[433,369,0],[427,369,0],[421,370,0],[393,381,0],[386,386,0],[384,386,1],[351,390,1],[349,390,0],[344,386,0],[340,386,0],[336,382,0],[313,372,0],[309,368,0],[303,367,0],[300,361.5,2],[297,362.5,2],[274,378.5,2],[260,356,0],[161,257,0],[152,253,0],[129,253,0],[118,242,0],[115.5,237.5,0],[112.5,233.5,0],[100,221.5,0],[98,219,0],[83,177,0],[77,164,0],[71,155.5,0],[52.5,108,0],[11,71,0],[1.5,52,0],[-24,-11,0],[-27.2,-21,0],[-22.5,-21.7,0],[-17.4,-22.1,0],[-12.3,-21.5,0],[-8.4,-21.4,0]];
+var FMB={1:[[384,386],[351,390]],2:[[274,378.5],[297,362.5],[300,361.5]]};
+/* Zeitplan in Sekunden: Überblick, Osteria, Weg (Zeitraffer), Ankunft, Ende */
+var FMT={ost:6,key:11,walk:15,walkEnd:72,arrive:72,end:82};
+var FILM={on:false,t:0,paused:false,lt:0,snap:true,chap:-1,focus:new THREE.Vector3(),save:null,ph:0},fmS=null,fmL=0,fmG=null,fmW=null,fmKey=null,fmPin=null,fmRib=null,fmSeg=0,fmB={};
+var fmCam=new THREE.Vector3(),fmLook=new THREE.Vector3(),fmV=new THREE.Vector3(),fmV2=new THREE.Vector3();
+/* Höhe auf der tatsächlich gezeichneten Geländefläche (gleiche Dreiecke wie das Geländenetz) */
+function hT(x,z){if(!TERR)return hW(x,z);var ax=TERR.ax,N=TERR.N;
+  function ix(v){var lo=0,hi=N;while(hi-lo>1){var m=(lo+hi)>>1;if(ax[m]<=v)lo=m;else hi=m}return lo}
+  var i=ix(x),j=ix(z),fx=(x-ax[i])/(ax[i+1]-ax[i]),fz=(z-ax[j])/(ax[j+1]-ax[j]);
+  var ha=hW(ax[i],ax[j]),hb=hW(ax[i+1],ax[j]),hc=hW(ax[i],ax[j+1]),hd=hW(ax[i+1],ax[j+1]);
+  return fx+fz<=1?ha+(hb-ha)*fx+(hc-ha)*fz:hd+(hc-hd)*(1-fx)+(hb-hd)*(1-fz)}
+function fmDeck(B,x,z){var tot=0,cum=[0],i;for(i=1;i<B.length;i++){tot+=Math.hypot(B[i][0]-B[i-1][0],B[i][1]-B[i-1][1]);cum.push(tot)}
+  var best=1e9,f=0;for(i=1;i<B.length;i++){var ax=B[i-1][0],az=B[i-1][1],vx=B[i][0]-ax,vz=B[i][1]-az,l=vx*vx+vz*vz,t=clamp(((x-ax)*vx+(z-az)*vz)/l,0,1),qx=ax+vx*t-x,qz=az+vz*t-z,d=qx*qx+qz*qz;
+    if(d<best){best=d;f=(cum[i-1]+t*Math.sqrt(l))/tot}}
+  var ya=hW(B[0][0],B[0][1]),yb=hW(B[B.length-1][0],B[B.length-1][1]);return ya+(yb-ya)*f+0.35}
+function fmBuild(){if(fmS)return;
+  /* Route im Meterabstand abtasten, Höhe vom Gelände bzw. von der Brückenfahrbahn, in Szenenkoordinaten umrechnen */
+  var P=[],i,k;
+  for(i=0;i<FMR.length-1;i++){var a=FMR[i],b=FMR[i+1],l=Math.hypot(b[0]-a[0],b[1]-a[1]),n=Math.max(1,Math.ceil(l));
+    for(k=0;k<n;k++){var t=k/n,br=(a[2]&&a[2]===b[2])?a[2]:0;P.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,br])}}
+  var e=FMR[FMR.length-1];P.push([e[0],e[1],0]);
+  var ys=P.map(function(p){return p[2]?fmDeck(FMB[p[2]],p[0],p[1]):hT(p[0],p[1])});
+  var ys2=ys.map(function(y,i){var s=0,w=0;for(var k=-2;k<=2;k++){var j=i+k;if(j<0||j>=ys.length)continue;var q=(P[j][2]===P[i][2])?1:0.6;s+=ys[j]*q;w+=q}return P[i][2]?y:s/w});
+  fmS=[];var acc=0;
+  P.forEach(function(p,i){var b=w2b(p[0],p[1]);if(i){var q=fmS[i-1];acc+=Math.hypot(b[0]-q.x,b[1]-q.z)}fmS.push({x:b[0],y:ys2[i],z:b[1],s:acc,br:p[2],wx:p[0],wz:p[1]})});
+  fmL=acc;
+  /* Abschnitte für Bildführung und Texte: erste Brücke, Ende der zweiten Brücke */
+  var b1=-1,b2=-1;fmS.forEach(function(p){if(p.br===1&&b1<0)b1=p.s;if(p.br===2)b2=p.s});fmB={b1:b1,b2:b2};
+  /* Linie der Route: Band knapp über Boden bzw. Brücke; wird beim Überblick nach und nach gezeichnet */
+  var pts=fmS.map(function(p){return [p.x,p.z]}),yy=fmS.map(function(p){return p.y+(p.br?0.07:0.16)});
+  var rm=new THREE.MeshBasicMaterial({color:0xffb347,transparent:true,opacity:0.88,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-6,polygonOffsetUnits:-6});
+  fmRib=new THREE.Mesh(ribbonG(pts,yy,2.0,0),rm);fmRib.frustumCulled=false;fmRib.renderOrder=3;fmSeg=pts.length-1;
+  /* Besucherin oder Besucher (1,75 m) */
+  function sm(c,ro,me){return patch(new THREE.MeshStandardMaterial({color:c,roughness:ro,metalness:me||0}),{})}
+  var jk=sm(0xb8352b,0.7),tr=sm(0x2c3340,0.85),sk=sm(0xd7ad88,0.6);
+  fmW=new THREE.Group();
+  var body=new THREE.Mesh(new THREE.CylinderGeometry(0.19,0.23,0.74,12),jk);body.position.y=1.17;
+  var head=new THREE.Mesh(new THREE.SphereGeometry(0.115,14,10),sk);head.position.y=1.66;
+  var lg=new THREE.CylinderGeometry(0.075,0.065,0.82,8).translate(0,-0.41,0),legL=new THREE.Mesh(lg,tr),legR=new THREE.Mesh(lg,tr);legL.position.set(-0.1,0.82,0);legR.position.set(0.1,0.82,0);
+  var ag=new THREE.CylinderGeometry(0.05,0.045,0.62,8).translate(0,-0.31,0),armL=new THREE.Mesh(ag,jk),armR=new THREE.Mesh(ag,jk);armL.position.set(-0.25,1.5,0);armR.position.set(0.25,1.5,0);
+  [body,head,legL,legR,armL,armR].forEach(function(m){m.castShadow=true;fmW.add(m)});fmW.userData={legL:legL,legR:legR,armL:armL,armR:armR};
+  /* Markierung über der Figur, wächst mit dem Abstand der Kamera */
+  fmPin=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.3,18).rotateX(Math.PI),new THREE.MeshBasicMaterial({color:0xffb347}));
+  /* Schlüssel aus Messing */
+  var gold=patch(new THREE.MeshStandardMaterial({color:0xd9aa4a,metalness:1,roughness:0.3}),{});
+  fmKey=new THREE.Group();
+  var bow=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.055,10,28),gold),shaft=new THREE.Mesh(new THREE.BoxGeometry(0.62,0.07,0.06),gold),bit1=new THREE.Mesh(new THREE.BoxGeometry(0.07,0.17,0.06),gold),bit2=new THREE.Mesh(new THREE.BoxGeometry(0.07,0.12,0.06),gold);
+  shaft.position.x=0.5;bit1.position.set(0.68,-0.11,0);bit2.position.set(0.56,-0.085,0);fmKey.add(bow,shaft,bit1,bit2);
+  fmKey.children.forEach(function(m){m.castShadow=true});
+  fmG=new THREE.Group();fmG.add(fmRib,fmW,fmPin,fmKey);fmG.visible=false;scene.add(fmG)}
+function fmAt(s,out){s=clamp(s,0,fmL);var lo=0,hi=fmS.length-1;while(hi-lo>1){var m=(lo+hi)>>1;if(fmS[m].s<=s)lo=m;else hi=m}
+  var a=fmS[lo],b=fmS[hi],t=(b.s>a.s)?(s-a.s)/(b.s-a.s):0;return out.set(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t)}
+var fmTA=new THREE.Vector3(),fmTB=new THREE.Vector3();
+function fmDir(s,back,ahead,out){fmAt(s-back,fmTA);fmAt(s+ahead,fmTB);out.set(fmTB.x-fmTA.x,0,fmTB.z-fmTA.z);if(out.lengthSq()<1e-6)out.set(0,0,1);return out.normalize()}
+/* gleichmässiges Gehen mit kurzem Anlaufen und Abbremsen */
+function fmEase(u,a){u=clamp(u,0,1);var v=1/(1-a);if(u<a)return v*u*u/(2*a);if(u>1-a)return 1-v*(1-u)*(1-u)/(2*a);return v*(u-a/2)}
+function fmSAt(t){if(t<=FMT.walk)return 0;if(t>=FMT.walkEnd)return fmL;return fmL*fmEase((t-FMT.walk)/(FMT.walkEnd-FMT.walk),0.05)}
+function fmTimeOfS(s){var lo=FMT.walk,hi=FMT.walkEnd;for(var i=0;i<40;i++){var m=(lo+hi)/2;if(fmSAt(m)<s)lo=m;else hi=m}return (lo+hi)/2}
+function sm01(x){x=clamp(x,0,1);return x*x*(3-2*x)}
+function fmW2S(x,y,z,out){var b=w2b(x,z);return out.set(b[0],y,b[1])}
+/* Kapitel: Titel, Text, Startzeit */
+function fmChapters(){var m=Math.round(fmL/10)*10,min=Math.max(1,Math.round(fmL/75));
+  return [{t:0,h:'Film · Schlüssel holen und Weg zum Museum',x:'Für den Besuch holt man den Schlüssel in der Osteria im Dorfzentrum von Giornico, direkt an der Hauptstraße.'},
+    {t:FMT.ost,h:'1 · Schlüssel abholen',x:'Osteria Giornico, Via San Gottardo 37. Täglich geöffnet: Sommerzeit 8–20 Uhr, Winterzeit 8–18 Uhr.'},
+    {t:FMT.walk,h:'2 · Zu Fuß zum Ticino',x:'Den kurzen Weg macht man am besten zu Fuß: vom Dorfzentrum hinunter zum Fluss (im Film im Zeitraffer).'},
+    {t:fmTimeOfS(fmB.b1-12),h:'3 · Zwei alte Steinbrücken',x:'Zwei alte Steinbrücken führen über den Ticino, dazwischen liegt eine kleine Insel mit dem Grotto dei Due Ponti.'},
+    {t:fmTimeOfS(fmB.b2+20),h:'4 · Talaufwärts',x:'Am anderen Ufer geht es talaufwärts, zwischen Fluss und Bahnlinie. Als Wegmarke nennt die Stiftung die frühromanische Kirche San Nicolao; sie steht etwas südlich der Brücken.'},
+    {t:fmTimeOfS(fmL-250),h:'5 · Ankunft',x:'Von weitem sieht man den fensterlosen, hohen Betonbau mit seinem Lichtgaden. Der Eingang liegt an der Nordseite.'},
+    {t:FMT.arrive,h:'Angekommen',x:'Weg im Modell rund '+m+' m, zu Fuß etwa '+min+' Minuten. Route nach OpenStreetMap, im Modell angenähert. Quellen: [2] Stiftung La Congiunta, [3] Ticino Turismo, [8] OpenStreetMap.',end:1}]}
+var fmUI=null,fmCH=[];
+function fmBuildUI(){if(fmUI)return;
+  fmUI=document.getElementById('filmUI');fmCH=fmChapters();
+  var tr=document.getElementById('filmTrack');fmCH.forEach(function(c,i){if(!i)return;var e=document.createElement('span');e.className='tick';e.style.left=(100*c.t/FMT.end)+'%';tr.appendChild(e)});
+  function seekEv(e){var r=tr.getBoundingClientRect();if(!r.width)return;fmSeek(clamp((e.clientX-r.left)/r.width,0,1)*FMT.end)}
+  tr.addEventListener('pointerdown',function(e){e.stopPropagation();tr.setPointerCapture(e.pointerId);seekEv(e);tr.onpointermove=seekEv});
+  tr.addEventListener('pointerup',function(){tr.onpointermove=null});
+  tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){fmSeek(FILM.t+5);e.preventDefault();e.stopPropagation()}else if(e.key==='ArrowLeft'){fmSeek(FILM.t-5);e.preventDefault();e.stopPropagation()}});
+  document.getElementById('filmPlay').addEventListener('click',function(){fmPause(!FILM.paused)});
+  document.getElementById('filmClose').addEventListener('click',function(){stopFilm()});
+  fmUI.addEventListener('pointerdown',function(e){e.stopPropagation()});
+  fmUI.addEventListener('wheel',function(e){e.stopPropagation()},{passive:true})}
+function fmPause(p){if(FILM.t>=FMT.end&&!p){fmSeek(0)}FILM.paused=p;var b=document.getElementById('filmPlay');b.textContent=p?'▶':'❚❚';b.setAttribute('aria-label',p?'Abspielen':'Pause');FILM.lt=0;draw()}
+function fmSeek(t){FILM.t=clamp(t,0,FMT.end);FILM.snap=true;if(FILM.t<FMT.end&&FILM.chap===fmCH.length-1)FILM.chap=-1;draw()}
+function startFilm(){fmBuild();fmBuildUI();if(fly)stopFly();closeCard();setOpen&&setOpen(false);
+  if(!FILM.save)FILM.save={th:th,ph:ph,r:r,tgt:tgt.clone(),clear:clear,time:timeR.value,pressed:[].map.call(btns,function(b){return b.getAttribute('aria-pressed')})};
+  /* nachts gäbe es nichts zu sehen: dann Vormittagslicht */
+  if(sunEl<0.1){timeR.value='10.5';applySun()}
+  clear=false;FILM.on=true;FILM.t=0;FILM.paused=false;FILM.snap=true;FILM.chap=-1;FILM.lt=0;fmG.visible=true;fmUI.hidden=false;stage.classList.add('filming');
+  var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','true');setPressed(null);fmPause(false);logPush('zeit','Film gestartet ('+Math.round(fmL)+' m Weg)');draw()}
+function stopFilm(keepView){if(!FILM.on)return;FILM.on=false;U.uNearCut.value=0;fmG.visible=false;fmUI.hidden=true;stage.classList.remove('filming');
+  var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','false');
+  var s=FILM.save;FILM.save=null;
+  if(s){if(s.time!==timeR.value){timeR.value=s.time;applySun()}if(!keepView){th=s.th;ph=s.ph;r=s.r;tgt.copy(s.tgt);clear=s.clear;btns.forEach(function(b,i){b.setAttribute('aria-pressed',s.pressed[i])})}}
+  draw()}
+/* Kamera und Figuren für den Zeitpunkt t */
+function fmTick(dt){FILM.t=Math.min(FMT.end,FILM.t+dt);if(FILM.t>=FMT.end&&!FILM.paused)fmPause(true)}
+function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),des=new THREE.Vector3(),look=new THREE.Vector3(),ost=fmS[0];
+  if(t<FMT.ost){/* Überblick von Südosten über das Dorf auf die ganze Route */
+    var u=sm01(t/FMT.ost);fmW2S(780+(560-780)*u,0,900+(500-900)*u,des);des.y=hT(780+(560-780)*u,900+(500-900)*u)+300+(95-300)*u;
+    look.set(0,0,0);fmW2S(250+(452-250)*u,0,220+(370-220)*u,look);look.y=ost.y+5*u}
+  else if(t<FMT.walk){/* über der Osteria, steil von oben, damit Figur und Schlüssel zwischen den Dächern sichtbar bleiben */
+    var u2=sm01((t-FMT.ost)/(FMT.walk-FMT.ost));fmW2S(492+(474-492)*u2,0,420+(396-420)*u2,des);des.y=ost.y+52+(40-52)*u2;look.set(ost.x,ost.y+1.5,ost.z)}
+  else if(t<FMT.arrive){/* Verfolgerkamera: über dem Weg, an den Brücken seitlich, zum Schluss höher mit Blick auf den Bau */
+    /* im Dorf steil von oben (Dächer), an den Brücken seitlich, am Westufer über den Baumkronen */
+    var wBr=sm01((s-(fmB.b1-30))/25)*(1-sm01((s-(fmB.b2+8))/30)),wApp=sm01((s-(fmL-260))/90),wV=1-sm01((s-(fmB.b1-45))/30);
+    var bBack=12*wV+18*(1-wV),bUp=30,bSide=4;
+    var back=(bBack+(12-bBack)*wBr)*(1-wApp)+40*wApp,up=(bUp+(15-bUp)*wBr)*(1-wApp)+30*wApp,side=(bSide+(22-bSide)*wBr)*(1-wApp)+5*wApp;
+    var ea=w2b(1,0),no=NORTH,px=-D.z,pz=D.x,qx=ea[0]*(1-wBr)+no[0]*wBr,qz=ea[1]*(1-wBr)+no[1]*wBr,dp=px*qx+pz*qz;
+    des.set(W.x-D.x*back+px*dp*side,W.y+up,W.z-D.z*back+pz*dp*side);
+    look.set(W.x+D.x*12,W.y+1.4,W.z+D.z*12);look.lerp(fmTA.set(0,6,0),wApp*0.55)}
+  else{/* Ankunft vor dem Eingang an der Nordseite */
+    des.set(DOFF-7,hB(DOFF-7,-TOT/2-12)+2.4,-TOT/2-12);look.set(DOFF,2.1,-TOT/2)}
+  var wg=b2w(des.x,des.z),gmin=hT(wg[0],wg[1])+2.5;if(des.y<gmin)des.y=gmin;
+  if(FILM.snap||dt<=0){fmCam.copy(des);fmLook.copy(look);FILM.snap=false}
+  else{var k1=1-Math.exp(-dt/0.55),k2=1-Math.exp(-dt/0.35);fmCam.lerp(des,k1);fmLook.lerp(look,k2)}
+  U.uNearCut.value=(t>=FMT.walk-1&&t<FMT.arrive)?9:0;
+  camera.position.copy(fmCam);camera.lookAt(fmLook);if(Math.abs(camera.near-0.3)>0.01){camera.near=0.3;camera.updateProjectionMatrix()}
+  FILM.focus.copy(t<FMT.walk?fmTB.set(ost.x,ost.y,ost.z):W);
+  /* Figur: erscheint an der Osteria, geht los, schaut am Ende zur Tür */
+  fmW.visible=t>=FMT.ost-0.5;fmW.position.copy(W);
+  var yaw=t>=FMT.walkEnd-0.6?Math.atan2(0,1):Math.atan2(D.x,D.z);if(t<FMT.walk)yaw=Math.atan2(fmCam.x-W.x,fmCam.z-W.z);fmW.rotation.y=yaw;
+  var walking=t>FMT.walk&&t<FMT.walkEnd,ud=fmW.userData;FILM.ph+=walking?dt*9:0;var sw=walking?Math.sin(FILM.ph)*0.55:0;
+  ud.legL.rotation.x=sw;ud.legR.rotation.x=-sw;ud.armL.rotation.x=-sw*0.7;ud.armR.rotation.x=sw*0.7;
+  /* Markierung über der Figur */
+  var dist=fmCam.distanceTo(W),kk=clamp(dist/32,0.7,9);fmPin.visible=t<FMT.arrive;fmPin.scale.setScalar(kk);fmPin.position.set(W.x,W.y+2.2+kk*1.1+Math.sin(FILM.t*3)*0.12*kk,W.z);
+  /* Schlüssel: schwebt über der Osteria, wandert zur Figur und verschwindet in der Tasche */
+  var kp=clamp((t-FMT.key)/1.4,0,1);fmKey.visible=kp<1;
+  if(fmKey.visible){var hov=fmTA.set(ost.x,ost.y+4.2+Math.sin(FILM.t*2)*0.25,ost.z),hand=fmTB.set(W.x,W.y+1.15,W.z);fmKey.position.copy(hov).lerp(hand,sm01(kp));
+    fmKey.scale.setScalar(2.6+(0.45-2.6)*sm01(kp));fmKey.rotation.set(0,FILM.t*1.6,0.35)}
+  document.getElementById('filmKey').hidden=kp<1;
+  /* Route zeichnen */
+  var rp=clamp((t-0.8)/4.7,0,1);fmRib.geometry.setDrawRange(0,6*Math.floor(fmSeg*rp));
+  /* Kapitel, Fortschritt */
+  var ci=0;for(var i=0;i<fmCH.length;i++)if(t>=fmCH[i].t-0.01)ci=i;
+  if(ci!==FILM.chap){FILM.chap=ci;var c=fmCH[ci],cap=document.getElementById('filmCap');
+    cap.innerHTML='<b>'+c.h+'</b><span>'+c.x+'</span>'+(c.end?'<span class="film-end"><button type="button" data-a="again">Nochmal</button><button type="button" data-a="walk">Rundgang starten</button><button type="button" data-a="close">Schließen</button></span>':'');
+    cap.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var a=b.dataset.a;if(a==='again'){fmSeek(0);fmPause(false)}else if(a==='walk'){stopFilm(true);startWalk()}else stopFilm()})});
+    cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in')}
+  document.getElementById('filmFill').style.width=(100*t/FMT.end)+'%'}
+
 /* ---------- Aufbau ---------- */
 function detTex(){return canvasTex(256,256,function(x,w,h){var d=x.createImageData(w,h),r=mb32(17),F=[];for(var k=0;k<14;k++)F.push([1+Math.floor(r()*9),Math.floor(r()*9)-4,r()*6.283,0.5/(1+k*0.35)]);
   for(var j=0;j<h;j++)for(var i=0;i<w;i++){var v=0,u=i/w,t=j/h;for(k=0;k<F.length;k++)v+=Math.sin(6.2832*(F[k][0]*u+F[k][1]*t)+F[k][2])*F[k][3]*(k%2?1:0.8);
@@ -1436,7 +1621,7 @@ if(QP.post)STG.push(['Leuchteffekte','post']);
 STG.push(['Schilder für den Rundgang','compile']);
 [bldG,bldInt,vegN,vegM,vegF,grassG,vilG,infG].forEach(function(g){g.visible=false});
 var stageT0=0;
-function reveal(k){if(k>=STG.length){prep('');prOn=true;logPush('zeit','Aufbau fertig nach '+((performance.now()-stageT0)/1000).toFixed(1)+' s');diagPanel();return}
+function reveal(k){if(k>=STG.length){prep('');prOn=true;if(FILM.pend){FILM.pend=false;applyHash()}logPush('zeit','Aufbau fertig nach '+((performance.now()-stageT0)/1000).toFixed(1)+' s');diagPanel();return}
   var st=STG[k],t0=performance.now();if(!k)stageT0=t0;
   try{if(st[1]==='post'){if(bloomPass)bloomPass.enabled=true}
     /* noch unsichtbare Teile (Schilder, Lichtstrahlen) vorab übersetzen, damit der Rundgang ohne Ruckler startet */
@@ -1475,7 +1660,7 @@ function init(){
   });
 }
 /* nur mit #diag: Testzugriff für automatische Prüfungen */
-if(DIAG)window.__lcDbg={HS:HS,hsG:hsG,fp:fp,startWalk:startWalk,stopFly:stopFly,interact:interact,closeCard:closeCard,walkStep:walkStep,tags:function(){return tags.map(function(t,i){return {t:t.t,m:!!t.m,hidden:tagEls[i]?tagEls[i].hidden:null}})},dims:function(v){dims=v;dimBtn.setAttribute('aria-pressed',String(dims));draw()},render:function(){render(performance.now())}};
+if(DIAG)window.__lcDbg={film:{start:startFilm,stop:stopFilm,seek:fmSeek,pause:fmPause,place:fmPlace,state:FILM,len:function(){return fmL},walker:function(){return fmW&&fmW.position},chapters:function(){return fmCH}},HS:HS,hsG:hsG,fp:fp,startWalk:startWalk,stopFly:stopFly,interact:interact,closeCard:closeCard,walkStep:walkStep,tags:function(){return tags.map(function(t,i){return {t:t.t,m:!!t.m,hidden:tagEls[i]?tagEls[i].hidden:null}})},dims:function(v){dims=v;dimBtn.setAttribute('aria-pressed',String(dims));draw()},render:function(){render(performance.now())}};
 var lg=document.getElementById('legend');if(lg){try{if(window.innerHeight>=1000)lg.open=true}catch(e){}lg.addEventListener('toggle',function(){resize()})}
 if(window.ResizeObserver){try{new ResizeObserver(function(){resize()}).observe(stage)}catch(e){}}
 init();
