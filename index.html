@@ -347,7 +347,7 @@ var camera=new THREE.PerspectiveCamera(40,1,0.3,22000);
 scene.fog=new THREE.FogExp2(0xb8c4cf,0.00009);
 var env=new THREE.Group();env.rotation.y=-TH;scene.add(env);env.updateMatrixWorld(true);
 /* ---------- gemeinsame Shader-Uniforms ---------- */
-var U={uTime:{value:0},uNearCut:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
+var U={uTime:{value:0},uNearCut:{value:0},uFocus:{value:new THREE.Vector3()},uFocusR:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
   uSnow:{value:5000},uSeason:{value:1},uSunB:{value:new THREE.Vector3(0,1,0)},uSunC:{value:new THREE.Color(1,1,1)},uClear:{value:0}};
 function rep(s,a,b,tag){if(s.indexOf(a)<0){console.warn('[LC] Shader-Anpassung nicht gefunden:',tag||a.slice(0,50));return s}return s.split(a).join(b)}
 function f6(v){return v.toFixed(6)}
@@ -388,7 +388,7 @@ function patch(mat,o){
     if(o.wind)vs=rep(vs,'#include <begin_vertex>','#include <begin_vertex>'+WIND_CODE);
     vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':''));
     if(o.depth){sh.vertexShader=vs;return}
-    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut;\n'+GLSL_TS+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
+    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+GLSL_TS+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
     var lb=THREE.ShaderChunk.lights_fragment_begin;
     lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*=terrSun(vWP)'+(o.interior?'*uAmber':'')+';','dir-light');
     fs=rep(fs,'#include <lights_fragment_begin>',lb);
@@ -400,7 +400,8 @@ function patch(mat,o){
     if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uSkyL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
       'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uSkyL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');
     if(o.leaf)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 vd_=normalize(vWP-cameraPosition);float bl_=pow(max(dot(vd_,uSunB),0.0),3.0);reflectedLight.indirectDiffuse+=diffuseColor.rgb*uSunC*bl_*uLeafK*terrSun(vWP);}');
-    if(o.foliage)fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\n{float cd_=distance(vWP,cameraPosition);diffuseColor.a=min(1.0,diffuseColor.a*uAlphaK*(1.0+0.012*cd_))*clamp((cd_-uNearCut)/max(uNearCut,0.001),0.0,1.0);}');
+    /* Laub: in der Ferne dichter; im Film nahe der Kamera und auf der Sichtlinie zur Figur ausgeblendet (uFocus, Radius uFocusR) */
+    if(o.foliage)fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\n{float cd_=distance(vWP,cameraPosition);float k_=clamp((cd_-uNearCut)/max(uNearCut,0.001),0.0,1.0);\nif(uFocusR>0.0){vec3 ab_=uFocus-cameraPosition;float h_=dot(vWP-cameraPosition,ab_)/max(dot(ab_,ab_),0.0001);\nif(h_>0.0&&h_<0.98)k_*=smoothstep(uFocusR*0.5,uFocusR,length(vWP-cameraPosition-ab_*h_));}\ndiffuseColor.a=min(1.0,diffuseColor.a*uAlphaK*(1.0+0.012*cd_))*k_;}');
     if(o.foliage)fs=rep(fs,'#include <normal_fragment_begin>','#include <normal_fragment_begin>\n#ifdef DOUBLE_SIDED\nnormal=normal*(float(gl_FrontFacing)*2.0-1.0);\n#endif');
     if(o.plexi)fs=rep(fs,'#include <emissivemap_fragment>','#include <emissivemap_fragment>\nif(!gl_FrontFacing){totalEmissiveRadiance+=uSkyL*0.9;diffuseColor.rgb*=0.15;}');
     if(o.season)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n{float lm_=dot(diffuseColor.rgb,vec3(0.3,0.59,0.11));vec3 dry_=vec3(lm_*1.25,lm_*1.05,lm_*0.62);diffuseColor.rgb=mix(diffuseColor.rgb,dry_,uSeasonK*clamp(uSeason,0.0,1.0));}');
@@ -1333,6 +1334,7 @@ function slowTip(){var lo=QL[QL.indexOf(qName)-1];lsSet('lcAutoCap',lo);
   tipEl.addEventListener('pointerdown',function(e){e.stopPropagation()});stage.appendChild(tipEl)}
 function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;var hi=prHi();if(prCur>hi||!prOn)prCur=hi;if(Math.abs(renderer.getPixelRatio()-prCur)>0.001)renderer.setPixelRatio(prCur);renderer.setSize(w,h,false);if(composer){composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(w,h)}
   /* Hochformat (Handy): Blickwinkel vergrößern, damit das lange Gebäude ins Bild passt */
+  if(FILM)FILM.capY=null;
   var asp=w/h;camera.fov=asp<1?Math.min(62,2*Math.atan(Math.tan(20*Math.PI/180)/Math.pow(asp,0.6))*180/Math.PI):40;camera.aspect=asp;camera.updateProjectionMatrix();draw()}
 window.addEventListener('resize',resize);
 /* ---------- Bedienung ---------- */
@@ -1540,8 +1542,9 @@ function fmBuild(){if(fmS)return;
   var lg=new THREE.CylinderGeometry(0.075,0.065,0.82,8).translate(0,-0.41,0),legL=new THREE.Mesh(lg,tr),legR=new THREE.Mesh(lg,tr);legL.position.set(-0.1,0.82,0);legR.position.set(0.1,0.82,0);
   var ag=new THREE.CylinderGeometry(0.05,0.045,0.62,8).translate(0,-0.31,0),armL=new THREE.Mesh(ag,jk),armR=new THREE.Mesh(ag,jk);armL.position.set(-0.25,1.5,0);armR.position.set(0.25,1.5,0);
   [body,head,legL,legR,armL,armR].forEach(function(m){m.castShadow=true;fmW.add(m)});fmW.userData={legL:legL,legR:legR,armL:armL,armR:armR};
-  /* Markierung über der Figur, wächst mit dem Abstand der Kamera */
-  fmPin=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.3,18).rotateX(Math.PI),new THREE.MeshBasicMaterial({color:0xffa630,toneMapped:false}));
+  /* Markierung über der Figur, wächst mit dem Abstand der Kamera; immer obenauf, auch wenn Laub die Figur verdeckt.
+     Weiss, damit sie sich von der orangen Routenlinie abhebt */
+  fmPin=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.3,18).rotateX(Math.PI),new THREE.MeshBasicMaterial({color:0xfff6e6,toneMapped:false,depthTest:false,depthWrite:false,transparent:true}));fmPin.renderOrder=20;
   /* Schlüssel aus Messing */
   var gold=patch(new THREE.MeshStandardMaterial({color:0xd9aa4a,metalness:1,roughness:0.3,emissive:0x8a5a10,emissiveIntensity:0.9}),{});
   fmKey=new THREE.Group();
@@ -1551,8 +1554,17 @@ function fmBuild(){if(fmS)return;
   fmG=new THREE.Group();fmG.add(fmRib,fmW,fmPin,fmKey);fmG.visible=false;scene.add(fmG)}
 function fmAt(s,out){s=clamp(s,0,fmL);var lo=0,hi=fmS.length-1;while(hi-lo>1){var m=(lo+hi)>>1;if(fmS[m].s<=s)lo=m;else hi=m}
   var a=fmS[lo],b=fmS[hi],t=(b.s>a.s)?(s-a.s)/(b.s-a.s):0;return out.set(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t)}
-var fmTA=new THREE.Vector3(),fmTB=new THREE.Vector3();
+var fmTA=new THREE.Vector3(),fmTB=new THREE.Vector3(),fmTC=new THREE.Vector3(),fmTD=new THREE.Vector3(),fmPC=new THREE.PerspectiveCamera(40,1,0.3,22000);
 function fmDir(s,back,ahead,out){fmAt(s-back,fmTA);fmAt(s+ahead,fmTB);out.set(fmTB.x-fmTA.x,0,fmTB.z-fmTA.z);if(out.lengthSq()<1e-6)out.set(0,0,1);return out.normalize()}
+/* Oberkante der Untertitel als Bildschirmkoordinate (-1 unten … 1 oben), etwas Luft für die Figur */
+function fmCapY(){var cap=document.getElementById('filmCap'),sr=stage.getBoundingClientRect(),cr=cap&&cap.getBoundingClientRect();
+  FILM.capY=(cr&&sr.height>0&&cr.height>0)?clamp(1-2*(cr.top-sr.top)/sr.height+0.08,-0.8,0.1):-0.6}
+/* Figur im Bild halten: verschwände sie hinter den Untertiteln oder am Rand (vor allem im Hochformat),
+   wird der Blickpunkt so wenig wie nötig zu ihr gezogen (Halbierungssuche, damit die Kamera ruhig bleibt) */
+function fmIn(des,look,W,f){fmTD.copy(look).lerp(W,f);fmPC.position.copy(des);fmPC.lookAt(fmTD);fmPC.updateMatrixWorld(true);
+  var p=fmTC.copy(W).project(fmPC);return p.z<1&&p.y>FILM.capY&&p.y<0.6&&Math.abs(p.x)<0.65}
+function fmKeep(des,look,W){fmPC.fov=camera.fov;fmPC.aspect=camera.aspect;fmPC.updateProjectionMatrix();if(fmIn(des,look,W,0))return;
+  var lo=0,hi=1;for(var k=0;k<7;k++){var m=(lo+hi)/2;if(fmIn(des,look,W,m))hi=m;else lo=m}look.lerp(W,hi)}
 /* gleichmässiges Gehen mit kurzem Anlaufen und Abbremsen */
 function fmEase(u,a){u=clamp(u,0,1);var v=1/(1-a);if(u<a)return v*u*u/(2*a);if(u>1-a)return 1-v*(1-u)*(1-u)/(2*a);return v*(u-a/2)}
 function fmSAt(t){if(t<=FMT.walk)return 0;if(t>=FMT.walkEnd)return fmL;return fmL*fmEase((t-FMT.walk)/(FMT.walkEnd-FMT.walk),0.05)}
@@ -1589,7 +1601,7 @@ function startFilm(){fmBuild();fmBuildUI();if(fly)stopFly();closeCard();setOpen&
   clear=false;FILM.on=true;FILM.t=0;FILM.paused=false;FILM.snap=true;FILM.chap=-1;FILM.sec=-1;FILM.lt=0;fmG.visible=true;fmUI.hidden=false;stage.classList.add('filming');
   var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','true');setPressed(null);fmPause(false);logPush('zeit','Film gestartet ('+Math.round(fmL)+' m Weg)');draw()}
 function stopFilm(keepView){if(!FILM.on)return;var ae=document.activeElement,lost=!ae||ae===document.body||fmUI.contains(ae);
-  FILM.on=false;U.uNearCut.value=0;fmG.visible=false;fmUI.hidden=true;stage.classList.remove('filming');
+  FILM.on=false;U.uNearCut.value=0;U.uFocusR.value=0;fmG.visible=false;fmUI.hidden=true;stage.classList.remove('filming');
   var fb=document.getElementById('filmBtn');if(fb)fb.setAttribute('aria-pressed','false');
   /* Tastaturfokus nicht im Leeren lassen: zurück auf den Film-Knopf */
   if(lost&&fb&&!keepView)fb.focus({preventScroll:true});
@@ -1609,17 +1621,22 @@ function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),
     /* im Dorf steil von oben (Dächer), an den Brücken seitlich, am Westufer über den Baumkronen */
     var wBr=sm01((s-(fmB.b1-30))/25)*(1-sm01((s-(fmB.b2+8))/30)),wApp=sm01((s-(fmL-260))/90),wV=1-sm01((s-(fmB.b1-45))/30);
     var bBack=12*wV+18*(1-wV),bUp=30,bSide=4;
-    var back=(bBack+(12-bBack)*wBr)*(1-wApp)+40*wApp,up=(bUp+(20-bUp)*wBr)*(1-wApp)+30*wApp,side=(bSide+(19-bSide)*wBr)*(1-wApp)+5*wApp;
-    var ea=w2b(1,0),no=NORTH,px=-D.z,pz=D.x,qx=ea[0]*(1-wBr)+no[0]*wBr,qz=ea[1]*(1-wBr)+no[1]*wBr,dp=px*qx+pz*qz;
-    des.set(W.x-D.x*back+px*dp*side,W.y+up,W.z-D.z*back+pz*dp*side);
+    /* zum Schluss weiter hinter der Figur und flacher: so passen Figur (unten) und Bau (oben) auch ins Querformat;
+       Laub auf der Sichtlinie wird ausgeblendet */
+    var back=(bBack+(12-bBack)*wBr)*(1-wApp)+62*wApp,up=(bUp+(20-bUp)*wBr)*(1-wApp)+28*wApp,side=(bSide+(19-bSide)*wBr)*(1-wApp)+8*wApp;
+    /* Kamerarichtung: sonst die Gehrichtung, auf den letzten Metern fest von Süden – so schwenkt sie beim Bogen zum Eingang nicht in den Wald */
+    var C=fmTB.set(D.x*(1-wApp)-0.15*wApp,0,D.z*(1-wApp)-wApp).normalize();
+    var ea=w2b(1,0),no=NORTH,px=-C.z,pz=C.x,qx=ea[0]*(1-wBr)+no[0]*wBr,qz=ea[1]*(1-wBr)+no[1]*wBr,dp=px*qx+pz*qz;
+    des.set(W.x-C.x*back+px*dp*side,W.y+up,W.z-C.z*back+pz*dp*side);
     /* Blickpunkt knapp hinter und unter der Figur: sie steht im oberen Bilddrittel, über den Untertiteln */
-    var dn=9*(1-wBr)+5*wBr;look.set(W.x+D.x*2,W.y+1.4-dn*(1-wApp),W.z+D.z*2);look.lerp(fmTA.set(0,6,0),wApp*0.55)}
+    var dn=9*(1-wBr)+5*wBr;look.set(W.x+D.x*2,W.y+1.4-dn*(1-wApp),W.z+D.z*2);look.lerp(fmTA.set(0,6,0),wApp*0.55);
+    if(FILM.capY==null)fmCapY();fmKeep(des,look,W)}
   else{/* Ankunft vor dem Eingang an der Nordseite */
     des.set(DOFF-7,hB(DOFF-7,-TOT/2-12)+2.4,-TOT/2-12);look.set(DOFF,2.1,-TOT/2)}
   var wg=b2w(des.x,des.z),gmin=hT(wg[0],wg[1])+2.5;if(des.y<gmin)des.y=gmin;
   if(FILM.snap||dt<=0){fmCam.copy(des);fmLook.copy(look);FILM.snap=false}
   else{var k1=1-Math.exp(-dt/0.55),k2=1-Math.exp(-dt/0.35);fmCam.lerp(des,k1);fmLook.lerp(look,k2)}
-  U.uNearCut.value=(t>=FMT.walk-1&&t<FMT.arrive)?9:0;
+  var fol=t>=FMT.walk-1&&t<FMT.arrive;U.uNearCut.value=fol?9:0;U.uFocus.value.set(W.x,W.y+1.2,W.z);U.uFocusR.value=fol?4.5:0;
   camera.position.copy(fmCam);camera.lookAt(fmLook);fmRibUpd();if(Math.abs(camera.near-0.3)>0.01){camera.near=0.3;camera.updateProjectionMatrix()}
   FILM.focus.copy(t<FMT.walk?fmTB.set(ost.x,ost.y,ost.z):W);
   /* Figur: erscheint an der Osteria, geht los, schaut am Ende zur Tür */
@@ -1641,7 +1658,7 @@ function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),
   if(ci!==FILM.chap){FILM.chap=ci;var c=fmCH[ci],cap=document.getElementById('filmCap');
     cap.innerHTML='<b>'+c.h+'</b><span>'+c.x+'</span>'+(c.end?'<span class="film-end"><button type="button" data-a="again">Nochmal</button><button type="button" data-a="walk">Rundgang starten</button><button type="button" data-a="close">Schließen</button></span>':'');
     cap.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var a=b.dataset.a;if(a==='again'){fmSeek(0);fmPause(false);document.getElementById('filmPlay').focus({preventScroll:true})}else if(a==='walk'){stopFilm(true);startWalk()}else stopFilm()})});
-    cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in')}
+    cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in');FILM.capY=null}
   document.getElementById('filmFill').style.width=(100*t/FMT.end)+'%';
   /* Position für Bildschirmleser, nur bei jeder vollen Sekunde neu */
   var sec=Math.round(t);if(sec!==FILM.sec){FILM.sec=sec;var trk=document.getElementById('filmTrack');trk.setAttribute('aria-valuenow',String(sec));trk.setAttribute('aria-valuetext',fmMS(sec)+' von '+fmMS(FMT.end)+', '+fmCH[ci].h)}}
@@ -1700,7 +1717,7 @@ function init(){
   });
 }
 /* nur mit #diag: Testzugriff für automatische Prüfungen */
-if(DIAG)window.__lcDbg={film:{start:startFilm,stop:stopFilm,seek:fmSeek,pause:fmPause,place:fmPlace,state:FILM,len:function(){return fmL},walker:function(){return fmW&&fmW.position},chapters:function(){return fmCH}},HS:HS,hsG:hsG,fp:fp,startWalk:startWalk,stopFly:stopFly,interact:interact,closeCard:closeCard,walkStep:walkStep,tags:function(){return tags.map(function(t,i){return {t:t.t,m:!!t.m,hidden:tagEls[i]?tagEls[i].hidden:null}})},dims:function(v){dims=v;dimBtn.setAttribute('aria-pressed',String(dims));draw()},render:function(){render(performance.now())}};
+if(DIAG)window.__lcDbg={film:{start:startFilm,stop:stopFilm,seek:fmSeek,pause:fmPause,place:fmPlace,state:FILM,len:function(){return fmL},walker:function(){return fmW&&fmW.position},chapters:function(){return fmCH}},camera:camera,HS:HS,hsG:hsG,fp:fp,startWalk:startWalk,stopFly:stopFly,interact:interact,closeCard:closeCard,walkStep:walkStep,tags:function(){return tags.map(function(t,i){return {t:t.t,m:!!t.m,hidden:tagEls[i]?tagEls[i].hidden:null}})},dims:function(v){dims=v;dimBtn.setAttribute('aria-pressed',String(dims));draw()},render:function(){render(performance.now())}};
 var lg=document.getElementById('legend');if(lg){try{if(window.innerHeight>=1000)lg.open=true}catch(e){}lg.addEventListener('toggle',function(){resize()})}
 if(window.ResizeObserver){try{new ResizeObserver(function(){resize()}).observe(stage)}catch(e){}}
 init();
