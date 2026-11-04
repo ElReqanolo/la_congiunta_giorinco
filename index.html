@@ -132,7 +132,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
   .light input[type=range]{order:3;flex:1 1 100%;width:100%;max-width:none;margin:0}
   #seasonS,#windS{order:4;flex:1 1 150px}
   #qualS{order:5;flex:1 1 220px}
-  .light label:not([for]){order:6;flex:1 1 100%}
+  .light label:not([for]){order:6;flex:1 1 40%}
   .light select{font-size:16px;padding:7px 8px}
 }
 @media (max-height:520px) and (min-width:560px){
@@ -176,6 +176,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <select id="seasonS" aria-label="Jahreszeit"><option value="sommer">Sommer</option><option value="aequi" selected>Frühling / Herbst</option><option value="winter">Winter</option></select>
     <select id="windS" aria-label="Wind"><option value="0">Wind: aus</option><option value="0.6">Wind: leicht</option><option value="1" selected>Wind: mäßig</option><option value="1.6">Wind: kräftig</option></select>
     <label title="Wolken ziehen mit dem Wind über das Tal und werfen Schatten"><input type="checkbox" id="cloudOn" checked> Wolken</label>
+    <label title="Der Ticino fließt: Schaum und Wellen ziehen flussabwärts"><input type="checkbox" id="waterOn" checked> Fluss</label>
     <label title="Sonnenlicht, das durch die Oberlichter in die Räume fällt; zu sehen in den Innenräumen"><input type="checkbox" id="beamsOn" checked> Lichtstrahlen (innen)</label>
     <select id="qualS" aria-label="Grafikqualität"><option value="auto">Qualität: automatisch</option><option value="ultra">Qualität: ultra</option><option value="hoch">Qualität: hoch</option><option value="mittel">Qualität: mittel</option><option value="niedrig">Qualität: niedrig</option></select>
   </div>
@@ -198,7 +199,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
 </div>
 <footer>
   <details id="legend"><summary>Bedienung und Legende</summary>
-  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit, Wind, Wolken und Qualität stehen dort unter „Licht &amp; Qualität“. „Wind“ lässt Bäume, Gras und Reben in Böen schwingen, die talaufwärts ziehen; „Wolken“ ziehen mit dem Wind und werfen Schatten aufs Tal und in die Räume (beides bleibt im Browser gespeichert; ohne Bedienung ruht der Wind nach zwei Minuten). „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
+  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit, Wind, Wolken und Qualität stehen dort unter „Licht &amp; Qualität“. „Wind“ lässt Bäume, Gras und Reben in Böen schwingen, die talaufwärts ziehen; „Wolken“ ziehen mit dem Wind und werfen Schatten aufs Tal und in die Räume; mit „Fluss“ strömt der Ticino, Schaum und Wellen ziehen flussabwärts (alles bleibt im Browser gespeichert; ohne Bedienung ruht die Bewegung nach zwei Minuten). „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
   <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7] (online lädt die Website für Dorf, Brücken und Weg feinere Kacheln mit etwa 0,2 m pro Pixel nach, ab mittlerer Qualität auch für die Umgebung), mit Feinstruktur je nach Bodenart; Häuser im Dorf entlang des Wegs (bis 200 m daneben) mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 [7], Wandfarben und Bruchsteinmauern nach Street View, Dachfarben aus dem Luftbild; übrige Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Wind und Wolken sind dargestellt, nicht gemessen: Richtung talaufwärts wie der Talwind an Sommertagen, Wolkenform erfunden. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
   <ul class="leg">
     <li><i style="background:#a29f96"></i><span><b>Länge ≈ 42,4 m außen</b>, Breite 5,0 m <span class="st">Länge am Orthofoto gemessen (±0,5 m) [7]; die Plan-Mittellängen 6,9 / 16,6 / 16,6 m [1] sind im selben Verhältnis gestreckt</span></span></li>
@@ -420,10 +421,26 @@ var NT_GLSL='#if __VERSION__ >= 300\nfloat ntH(vec2 p){return fract(sin(dot(p,ve
   'vec4 texNT(sampler2D s,vec2 uv,vec2 dm){float l=ntN(uv*0.45)*8.0;float ia=floor(l),f=fract(l);vec2 oa=sin(vec2(3.0,7.0)*ia)*dm,ob=sin(vec2(3.0,7.0)*(ia+1.0))*dm;\n'+
   'vec2 gx=dFdx(uv),gy=dFdy(uv);vec4 a=textureGrad(s,uv+oa,gx,gy),b=textureGrad(s,uv+ob,gx,gy);return mix(a,b,smoothstep(0.2,0.8,f-0.1*dot(a.rgb-b.rgb,vec3(1.0))));}\n'+
   '#else\nvec4 texNT(sampler2D s,vec2 uv,vec2 dm){return texture2D(s,uv);}\n#endif\n';
+/* Fluss: Wasserfläche über dem Flussbett (siehe buildRiver). aRv = (s Weg flussabwärts in m, q Abstand quer zur Achse in m,
+   Fließrichtung x/z lokal). Wasser = Maske aus dem Luftbild (±400 m) bzw. Breite um die Achse; Schaumstreifen und Wellen ziehen mit
+   rund 2,3 und 3 m/s flussabwärts (zwei Lagen des Wolkenrauschens, längs gestreckt), Abschnitte mit Stromschnellen schäumen stärker;
+   die Wellen kippen die Normale, so wandern Glanzlichter mit der Strömung. */
+var RIVER_HW=14.0;
+var WATER_DECL='varying vec4 vRv;\nvarying vec3 vW;\nvarying vec2 vFd;\nuniform sampler2D tWM;\nfloat wfo_=0.0;\nvec3 wdn_=vec3(0.0);\n'+
+  'float wN(vec2 u){return texture2D(tCl,u).r;}\n';
+var WATER_CODE='\n{float m_=max(abs(vW.x),abs(vW.z)),at_=abs(vRv.y);\n'+
+  'float nr_=texture2D(tWM,vec2(vW.x/800.4+0.5,0.5-vW.z/800.4)).r*step(m_,398.0);nr_=smoothstep(0.3,0.8,nr_)*(1.0-smoothstep('+(RIVER_HW-3).toFixed(1)+','+RIVER_HW.toFixed(1)+',at_));\n'+
+  'float wa_=mix(nr_,1.0-smoothstep(4.5,8.5,at_),smoothstep(330.0,396.0,m_));if(wa_<0.004)discard;\n'+
+  'float s_=vRv.x,q_=vRv.y,T_=uTime;vec2 u1_=vec2((s_-T_*2.3)/90.0,q_/16.0+0.23),u2_=vec2((s_-T_*3.0)/30.0+q_*0.021+0.37,q_/6.5+0.61);\n'+
+  'float f_=wN(u1_)*0.55+wN(u2_)*0.45,rp_=wN(vec2(s_/900.0+0.13,0.29));\n'+
+  'float th_=0.60-0.22*(rp_-0.5);wfo_=smoothstep(th_,th_+0.06,f_);\n'+
+  'float e_=0.6,hs_=(wN(u1_+vec2(e_/90.0,0.0))*0.55+wN(u2_+vec2(e_/30.0,0.0))*0.45-f_)/e_,hq_=(wN(u1_+vec2(0.0,e_/16.0))*0.55+wN(u2_+vec2(0.0,e_/6.5))*0.45-f_)/e_;\n'+
+  'vec2 g_=vFd*hs_+vec2(-vFd.y,vFd.x)*hq_;wdn_=vec3(-g_.x,0.0,-g_.y)*5.0;\n'+
+  'diffuseColor.rgb=mix(vec3(0.10,0.17,0.17),vec3(0.86,0.89,0.89),wfo_);diffuseColor.a=wa_*(0.34+0.56*wfo_);}\n';
 /* patch(): erweitert Standard-Materialien um Bergschatten, Wind, Innenraumlicht, Gelände usw. */
 function patch(mat,o){
   o=o||{};
-  var F=['terrain','wind','depth','interior','facade','weather','leaf','foliage','plexi','season','notile','notileu','lod','cut','gust'].filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==false});
+  var F=['terrain','wind','depth','interior','facade','weather','leaf','foliage','plexi','season','notile','notileu','lod','cut','gust','water'].filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==false});
   var key='lc2:'+F.join(',')+(o.lod?'/'+o.lod+(o.lodA?'a':''):'')+(o.gust?'/g'+o.gust:'');
   var MU={uWindP:{value:new THREE.Vector3().fromArray(o.wind||[0,0,0])},uLeafK:{value:+o.leaf||0},uSeasonK:{value:+o.season||0},uAlphaK:{value:1}};
   mat.userData.lcU=MU;mat.userData.lcF=F;
@@ -432,21 +449,25 @@ function patch(mat,o){
     for(var k in U)sh.uniforms[k]=U[k];
     for(var k3 in MU)sh.uniforms[k3]=MU[k3];
     if(o.terrain)for(var k2 in TU)sh.uniforms[k2]=TU[k2];
+    if(o.water)sh.uniforms.tWM=TU.tWM;
     var vs=sh.vertexShader,fs=sh.fragmentShader;
-    vs=rep(vs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uWindP;\n'+(o.wind||o.gust?WIND_DECL:'')+(o.gust?'varying float vGs;\n':'')+(o.terrain?'varying vec3 vW;\n':''));
+    vs=rep(vs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uWindP;\n'+(o.wind||o.gust?WIND_DECL:'')+(o.gust?'varying float vGs;\n':'')+(o.terrain?'varying vec3 vW;\n':'')+(o.water?'attribute vec4 aRv;\nvarying vec4 vRv;\nvarying vec3 vW;\nvarying vec2 vFd;\n':''));
     if(o.wind)vs=rep(vs,'#include <begin_vertex>','#include <begin_vertex>'+WIND_CODE);
-    vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':'')+(o.gust&&!o.depth?GUST_V:''));
+    vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':'')+(o.water?'vRv=aRv;vW=position;vFd=normalize((modelMatrix*vec4(aRv.z,0.0,aRv.w,0.0)).xz);\n':'')+(o.gust&&!o.depth?GUST_V:''));
     /* Detailstufen der Bäume: 1 = nah, 2 = mittel, 3 = fern; Abstand des Instanz-Ursprungs zur Kamera (uLodC), weich überblendet */
     if(o.lod){var fe_=o.lod===1?'1.0-smoothstep(uLodR.x-7.0,uLodR.x,ld_)':(o.lod===2?'smoothstep(uLodR.x-7.0,uLodR.x,ld_)*(1.0-smoothstep(uLodR.y-40.0,uLodR.y,ld_))':'smoothstep(uLodR.y-40.0,uLodR.y,ld_)');
       vs=rep(vs,'#include <common>','#include <common>\nuniform vec3 uLodC;\nuniform vec2 uLodR;\nvarying float vLodF;\n');
       vs=rep(vs,'#include <project_vertex>','#include <project_vertex>\n{vec4 lq_=vec4(0.0,0.0,0.0,1.0);\n#ifdef USE_INSTANCING\nlq_=instanceMatrix*lq_;\n#endif\nfloat ld_=distance((modelMatrix*lq_).xyz,uLodC);vLodF='+fe_+';if(vLodF<'+(o.lodA&&!o.depth?'0.004':'0.5')+')gl_Position=vec4(0.0,0.0,-2.0,1.0);}\n','lod')}
     if(o.depth){sh.vertexShader=vs;return}
-    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+WIND_DECL+(o.gust?'varying float vGs;\n':'')+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
+    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+WIND_DECL+(o.gust?'varying float vGs;\n':'')+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:'')+(o.water?WATER_DECL:''));
     var lb=THREE.ShaderChunk.lights_fragment_begin;
     lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*=terrSun(vWP)'+(o.interior?'*uAmber':'')+';','dir-light');
     fs=rep(fs,'#include <lights_fragment_begin>',lb);
     if(o.terrain){fs=rep(fs,'#include <map_fragment>',TERRAIN_MAP);fs=rep(fs,'#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(roughnessFactor,0.06,wet_);');
       fs=rep(fs,'#include <normal_fragment_maps>','#include <normal_fragment_maps>\nif(wet_>0.01){vec2 rp_=vW.xz;float t_=uTime;vec3 wn_=vec3(sin(rp_.x*1.7+t_*2.1)+sin(rp_.y*2.3-t_*1.7)*0.7,0.0,cos(rp_.y*1.9+t_*1.9)+sin(rp_.x*2.9+t_*2.6)*0.6)*0.06*wet_;normal=normalize(normal+(viewMatrix*vec4(wn_,0.0)).xyz);}');}
+    if(o.water){fs=rep(fs,'#include <color_fragment>','#include <color_fragment>'+WATER_CODE,'water');
+      fs=rep(fs,'#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(0.05,0.75,wfo_);');
+      fs=rep(fs,'#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=normalize(normal+(viewMatrix*vec4(wdn_*(1.0-wfo_*0.6),0.0)).xyz);');}
     if(o.facade){fs=rep(fs,'#include <map_fragment>','');fs=rep(fs,'#include <color_fragment>',FACADE_MAP);}
     /* Kachelmuster brechen: Textur in Zonen versetzt abtasten und weich mischen (Wände nur waagrecht, damit die Schalungsfugen bleiben) */
     if(o.notile||o.notileu){var nd_=o.notileu?'vec2(1.0,0.0)':'vec2(1.0)';fs=rep(fs,'#include <map_fragment>',THREE.ShaderChunk.map_fragment.replace('texture2D( map, vUv )','texNT( map, vUv, '+nd_+' )'));
@@ -646,7 +667,37 @@ function buildTerrain(){
   g.boundingSphere=new THREE.Sphere(new THREE.Vector3(0,0,0),13000);
   var m=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.94,metalness:0,envMapIntensity:0.9}),{terrain:1,gust:0.08});
   terrain=new THREE.Mesh(g,m);terrain.receiveShadow=true;terrain.castShadow=false;terrain.frustumCulled=false;env.add(terrain);
+  buildRiver();
 }
+/* Fluss: Band über dem Ticino entlang der Flussachse aus OpenStreetMap [8] (Punkte in Fließrichtung, also talabwärts), alle 3 m
+   abgetastet und geglättet, 2 × 14 m breit, auf der gezeichneten Geländefläche (hT) knapp darüber; der Nebenarm bei der Insel
+   läuft an beiden Enden schmal aus, damit sich die Flächen nicht doppeln. Wasser und Schaum zeichnet der Shader (WATER_CODE). */
+var river=null;
+function buildRiver(){try{
+  if(river){env.remove(river);river.geometry.dispose();river=null}
+  var L=(A.osm&&A.osm.river)||[];if(!L.length)return;
+  var pos=[],rv=[],idx=[],M=6,nv=0;
+  L.forEach(function(pl,li){
+    var p=[],i,k;for(i=0;i+1<pl.length;i+=2)p.push([pl[i],pl[i+1]]);if(p.length<2)return;
+    var cum=[0];for(i=1;i<p.length;i++)cum.push(cum[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));var tot=cum[cum.length-1];
+    var n=Math.max(2,Math.round(tot/3)),S=[],j=1;
+    for(k=0;k<=n;k++){var d=tot*k/n;while(j<p.length-1&&cum[j]<d)j++;var f=(d-cum[j-1])/Math.max(cum[j]-cum[j-1],1e-6);S.push([p[j-1][0]+(p[j][0]-p[j-1][0])*f,p[j-1][1]+(p[j][1]-p[j-1][1])*f])}
+    for(var it=0;it<4;it++){var T=S.map(function(q){return q.slice()});for(k=1;k<S.length-1;k++){S[k][0]=(T[k-1][0]+2*T[k][0]+T[k+1][0])/4;S[k][1]=(T[k-1][1]+2*T[k][1]+T[k+1][1])/4}}
+    var s=0,base=nv;
+    for(k=0;k<S.length;k++){if(k)s+=Math.hypot(S[k][0]-S[k-1][0],S[k][1]-S[k-1][1]);
+      var a=S[Math.max(0,k-1)],b=S[Math.min(S.length-1,k+1)],tx=b[0]-a[0],tz=b[1]-a[1],tl=Math.hypot(tx,tz)||1;tx/=tl;tz/=tl;
+      /* Nebenarm: an beiden Enden auf 25 m schmal auslaufen */
+      var hw=RIVER_HW*(li>0?Math.min(1,s/25,(tot-s)/25):1);hw=Math.max(hw,0.3);
+      for(var c=0;c<=M;c++){var q=(-1+2*c/M)*hw,x=S[k][0]-tz*q,z=S[k][1]+tx*q;pos.push(x,hT(x,z)+0.2,z);rv.push(s,q,tx,tz)}
+      nv+=M+1;
+      if(k)for(c=0;c<M;c++){var v0=base+(k-1)*(M+1)+c,v1=v0+1,v2=v0+M+1,v3=v2+1;idx.push(v0,v1,v2,v1,v3,v2)}}
+  });
+  if(!nv)return;
+  var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('aRv',new THREE.Float32BufferAttribute(rv,4));
+  g.setIndex(nv>65535?new THREE.Uint32BufferAttribute(idx,1):new THREE.Uint16BufferAttribute(idx,1));g.computeVertexNormals();g.computeBoundingSphere();
+  var m=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.1,metalness:0,envMapIntensity:1.0,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4}),{water:1});
+  river=new THREE.Mesh(g,m);river.receiveShadow=true;river.castShadow=false;river.renderOrder=1;env.add(river);
+  logPush('zeit','Fluss: '+nv+' Ecken')}catch(e){console.warn('[LC] Fluss',e)}}
 
 /* ---------- Gebäude: Maße ---------- */
 var W=5,TOT=42.4,LS=TOT/40.35,L=[7.025*LS,16.6*LS,16.725*LS],H=[5.3,3.5,6.6],LW=1.6,LH=1.4,LOFF=-1.6,DOFF=-0.4,T0=0.25,DW=0.75,DH=2.0,RT=0.3,EAV=0;
@@ -1115,13 +1166,16 @@ function bDist(bx,bz){var hx=W/2,hz=TOT/2,dx=Math.max(0,Math.abs(bx)-hx),dz=Math
 /* Wiese laut Luftbild: grünlich, nicht zu dunkel (Wald, Schatten) und nicht zu hell (Kies, Strasse) */
 function grassAt(M,x,z){var b=w2b(x,z),bx=b[0],bz=b[1];
   if(bDist(bx,bz)<0.15)return 0;if(Math.abs(bx-DOFF)<0.85&&bz<-21&&bz>-31.5)return 0;
-  var m=Math.max(Math.abs(x),Math.abs(z)),c;if(m<99)c=pixAt(M.o19,100.06,x,z);else if(M.o17&&m<399)c=pixAt(M.o17,400.2,x,z);else return 0;
+  var m=Math.max(Math.abs(x),Math.abs(z)),c;
+  /* kein Gras im Flussbett (Wassermaske aus dem Luftbild) */
+  if(M.water&&m<399&&maskAt(M.water,400.2,x,z)>0.25)return 0;
+  if(m<99)c=pixAt(M.o19,100.06,x,z);else if(M.o17&&m<399)c=pixAt(M.o17,400.2,x,z);else return 0;
   var lum=0.3*c[0]+0.59*c[1]+0.11*c[2],gm=m<99&&maskAt(M.grass,100.06,x,z)>0.5;
   if(!gm&&!(c[1]>c[0]*1.03&&c[1]>c[2]*1.07&&lum>0.13&&lum<0.72))return 0;
   var cn=m<99?maskAt(M.canN,100.06,x,z):maskAt(M.canM,400.2,x,z);return cn>0.5?0.25:1}
 function buildGrass(M){
   if(grassMesh){grassG.remove(grassMesh);grassMesh.geometry.dispose()}
-  var r=mb32(99);GR.M=M;if(!M.o17&&IM.o17)M.o17=imgData(IM.o17);
+  var r=mb32(99);GR.M=M;if(!M.o17&&IM.o17)M.o17=imgData(IM.o17);if(!M.water&&IM.water)M.water=imgData(IM.water);
   var gt=alphaTex(128,128,function(x,w,h){x.clearRect(0,0,w,h);for(var i=0;i<46;i++){var bx=6+r()*116,hh=50+r()*76,lean=(r()-0.5)*28,g=0.75+r()*0.5;x.strokeStyle='rgb('+Math.floor(Math.min(255,215*g))+','+Math.floor(Math.min(255,235*g))+','+Math.floor(Math.min(255,175*g))+')';x.lineWidth=1.5+r()*2;x.beginPath();x.moveTo(bx,h);x.quadraticCurveTo(bx+lean*0.3,h-hh*0.6,bx+lean,h-hh);x.stroke()}},[215,235,175]);
   var pos=[],nor=[],uv=[],idx=[];for(var k=0;k<3;k++){var a=k*Math.PI/3,c=Math.cos(a)*0.5,s=Math.sin(a)*0.5,v=k*4;pos.push(-c,0,-s,c,0,s,c,1,s,-c,1,-s);for(var q=0;q<4;q++)nor.push(0,1,0);uv.push(0,0,1,0,1,1,0,1);idx.push(v,v+1,v+2,v,v+2,v+3)}
   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);
@@ -1578,8 +1632,8 @@ function inside(p){return p.x>CX0-0.1&&p.x<W/2&&p.z>-TOT/2&&p.z<TOT/2&&p.y<6.9&&
 var lastAct=0,animT=0,slowWind=false,slowN=0,aAcc=0,aN=0,lastAnim=0,afterR=[];
 /* Wind und Wolken (Einstellung im Menü, gemerkt im Browser): Stärke 0 = aus; ohne Bedienung läuft der Wind 2 Minuten
    (Telefon 40 s) weiter, dann ruht die Grafikkarte */
-var windLvl=QP.wind?1:0,cloudsOn=qName!=='niedrig',IDLE=DEV.phone?40000:120000;
-(function(){var w=lsGet('lcWind'),c=lsGet('lcCloud');if(w!==''&&!isNaN(+w))windLvl=+w;if(c)cloudsOn=c==='1'})();
+var windLvl=QP.wind?1:0,cloudsOn=qName!=='niedrig',waterOn=!DEV.rm&&qName!=='niedrig',IDLE=DEV.phone?40000:120000;
+(function(){var w=lsGet('lcWind'),c=lsGet('lcCloud'),f=lsGet('lcWater');if(w!==''&&!isNaN(+w))windLvl=+w;if(c)cloudsOn=c==='1';if(f)waterOn=f==='1'})();
 function windApply(){U.uWind.value.x=windLvl;U.uCloud.value.x=cloudsOn?1:0;if(BMU.k0!==undefined)BMU.uK.value=BMU.k0*cloudB()}
 /* Wolkenmuster wie im Shader (cloudV, 4 Oktaven): Schatten am Bau, damit die Lichtstrahlen innen mit den Wolken kommen und gehen */
 function cloudB(){var c=U.uCloud.value;if(c.x<=0)return 1;var sb=U.uSunB.value,f=CLH/Math.max(sb.y,0.08),px=sb.x*f,pz=sb.z*f;
@@ -1624,7 +1678,8 @@ var nRend=0,glChk=0,fpsAcc=0,fpsN=0,fpsNow=0,fpsLast=0;
 function frame(t){requestAnimationFrame(frame);if(document.hidden)return;
   var dt=Math.min(0.05,(t-last)/1000);last=t;
   if(fly){if(walk)walkStep(dt);else flyStep(dt)}
-  var windOn=windLvl>0&&!slowWind&&!cardOpen&&(t-lastAct<IDLE);
+  /* Animation läuft für Wind oder fließendes Wasser (der Fluss strömt auch bei Windstille) */
+  var windOn=(windLvl>0||(waterOn&&!!river))&&!slowWind&&!cardOpen&&(t-lastAct<IDLE);
   var anim=windOn&&(t-lastR>38),fplay=FILM.on&&!FILM.paused;
   if(FILM.on){var fdt=FILM.lt?Math.min(0.1,(t-FILM.lt)/1000):0;FILM.lt=t;FILM.pdt=fdt;if(fplay)fmTick(fdt)}
   if(!needs&&!anim&&!fly&&!fplay)return;
@@ -1764,6 +1819,8 @@ var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'
 var windS=document.getElementById('windS'),cloudOn=document.getElementById('cloudOn');
 if(windS){var wo=[].map.call(windS.options||[],function(o){return +o.value}),wb=0;wo.forEach(function(v,i){if(Math.abs(v-windLvl)<Math.abs(wo[wb]-windLvl))wb=i});if(wo.length)windS.selectedIndex=wb;
   windS.addEventListener('change',function(){windLvl=+windS.value;slowWind=false;lsSet('lcWind',String(windLvl));windApply();draw()})}
+var waterCb=document.getElementById('waterOn');
+if(waterCb){waterCb.checked=waterOn;waterCb.addEventListener('change',function(){waterOn=waterCb.checked;slowWind=false;lsSet('lcWater',waterOn?'1':'0');draw()})}
 if(cloudOn){cloudOn.checked=cloudsOn;cloudOn.addEventListener('change',function(){cloudsOn=cloudOn.checked;lsSet('lcCloud',cloudsOn?'1':'0');windApply();draw()})}
 /* Qualität: „automatisch“ wählt nach Gerät und Grafikchip; eine feste Wahl wird im Browser gespeichert */
 function setQ(v){lsSet('lcQual',v==='auto'?'':v);if(v==='auto'||QS[v])lsSet('lcAutoCap','');
@@ -2120,7 +2177,7 @@ function init(){
     ];
     function run(i){if(i>=steps.length){status('Grafik wird vorbereitet …');applyHash();requestAnimationFrame(frame);reveal(0);
         window.__lcInfo=function(){var dbg=gl.getExtension('WEBGL_debug_renderer_info'),rn=dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),ri=renderer.info;
-          return 'WebGL '+(isGL2?2:1)+' · '+rn+'\nQualität '+qName+(qAuto?' (automatisch, '+(DEV.phone?'Telefon':DEV.tablet?'Tablet':'Rechner')+')':'')+' · Pixelverhältnis '+renderer.getPixelRatio().toFixed(2)+' · Nachbearbeitung '+(POST.on?'an, MSAA '+POST.samples:'aus')+'\nTextureinheiten '+gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS)+' · Schattenkarte '+QP.sh+' · Shaderprogramme '+(ri.programs?ri.programs.length:'?')+'\nZeichenaufrufe '+ri.render.calls+' · Dreiecke '+ri.render.triangles+' · Geometrien '+ri.memory.geometries+' · Texturen '+ri.memory.textures+'\nBildrate ≈ '+fpsNow.toFixed(0)+' Bilder/s · Wind '+(windLvl>0&&!slowWind?windLvl:'aus')+(cloudsOn?' · Wolken':'')+' · Shader-Compilerhinweise '+(window.__lcShaderHints||0)};
+          return 'WebGL '+(isGL2?2:1)+' · '+rn+'\nQualität '+qName+(qAuto?' (automatisch, '+(DEV.phone?'Telefon':DEV.tablet?'Tablet':'Rechner')+')':'')+' · Pixelverhältnis '+renderer.getPixelRatio().toFixed(2)+' · Nachbearbeitung '+(POST.on?'an, MSAA '+POST.samples:'aus')+'\nTextureinheiten '+gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS)+' · Schattenkarte '+QP.sh+' · Shaderprogramme '+(ri.programs?ri.programs.length:'?')+'\nZeichenaufrufe '+ri.render.calls+' · Dreiecke '+ri.render.triangles+' · Geometrien '+ri.memory.geometries+' · Texturen '+ri.memory.textures+'\nBildrate ≈ '+fpsNow.toFixed(0)+' Bilder/s · Wind '+(windLvl>0&&!slowWind?windLvl:'aus')+(cloudsOn?' · Wolken':'')+(waterOn&&river?' · Fluss fließt':'')+' · Shader-Compilerhinweise '+(window.__lcShaderHints||0)};
         diagPanel();return}
       status(steps[i][0]);setTimeout(function(){var ts=performance.now();try{steps[i][1]();logPush('zeit',steps[i][0].replace(/ …$/,'')+' '+(performance.now()-ts).toFixed(0)+' ms')}catch(e){console.error(e);status('Fehler beim Aufbau ('+steps[i][0]+'): '+e.message,1);return}run(i+1)},20)}
     run(0);
