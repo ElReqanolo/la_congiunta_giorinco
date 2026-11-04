@@ -505,6 +505,8 @@ var tsJob=0,nTS=0;
 function updateTS(sw){ // sw: Sonnenrichtung in W
   var job=++tsJob,hl=Math.hypot(sw.x,sw.z)||1e-6,el=Math.atan2(sw.y,hl),dx=sw.x/hl,dz=sw.z/hl;
   if(el<-0.06){for(var i=0;i<tsA.length;i+=4)tsA[i]=0;for(i=0;i<tsB.length;i+=4)tsB[i]=0;U.tTS1.value.needsUpdate=U.tTS2.value.needsUpdate=true;sunVisB=0;draw();return}
+  /* Sonne am Bau sofort bestimmen (ein Strahl), damit Licht und Anzeige nicht auf die Schattenkarten warten */
+  sunVisB=clamp((el-Math.atan(horizon(0,0,hRaw(0,0)+2.5,dx,dz)))/0.012+0.5,0,1);
   var step=0;
   function run(){if(job!==tsJob)return;var tc=performance.now();
     if(step<4){fillTS(tsA,TS1,1200,dx,dz,el,0.03,step*TS1/4,(step+1)*TS1/4)}else{var q=step-4;fillTS(tsB,TS2,9000,dx,dz,el,0.045,q*TS2/4,(q+1)*TS2/4)}
@@ -1668,6 +1670,8 @@ function render(t){
   var eo=envTags.map(function(tg,i){return i}).sort(function(a2,b2){return (envTags[b2].film===2?1:0)-(envTags[a2].film===2?1:0)});
   eo.forEach(function(i){var tg=envTags[i];v.copy(tg.p).project(camera);var el=envTagEls[i];var hide=v.z>1||Math.abs(v.x)>1.05||Math.abs(v.y)>1.05||(FILM.on?(!tg.film||FILM.t>=FMT.arrive-1):(r<130||fly||tg.film===2));
     if(!hide){var x=(v.x*0.5+0.5)*w,y=(-v.y*0.5+0.5)*h-12;if(el.hidden)el.hidden=false;if(!tg.bw){tg.bw=el.offsetWidth||90;tg.bh=el.offsetHeight||20}
+      /* am Bildrand ganz lesbar halten (schmale Bildschirme) */
+      if(tg.bw+8<w)x=Math.max(tg.bw/2+4,Math.min(w-tg.bw/2-4,x));
       var a0=x-tg.bw/2-3,a1=x+tg.bw/2+3,b0=y-tg.bh/2-2,b1=y+tg.bh/2+2;for(var q=0;q<placed.length;q++){var P=placed[q];if(a0<P[2]&&a1>P[0]&&b0<P[3]&&b1>P[1]){hide=true;break}}
       if(!hide){placed.push([a0,b0,a1,b1]);el.style.left=x+'px';el.style.top=y+'px'}}
     el.hidden=hide});
@@ -1806,6 +1810,8 @@ function applyHash(){var tk=(location.hash||'').replace('#','').toLowerCase().sp
   var cm_=tk.filter(function(t){return t.indexOf('cam:')===0})[0];if(cm_){var cv_=cm_.slice(4).split(',').map(function(q){return parseFloat(q.replace(/m/g,'-'))});if(cv_.length>=5&&cv_.every(isFinite)){if(!fly)flyBtn.click();fp.set(cv_[0],cv_[1],cv_[2]);fyaw=cv_[3];fpitch=cv_[4];draw()}}
   tk.forEach(function(t){if(t==='sommer'||t==='winter'||t==='aequi')seasonS.value=t;else if(/^t\d{4}$/.test(t))timeR.value=String(parseInt(t.slice(1,3),10)+parseInt(t.slice(3,5),10)/60);else if(VM[t])v=VM[t];else if(WALKP[t])v='w:'+t;else if(/^schild\d+$/.test(t)&&HS[parseInt(t.slice(6),10)-1])v='s:'+(parseInt(t.slice(6),10)-1)});
   applySun();
+  /* ein Anker zu einer Ansicht oder Stelle beendet einen laufenden Film (wie die Ansichtsknöpfe) */
+  if(v&&FILM.on&&tk.indexOf('film')<0)stopFilm(true);
   if(v&&v.indexOf('w:')===0){var p=WALKP[v.slice(2)];if(fly)stopFly();startWalk();var pz=v==='w:zelle'?cellZ(1)+p[1]:p[1];fp.set(p[0],1.65+hB(p[0],pz),pz);fyaw=p[2];fpitch=p[3];draw()}
   /* #schild3 usw.: im Rundgang direkt vor das Schild stellen */
   else if(v&&v.indexOf('s:')===0){var hs=HS[+v.slice(2)],d=hs.k==='wall'?1.25:1.35,sx=hs.x+Math.sin(hs.ry)*d,sz=hs.z+Math.cos(hs.ry)*d;if(fly)stopFly();startWalk();fp.set(sx,1.65+hB(sx,sz),sz);fyaw=hs.ry;fpitch=hs.k==='wall'?-0.06:-0.42;draw()}
@@ -1846,7 +1852,7 @@ function applySun(){
   if(sea!==seasonPrev){seasonPrev=sea;U.uSeason.value={sommer:0,aequi:0.12,winter:1}[sea];U.uSnow.value={sommer:3300,aequi:2350,winter:1050}[sea];
     /* Winter: Laubbäume lichter – über einen Uniform-Wert, damit kein Shader neu übersetzt werden muss */
     leafMats.forEach(function(m){var k=(sea==='winter'&&decidMat(m))?0.42/0.82:1;if(m.userData.lcU)m.userData.lcU.uAlphaK.value=k})}
-  afterSun();updateTS(svW);
+  updateTS(svW);afterSun();
 }
 function decidMat(m){return decidMeshes.some(function(d){return d.material===m})}
 function afterSun(){
