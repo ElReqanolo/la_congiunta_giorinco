@@ -175,7 +175,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <span id="timeV"></span>
     <select id="seasonS" aria-label="Jahreszeit"><option value="sommer">Sommer</option><option value="aequi" selected>Frühling / Herbst</option><option value="winter">Winter</option></select>
     <label title="Sonnenlicht, das durch die Oberlichter in die Räume fällt; zu sehen in den Innenräumen"><input type="checkbox" id="beamsOn" checked> Lichtstrahlen (innen)</label>
-    <select id="qualS" aria-label="Grafikqualität"><option value="auto">Qualität: automatisch</option><option value="hoch">Qualität: hoch</option><option value="mittel">Qualität: mittel</option><option value="niedrig">Qualität: niedrig</option></select>
+    <select id="qualS" aria-label="Grafikqualität"><option value="auto">Qualität: automatisch</option><option value="ultra">Qualität: ultra</option><option value="hoch">Qualität: hoch</option><option value="mittel">Qualität: mittel</option><option value="niedrig">Qualität: niedrig</option></select>
   </div>
 </header>
 <div id="stage" role="group" aria-label="Interaktives 3D-Modell: lang gestreckter Betonbau mit drei Räumen unterschiedlicher Höhe und Dachlaternen, im Gelände des Leventinatals">
@@ -197,7 +197,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
 <footer>
   <details id="legend"><summary>Bedienung und Legende</summary>
   <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit und Qualität stehen dort unter „Licht &amp; Qualität“. „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
-  <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7] (online lädt die Website für Dorf, Brücken und Weg feinere Kacheln mit etwa 0,2 m pro Pixel nach, bei hoher Qualität auch für die Umgebung), mit Feinstruktur je nach Bodenart; Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
+  <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7] (online lädt die Website für Dorf, Brücken und Weg feinere Kacheln mit etwa 0,2 m pro Pixel nach, ab mittlerer Qualität auch für die Umgebung), mit Feinstruktur je nach Bodenart; Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
   <ul class="leg">
     <li><i style="background:#a29f96"></i><span><b>Länge ≈ 42,4 m außen</b>, Breite 5,0 m <span class="st">Länge am Orthofoto gemessen (±0,5 m) [7]; die Plan-Mittellängen 6,9 / 16,6 / 16,6 m [1] sind im selben Verhältnis gestreckt</span></span></li>
     <li><i style="background:#a29f96"></i><span><b>Raumfolge:</b> Eingang an der nördlichen Stirnseite, drei miteinander verbundene Räume mit 5,30 m, 3,50 m und 6,60 m Höhe <span class="st">[1] Fußnote 10; [9]</span></span></li>
@@ -277,10 +277,12 @@ function vn(x,y,z){var xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),xf=x-x
 function fbm(x,y,z){return vn(x,y,z)*0.5+vn(x*2,y*2,z*2)*0.25+vn(x*4,y*4,z*4)*0.125}
 /* ---------- Qualitätsstufen ---------- */
 /* px = Pixelbudget in Megapixeln (bestimmt das Pixelverhältnis), prLo/prMax = Grenzen beim Start, prMin = Untergrenze der automatischen Anpassung */
-var QS={hoch:{px:3.2,prLo:1,prMax:2,prMin:0.75,sh:3072,ms:4,post:1,grid:400,tN:3.3,tM:5.8,tF:16,cards:40,midCards:12,grass:11000,bloom:1,wind:1,shR:48},
-  mittel:{px:2.1,prLo:1,prMax:2,prMin:0.7,sh:2048,ms:0,post:0,grid:320,tN:3.8,tM:7.2,tF:22,cards:30,midCards:10,grass:5500,bloom:0,wind:1,shR:44},
-  niedrig:{px:1.0,prLo:0.85,prMax:1.75,prMin:0.6,sh:1024,ms:0,post:0,grid:220,tN:5.0,tM:10,tF:32,cards:22,midCards:8,grass:1500,bloom:0,wind:0,shR:40}};
-var QL=['niedrig','mittel','hoch'];
+/* fx = Ausdehnung des Waldes um das Gebäude (m), tF = Abstand der fernen Bäume; ultra nur auf Wunsch (nie automatisch) */
+var QS={ultra:{px:5.0,prLo:1,prMax:2,prMin:0.85,sh:4096,ms:4,post:1,grid:480,tN:3.0,tM:5.2,tF:9,fx:1600,cards:46,midCards:12,grass:11000,bloom:1,wind:1,shR:80},
+  hoch:{px:3.2,prLo:1,prMax:2,prMin:0.75,sh:3072,ms:4,post:1,grid:400,tN:3.3,tM:5.8,tF:10,fx:1600,cards:40,midCards:12,grass:11000,bloom:1,wind:1,shR:64},
+  mittel:{px:2.1,prLo:1,prMax:2,prMin:0.7,sh:2048,ms:0,post:0,grid:320,tN:3.8,tM:7.2,tF:14,fx:1400,cards:30,midCards:10,grass:5500,bloom:0,wind:1,shR:56},
+  niedrig:{px:1.0,prLo:0.85,prMax:1.75,prMin:0.6,sh:1024,ms:0,post:0,grid:220,tN:5.0,tM:10,tF:20,fx:1200,cards:22,midCards:8,grass:1500,bloom:0,wind:0,shR:48}};
+var QL=['niedrig','mittel','hoch','ultra'];
 function lsGet(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
 function lsSet(k,v){try{if(v)localStorage.setItem(k,v);else localStorage.removeItem(k)}catch(e){}}
 /* Wahl der Qualität: Link-Anker (#hoch, #mittel, #niedrig, #auto) vor gespeicherter Wahl vor Automatik */
@@ -328,7 +330,7 @@ function autoQ(){var t=gpuTier(GPU),q;
 qName=qAuto?autoQ():qSel;
 QP=QS[qName];if(DEV.rm)QP.wind=0;
 logPush('zeit','Grafik: '+GPU+' · '+(DEV.phone?'Telefon':DEV.tablet?'Tablet':'Rechner')+(DEV.mem?' · '+DEV.mem+' GB':'')+(DEV.cores?' · '+DEV.cores+' Kerne':'')+' · Pixeldichte '+DEV.dpr+' → Qualität '+qName+(qAuto?' (automatisch)':''));
-try{renderer=new THREE.WebGLRenderer({antialias:qName!=='hoch',powerPreference:qName==='niedrig'?'default':'high-performance'})}catch(e){status('WebGL ist in diesem Browser nicht verfügbar.',1);return}
+try{renderer=new THREE.WebGLRenderer({antialias:!QP.post,powerPreference:qName==='niedrig'?'default':'high-performance'})}catch(e){status('WebGL ist in diesem Browser nicht verfügbar.',1);return}
 if(!GPU){try{var g0=renderer.getContext(),di0=g0.getExtension('WEBGL_debug_renderer_info');GPU=String(di0?g0.getParameter(di0.UNMASKED_RENDERER_WEBGL):g0.getParameter(g0.RENDERER)||'')}catch(e){}}
 /* Pixelverhältnis aus dem Pixelbudget: kleine Bildschirme mit hoher Pixeldichte bleiben scharf, grosse Monitore werden nicht überlastet */
 function prHi(){var w=stage.clientWidth||window.innerWidth||1000,h=stage.clientHeight||window.innerHeight||700,b=Math.sqrt(QP.px*1e6/(w*h));
@@ -344,7 +346,7 @@ renderer.domElement.addEventListener('webglcontextrestored',function(){logPush('
 var gl=renderer.getContext(),isGL2=renderer.capabilities.isWebGL2;
 var maxAniso=renderer.capabilities.getMaxAnisotropy();
 /* feine Luftbilder nachladen (hires.js): braucht WebGL 2, freie Textureinheiten und kein Datensparen; die Umgebung nur bei „hoch“ */
-var HRT=isGL2&&renderer.capabilities.maxTextures>=16&&!DEV.save,HRT2=HRT&&qName==='hoch';
+var HRT=isGL2&&renderer.capabilities.maxTextures>=16&&!DEV.save,HRT2=HRT&&qName!=='niedrig';
 var scene=new THREE.Scene();
 var camera=new THREE.PerspectiveCamera(40,1,0.3,22000);
 scene.fog=new THREE.FogExp2(0xb8c4cf,0.00009);
@@ -593,7 +595,7 @@ function buildTerrain(){
 }
 
 /* ---------- Gebäude: Maße ---------- */
-var W=5,TOT=42.4,LS=TOT/40.35,L=[7.025*LS,16.6*LS,16.725*LS],H=[5.3,3.5,6.6],LW=1.6,LH=1.4,LOFF=-1.6,DOFF=-0.4,T0=0.25,DW=0.75,DH=2.0,RT=0.3,EAV=0.25;
+var W=5,TOT=42.4,LS=TOT/40.35,L=[7.025*LS,16.6*LS,16.725*LS],H=[5.3,3.5,6.6],LW=1.6,LH=1.4,LOFF=-1.6,DOFF=-0.4,T0=0.25,DW=0.75,DH=2.0,RT=0.3,EAV=0;
 var Wi=W-2*T0,zS=[],zq=-TOT/2;L.forEach(function(l){zS.push(zq);zq+=l});
 function zA(i){return zS[i]+(i===0?T0:T0/2)}
 function zB(i){return zS[i]+L[i]-(i===2?T0:T0/2)}
@@ -609,6 +611,11 @@ WEATHER_CODE='{float ht_=(vWP.x<-2.5)?'+CHH.toFixed(2)+':((vWP.z<'+f6(zS[1])+')?
 var concs=[],clearMats=[],shells=[],lans=[],tags=[],SO=[],TREEC=[],skyl=[],plexis=[];
 /* alle Gebäudeteile liegen in einer Gruppe und werden am Ende pro Material zu wenigen Netzen zusammengeführt */
 var bldG=new THREE.Group(),bldExt=new THREE.Group(),bldInt=new THREE.Group();scene.add(bldG);
+function alignUV(m,tu,tv){var g=m.geometry,P=g.attributes.position,N=g.attributes.normal,UV=g.attributes.uv;if(!P||!N||!UV||!P.getX||!N.getX||!UV.setXY)return;
+  var ry=m.rotation.y||0,c=Math.cos(ry),s=Math.sin(ry),px=m.position.x,py=m.position.y,pz=m.position.z;
+  for(var i=0;i<P.count;i++){var x=P.getX(i),y=P.getY(i),z=P.getZ(i),wx=x*c+z*s+px,wy=y+py,wz=-x*s+z*c+pz,nx=N.getX(i),ny=N.getY(i),nz=N.getZ(i),wnx=nx*c+nz*s,wnz=-nx*s+nz*c;
+    if(Math.abs(ny)>0.7)UV.setXY(i,wx/tu,wz/tv);else if(Math.abs(wnx)>Math.abs(wnz))UV.setXY(i,(wnx>0?-wz:wz)/tu,wy/tv);else UV.setXY(i,(wnz>0?wx:-wx)/tu,wy/tv)}
+  UV.needsUpdate=true}
 function inward(g){var ix=g.index.array;for(var i=0;i<ix.length;i+=3){var t=ix[i+1];ix[i+1]=ix[i+2];ix[i+2]=t}var n=g.attributes.normal.array;for(i=0;i<n.length;i++)n[i]=-n[i];g.attributes.normal.needsUpdate=true;return g}
 function mergeGroup(G){G.updateMatrixWorld(true);var B={},order=[],nm=new THREE.Matrix3(),v=new THREE.Vector3(),u32=isGL2||!!renderer.extensions.get('OES_element_index_uint');
   G.traverse(function(o){if(!o.isMesh)return;var g=o.geometry,multi=Array.isArray(o.material),mats=multi?o.material:[o.material],pos=g.attributes.position,nor=g.attributes.normal,uv=g.attributes.uv,idx=g.index,cnt=idx?idx.count:pos.count;
@@ -662,11 +669,12 @@ function buildBuilding(T){
   function add(m){bldG.add(m);return m}
   var z=-TOT/2;
   L.forEach(function(l,i){
-    var cm=(i===1)?concB:conc,m=cbox(W,H[i],l,[cm,(i===2)?hid:cm,hid,cm,(i===2)?cm:hid,hid]);
-    m.position.set(0,H[i]/2,z+l/2);add(m);shells.push(m);
+    /* Aussenwände bis zur Dachfläche hochgezogen, alle Baukörper aus demselben Beton (die Dachplatte sitzt bündig zwischen den Wänden) */
+    var cm=conc,m=cbox(W,H[i]+RT,l,[cm,(i===2)?hid:cm,hid,cm,(i===2)?cm:hid,hid]);
+    m.position.set(0,(H[i]+RT)/2,z+l/2);add(m);shells.push(m);
     var zc0=z+l/2,lf0=(i===0)?EAV:0,lf1=(i===2)?EAV:0,z0=z-lf0,z1=z+l+lf1,xmin=-(W/2+EAV),xmax=W/2+EAV,ol=l-0.5;
     var oa=LOFF-LW/2,ob=LOFF+LW/2,zo0=zc0-ol/2,zo1=zc0+ol/2;
-    function strip(xa,xb,za,zb){var sp=cbox(xb-xa,RT,zb-za,[roofM,roofM,roofM,ceilM,roofM,roofM],1,1);sp.position.set((xa+xb)/2,H[i]+RT/2,(za+zb)/2);add(sp)}
+    function strip(xa,xb,za,zb){var sp=cbox(xb-xa,RT,zb-za,[hid,hid,roofM,ceilM,hid,hid],1,1);sp.position.set((xa+xb)/2,H[i]+RT/2,(za+zb)/2);add(sp)}
     strip(xmin,oa,z0,z1);strip(ob,xmax,z0,z1);strip(oa,ob,z0,zo0);strip(oa,ob,zo1,z1);
     /* Laterne: Blechwände außen, dunkle Innenseite, Plexiglas oben */
     var lan=cbox(LW+0.1,LH,l-0.35,[lanM,lanM,hid,hid,lanM,lanM],2.2,1.1);lan.position.set(LOFF,H[i]+RT+LH/2,zc0);add(lan);lans.push(lan);
@@ -683,7 +691,12 @@ function buildBuilding(T){
   var floor=new THREE.Mesh(fg,floorM);floor.rotation.x=-Math.PI/2;floor.position.y=0.03;add(floor);
   /* Zellentrakt an der Westseite von Raum 3 */
   var cw=-W/2-CX0,czm=(CZ0+TOT/2)/2,cl=TOT/2-CZ0;
-  var cb=cbox(cw,CHH,cl,[hid,concB,concTop,concB,concB,concB]);cb.position.set((CX0-W/2)/2,CHH/2,czm);add(cb);shells.push(cb);
+  var cb=cbox(cw,CHH,cl,[hid,conc,hid,conc,conc,conc]);cb.position.set((CX0-W/2)/2,CHH/2,czm);add(cb);shells.push(cb);
+  /* Dach des Zellentrakts mit den vier Öffnungen der Oberlichter (sonst fiele kein Sonnenlicht in die Zellen) */
+  var crs=new THREE.Shape();crs.moveTo(CX0,-TOT/2);crs.lineTo(-W/2,-TOT/2);crs.lineTo(-W/2,-CZ0);crs.lineTo(CX0,-CZ0);crs.lineTo(CX0,-TOT/2);
+  for(var ch3=0;ch3<4;ch3++){var cz3=cellZ(ch3),hp3=new THREE.Path();hp3.moveTo(SKX0,-(cz3+SKZ));hp3.lineTo(SKX1,-(cz3+SKZ));hp3.lineTo(SKX1,-(cz3-SKZ));hp3.lineTo(SKX0,-(cz3-SKZ));hp3.lineTo(SKX0,-(cz3+SKZ));crs.holes.push(hp3)}
+  var crg=new THREE.ShapeGeometry(crs),cru=crg.attributes.uv;for(var cu=0;cu<cru.count;cu++)cru.setXY(cu,cru.getX(cu)/2.3,cru.getY(cu)/2.3);crg.rotateX(-Math.PI/2);
+  var crf=new THREE.Mesh(crg,concTop);crf.position.y=CHH;add(crf);
   for(var ck=0;ck<4;ck++){
     var cz=cellZ(ck),iw=cw-T0,il=CP-T0;
     var ci=new THREE.Mesh(inward(new THREE.BoxGeometry(iw,CEIL_C,il)),[hid,intM,hid,hid,intM,intM]);
@@ -720,11 +733,11 @@ function buildBuilding(T){
   }
   function xp(w,h,base,x,zz,ry,mat){var m=new THREE.Mesh(wallGeo(w,h,[],Math.random(),2.3,2.3),mat||conc);m.position.set(x,base,zz);m.rotation.y=ry;add(m);shells.push(m)}
   for(var ck4=0;ck4<4;ck4++){var cz4=cellZ(ck4),il4=CP-T0;wall(il4,CEIL_C,[{x:il4/2-DW/2,w:DW,h:DH}],-W/2-0.002,cz4-il4/2,-Math.PI/2)}
-  xp(W,H[0]-(H[1]+RT),H[1]+RT,-W/2,zS[1],0);
-  xp(W,H[2]-(H[1]+RT),H[1]+RT,W/2,zS[2],Math.PI);
-  xp(CZ0-zS[2],H[2],0,-W/2,zS[2],-Math.PI/2);
-  xp(TOT/2-CZ0,H[2]-CHH,CHH,-W/2,CZ0,-Math.PI/2);
-  var ew=new THREE.Mesh(wallGeo(W,H[0],[{x:W/2-DOFF-DW/2,w:DW,h:DH}],Math.random(),2.3,2.3),conc);ew.position.set(W/2,0,-TOT/2);ew.rotation.y=Math.PI;add(ew);shells.push(ew);
+  xp(W,H[0]-H[1],H[1]+RT,-W/2,zS[1],0);
+  xp(W,H[2]-H[1],H[1]+RT,W/2,zS[2],Math.PI);
+  xp(CZ0-zS[2],H[2]+RT,0,-W/2,zS[2],-Math.PI/2);
+  xp(TOT/2-CZ0,H[2]+RT-CHH,CHH,-W/2,CZ0,-Math.PI/2);
+  var ew=new THREE.Mesh(wallGeo(W,H[0]+RT,[{x:W/2-DOFF-DW/2,w:DW,h:DH}],Math.random(),2.3,2.3),conc);ew.position.set(W/2,0,-TOT/2);ew.rotation.y=Math.PI;add(ew);shells.push(ew);
   rvl(DOFF,-TOT/2+T0/2,true);
   /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf niedrigen Betonsockeln (Form und Lage angenähert) */
   exMaterial();
@@ -732,7 +745,7 @@ function buildBuilding(T){
     if(sp.k==='fig'){m=new THREE.Mesh(figGeo(sp,tile),exM);gp.position.set(sp.x,sp.base,sp.z);
       var bs=cbox(0.66,sp.base,0.54,intM);bs.position.set(sp.x,sp.base/2,sp.z);bs.rotation.y=sp.ry;add(bs);sb(sp.x-0.4,sp.x+0.4,sp.z-0.4,sp.z+0.4)}
     else{m=new THREE.Mesh(relGeo(sp,tile),exM);gp.position.set(sp.x,sp.y,sp.z)}
-    gp.rotation.y=sp.ry;gp.add(m);m.castShadow=(sp.k==='fig'||qName==='hoch');m.receiveShadow=true;bldG.add(gp)});
+    gp.rotation.y=sp.ry;gp.add(m);m.castShadow=(sp.k==='fig'||qName==='hoch'||qName==='ultra');m.receiveShadow=true;bldG.add(gp)});
   /* Beschriftungen */
   tags.push({p:new THREE.Vector3(DOFF,3.4,-TOT/2-1.6),t:'Eingang (Nordseite)'});
   tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,9 × 3,6 m, 4,3 m hoch'});
@@ -744,6 +757,15 @@ function buildBuilding(T){
   var hd=new THREE.Mesh(new THREE.SphereGeometry(0.11,16,12),skin);hd.position.y=1.63;
   person.add(legs,torso,hd);person.position.set(2.2,0,-TOT/2-3);add(person);
   tags.push({m:1,p:new THREE.Vector3(2.2,2.25,-TOT/2-3),t:'Person 1,75 m (Maßstab)'});
+  /* Dachränder: schmale Blechabdeckung auf der Wandkrone, nur wo die Wand frei endet (nicht dort, wo ein höherer Raum anschliesst) */
+  var copM=std({color:0x55585a,roughness:0.5,metalness:0.55,envMapIntensity:0.9},{}),cw2=T0+0.05,ch2=0.05;
+  function cop(w,d,x,y,zz){var c=new THREE.Mesh(new THREE.BoxGeometry(w,ch2,d),copM);c.position.set(x,y+ch2/2,zz);add(c)}
+  for(var ci2=0;ci2<3;ci2++){var yt2=H[ci2]+RT,za2=zS[ci2],zb2=zS[ci2]+L[ci2];
+    cop(cw2,L[ci2],W/2-T0/2+0.025,yt2,(za2+zb2)/2);cop(cw2,L[ci2],-W/2+T0/2-0.025,yt2,(za2+zb2)/2);
+    if(ci2===0)cop(W+0.05,cw2,0,yt2,za2+T0/2-0.025);if(ci2===2)cop(W+0.05,cw2,0,yt2,zb2-T0/2+0.025);
+    if(ci2===0)cop(W,cw2,0,yt2,zb2-T0/2+0.025);if(ci2===2)cop(W,cw2,0,yt2,za2+T0/2-0.025)}
+  /* Schalungsbild an allen Aussenwänden nach Weltkoordinaten: die Bretterfugen laufen über Ecken und von Baukörper zu Baukörper durch */
+  shells.forEach(function(m){alignUV(m,2.3,2.3)});
   bldG.children.forEach(function(o){if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});
   plexis.forEach(function(p){p.castShadow=false});
   /* Wände und Dächer werfen mit Vorder- und Rückseite Schatten: so dick, dass an Wandfuss und Deckenrand kein Sonnenlicht durchsickert */
@@ -764,7 +786,7 @@ function buildBuilding(T){
    Josephsohn formte in Gips und liess in Messing giessen; die Oberflächen blieben grob bearbeitet [13].
    Prozedurale Höhenfelder liefern Geometrie, Patina und Feinstruktur; alle Werke teilen sich einen Texturatlas
    (ein Material, ein Shaderprogramm, nach dem Zusammenführen ein bis zwei Zeichenaufrufe). */
-var EXQ=({hoch:{t:256,rel:[56,70],fig:[64,72]},mittel:{t:256,rel:[38,48],fig:[48,56]},niedrig:{t:128,rel:[24,30],fig:[32,40]}})[qName];
+var EXQ=({ultra:{t:256,rel:[60,76],fig:[68,76]},hoch:{t:256,rel:[56,70],fig:[64,72]},mittel:{t:256,rel:[38,48],fig:[48,56]},niedrig:{t:128,rel:[24,30],fig:[32,40]}})[qName];
 var EXS=[],EXA=null,exM=null;
 (function(){
   var VN={};function R(k,w,h,d,s,x,y,z,ry){VN[k]=(VN[k]||0)+1;EXS.push({k:k,w:w,h:h,d:d,s:s,x:x,y:y,z:z,ry:ry,seed:101+EXS.length*37,v:VN[k]-1})}
@@ -951,14 +973,14 @@ function placeTrees(M){
   function typ(h){var el=h+BASE,pc=clamp((el-760)/650,0,1)*0.72+0.05;return r()<pc?1:0}
   grid(-98,98,QP.tN,0,function(x,z){if(maskAt(M.canN,100.06,x,z)>0.5){var h=hW(x,z);out.near.push([x,z,h,typ(h),r(),r()])}});
   grid(-398,398,QP.tM,98,function(x,z){if(maskAt(M.canM,400.2,x,z)>0.5){var h=hW(x,z);out.mid.push([x,z,h,typ(h),r(),r()])}});
-  grid(-1200,1200,QP.tF,398,function(x,z){if(maskAt(M.canF,1600.9,x,z)>0.5){var h=hW(x,z);out.far.push([x,z,h,typ(h),r(),r()])}});
+  grid(-QP.fx,QP.fx,QP.tF,398,function(x,z){if(maskAt(M.canF,1600.9,x,z)>0.5){var h=hW(x,z);out.far.push([x,z,h,typ(h),r(),r()])}});
   return out}
 var barkM=null;
 /* Bäume in Detailstufen nach der Entfernung zur Kamera (nicht mehr nach festen Zonen): nah ausführliche Kronen mit Stamm und Schatten,
    weiter weg einfache Kronen, ganz fern einfache Körper. Die Übergänge blenden im Shader weich über (uLodC = Kamera, uLodR = Grenzen).
    Jeder Baumpunkt aus dem Luftbild hat die Rasterweite seiner Zone; braucht eine Stufe mehr Bäume, werden in seiner Zelle weitere ergänzt
    (nur wo das Luftbild Wald zeigt), braucht sie weniger, fällt ein fester Teil weg. So bleibt die Dichte überall stimmig. */
-var TL={D1:({hoch:95,mittel:80,niedrig:60})[qName]||80,D2:({hoch:480,mittel:400,niedrig:300})[qName]||400,R:[],G:{},M:null,N:null,Md:null,cx:1e9,cz:1e9,mx:1e9,mz:1e9,last:0};
+var TL={D1:({ultra:180,hoch:130,mittel:110,niedrig:80})[qName]||110,D2:({ultra:900,hoch:700,mittel:560,niedrig:420})[qName]||560,R:[],G:{},M:null,N:null,Md:null,cx:1e9,cz:1e9,mx:1e9,mz:1e9,last:0};
 U.uLodC={value:new THREE.Vector3(0,1e5,0)};U.uLodR={value:new THREE.Vector2(TL.D1,TL.D2)};
 function treeCan(M,x,z){var m=Math.max(Math.abs(x),Math.abs(z));return m<99?maskAt(M.canN,100.06,x,z):(m<399?maskAt(M.canM,400.2,x,z):maskAt(M.canF,1600.9,x,z))}
 function treeEmit(lev,cx,cz,rad,fn){var S=[QP.tN,QP.tM,QP.tF][lev],R=TL.R,G=TL.G,M=TL.M,r2=rad*rad,g0x=Math.floor((cx-rad)/50),g1x=Math.floor((cx+rad)/50),g0z=Math.floor((cz-rad)/50),g1z=Math.floor((cz+rad)/50);
@@ -970,7 +992,7 @@ function treeEmit(lev,cx,cz,rad,fn){var S=[QP.tN,QP.tM,QP.tF][lev],R=TL.R,G=TL.G
         if(ex*ex+ez*ez>r2||treeCan(M,px,pz)<0.5)continue;var h=hW(px,pz),pc=clamp((h+BASE-760)/650,0,1)*0.72+0.05;
         fn(px,pz,h,grH(px,pz,5)<pc?1:0,grH(px,pz,3),grH(px,pz,4))}}}}
 /* Instanz direkt in die Puffer schreiben (Drehung um die Hochachse, Skalierung, Farbe) */
-function wI(m,x,y,z,sx,sy,sz,ry,col){var i=m._k;if(i>=m._cap)return;m._k++;var A=m.instanceMatrix.array,o=i*16,c=Math.cos(ry),s=Math.sin(ry);
+function wI(m,x,y,z,sx,sy,sz,ry,col){var i=m._k;if(i>=m._cap){m._ov=1;return}m._k++;var A=m.instanceMatrix.array,o=i*16,c=Math.cos(ry),s=Math.sin(ry);
   A[o]=sx*c;A[o+1]=0;A[o+2]=-sx*s;A[o+3]=0;A[o+4]=0;A[o+5]=sy;A[o+6]=0;A[o+7]=0;A[o+8]=sz*s;A[o+9]=0;A[o+10]=sz*c;A[o+11]=0;A[o+12]=x;A[o+13]=y;A[o+14]=z;A[o+15]=1;
   if(col&&m.instanceColor){var C=m.instanceColor.array;C[i*3]=col.r;C[i*3+1]=col.g;C[i*3+2]=col.b}}
 var tTint=new THREE.Color();
@@ -978,16 +1000,22 @@ function putTree(S,x,z,h,ty,r4,rs){var tint=tTint;
   if(ty){var H2=11+rs*13;tint.setHSL(0.30+rs*0.04,0.18+rs*0.12,0.72+rs*0.12);wI(S.c,x,h-0.3,z,H2*0.42,H2,H2*0.42,rs*6.28,tint);if(S.t)wI(S.t,x,h-0.2,z,0.45,H2*0.35,0.45,0)}
   else{var cr=2.0+rs*2.2,tH=2.2+r4*2.8,mI=S.d[Math.floor(r4*3)%3];tint.setHSL(0.17+rs*0.08,0.22+r4*0.2,0.74+rs*0.14);
     wI(mI,x,h+tH+cr*0.78,z,cr,cr*1.12,cr,rs*6.28,tint);if(S.t)wI(S.t,x,h-0.2,z,0.32+cr*0.09,tH+cr*0.6,0.32+cr*0.09,rs*6)}}
-function treeFill(S,lev,wx,wz,rad,skip){S.all.forEach(function(m){m._k=0});
-  if(!skip)treeEmit(lev,wx,wz,rad,function(x,z,h,ty,r4,rs){putTree(S,x,z,h,ty,r4,rs)});
+function treeFill(S,lev,wx,wz,rad,skip){for(var pass=0;pass<2;pass++){S.all.forEach(function(m){m._k=0;m._ov=0});
+    if(!skip)treeEmit(lev,wx,wz,rad,function(x,z,h,ty,r4,rs){putTree(S,x,z,h,ty,r4,rs)});
+    /* zu wenig Platz (dichter Wald im Blick): Puffer vergrössern und noch einmal füllen */
+    if(!S.all.some(function(m){return m._ov})||pass)break;treeGrow(S)}
   /* nur den belegten Teil der Puffer hochladen */
   S.all.forEach(function(m){m.count=m._k;var im=m.instanceMatrix,ic=m.instanceColor;if(im.updateRange){im.updateRange.offset=0;im.updateRange.count=m._k*16}im.needsUpdate=true;
     if(ic){if(ic.updateRange){ic.updateRange.offset=0;ic.updateRange.count=m._k*3}ic.needsUpdate=true}})}
+function treeGrow(S){var white=new THREE.Color(1,1,1);function g(m){if(!m._ov)return m;var cap=Math.ceil(m._cap*1.6),n=new THREE.InstancedMesh(m.geometry,m.material,cap);
+    n.frustumCulled=false;n._cap=cap;n.castShadow=m.castShadow;n.receiveShadow=m.receiveShadow;n.customDepthMaterial=m.customDepthMaterial;n.setColorAt(0,white);n.count=0;
+    var p=m.parent;if(p){p.add(n);p.remove(m)}if(m.dispose)m.dispose();var di=decidMeshes.indexOf(m);if(di>=0)decidMeshes[di]=n;return n}
+  S.d=S.d.map(g);S.c=g(S.c);if(S.t)S.t=g(S.t);S.all=S.d.concat([S.c],S.t?[S.t]:[])}
 /* je Bild: Kamera an die Shader; die Baumlisten nur neu, wenn sich die Kamera ein Stück bewegt hat */
 function treesUpd(force){if(!TL.N)return;var c=camera.position;U.uLodC.value.copy(c);var now=performance.now();if(!force&&now-TL.last<120)return;
   var w=b2w(c.x,c.z),ch=false;
   if(force||Math.hypot(w[0]-TL.cx,w[1]-TL.cz)>10){TL.cx=w[0];TL.cz=w[1];treeFill(TL.N,0,w[0],w[1],TL.D1+14,c.y-hB(c.x,c.z)>TL.D1+40);ch=true}
-  if(force||Math.hypot(w[0]-TL.mx,w[1]-TL.mz)>40){TL.mx=w[0];TL.mz=w[1];treeFill(TL.Md,1,w[0],w[1],TL.D2+60);ch=true}
+  if(force||Math.hypot(w[0]-TL.mx,w[1]-TL.mz)>50){TL.mx=w[0];TL.mz=w[1];treeFill(TL.Md,1,w[0],w[1],TL.D2+60);ch=true}
   if(ch){TL.last=now;draw()}}
 function buildTrees(M){
   [vegN,vegM,vegF].forEach(function(G){while(G.children.length){var c=G.children[0];G.remove(c);if(c.geometry)c.geometry.dispose()}});
@@ -1002,19 +1030,19 @@ function buildTrees(M){
   function mk(G,g,m,cap,shadow,dmap){var im=inst(g,m,cap,G);im._cap=cap;im.receiveShadow=true;if(shadow){im.castShadow=true;im.customDepthMaterial=depthMat(dmap||null,dmap?wind:null,1)}im.setColorAt(0,white);im.count=0;return im}
   function set(G,lod,cards,base,rad,S0,shadow,trunks){
     var sc=Math.min(1.25,Math.sqrt(base/cards)),crowns=[cardCrown(cards,7+base,sc),cardCrown(cards,8+base,sc),cardCrown(cards,9+base,sc)],conG=coniferCards(5);
-    var cap=Math.ceil(Math.PI*rad*rad/(S0*S0)*1.05)+200,dM=leafMat(lt,{season:0.65},lod),cM=leafMat(nt,{},lod);
+    var cap=Math.ceil(Math.PI*rad*rad/(S0*S0)*0.7)+300,dM=leafMat(lt,{season:0.65},lod),cM=leafMat(nt,{},lod);
     var S={d:crowns.map(function(g){var m=mk(G,g,dM,cap,shadow,lt);decidMeshes.push(m);return m}),c:mk(G,conG,cM,cap,shadow,nt),t:trunks?mk(G,trunkG,barkM,cap,shadow,null):null};
     S.all=S.d.concat([S.c],S.t?[S.t]:[]);return S}
   TL.N=set(vegN,1,QP.cards,46,TL.D1+14,QP.tN,true,true);TL.Md=set(vegM,2,QP.midCards,16,TL.D2+60,QP.tM,false,false);
   TREES.near.forEach(function(t){var b=w2b(t[0],t[1]);if(Math.abs(b[0])<70&&Math.abs(b[1])<90)TREEC.push([b[0],b[1],0.45])});
   /* ferne Bäume: einfache Kronen, einmal für das ganze Tal (nahe blendet der Shader sie aus) */
   var fdM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0.6,lod:3}),fcM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0,lod:3});
-  var fd=0,fc=0;treeEmit(2,0,0,2400,function(x,z,h,ty){if(ty)fc++;else fd++});
+  var fd=0,fc=0,FR=QP.fx*1.42,tf=QP.tF;treeEmit(2,0,0,FR,function(x,z,h,ty){if(ty)fc++;else fd++});
   var ico=new THREE.IcosahedronGeometry(1,0),con=new THREE.ConeGeometry(1,1,6).translate(0,0.5,0);
   var fI=mk(vegF,ico,fdM,fd+1,false),fC=mk(vegF,con,fcM,fc+1,false),tint=new THREE.Color();fI._k=0;fC._k=0;
-  treeEmit(2,0,0,2400,function(x,z,h,ty,r4,rs){
-    if(ty){var H3=13+rs*12;tint.setHSL(0.31+rs*0.03,0.35,0.11+rs*0.04);wI(fC,x,h-0.5,z,2.6+rs*1.6,H3,2.6+rs*1.6,0,tint)}
-    else{var c2=3.2+rs*2.6;tint.setHSL(0.21+rs*0.07,0.45,0.165+rs*0.06);wI(fI,x,h+c2*1.15,z,c2,c2*0.95,c2,rs*6,tint)}});
+  treeEmit(2,0,0,FR,function(x,z,h,ty,r4,rs){
+    if(ty){var H3=13+rs*12,cr3=tf*(0.27+rs*0.1);tint.setHSL(0.31+rs*0.03,0.35,0.11+rs*0.04);wI(fC,x,h-0.5,z,cr3,H3,cr3,0,tint)}
+    else{var c2=tf*(0.34+rs*0.16);tint.setHSL(0.21+rs*0.07,0.45,0.165+rs*0.06);wI(fI,x,h+c2*1.15,z,c2,c2*0.95,c2,rs*6,tint)}});
   [fI,fC].forEach(function(m){m.count=m._k;m.instanceMatrix.needsUpdate=true;if(m.instanceColor)m.instanceColor.needsUpdate=true});
   TL.cx=TL.mx=1e9;treesUpd(true);
 }
@@ -1023,7 +1051,7 @@ var grassMesh=null;
 /* Wiese: Grasbüschel überall dort, wo das Luftbild Wiese zeigt, in einem Umkreis um den Blickpunkt (Grösse je nach Qualität).
    Jede 1-m-Zelle hat feste, aus ihren Koordinaten abgeleitete Büschel; bewegt sich der Blickpunkt, wird nur neu verteilt,
    nichts springt. Zum Rand hin werden die Büschel kleiner, dort übernimmt die Feinstruktur des Bodens. */
-var GR={R:({hoch:44,mittel:32,niedrig:20})[qName]||32,den:({hoch:2.3,mittel:1.9,niedrig:1.5})[qName]||1.9,cx:1e9,cz:1e9,on:false,last:0,M:null,cap:0};
+var GR={R:({ultra:90,hoch:64,mittel:48,niedrig:30})[qName]||48,den:({ultra:2.5,hoch:2.3,mittel:1.9,niedrig:1.5})[qName]||1.9,cx:1e9,cz:1e9,on:false,last:0,M:null,cap:0};
 function grH(x,z,k){var h=Math.sin(x*127.1+z*311.7+k*74.7)*43758.5453;return h-Math.floor(h)}
 /* Abstand zum Baukörper (Hauptbau und Zellentrakt), 0 = innen */
 function bDist(bx,bz){var hx=W/2,hz=TOT/2,dx=Math.max(0,Math.abs(bx)-hx),dz=Math.max(0,Math.abs(bz)-hz),d=Math.hypot(dx,dz);
@@ -1050,11 +1078,11 @@ function grassUpd(force){if(!grassMesh||!GR.M)return;var now=performance.now();i
   /* Blickpunkt: Film = Figur, Flug/Rundgang = Kamera, sonst Drehpunkt; zu hoch oder zu weit weg: kein Gras */
   var f=grF,show=true;if(FILM.on)f.copy(FILM.focus);else if(fly){f.copy(fp);if(fp.y-hB(fp.x,fp.z)>GR.R*0.9)show=false}else{f.copy(tgt);if(r>230)show=false}
   if(!show){if(grassMesh.count){grassMesh.count=0;GR.cx=1e9;draw()}return}
-  var w=b2w(f.x,f.z);if(!force&&Math.hypot(w[0]-GR.cx,w[1]-GR.cz)<2.5)return;GR.last=now;GR.cx=w[0];GR.cz=w[1];
+  var w=b2w(f.x,f.z);if(!force&&Math.hypot(w[0]-GR.cx,w[1]-GR.cz)<Math.max(2.5,GR.R/18))return;GR.last=now;GR.cx=w[0];GR.cz=w[1];
   var M=GR.M,R=GR.R,R2=R*R,A=grassMesh.instanceMatrix.array,C=grassMesh.instanceColor.array,n=0,cap=GR.cap,x0=Math.floor(w[0]-R),x1=Math.ceil(w[0]+R),z0=Math.floor(w[1]-R),z1=Math.ceil(w[1]+R);
   for(var cz=z0;cz<=z1&&n<cap;cz++)for(var cx=x0;cx<=x1&&n<cap;cx++){var dx=cx+0.5-w[0],dz=cz+0.5-w[1],d2=dx*dx+dz*dz;if(d2>R2)continue;
     var gk=grassAt(M,cx+0.5,cz+0.5);if(!gk)continue;var nn=GR.den*gk,cnt=Math.floor(nn)+(grH(cx,cz,9)<nn-Math.floor(nn)?1:0);
-    for(var j=0;j<cnt&&n<cap;j++){var px=cx+grH(cx,cz,j*3+1),pz=cz+grH(cx,cz,j*3+2),dd=Math.sqrt((px-w[0])*(px-w[0])+(pz-w[1])*(pz-w[1])),fe=clamp((R-dd)/7,0,1);if(fe<=0.02)continue;
+    for(var j=0;j<cnt&&n<cap;j++){var px=cx+grH(cx,cz,j*3+1),pz=cz+grH(cx,cz,j*3+2),dd=Math.sqrt((px-w[0])*(px-w[0])+(pz-w[1])*(pz-w[1])),fe=clamp((R-dd)/Math.max(7,R*0.14),0,1);if(fe<=0.02)continue;
       if(gk<1&&!grassAt(M,px,pz))continue;var bb=w2b(px,pz),bd=bDist(bb[0],bb[1]);if(bd<0.12||(Math.abs(bb[0]-DOFF)<0.85&&bb[1]<-21&&bb[1]>-31.5))continue;
       var h3=grH(cx,cz,j*3+3),sc=Math.min((0.55+h3*0.7)*fe,2*bd+0.2),sy=(0.2+grH(px,pz,5)*0.3)*fe,ry=h3*40,co=Math.cos(ry),si=Math.sin(ry),y=hW(px,pz)-0.02,o=n*16;
       A[o]=sc*co;A[o+1]=0;A[o+2]=-sc*si;A[o+3]=0;A[o+4]=0;A[o+5]=sy;A[o+6]=0;A[o+7]=0;A[o+8]=sc*si;A[o+9]=0;A[o+10]=sc*co;A[o+11]=0;A[o+12]=px;A[o+13]=y;A[o+14]=pz;A[o+15]=1;
@@ -1376,27 +1404,39 @@ function buildHS(){
     back.receiveShadow=board.receiveShadow=true;g.rotation.y=h.ry;board.userData.si=i;signBoards.push(board);
     g.visible=false;scene.add(g);hsG.push({g:g,board:board,done:false})})}
 /* ---------- Lichtstrahlen aus den Laternen ---------- */
-var BM=[],BK=0.085,BMU={uK:{value:0},uD:{value:new THREE.Vector2()},uCol:{value:new THREE.Color(1.0,0.80,0.56)}};
-/* Lichtschacht als weiches Volumen vom Oberlicht bis zum Boden: Flächen, die man streifend sieht, leuchten stärker (wie Staub im Licht).
-   Die Stahlträger unter dem Oberlicht schneiden Streifen heraus (wie die Lichtflecken am Boden); was ausserhalb des Raums läge, wird weggeschnitten. */
-function buildBeams(){
-  for(var bi=0;bi<3;bi++){var ol=L[bi]-0.5,nb=Math.floor(ol/1.2);
-    var mt=new THREE.ShaderMaterial({uniforms:{uK:BMU.uK,uCol:BMU.uCol,uD:BMU.uD,uH:{value:H[bi]},uBox:{value:new THREE.Vector4(-Wi/2,Wi/2,zA(bi),zB(bi))},uZ0:{value:zS[bi]+L[bi]/2-ol/2},uP:{value:ol/nb}},
+var BM=[],BK=0.085,SHF=[],BMU={uK:{value:0},uD:{value:new THREE.Vector2()},uCol:{value:new THREE.Color(1.0,0.80,0.56)}};
+/* Lichtschächte unter den drei Laternen und den vier Oberlichtern der Zellen: ein weiches Volumen vom Glas bis zum Boden.
+   Im Shader zählt nur, was die Sonne wirklich erreicht: der Strahl muss durch Glas und Deckenöffnung passen (sonst verdeckt der Schacht),
+   der Punkt muss im Raum liegen; die Stahlträger unter den Laternen schneiden Streifen heraus. Flächen, die man streifend sieht, leuchten stärker. */
+function buildBeams(){SHF.length=0;
+  for(var i=0;i<3;i++){var ol=L[i]-0.5,zc=zS[i]+L[i]/2,nb=Math.floor(ol/1.2);SHF.push({r:[LOFF-LW/2,LOFF+LW/2,zc-ol/2,zc+ol/2],yc:H[i],yt:H[i]+RT+LH,box:[-Wi/2,Wi/2,zA(i),zB(i)],z0:zc-ol/2,p:ol/nb})}
+  for(var k=0;k<4;k++){var cz=cellZ(k),il=CP-T0;SHF.push({r:[SKX0,SKX1,cz-SKZ,cz+SKZ],yc:CEIL_C,yt:CHH+0.5,box:[CX0+T0,-W/2,cz-il/2,cz+il/2],z0:0,p:0})}
+  SHF.forEach(function(sh){
+    var mt=new THREE.ShaderMaterial({uniforms:{uK:BMU.uK,uCol:BMU.uCol,uD:BMU.uD,uF:{value:1},uR:{value:new THREE.Vector4(sh.r[0],sh.r[1],sh.r[2],sh.r[3])},uB:{value:new THREE.Vector4(sh.box[0],sh.box[1],sh.box[2],sh.box[3])},uY:{value:new THREE.Vector2(sh.yc,sh.yt)},uZ0:{value:sh.z0},uP:{value:sh.p}},
       transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,extensions:{derivatives:true},
       vertexShader:'varying vec3 vP;void main(){vec4 w=modelMatrix*vec4(position,1.0);vP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
-      fragmentShader:'uniform float uK,uH,uZ0,uP;uniform vec3 uCol;uniform vec2 uD;uniform vec4 uBox;varying vec3 vP;void main(){if(vP.x<uBox.x||vP.x>uBox.y||vP.z<uBox.z||vP.z>uBox.w||vP.y<0.02)discard;'+
-        'float dr=uH-vP.y,zt=vP.z-uD.y*dr+uD.y*0.14,hw=0.07+0.14*abs(uD.y),s=abs(fract((zt-uZ0)/uP)-0.5)*uP;float m=smoothstep(hw,hw+0.05+0.012*dr,s);'+
-        'vec3 n=normalize(cross(dFdx(vP),dFdy(vP)));vec3 v=normalize(cameraPosition-vP);float g=1.0-abs(dot(n,v));float h=clamp(vP.y/uH,0.0,1.0);'+
-        'float a=uK*m*(0.3+0.7*pow(g,1.3))*mix(0.45,1.0,h)*smoothstep(0.0,0.5,vP.y);gl_FragColor=vec4(uCol,a);}'});
+      fragmentShader:'uniform float uK,uF,uZ0,uP;uniform vec3 uCol;uniform vec2 uD,uY;uniform vec4 uR,uB;varying vec3 vP;'+
+        'bool inR(vec2 q){return q.x>uR.x-0.01&&q.x<uR.y+0.01&&q.y>uR.z-0.01&&q.y<uR.w+0.01;}'+
+        'void main(){bool rm=vP.y<=uY.x&&vP.y>0.02&&vP.x>uB.x&&vP.x<uB.y&&vP.z>uB.z&&vP.z<uB.w;bool sh=vP.y>uY.x&&vP.y<uY.y&&inR(vP.xz);if(!(rm||sh))discard;'+
+        'vec2 qc=vP.xz-uD*max(uY.x-vP.y,0.0),qt=vP.xz-uD*(uY.y-vP.y);if(!inR(qc)||!inR(qt))discard;'+
+        'float m=1.0;if(uP>0.0&&rm){float zt=qc.y+uD.y*0.14,hw=0.07+0.14*abs(uD.y),s=abs(fract((zt-uZ0)/uP)-0.5)*uP;m=smoothstep(hw,hw+0.05+0.012*(uY.x-vP.y),s);}'+
+        'vec3 n=normalize(cross(dFdx(vP),dFdy(vP)));vec3 v=normalize(cameraPosition-vP);float g=1.0-abs(dot(n,v));float h=clamp(vP.y/uY.x,0.0,1.0);'+
+        'float a=uK*uF*m*(0.3+0.7*pow(g,1.3))*mix(0.45,1.0,h)*smoothstep(0.0,0.5,vP.y);gl_FragColor=vec4(uCol,a);}'});
     var bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.BufferAttribute(new Float32Array(24),3));
     bg.setIndex([0,1,5,0,5,4,1,2,6,1,6,5,2,3,7,2,7,6,3,0,4,3,4,7]);
-    var bmm=new THREE.Mesh(bg,mt);bmm.frustumCulled=false;bmm.renderOrder=5;scene.add(bmm);BM.push(bmm)}}
+    var bmm=new THREE.Mesh(bg,mt);bmm.frustumCulled=false;bmm.renderOrder=5;scene.add(bmm);BM.push(bmm)})}
+/* Verschattung der Oberlichter durch höhere Nachbarbauten (z. B. Raum 3 über den Zellen am Morgen): Anteil freier Strahlen auf dem Glas */
+function shRay(o,d,b){var t0=0,t1=1e9;for(var a=0;a<3;a++){var lo=b[a*2],hi=b[a*2+1];if(Math.abs(d[a])<1e-6){if(o[a]<lo||o[a]>hi)return false;continue}
+    var ta=(lo-o[a])/d[a],tb=(hi-o[a])/d[a];if(ta>tb){var q=ta;ta=tb;tb=q}t0=Math.max(t0,ta);t1=Math.min(t1,tb);if(t0>t1)return false}return t1>0.02}
 function beamsUpdate(svB,k){
   BMU.uK.value=(0.3+0.5*Math.min(1,svB.y*1.5))*k*BK;
   var dx=-svB.x/Math.max(svB.y,0.04),dz=-svB.z/Math.max(svB.y,0.04);BMU.uD.value.set(dx,dz);
-  BM.forEach(function(bm,i){var on=beamsOn.checked&&svB.y>0.04&&k>0.02;bm.visible=on;if(!on)return;
-    var zc0=zS[i]+L[i]/2,ol=L[i]-0.5,y=H[i],xa=Math.max(LOFF-LW/2,-Wi/2),xb=LOFF+LW/2;
-    var cs=[[xa,zc0-ol/2],[xb,zc0-ol/2],[xb,zc0+ol/2],[xa,zc0+ol/2]],P=bm.geometry.attributes.position,q=0;
+  var occ=[];for(var j=0;j<3;j++){var zc=zS[j]+L[j]/2;occ.push([-W/2,W/2,0,H[j]+RT,zS[j],zS[j]+L[j]],[LOFF-LW/2-0.05,LOFF+LW/2+0.05,0,H[j]+RT+LH,zc-(L[j]-0.35)/2,zc+(L[j]-0.35)/2])}
+  occ.push([CX0,-W/2,0,CHH,CZ0,TOT/2]);var sd=[svB.x,svB.y,svB.z];
+  BM.forEach(function(bm,i){var on=beamsOn.checked&&svB.y>0.04&&k>0.02;bm.visible=on;if(!on)return;var sh=SHF[i],r=sh.r,y=sh.yt;
+    var free=0,nS=0;for(var a=0;a<3;a++)for(var b=0;b<3;b++){var o=[r[0]+(r[1]-r[0])*(a+0.5)/3,y+0.02,r[2]+(r[3]-r[2])*(b+0.5)/3];nS++;if(!occ.some(function(B){return shRay(o,sd,B)}))free++}
+    bm.material.uniforms.uF.value=free/nS;if(!free){bm.visible=false;return}
+    var cs=[[r[0],r[2]],[r[1],r[2]],[r[1],r[3]],[r[0],r[3]]],P=bm.geometry.attributes.position,q=0;
     cs.forEach(function(c){P.setXYZ(q,c[0],y,c[1]);q++});
     cs.forEach(function(c){P.setXYZ(q,c[0]+dx*y,0,c[1]+dz*y);q++});
     P.needsUpdate=true});
@@ -1427,7 +1467,7 @@ function place(){
 }
 var fsC=new THREE.Vector3();
 /* Schattenbereich: im Flug vor der Kamera und je nach Flughöhe grösser (sonst fehlen weiter vorn die Schatten), im Gebäude klein und scharf */
-function fitShadow(){var c,R;if(FILM.on){c=FILM.focus;R=70}else if(fly){if(walk||inside(fp)){c=fp;R=walk?30:26}else{var hg=Math.max(0,fp.y-hB(fp.x,fp.z));R=clamp(38+hg*1.1,38,150);var cp=Math.cos(fpitch);fsC.set(fp.x-Math.sin(fyaw)*R*0.55*cp,0,fp.z-Math.cos(fyaw)*R*0.55*cp);c=fsC}}else{c=tgt;R=QP.shR*(r>160?1.7:1)}
+function fitShadow(){var c,R;if(FILM.on){c=FILM.focus;R=QP.shR*1.2}else if(fly){if(walk||inside(fp)){c=fp;R=walk?30:26}else{var hg=Math.max(0,fp.y-hB(fp.x,fp.z)),R0=QP.shR*0.75;R=clamp(R0+hg*1.1,R0,QP.shR*2.6);var cp=Math.cos(fpitch);fsC.set(fp.x-Math.sin(fyaw)*R*0.55*cp,0,fp.z-Math.cos(fyaw)*R*0.55*cp);c=fsC}}else{c=tgt;R=QP.shR*(r>160?1.7:1)}
   R=Math.round(R/4)*4;var sc=sun.shadow.camera,tx=Math.round(c.x/2)*2,tz=Math.round(c.z/2)*2;
   sun.target.position.set(tx,0,tz);sun.position.set(tx+svB.x*320,svB.y*320,tz+svB.z*320);sun.target.updateMatrixWorld();
   if(sc.right!==R){sc.left=-R;sc.right=R;sc.top=R;sc.bottom=-R;sc.near=20;sc.far=700;sc.updateProjectionMatrix()}}
@@ -1852,12 +1892,12 @@ function fmMS(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
    Die eingebetteten Luftbilder haben um das Gebäude 0,2 m, weiter weg 0,8 bis 3 m pro Pixel. Nach dem Start lädt die Seite
    deshalb vom Kacheldienst wmts.geo.admin.ch nach und blendet weich ein:
    – „Weg“: Dorf, Brücken und Westufer bis zum Gebäude, Zoomstufe 19 (≈ 0,21 m pro Pixel; auf schwachen Geräten Stufe 18),
-   – „Umgebung“ (nur Qualität hoch): ±410 m um das Gebäude, Zoomstufe 18 (≈ 0,41 m pro Pixel).
+   – „Umgebung“: um das Gebäude ±600 m (mittel: Zoomstufe 17, ≈ 0,82 m pro Pixel; hoch: Stufe 18, ≈ 0,41 m), bei ultra ±800 m in Stufe 18.
    Ohne Netz oder ohne Zugriff (z. B. in der Vorschau im Chat) bleibt es bei den eingebetteten Bildern.
    Welt: x Ost, z Süd, Meter um die Gebäudemitte (46.4056231 N, 8.8704691 E). */
 var HR={st:0,regs:[],log:[]};
 function hrStart(){if(!HRT||HR.st||!/^https?:$/.test(location.protocol))return;HR.st=1;
-  var L=[{k:'Rt',z:qName==='niedrig'?18:19,box:[-50,490,80,430]}];if(HRT2)L.push({k:'R2',z:18,box:[-410,410,-410,410]});
+  var L=[{k:'Rt',z:qName==='niedrig'?18:19,box:[-50,490,80,430]}];if(HRT2){var e2=qName==='ultra'?800:600;L.push({k:'R2',z:qName==='mittel'?17:18,box:[-e2,e2,-e2,e2]})}
   var i=0;(function next(){if(i<L.length&&HR.st===1)hrLoad(L[i++],next);else HR.st=2})()}
 function hrLoad(R,done){
   var z=R.z,lat=46.4056231*Math.PI/180,n=256*Math.pow(2,z),s=Math.sin(lat),

@@ -25,7 +25,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen.
 
-**Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
+**Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Die Stufe „ultra“ (noch weitere Sicht für Gras und ausführliche Bäume, dichterer Wald, grössere Schatten- und Luftbildbereiche) wählt die Automatik nie; sie ist für schnelle Grafikkarten gedacht und lässt sich von Hand einstellen. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
 
 **Ansichten per Link:** An die Adresse lässt sich ein Anker hängen, zum Beispiel
 
@@ -35,7 +35,7 @@ Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; 
 - `#film` – Film starten, `#film-s40` ab Sekunde 40
 - `#tal`, `#aussen`, `#innen`, `#drauf`
 - `#schild4` – direkt vor Infoschild 4
-- `#hoch`, `#mittel`, `#niedrig`, `#auto` – Grafikqualität
+- `#ultra`, `#hoch`, `#mittel`, `#niedrig`, `#auto` – Grafikqualität
 - `#diag` – technische Angaben (Grafikchip, Bildrate, Ladezeiten)
 
 ## Als Website veröffentlichen (GitHub Pages)
@@ -62,7 +62,8 @@ Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub P
 
 - Eine Datei ohne Build-Schritt: Höhenmodelle, Luftbilder und Texturen sind in `index.html` eingebettet (rund 1,9 MB).
 - 3D mit [three.js](https://threejs.org) r128; die Bibliothek wird beim Start von `cdn.jsdelivr.net` geladen. Dafür ist eine Internetverbindung nötig, und jsDelivr sieht dabei die IP-Adresse der Besucher. Wer das vermeiden will, legt die neun Dateien, die am Ende von `index.html` aufgeführt sind (`build/three.min.js` und acht Dateien aus `examples/js/`), in denselben Ordnerstrukturen ins Repository und ersetzt dort die Adresse `https://cdn.jsdelivr.net/npm/three@0.128.0/` durch `./three/`.
-- Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (bei hoher Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,2 m pro Pixel statt bisher 0,8 bis 3 m. Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den eingebetteten Luftbildern.
+- Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (ab mittlerer Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,2 m pro Pixel statt bisher 0,8 bis 3 m (Umgebung bei „mittel“ und „hoch“ ±600 m, bei „ultra“ ±800 m um das Gebäude). Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den eingebetteten Luftbildern.
+- Gras, Bäume und Schatten werden um den Blickpunkt in Detailstufen geladen; die Reichweite hängt von der Grafikqualität ab.
 - Keine Cookies, kein Tracking, keine Formulare.
 - Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
 
