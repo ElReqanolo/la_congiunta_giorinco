@@ -8,7 +8,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 - Gebäude nach den Plänen und Schnitten bei Pireddu (2025), Länge und Lage am Luftbild von swisstopo nachgemessen
 - Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
-- Gelände aus den Höhenmodellen und Luftbildern von swisstopo, Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
+- Gelände aus den Höhenmodellen und Luftbildern von swisstopo; Dorf entlang des Wegs mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 (Wandfarben nach Street View, Dachfarben aus dem Luftbild); übrige Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
 - Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
 - Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
@@ -60,9 +60,10 @@ Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub P
 
 ## Technik
 
-- Eine Datei ohne Build-Schritt: Höhenmodelle, Luftbilder und Texturen sind in `index.html` eingebettet (rund 1,9 MB).
+- Eine Datei ohne Build-Schritt: Höhenmodelle, Luftbilder und Texturen sind in `index.html` eingebettet (rund 2 MB).
 - 3D mit [three.js](https://threejs.org) r128; die Bibliothek wird beim Start von `cdn.jsdelivr.net` geladen. Dafür ist eine Internetverbindung nötig, und jsDelivr sieht dabei die IP-Adresse der Besucher. Wer das vermeiden will, legt die neun Dateien, die am Ende von `index.html` aufgeführt sind (`build/three.min.js` und acht Dateien aus `examples/js/`), in denselben Ordnerstrukturen ins Repository und ersetzt dort die Adresse `https://cdn.jsdelivr.net/npm/three@0.128.0/` durch `./three/`.
 - Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (ab mittlerer Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,2 m pro Pixel statt bisher 0,8 bis 3 m (Umgebung bei „mittel“ und „hoch“ ±600 m, bei „ultra“ ±800 m um das Gebäude). Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den eingebetteten Luftbildern.
+- Dorf: 352 Gebäude im Umkreis von 200 m um den Weg stammen aus swissBUILDINGS3D 2.0 (eingebettet, etwa 90 kB). Im Film werden Dächer und Wände, die in den engen Gassen die Sicht auf die Figur verdecken, auf der Sichtlinie ausgeschnitten.
 - Gras, Bäume und Schatten werden um den Blickpunkt in Detailstufen geladen; die Reichweite hängt von der Grafikqualität ab.
 - Keine Cookies, kein Tracking, keine Formulare.
 - Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
@@ -71,7 +72,7 @@ Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub P
 
 Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig für die Weitergabe:
 
-- Höhenmodelle swissALTI3D und DHM25, Luftbild SWISSIMAGE: © swisstopo (Bundesamt für Landestopografie), freie Geodaten mit Quellenangabe.
+- Höhenmodelle swissALTI3D und DHM25, Gebäudemodell swissBUILDINGS3D 2.0, Luftbild SWISSIMAGE: © swisstopo (Bundesamt für Landestopografie), freie Geodaten mit Quellenangabe.
 - Kartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL 1.0.
 - three.js: MIT-Lizenz.
 - Pläne und Angaben nach A. Pireddu, „Peter Märkli – La Congiunta“, *Firenze Architettura* 29 (2025), doi:10.36253/FiA-16824 (CC BY-SA 4.0); im Modell nur zitiert und nachgezeichnet.
