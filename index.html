@@ -130,7 +130,7 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
   .light label[for=timeR]{order:1;flex:1 1 auto}
   #timeV{order:2;min-width:0;flex:none}
   .light input[type=range]{order:3;flex:1 1 100%;width:100%;max-width:none;margin:0}
-  #seasonS{order:4;flex:1 1 150px}
+  #seasonS,#windS{order:4;flex:1 1 150px}
   #qualS{order:5;flex:1 1 220px}
   .light label:not([for]){order:6;flex:1 1 100%}
   .light select{font-size:16px;padding:7px 8px}
@@ -174,6 +174,8 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <input id="timeR" type="range" min="4.5" max="21.5" step="0.25" value="13">
     <span id="timeV"></span>
     <select id="seasonS" aria-label="Jahreszeit"><option value="sommer">Sommer</option><option value="aequi" selected>Frühling / Herbst</option><option value="winter">Winter</option></select>
+    <select id="windS" aria-label="Wind"><option value="0">Wind: aus</option><option value="0.6">Wind: leicht</option><option value="1" selected>Wind: mäßig</option><option value="1.6">Wind: kräftig</option></select>
+    <label title="Wolken ziehen mit dem Wind über das Tal und werfen Schatten"><input type="checkbox" id="cloudOn" checked> Wolken</label>
     <label title="Sonnenlicht, das durch die Oberlichter in die Räume fällt; zu sehen in den Innenräumen"><input type="checkbox" id="beamsOn" checked> Lichtstrahlen (innen)</label>
     <select id="qualS" aria-label="Grafikqualität"><option value="auto">Qualität: automatisch</option><option value="ultra">Qualität: ultra</option><option value="hoch">Qualität: hoch</option><option value="mittel">Qualität: mittel</option><option value="niedrig">Qualität: niedrig</option></select>
   </div>
@@ -196,8 +198,8 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
 </div>
 <footer>
   <details id="legend"><summary>Bedienung und Legende</summary>
-  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit und Qualität stehen dort unter „Licht &amp; Qualität“. „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
-  <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7] (online lädt die Website für Dorf, Brücken und Weg feinere Kacheln mit etwa 0,2 m pro Pixel nach, ab mittlerer Qualität auch für die Umgebung), mit Feinstruktur je nach Bodenart; Häuser im Dorf entlang des Wegs (bis 200 m daneben) mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 [7], Wandfarben und Bruchsteinmauern nach Street View, Dachfarben aus dem Luftbild; übrige Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
+  <p class="fp"><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Auf Tablet und Handy steuern beim Fliegen und im Rundgang die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit, Wind, Wolken und Qualität stehen dort unter „Licht &amp; Qualität“. „Wind“ lässt Bäume, Gras und Reben in Böen schwingen, die talaufwärts ziehen; „Wolken“ ziehen mit dem Wind und werfen Schatten aufs Tal und in die Räume (beides bleibt im Browser gespeichert; ohne Bedienung ruht der Wind nach zwei Minuten). „Qualität: automatisch“ richtet sich nach Gerät und Grafikchip und senkt bei ruckelnder Darstellung die Auflösung; eine feste Stufe bleibt im Browser gespeichert. „Maße“ blendet Maßlinien und alle Maßangaben ein und aus. „Fliegen“: freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter. „Film: Weg zum Museum“ zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden). „Rundgang (Spiel)“: zu Fuß um und durch das Gebäude; zehn Infoschilder lesen, indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Ansichten lassen sich über den Link öffnen, z. B. <code>#raum3-t0930-winter</code>, <code>#zelle</code>, <code>#tal</code>, <code>#halbfigur</code>, <code>#film</code> oder <code>#schild4</code> (direkt vor Schild 4).</p>
+  <p class="fp">Gelände aus den Höhenmodellen von swisstopo [7] (um das Gebäude im 3‑m‑Raster), Boden aus dem Luftbild SWISSIMAGE [7] (online lädt die Website für Dorf, Brücken und Weg feinere Kacheln mit etwa 0,2 m pro Pixel nach, ab mittlerer Qualität auch für die Umgebung), mit Feinstruktur je nach Bodenart; Häuser im Dorf entlang des Wegs (bis 200 m daneben) mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 [7], Wandfarben und Bruchsteinmauern nach Street View, Dachfarben aus dem Luftbild; übrige Häuser, Bahn, Strassen, Autobahnbrücken, Stromleitungen und Weinberge nach OpenStreetMap [8]. Bäume stehen dort, wo das Luftbild Baumkronen zeigt; ihre Form ist generisch. Wind und Wolken sind dargestellt, nicht gemessen: Richtung talaufwärts wie der Talwind an Sommertagen, Wolkenform erfunden. Gebäudemaße aus den Plänen bei Pireddu [1]; Gesamtlänge, Zellentrakt und Lage der Laternen am Luftbild nachgemessen [7]. Sonnenstand für Giornico (46,41° N) mit der echten Achsdrehung und mit Bergschatten aus dem Höhenmodell; Uhrzeit = wahre Sonnenzeit [12]. In der Legende: durchgezogen = belegt, gestrichelt = angenommen.</p>
   <ul class="leg">
     <li><i style="background:#a29f96"></i><span><b>Länge ≈ 42,4 m außen</b>, Breite 5,0 m <span class="st">Länge am Orthofoto gemessen (±0,5 m) [7]; die Plan-Mittellängen 6,9 / 16,6 / 16,6 m [1] sind im selben Verhältnis gestreckt</span></span></li>
     <li><i style="background:#a29f96"></i><span><b>Raumfolge:</b> Eingang an der nördlichen Stirnseite, drei miteinander verbundene Räume mit 5,30 m, 3,50 m und 6,60 m Höhe <span class="st">[1] Fußnote 10; [9]</span></span></li>
@@ -353,17 +355,53 @@ scene.fog=new THREE.FogExp2(0xb8c4cf,0.00009);
 var env=new THREE.Group();env.rotation.y=-TH;scene.add(env);env.updateMatrixWorld(true);
 /* ---------- gemeinsame Shader-Uniforms ---------- */
 var U={uTime:{value:0},uNearCut:{value:0},uFocus:{value:new THREE.Vector3()},uFocusR:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
-  uSnow:{value:5000},uSeason:{value:1},uSunB:{value:new THREE.Vector3(0,1,0)},uSunC:{value:new THREE.Color(1,1,1)},uClear:{value:0}};
+  uSnow:{value:5000},uSeason:{value:1},uSunB:{value:new THREE.Vector3(0,1,0)},uSunC:{value:new THREE.Color(1,1,1)},uClear:{value:0},
+  uWind:{value:new THREE.Vector4(0,-0.4512,-0.8924,0.62)},uCloud:{value:new THREE.Vector4(0,0,0,0.60)}};
 function rep(s,a,b,tag){if(s.indexOf(a)<0){console.warn('[LC] Shader-Anpassung nicht gefunden:',tag||a.slice(0,50));return s}return s.split(a).join(b)}
 function f6(v){return v.toFixed(6)}
 var GLSL_TS='uniform sampler2D tTS1,tTS2;\nvec2 toW(vec3 p){return vec2(p.x*'+f6(CT)+'+p.z*'+f6(ST)+',-p.x*'+f6(ST)+'+p.z*'+f6(CT)+');}\n'+
-  'float terrSun(vec3 p){vec2 w=toW(p);float m=max(abs(w.x),abs(w.y));float a=texture2D(tTS1,w/2400.0+0.5).r;float b=texture2D(tTS2,w/18000.0+0.5).r;return mix(a,b,smoothstep(1040.0,1180.0,m));}\n';
+  'float terrSun(vec3 p){vec2 w=toW(p);float m=max(abs(w.x),abs(w.y));float a=texture2D(tTS1,w/2400.0+0.5).r;float b=texture2D(tTS2,w/18000.0+0.5).r;return mix(a,b,smoothstep(1040.0,1180.0,m))*cloudSh(p,uSunB);}\n';
 var VWP_CALC='\n{vec4 q_=vec4(transformed,1.0);\n#ifdef USE_INSTANCING\nq_=instanceMatrix*q_;\n#endif\nvWP=(modelMatrix*q_).xyz;}\n';
 /* Wind: Verschiebung in lokalen Koordinaten, Phase aus der Instanzposition */
-var WIND_CODE='\n{vec3 ip_=vec3(0.0);\n#ifdef USE_INSTANCING\nip_=instanceMatrix[3].xyz;\n#endif\n'+
-  'float wh_=clamp(transformed.y*uWindP.x+uWindP.y,0.0,1.0);wh_*=wh_;float ph_=uTime*1.35+ip_.x*0.13+ip_.z*0.09;\n'+
-  'transformed.x+=(sin(ph_)*0.65+sin(ph_*2.7+transformed.z*3.0)*0.25)*uWindP.z*wh_;\n'+
-  'transformed.z+=(cos(ph_*0.83)*0.5+sin(ph_*3.1+transformed.x*3.0)*0.2)*uWindP.z*wh_;}\n';
+/* Wind: Böen ziehen talaufwärts durch die Landschaft (uWind: Stärke, Richtung x/z in Weltkoordinaten), jede Pflanze biegt sich
+   mit der Bö in Windrichtung und schwingt zurück; Laub und Gras flattern zusätzlich. uWindP je Material: Biegung (m je m^1.5 Höhe),
+   Abstand des Fusspunkts unter dem Instanz-Ursprung (lokal), Flattern (m). Die Verschiebung wird in Weltmetern gerechnet und in
+   lokale Koordinaten der Instanz zurückgerechnet, so biegen sich grosse und kleine Bäume richtig. */
+var CLH=2400; // Wolkenuntergrenze über dem Talboden (rund 2800 m ü. M.)
+/* Wolkenmuster: kachelbares Wertrauschen (5 Oktaven, 10 bis 160 Zellen auf 10,24 km), einmal beim Start berechnet.
+   Boden und Himmel lesen dieselbe Textur (verschoben um uCloud.yz), die Lichtstrahlen innen dieselben Werte in JS. */
+var CLS=10240,CLN=512,CLD=new Uint8Array(CLN*CLN*4);
+(function(){var t0=performance.now(),r=mb32(7),acc=new Float32Array(CLN*CLN),tot=0;
+  [[10,1],[20,0.5],[40,0.25],[80,0.125],[160,0.0625]].forEach(function(o){var c=o[0],a=o[1],g=new Float32Array(c*c),i,x,y;for(i=0;i<g.length;i++)g[i]=r();
+    var I0=new Int32Array(CLN),I1=new Int32Array(CLN),F=new Float32Array(CLN);
+    for(i=0;i<CLN;i++){var t=i*c/CLN,k=Math.floor(t),f=t-k;I0[i]=k;I1[i]=(k+1)%c;F[i]=f*f*f*(f*(f*6-15)+10)}
+    for(y=0;y<CLN;y++){var r0=I0[y]*c,r1=I1[y]*c,fy=F[y];for(x=0;x<CLN;x++){var fx=F[x],a0=g[r0+I0[x]],b0=g[r0+I1[x]],c0=g[r1+I0[x]],d0=g[r1+I1[x]];
+      acc[y*CLN+x]+=a*((a0+(b0-a0)*fx)*(1-fy)+(c0+(d0-c0)*fx)*fy)}}tot+=a});
+  for(var i=0;i<acc.length;i++){var v=Math.round(acc[i]/tot*255);CLD[i*4]=v;CLD[i*4+1]=v;CLD[i*4+2]=v;CLD[i*4+3]=255}
+  var tx=new THREE.DataTexture(CLD,CLN,CLN,THREE.RGBAFormat);tx.wrapS=tx.wrapT=THREE.RepeatWrapping;tx.magFilter=THREE.LinearFilter;tx.minFilter=THREE.LinearMipmapLinearFilter;tx.generateMipmaps=true;tx.needsUpdate=true;
+  U.tCl={value:tx};logPush('zeit','Wolkenmuster '+(performance.now()-t0).toFixed(0)+' ms')})();
+/* Wert des Musters an einer Stelle (Weltkoordinaten), bilinear wie die Grafikkarte */
+function cloudAt(wx,wz){var c=U.uCloud.value,u=((wx+c.y)/CLS)*CLN-0.5,v=((wz+c.z)/CLS)*CLN-0.5,x0=Math.floor(u),y0=Math.floor(v),fx=u-x0,fy=v-y0;
+  function g(x,y){x=((x%CLN)+CLN)%CLN;y=((y%CLN)+CLN)%CLN;return CLD[(y*CLN+x)*4]/255}
+  return (g(x0,y0)*(1-fx)+g(x0+1,y0)*fx)*(1-fy)+(g(x0,y0+1)*(1-fx)+g(x0+1,y0+1)*fx)*fy}
+var WIND_DECL='uniform vec4 uWind;\nuniform vec4 uCloud;\nuniform sampler2D tCl;\nvec2 toW2(vec3 p){return vec2(p.x*'+f6(CT)+'+p.z*'+f6(ST)+',-p.x*'+f6(ST)+'+p.z*'+f6(CT)+');}\n'+
+  /* Böen: zwei Wellen ziehen mit rund 10 m/s talaufwärts; uWind.w = langsames Auf und Ab des ganzen Winds (in JS) */
+  'float windG(vec2 w){vec2 d=uWind.yz;float a=dot(w,d),b=dot(w,vec2(-d.y,d.x)),t=uTime;\n'+
+  'return max(0.05,uWind.w+0.24*sin(a*0.031-t*0.34+1.4*sin(b*0.017+0.6))+0.16*sin(a*0.083-t*0.86+b*0.041));}\n'+
+  'float cloudV(vec2 w){return texture2D(tCl,(w+uCloud.yz)/'+CLS.toFixed(1)+').r;}\n'+
+  'float cloudSh(vec3 p,vec3 s){if(uCloud.x<=0.0)return 1.0;vec3 pc=p+s*(('+CLH.toFixed(1)+'-p.y)/max(s.y,0.08));\n'+
+  'return 1.0-uCloud.x*0.62*smoothstep(uCloud.w,uCloud.w+0.07,cloudV(toW2(pc)));}\n';
+var WIND_CODE='\n{mat3 m_=mat3(modelMatrix);vec3 ip_=modelMatrix[3].xyz;\n#ifdef USE_INSTANCING\nm_=m_*mat3(instanceMatrix);ip_=(modelMatrix*instanceMatrix[3]).xyz;\n#endif\n'+
+  'vec2 w_=toW2(ip_);float g_=windG(w_)*uWind.x;float sy_=length(m_[1]);\n'+
+  'float hy_=max((m_*(transformed+vec3(0.0,uWindP.y,0.0))).y,0.0);float am_=uWindP.x*pow(hy_,1.5);\n'+
+  'float ph_=uTime*2.6/sqrt(1.0+sy_*0.15)+dot(w_,vec2(0.37,0.23));\n'+
+  'vec2 dw_=(uWind.yz*(0.75+0.42*sin(ph_))+vec2(-uWind.z,uWind.y)*0.22*sin(ph_*0.73+1.3))*g_*am_;\n'+
+  'vec3 ds_=vec3(dw_.x*'+f6(CT)+'-dw_.y*'+f6(ST)+',-0.5*dot(dw_,dw_)/max(hy_,0.3),dw_.x*'+f6(ST)+'+dw_.y*'+f6(CT)+');\n'+
+  'if(uWindP.z>0.0){float fq_=uTime*7.0+dot(position,vec3(9.1,5.3,7.7))*3.0;ds_+=vec3(sin(fq_),0.6*sin(fq_*1.3+1.0),cos(fq_*0.9+2.0))*uWindP.z*g_*min(hy_,1.0);}\n'+
+  'transformed+=vec3(dot(m_[0],ds_)/max(dot(m_[0],m_[0]),1e-6),dot(m_[1],ds_)/max(dot(m_[1],m_[1]),1e-6),dot(m_[2],ds_)/max(dot(m_[2],m_[2]),1e-6));}\n';
+/* Bö auf Laub, Gras und Wiesen: heller (Blattunterseiten, gebogene Halme); im Vertex-Shader gerechnet (vGs), k = Stärke je Material */
+var GUST_V='\nvGs=smoothstep(0.72,1.15,windG(toW2(vWP)))*min(uWind.x,1.3);\n';
+function gustSheen(k,green){return '\n{float gs_=vGs;'+(green?'gs_*=clamp((diffuseColor.g-max(diffuseColor.r,diffuseColor.b))*14.0,0.0,1.0);':'')+'diffuseColor.rgb*=1.0+'+k.toFixed(3)+'*gs_;}\n'}
 var ROOMS=null; // wird beim Gebäude gesetzt (für das Oberlicht im Shader)
 function glslSky(){var R=ROOMS,s=''+
   'float rectFF(vec3 p,vec3 n,vec3 c0,vec3 c1,vec3 c2,vec3 c3){vec3 v0=normalize(c0-p),v1=normalize(c1-p),v2=normalize(c2-p),v3=normalize(c3-p);float s=0.0;'+
@@ -385,8 +423,8 @@ var NT_GLSL='#if __VERSION__ >= 300\nfloat ntH(vec2 p){return fract(sin(dot(p,ve
 /* patch(): erweitert Standard-Materialien um Bergschatten, Wind, Innenraumlicht, Gelände usw. */
 function patch(mat,o){
   o=o||{};
-  var F=['terrain','wind','depth','interior','facade','weather','leaf','foliage','plexi','season','notile','notileu','lod','cut'].filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==false});
-  var key='lc2:'+F.join(',')+(o.lod?'/'+o.lod+(o.lodA?'a':''):'');
+  var F=['terrain','wind','depth','interior','facade','weather','leaf','foliage','plexi','season','notile','notileu','lod','cut','gust'].filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==false});
+  var key='lc2:'+F.join(',')+(o.lod?'/'+o.lod+(o.lodA?'a':''):'')+(o.gust?'/g'+o.gust:'');
   var MU={uWindP:{value:new THREE.Vector3().fromArray(o.wind||[0,0,0])},uLeafK:{value:+o.leaf||0},uSeasonK:{value:+o.season||0},uAlphaK:{value:1}};
   mat.userData.lcU=MU;mat.userData.lcF=F;
   mat.customProgramCacheKey=function(){return key};
@@ -395,15 +433,15 @@ function patch(mat,o){
     for(var k3 in MU)sh.uniforms[k3]=MU[k3];
     if(o.terrain)for(var k2 in TU)sh.uniforms[k2]=TU[k2];
     var vs=sh.vertexShader,fs=sh.fragmentShader;
-    vs=rep(vs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uWindP;\n'+(o.terrain?'varying vec3 vW;\n':''));
+    vs=rep(vs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uWindP;\n'+(o.wind||o.gust?WIND_DECL:'')+(o.gust?'varying float vGs;\n':'')+(o.terrain?'varying vec3 vW;\n':''));
     if(o.wind)vs=rep(vs,'#include <begin_vertex>','#include <begin_vertex>'+WIND_CODE);
-    vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':''));
+    vs=rep(vs,'#include <project_vertex>','#include <project_vertex>'+VWP_CALC+(o.terrain?'vW=position;\n':'')+(o.gust&&!o.depth?GUST_V:''));
     /* Detailstufen der Bäume: 1 = nah, 2 = mittel, 3 = fern; Abstand des Instanz-Ursprungs zur Kamera (uLodC), weich überblendet */
     if(o.lod){var fe_=o.lod===1?'1.0-smoothstep(uLodR.x-7.0,uLodR.x,ld_)':(o.lod===2?'smoothstep(uLodR.x-7.0,uLodR.x,ld_)*(1.0-smoothstep(uLodR.y-40.0,uLodR.y,ld_))':'smoothstep(uLodR.y-40.0,uLodR.y,ld_)');
       vs=rep(vs,'#include <common>','#include <common>\nuniform vec3 uLodC;\nuniform vec2 uLodR;\nvarying float vLodF;\n');
       vs=rep(vs,'#include <project_vertex>','#include <project_vertex>\n{vec4 lq_=vec4(0.0,0.0,0.0,1.0);\n#ifdef USE_INSTANCING\nlq_=instanceMatrix*lq_;\n#endif\nfloat ld_=distance((modelMatrix*lq_).xyz,uLodC);vLodF='+fe_+';if(vLodF<'+(o.lodA&&!o.depth?'0.004':'0.5')+')gl_Position=vec4(0.0,0.0,-2.0,1.0);}\n','lod')}
     if(o.depth){sh.vertexShader=vs;return}
-    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
+    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+WIND_DECL+(o.gust?'varying float vGs;\n':'')+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:''));
     var lb=THREE.ShaderChunk.lights_fragment_begin;
     lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*=terrSun(vWP)'+(o.interior?'*uAmber':'')+';','dir-light');
     fs=rep(fs,'#include <lights_fragment_begin>',lb);
@@ -414,6 +452,7 @@ function patch(mat,o){
     if(o.notile||o.notileu){var nd_=o.notileu?'vec2(1.0,0.0)':'vec2(1.0)';fs=rep(fs,'#include <map_fragment>',THREE.ShaderChunk.map_fragment.replace('texture2D( map, vUv )','texNT( map, vUv, '+nd_+' )'));
       if(THREE.ShaderChunk.normal_fragment_maps.indexOf('texture2D( normalMap, vUv )')>=0)fs=rep(fs,'#include <normal_fragment_maps>',THREE.ShaderChunk.normal_fragment_maps.replace('texture2D( normalMap, vUv )','texNT( normalMap, vUv, '+nd_+' )'))}
     if(o.weather)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n'+WEATHER_CODE);
+    if(o.gust)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>'+gustSheen(+o.gust,!!o.terrain),'gust');
     /* Innenraum: Licht der Oberlichter (Formfaktor) diffus und gespiegelt – so glänzen Messing und Stahl dort, wo sie das Oberlicht sehen */
     if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uSkyL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
       'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uSkyL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');
@@ -459,6 +498,19 @@ var sunVisB=1;
 var sky=null;
 if(THREE.Sky){sky=new THREE.Sky();sky.scale.setScalar(9000);sky.material.depthTest=false;sky.material.depthWrite=false;sky.renderOrder=-10;sky.frustumCulled=false;scene.add(sky);
   var su=sky.material.uniforms;su.turbidity.value=3.2;su.rayleigh.value=1.05;su.mieCoefficient.value=0.0045;su.mieDirectionalG.value=0.82}
+/* Wolken: eine Schicht in rund 2800 m ü. M., dasselbe Muster wie die Wolkenschatten am Boden (cloudV), zieht mit dem Wind */
+var cloudM=null;(function(){try{
+  var mt=new THREE.ShaderMaterial({uniforms:{uTime:U.uTime,uWind:U.uWind,uCloud:U.uCloud,tCl:U.tCl,uSunB:U.uSunB,uSunC:U.uSunC,uSkyL:U.uSkyL},transparent:true,depthWrite:false,side:THREE.DoubleSide,
+    vertexShader:'varying vec3 vWP;\nvoid main(){vec4 w=modelMatrix*vec4(position,1.0);vWP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
+    fragmentShader:'varying vec3 vWP;\nuniform float uTime;\nuniform vec3 uSunB,uSunC,uSkyL;\n'+WIND_DECL+
+      /* Rand der Wolken feiner (zweite, kleinere Abtastung derselben Textur), Unterseite im Kern grauer, Silberrand zur Sonne */
+      'void main(){if(uCloud.x<=0.0)discard;vec2 w=toW2(vWP);float th=uCloud.w,v=cloudV(w)+(texture2D(tCl,(w+uCloud.yz)*4.7/'+CLS.toFixed(1)+'+vec2(0.37,0.61)).r-0.5)*0.10;\n'+
+      'float c=smoothstep(th+0.005,th+0.04,v);if(c<0.004)discard;\n'+
+      'vec3 vd=normalize(vWP-cameraPosition);float d=length(vWP.xz-cameraPosition.xz),fade=1.0-smoothstep(5000.0,14000.0,d);\n'+
+      'float thick=smoothstep(th+0.03,th+0.20,v),fwd=pow(max(dot(vd,uSunB),0.0),6.0);\n'+
+      'vec3 col=uSkyL*0.42*(1.0-0.30*thick)+uSunC*(0.30*(1.0-0.40*thick)+0.45*fwd*(1.0-thick));\n'+
+      'gl_FragColor=vec4(col,c*fade*min(uCloud.x,1.0)*0.92);\n#include <tonemapping_fragment>\n#include <encodings_fragment>\n}'});
+  cloudM=new THREE.Mesh(new THREE.PlaneGeometry(36000,36000,1,1).rotateX(-Math.PI/2),mt);cloudM.position.y=CLH;cloudM.frustumCulled=false;cloudM.renderOrder=-5;scene.add(cloudM)}catch(e){console.warn('[LC] Wolken',e)}})();
 var sun=new THREE.DirectionalLight(0xffffff,2);sun.castShadow=true;scene.add(sun);scene.add(sun.target);
 sun.shadow.mapSize.set(QP.sh,QP.sh);sun.shadow.bias=-0.00025;sun.shadow.normalBias=0.03;sun.shadow.radius=2;
 var amb=new THREE.HemisphereLight(0x9fb3c8,0x4a4a3c,0.0);scene.add(amb); // nur nachts leicht aktiv
@@ -592,7 +644,7 @@ function buildTerrain(){
   for(j=0;j<N;j++)for(i=0;i<N;i++){var a=j*n1+i,b=a+1,c=a+n1,d=c+1;idx[t++]=a;idx[t++]=c;idx[t++]=b;idx[t++]=b;idx[t++]=c;idx[t++]=d}
   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeVertexNormals();
   g.boundingSphere=new THREE.Sphere(new THREE.Vector3(0,0,0),13000);
-  var m=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.94,metalness:0,envMapIntensity:0.9}),{terrain:1});
+  var m=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.94,metalness:0,envMapIntensity:0.9}),{terrain:1,gust:0.08});
   terrain=new THREE.Mesh(g,m);terrain.receiveShadow=true;terrain.castShadow=false;terrain.frustumCulled=false;env.add(terrain);
 }
 
@@ -1025,20 +1077,22 @@ function buildTrees(M){
   var R=TL.R=[],GG=TL.G={};
   [['near',QP.tN],['mid',QP.tM],['far',QP.tF]].forEach(function(z){TREES[z[0]].forEach(function(t){var k=Math.floor(t[0]/50)+','+Math.floor(t[1]/50);(GG[k]||(GG[k]=[])).push(R.length);R.push([t[0],t[1],t[2],t[3],t[4],t[5],z[1]])})});
   var lt=leafTex(11,'leaf'),nt=leafTex(12,'needle');
-  var wind=QP.wind?[0.5,0.45,0.05]:null;
-  function leafMat(map,o,lod){var m=new THREE.MeshStandardMaterial({map:map,alphaTest:0.42,side:THREE.DoubleSide,roughness:0.82,metalness:0,envMapIntensity:0.7});var oo={leaf:0.45,season:(o&&o.season)||0,foliage:1,lod:lod,lodA:1};if(wind)oo.wind=wind;patch(m,oo);leafMats.push(m);return m}
-  barkM=patch(new THREE.MeshStandardMaterial({color:0x5b4c3e,roughness:0.95,envMapIntensity:0.6}),{lod:1});
+  /* Wind je Baumart: Laubkrone (Ursprung in der Kronenmitte, Fuss rund 1,6 Kronenhöhen tiefer) biegt sich stärker und flattert,
+     Nadelbaum (Ursprung am Fuss) schwingt langsamer; der Stamm biegt sich mit */
+  var wD=[0.016,1.6,0.06],wC=[0.005,0,0.025],wB=[0.008,0,0];
+  function leafMat(map,o,lod,wind){var m=new THREE.MeshStandardMaterial({map:map,alphaTest:0.42,side:THREE.DoubleSide,roughness:0.82,metalness:0,envMapIntensity:0.7});var oo={leaf:0.45,season:(o&&o.season)||0,foliage:1,lod:lod,lodA:1,wind:wind,gust:0.13};patch(m,oo);leafMats.push(m);return m}
+  barkM=patch(new THREE.MeshStandardMaterial({color:0x5b4c3e,roughness:0.95,envMapIntensity:0.6}),{lod:1,wind:wB});
   var trunkG=new THREE.CylinderGeometry(0.35,0.5,1,7,1,true).translate(0,0.5,0),white=new THREE.Color(1,1,1);
-  function mk(G,g,m,cap,shadow,dmap){var im=inst(g,m,cap,G);im._cap=cap;im.receiveShadow=true;if(shadow){im.castShadow=true;im.customDepthMaterial=depthMat(dmap||null,dmap?wind:null,1)}im.setColorAt(0,white);im.count=0;return im}
+  function mk(G,g,m,cap,shadow,dmap,w){var im=inst(g,m,cap,G);im._cap=cap;im.receiveShadow=true;if(shadow){im.castShadow=true;im.customDepthMaterial=depthMat(dmap||null,w||null,1)}im.setColorAt(0,white);im.count=0;return im}
   function set(G,lod,cards,base,rad,S0,shadow,trunks){
     var sc=Math.min(1.25,Math.sqrt(base/cards)),crowns=[cardCrown(cards,7+base,sc),cardCrown(cards,8+base,sc),cardCrown(cards,9+base,sc)],conG=coniferCards(5);
-    var cap=Math.ceil(Math.PI*rad*rad/(S0*S0)*0.7)+300,dM=leafMat(lt,{season:0.65},lod),cM=leafMat(nt,{},lod);
-    var S={d:crowns.map(function(g){var m=mk(G,g,dM,cap,shadow,lt);decidMeshes.push(m);return m}),c:mk(G,conG,cM,cap,shadow,nt),t:trunks?mk(G,trunkG,barkM,cap,shadow,null):null};
+    var cap=Math.ceil(Math.PI*rad*rad/(S0*S0)*0.7)+300,dM=leafMat(lt,{season:0.65},lod,wD),cM=leafMat(nt,{},lod,wC);
+    var S={d:crowns.map(function(g){var m=mk(G,g,dM,cap,shadow,lt,wD);decidMeshes.push(m);return m}),c:mk(G,conG,cM,cap,shadow,nt,wC),t:trunks?mk(G,trunkG,barkM,cap,shadow,null,wB):null};
     S.all=S.d.concat([S.c],S.t?[S.t]:[]);return S}
   TL.N=set(vegN,1,QP.cards,46,TL.D1+14,QP.tN,true,true);TL.Md=set(vegM,2,QP.midCards,16,TL.D2+60,QP.tM,false,false);
   TREES.near.forEach(function(t){var b=w2b(t[0],t[1]);if(Math.abs(b[0])<70&&Math.abs(b[1])<90)TREEC.push([b[0],b[1],0.45])});
   /* ferne Bäume: einfache Kronen, einmal für das ganze Tal (nahe blendet der Shader sie aus) */
-  var fdM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0.6,lod:3}),fcM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0,lod:3});
+  var fdM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0.6,lod:3,gust:0.12}),fcM=patch(new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,envMapIntensity:0.45}),{season:0,lod:3,gust:0.08});
   var fd=0,fc=0,FR=QP.fx*1.42,tf=QP.tF;treeEmit(2,0,0,FR,function(x,z,h,ty){if(ty)fc++;else fd++});
   var ico=new THREE.IcosahedronGeometry(1,0),con=new THREE.ConeGeometry(1,1,6).translate(0,0.5,0);
   var fI=mk(vegF,ico,fdM,fd+1,false),fC=mk(vegF,con,fcM,fc+1,false),tint=new THREE.Color();fI._k=0;fC._k=0;
@@ -1071,7 +1125,7 @@ function buildGrass(M){
   var gt=alphaTex(128,128,function(x,w,h){x.clearRect(0,0,w,h);for(var i=0;i<46;i++){var bx=6+r()*116,hh=50+r()*76,lean=(r()-0.5)*28,g=0.75+r()*0.5;x.strokeStyle='rgb('+Math.floor(Math.min(255,215*g))+','+Math.floor(Math.min(255,235*g))+','+Math.floor(Math.min(255,175*g))+')';x.lineWidth=1.5+r()*2;x.beginPath();x.moveTo(bx,h);x.quadraticCurveTo(bx+lean*0.3,h-hh*0.6,bx+lean,h-hh);x.stroke()}},[215,235,175]);
   var pos=[],nor=[],uv=[],idx=[];for(var k=0;k<3;k++){var a=k*Math.PI/3,c=Math.cos(a)*0.5,s=Math.sin(a)*0.5,v=k*4;pos.push(-c,0,-s,c,0,s,c,1,s,-c,1,-s);for(var q=0;q<4;q++)nor.push(0,1,0);uv.push(0,0,1,0,1,1,0,1);idx.push(v,v+1,v+2,v,v+2,v+3)}
   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);
-  var mt=patch(new THREE.MeshStandardMaterial({map:gt,alphaTest:0.42,side:THREE.DoubleSide,roughness:0.9,envMapIntensity:0.75}),QP.wind?{wind:[1.0,0.0,0.07],leaf:0,season:0.8,foliage:1}:{leaf:0,season:0.8,foliage:1});
+  var mt=patch(new THREE.MeshStandardMaterial({map:gt,alphaTest:0.42,side:THREE.DoubleSide,roughness:0.9,envMapIntensity:0.75}),{wind:[0.45,0,0.015],gust:0.12,leaf:0,season:0.8,foliage:1});
   GR.cap=Math.ceil(Math.PI*GR.R*GR.R*GR.den*1.05)+64;
   grassMesh=new THREE.InstancedMesh(g,mt,GR.cap);grassMesh.frustumCulled=false;grassMesh.receiveShadow=true;
   grassMesh.setColorAt(0,new THREE.Color(1,1,1));grassMesh.count=0;grassG.add(grassMesh);leafMats.push(mt);GR.cx=1e9;grassUpd(true)}
@@ -1116,7 +1170,7 @@ function buildVines(){
         x.fillStyle='rgb('+Math.floor(Math.min(255,92*g))+','+Math.floor(Math.min(255,134*g))+','+Math.floor(Math.min(255,58*g))+')';
         x.save();x.translate(cx,cy);x.rotate(a);x.beginPath();for(var l=0;l<5;l++){var t0=l/5*6.283;x.lineTo(Math.cos(t0)*rr,Math.sin(t0)*rr);x.lineTo(Math.cos(t0+0.63)*rr*0.55,Math.sin(t0+0.63)*rr*0.55)}x.closePath();x.fill();x.restore()}
       for(var gq=0;gq<9;gq++){var gx=q()*w,gy=h*(0.45+q()*0.4);x.fillStyle='rgb(58,52,70)';for(var gb=0;gb<9;gb++){x.beginPath();x.arc(gx+(q()-0.5)*9,gy+gb*1.8+(q()-0.5)*4,2.6,0,6.283);x.fill()}}},[92,134,58]);vt.wrapS=THREE.RepeatWrapping;
-  var vw=QP.wind?[0.8,0.0,0.03]:null,vo={leaf:0.4,season:0.75,foliage:1};if(vw)vo.wind=vw;
+  var vw=[0.06,0,0.02],vo={leaf:0.4,season:0.75,foliage:1,wind:vw,gust:0.1};
   var vM=patch(new THREE.MeshStandardMaterial({map:vt,alphaTest:0.42,side:THREE.DoubleSide,roughness:0.85,envMapIntensity:0.7}),vo);leafMats.push(vM);
   var hp=[],hn=[],hu=[],hi=[],hv=0;function quad(a,b,c,d,n,u0,u1){[a,b,c,d].forEach(function(p,k){hp.push(p[0],p[1],p[2]);hn.push(n[0],n[1],n[2]);hu.push(k===0||k===3?u0:u1,k<2?0:1)});hi.push(hv,hv+1,hv+2,hv,hv+2,hv+3);hv+=4}
   [-0.36,0,0.36].forEach(function(xo){var nx=xo<0?-0.55:(xo>0?0.55:0),nl=Math.hypot(nx,0.8);quad([xo,0,-0.5],[xo,0,0.5],[xo,1,0.5],[xo,1,-0.5],[nx/nl,0.8/nl,0],0,2)});
@@ -1477,7 +1531,7 @@ function buildBeams(){SHF.length=0;
 function shRay(o,d,b){var t0=0,t1=1e9;for(var a=0;a<3;a++){var lo=b[a*2],hi=b[a*2+1];if(Math.abs(d[a])<1e-6){if(o[a]<lo||o[a]>hi)return false;continue}
     var ta=(lo-o[a])/d[a],tb=(hi-o[a])/d[a];if(ta>tb){var q=ta;ta=tb;tb=q}t0=Math.max(t0,ta);t1=Math.min(t1,tb);if(t0>t1)return false}return t1>0.02}
 function beamsUpdate(svB,k){
-  BMU.uK.value=(0.3+0.5*Math.min(1,svB.y*1.5))*k*BK;
+  BMU.k0=(0.3+0.5*Math.min(1,svB.y*1.5))*k*BK;BMU.uK.value=BMU.k0*cloudB();
   var dx=-svB.x/Math.max(svB.y,0.04),dz=-svB.z/Math.max(svB.y,0.04);BMU.uD.value.set(dx,dz);
   var occ=[];for(var j=0;j<3;j++){var zc=zS[j]+L[j]/2;occ.push([-W/2,W/2,0,H[j]+RT,zS[j],zS[j]+L[j]],[LOFF-LW/2-0.05,LOFF+LW/2+0.05,0,H[j]+RT+LH,zc-(L[j]-0.35)/2,zc+(L[j]-0.35)/2])}
   occ.push([CX0,-W/2,0,CHH,CZ0,TOT/2]);var sd=[svB.x,svB.y,svB.z];
@@ -1522,6 +1576,15 @@ function fitShadow(){var c,R;if(FILM.on){c=FILM.focus;R=QP.shR*1.2}else if(fly){
 function inside(p){return p.x>CX0-0.1&&p.x<W/2&&p.z>-TOT/2&&p.z<TOT/2&&p.y<6.9&&(p.x>-W/2||p.z>CZ0)}
 /* neu zeichnen, wenn sich etwas ändert; Wind läuft nur 20 s nach der letzten Änderung, danach ruht die Grafikkarte */
 var lastAct=0,animT=0,slowWind=false,slowN=0,aAcc=0,aN=0,lastAnim=0,afterR=[];
+/* Wind und Wolken (Einstellung im Menü, gemerkt im Browser): Stärke 0 = aus; ohne Bedienung läuft der Wind 2 Minuten
+   (Telefon 40 s) weiter, dann ruht die Grafikkarte */
+var windLvl=QP.wind?1:0,cloudsOn=qName!=='niedrig',IDLE=DEV.phone?40000:120000;
+(function(){var w=lsGet('lcWind'),c=lsGet('lcCloud');if(w!==''&&!isNaN(+w))windLvl=+w;if(c)cloudsOn=c==='1'})();
+function windApply(){U.uWind.value.x=windLvl;U.uCloud.value.x=cloudsOn?1:0;if(BMU.k0!==undefined)BMU.uK.value=BMU.k0*cloudB()}
+/* Wolkenmuster wie im Shader (cloudV, 4 Oktaven): Schatten am Bau, damit die Lichtstrahlen innen mit den Wolken kommen und gehen */
+function cloudB(){var c=U.uCloud.value;if(c.x<=0)return 1;var sb=U.uSunB.value,f=CLH/Math.max(sb.y,0.08),px=sb.x*f,pz=sb.z*f;
+  return 1-c.x*0.62*sstep(c.w,c.w+0.07,cloudAt(px*CT+pz*ST,-px*ST+pz*CT))}
+windApply();
 function draw(){needs=true;lastAct=performance.now()}
 function onRendered(f){afterR.push(f);needs=true}
 function render(t){
@@ -1531,6 +1594,7 @@ function render(t){
   clearMats.forEach(function(c){if(c.transparent!==!!cl){c.transparent=!!cl;c.depthWrite=!cl;c.needsUpdate=true}c.opacity=cl?0.16:1});
   var inB=fly&&inside(camera.position);dimG.visible=dims&&!walk&&!FILM.on&&!inB;
   if(sky)sky.position.copy(camera.position);
+  if(cloudM){cloudM.visible=cloudsOn&&camera.position.y<CLH-150;cloudM.position.x=camera.position.x;cloudM.position.z=camera.position.z}
   var tin=(fly&&inside(camera.position))?1.8:1;expoT=expoBase*tin;expo+=(expoT-expo)*(fly?0.08:1);
   if(finPass)finPass.uniforms.exposure.value=expo;else renderer.toneMappingExposure=expo;
   renderer.info.reset();var rt0=performance.now();
@@ -1560,11 +1624,11 @@ var nRend=0,glChk=0,fpsAcc=0,fpsN=0,fpsNow=0,fpsLast=0;
 function frame(t){requestAnimationFrame(frame);if(document.hidden)return;
   var dt=Math.min(0.05,(t-last)/1000);last=t;
   if(fly){if(walk)walkStep(dt);else flyStep(dt)}
-  var windOn=QP.wind&&!slowWind&&!cardOpen&&(t-lastAct<20000);
+  var windOn=windLvl>0&&!slowWind&&!cardOpen&&(t-lastAct<IDLE);
   var anim=windOn&&(t-lastR>38),fplay=FILM.on&&!FILM.paused;
   if(FILM.on){var fdt=FILM.lt?Math.min(0.1,(t-FILM.lt)/1000):0;FILM.lt=t;FILM.pdt=fdt;if(fplay)fmTick(fdt)}
   if(!needs&&!anim&&!fly&&!fplay)return;
-  if(windOn)animT+=Math.min(0.06,(t-lastR)/1000);
+  if(windOn){var adt=Math.min(0.06,(t-lastR)/1000),cs=10*windLvl+3;animT+=adt;U.uWind.value.w=0.62+0.10*Math.sin(animT*0.19)+0.06*Math.sin(animT*0.53+1.0);U.uCloud.value.y-=U.uWind.value.y*cs*adt;U.uCloud.value.z-=U.uWind.value.z*cs*adt;if(cloudsOn&&BMU.k0)BMU.uK.value=BMU.k0*cloudB()}
   var inter=needs||fly||fplay;needs=false;lastR=t;render(t);prTick(t,inter);
   /* zu langsame Grafik: Windanimation abschalten, damit die Seite bedienbar bleibt */
   if(anim&&!document.hidden){if(lastAnim&&t-lastAnim<250){aAcc+=t-lastAnim;aN++;if(aN>=30){if(aAcc/aN>115){slowN++;if(slowN>=2){slowWind=true;logPush('zeit','Windanimation aus (Bildabstand '+(aAcc/aN).toFixed(0)+' ms)')}}else slowN=0;aAcc=0;aN=0}}lastAnim=t}else lastAnim=0;
@@ -1697,6 +1761,10 @@ window.addEventListener('hashchange',applyHash);
 useBtn.addEventListener('click',interact);
 /* ---------- Sonnenstand ---------- */
 var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'),seasonS=document.getElementById('seasonS'),beamsOn=document.getElementById('beamsOn'),qualS=document.getElementById('qualS');
+var windS=document.getElementById('windS'),cloudOn=document.getElementById('cloudOn');
+if(windS){var wo=[].map.call(windS.options||[],function(o){return +o.value}),wb=0;wo.forEach(function(v,i){if(Math.abs(v-windLvl)<Math.abs(wo[wb]-windLvl))wb=i});if(wo.length)windS.selectedIndex=wb;
+  windS.addEventListener('change',function(){windLvl=+windS.value;slowWind=false;lsSet('lcWind',String(windLvl));windApply();draw()})}
+if(cloudOn){cloudOn.checked=cloudsOn;cloudOn.addEventListener('change',function(){cloudsOn=cloudOn.checked;lsSet('lcCloud',cloudsOn?'1':'0');windApply();draw()})}
 /* Qualität: „automatisch“ wählt nach Gerät und Grafikchip; eine feste Wahl wird im Browser gespeichert */
 function setQ(v){lsSet('lcQual',v==='auto'?'':v);if(v==='auto'||QS[v])lsSet('lcAutoCap','');
   var tk=(location.hash||'').replace('#','').split('-').filter(function(t){return t&&!QS[t.toLowerCase()]&&t.toLowerCase()!=='auto'});if(v!=='auto')tk.unshift(v);
@@ -2052,7 +2120,7 @@ function init(){
     ];
     function run(i){if(i>=steps.length){status('Grafik wird vorbereitet …');applyHash();requestAnimationFrame(frame);reveal(0);
         window.__lcInfo=function(){var dbg=gl.getExtension('WEBGL_debug_renderer_info'),rn=dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),ri=renderer.info;
-          return 'WebGL '+(isGL2?2:1)+' · '+rn+'\nQualität '+qName+(qAuto?' (automatisch, '+(DEV.phone?'Telefon':DEV.tablet?'Tablet':'Rechner')+')':'')+' · Pixelverhältnis '+renderer.getPixelRatio().toFixed(2)+' · Nachbearbeitung '+(POST.on?'an, MSAA '+POST.samples:'aus')+'\nTextureinheiten '+gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS)+' · Schattenkarte '+QP.sh+' · Shaderprogramme '+(ri.programs?ri.programs.length:'?')+'\nZeichenaufrufe '+ri.render.calls+' · Dreiecke '+ri.render.triangles+' · Geometrien '+ri.memory.geometries+' · Texturen '+ri.memory.textures+'\nBildrate ≈ '+fpsNow.toFixed(0)+' Bilder/s · Wind '+(QP.wind&&!slowWind?'an':'aus')+' · Shader-Compilerhinweise '+(window.__lcShaderHints||0)};
+          return 'WebGL '+(isGL2?2:1)+' · '+rn+'\nQualität '+qName+(qAuto?' (automatisch, '+(DEV.phone?'Telefon':DEV.tablet?'Tablet':'Rechner')+')':'')+' · Pixelverhältnis '+renderer.getPixelRatio().toFixed(2)+' · Nachbearbeitung '+(POST.on?'an, MSAA '+POST.samples:'aus')+'\nTextureinheiten '+gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS)+' · Schattenkarte '+QP.sh+' · Shaderprogramme '+(ri.programs?ri.programs.length:'?')+'\nZeichenaufrufe '+ri.render.calls+' · Dreiecke '+ri.render.triangles+' · Geometrien '+ri.memory.geometries+' · Texturen '+ri.memory.textures+'\nBildrate ≈ '+fpsNow.toFixed(0)+' Bilder/s · Wind '+(windLvl>0&&!slowWind?windLvl:'aus')+(cloudsOn?' · Wolken':'')+' · Shader-Compilerhinweise '+(window.__lcShaderHints||0)};
         diagPanel();return}
       status(steps[i][0]);setTimeout(function(){var ts=performance.now();try{steps[i][1]();logPush('zeit',steps[i][0].replace(/ …$/,'')+' '+(performance.now()-ts).toFixed(0)+' ms')}catch(e){console.error(e);status('Fehler beim Aufbau ('+steps[i][0]+'): '+e.message,1);return}run(i+1)},20)}
     run(0);

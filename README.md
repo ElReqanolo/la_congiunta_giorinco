@@ -10,6 +10,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 - Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
 - Gelände aus den Höhenmodellen und Luftbildern von swisstopo; Dorf entlang des Wegs mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 (Wandfarben nach Street View, Dachfarben aus dem Luftbild); übrige Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
 - Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
+- Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten (Stärke und Wolken im Menü einstellbar)
 - Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
@@ -23,7 +24,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
 | Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
 
-Uhrzeit, Jahreszeit, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen.
+Uhrzeit, Jahreszeit, Wind, Wolken, Lichtstrahlen und Grafikqualität stehen in der Kopfzeile; auf schmalen Bildschirmen unter „Licht & Qualität“. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen.
 
 **Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Die Stufe „ultra“ (noch weitere Sicht für Gras und ausführliche Bäume, dichterer Wald, grössere Schatten- und Luftbildbereiche) wählt die Automatik nie; sie ist für schnelle Grafikkarten gedacht und lässt sich von Hand einstellen. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
 
@@ -65,6 +66,7 @@ Für eine Aktualisierung genügt es, die neue `index.html` hochzuladen; GitHub P
 - Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (ab mittlerer Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,2 m pro Pixel statt bisher 0,8 bis 3 m (Umgebung bei „mittel“ und „hoch“ ±600 m, bei „ultra“ ±800 m um das Gebäude). Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den eingebetteten Luftbildern.
 - Dorf: 352 Gebäude im Umkreis von 200 m um den Weg stammen aus swissBUILDINGS3D 2.0 (eingebettet, etwa 90 kB). Im Film werden Dächer und Wände, die in den engen Gassen die Sicht auf die Figur verdecken, auf der Sichtlinie ausgeschnitten.
 - Gras, Bäume und Schatten werden um den Blickpunkt in Detailstufen geladen; die Reichweite hängt von der Grafikqualität ab.
+- Wind und Wolken: Die Pflanzen werden im Vertex-Shader gebogen (Böenfeld in Weltkoordinaten, Biegung nach Höhe, Flattern der Blätter). Die Wolken sind ein kachelbares Rauschmuster (10,24 km), das einmal beim Start berechnet wird; Himmel und Wolkenschatten lesen dieselbe Textur. Ohne Bedienung läuft die Animation zwei Minuten (Handy 40 s) weiter, dann ruht die Grafikkarte. Bei „niedrig“ und bei der Systemeinstellung „Bewegung reduzieren“ ist der Wind anfangs aus.
 - Keine Cookies, kein Tracking, keine Formulare.
 - Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
 
