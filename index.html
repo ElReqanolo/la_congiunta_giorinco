@@ -209,7 +209,8 @@ ul.leg i{flex:none;width:11px;height:11px;border-radius:2px;border:1px solid var
     <li><i style="background:#e0a85a"></i><span><b>Dach aus Stahl, Holz, Blech und bernsteinfarbenem Plexiglas</b>, darunter Stahlträger quer <span class="st">Material nach [1]; Trägerabstand ≈ 1,2 m aus Fotos der Vorlage geschätzt [11]</span></span></li>
     <li><i style="background:#7d8f5a"></i><span><b>Umgebung:</b> Bahn ≈ 40–45 m westlich und rund 16 m höher, Ticino ≈ 40 m östlich und knapp 9 m tiefer, Feldweg ≈ 18 m westlich der Gebäudeachse, Osteria ≈ 585 m und San Nicolao ≈ 640 m entfernt (Luftlinie) <span class="st">eigene Messung in [7] und [8]</span></span></li>
     <li><i style="background:#7a5a30"></i><span><b>Exponate von Hans Josephsohn:</b> 6 Flachreliefs, 8 Hochreliefs, 3 Halbfiguren, spätere Hochreliefs, weitere Werke in den Zellen; in Gips geformt, in Messing gegossen, grob bearbeitete Oberflächen <span class="st">Anzahl nach [1], Material nach [13]; Formen frei nachempfunden (keine Abbilder der einzelnen Werke), Lage angenähert, je Zelle ein Relief angenommen</span></span></li>
-    <li><i style="background:transparent;border-style:dashed"></i><span><b>Angenommen bzw. nicht modelliert:</b> Oberlichter der Zellen, Untergeschoss (≈ 2,2 m unter Raum 3 und den Zellen [1]), Schwellen, Weinreben nördlich des Eingangs nur schematisch, Dorfhäuser mit typisierten Fassaden</span></li>
+    <li><i style="background:#a29f96"></i><span><b>Keller (Lager)</b> unter Raum 3 und dem Zellentrakt, Boden 2,44 m unter dem Erdgeschoss, lichte Höhe ≈ 2,2 m; Zugang über eine Aussentreppe im Schacht an der Westwand nördlich der Zellen, mit Kellertür und -fenster (mit „Maße“ gestrichelt eingezeichnet) <span class="st">Text („deposito interrato“), Kellergrundriss und Schnitte [1]</span></span></li>
+    <li><i style="background:transparent;border-style:dashed"></i><span><b>Angenommen bzw. nicht modelliert:</b> Oberlichter der Zellen (Lage aus dem Schnitt, Form angenommen), Innenraum des Kellers, Schwellen, Weinreben nördlich des Eingangs nur schematisch, Dorfhäuser mit typisierten Fassaden</span></li>
   </ul>
   </details>
   <details id="quellen"><summary>Quellen</summary>
@@ -626,6 +627,8 @@ var HR_GLSL='float wq=0.0;\n'+
   (HRT2?'if(uR2On>0.001){vec2 q2=(p-uR2B.xy)*uR2B.zw;if(q2.x>0.0&&q2.x<1.0&&q2.y>0.0&&q2.y<1.0){float w2=hrW(q2,uR2B,40.0)*uR2On;col=mix(col,hrCol(tR2,vec2(q2.x,1.0-q2.y)),w2);wq=0.5*w2;}}\n':'')+
   (HRT?'if(uRtOn>0.001){vec2 q=(p-uRtB.xy)*uRtB.zw;if(q.x>0.0&&q.x<1.0&&q.y>0.0&&q.y<1.0){float w1=hrW(q,uRtB,30.0)*uRtOn;col=mix(col,hrCol(tRt,vec2(q.x,1.0-q.y)),w1);wq=max(wq,w1);}}\n':'');
 TERRAIN_MAP='{vec2 p=vW.xz;float m=max(abs(p.x),abs(p.y));\n'+
+  /* Kellerschacht an der Westwand (siehe main3.js: KPX0-KPT, KPX1, KPZN, KPZS) */
+  'if(vWP.x>-3.645&&vWP.x<-2.625&&vWP.z>0.16&&vWP.z<8.38)discard;\n'+
   'vec3 c13=texture2D(tO13,vec2(p.x/12807.2+0.5,0.5-p.y/12807.2)).rgb;\n'+
   'vec3 c15=texture2D(tO15,vec2(p.x/3201.8+0.5,0.5-p.y/3201.8)).rgb;\n'+
   'vec2 u17=vec2(p.x/800.4+0.5,0.5-p.y/800.4);vec3 c17=shp(tO17,u17,texture2D(tO17,u17).rgb,0.35);\n'+
@@ -714,6 +717,11 @@ function zB(i){return zS[i]+L[i]-(i===2?T0:T0/2)}
 /* Zellentrakt: 12,82 m lang, 3,34 m vor der Westwand (Plan und Querschnitt), Dach 4,5 m über dem Boden, innen 4,3 m hoch */
 var CX0=-(W/2+3.34),CZ0=TOT/2-12.82,CHH=4.5,zE=TOT/2-T0/2,CP=(zE-(CZ0+T0/2))/4;
 function cellZ(k){return zE-(k+0.5)*CP}
+/* Untergeschoss (Lager) nach Kellergrundriss und Schnitten [1]: unter Raum 3 und dem ganzen Zellentrakt, Boden 2,44 m unter dem
+   Erdgeschoss (lichte Höhe rund 2,2 m). Zugang von aussen: ein 0,87 m breiter Schacht an der Westwand gleich nördlich der Zellen,
+   unten ein Podest mit Kellertür (0,85 m) und Kellerfenster (1,6 m), dann eine Treppe, die nach Norden zum Gelände steigt
+   (Masse aus dem Kellergrundriss, Abstände von der Südfront: Podest 12,8–17,6 m, Treppe bis 21,0 m) */
+var KD=2.44,KPX1=-W/2,KPW=0.87,KPT=0.15,KPX0=KPX1-KPW,KPZS=TOT/2-12.82,KPZM=TOT/2-17.64,KPZN=TOT/2-21.04;
 var SKX0=(CX0+T0-W/2)/2-0.675,SKX1=SKX0+1.35,SKZ=0.7,CEIL_C=CHH-0.2,SKH=0.3;
 ROOMS={cx1:-W/2,cz0:CZ0+T0/2,cp:CP,sx0:SKX0,sx1:SKX1,sz:SKZ,ch:CEIL_C,xa:Math.max(LOFF-LW/2,-Wi/2),xb:LOFF+LW/2,r:[]};
 for(var ri0=0;ri0<3;ri0++){ROOMS.r.push({y:H[ri0],za:zA(ri0),zb:zB(ri0),zEnd:zS[ri0]+L[ri0]})}
@@ -875,6 +883,31 @@ function buildBuilding(T){
   xp(TOT/2-CZ0,H[2]+RT-CHH,CHH,-W/2,CZ0,-Math.PI/2);
   var ew=new THREE.Mesh(wallGeo(W,H[0]+RT,[{x:W/2-DOFF-DW/2,w:DW,h:DH}],Math.random(),2.3,2.3),conc);ew.position.set(W/2,0,-TOT/2);ew.rotation.y=Math.PI;add(ew);shells.push(ew);
   rvl(DOFF,-TOT/2+T0/2,true);
+  /* Kellerzugang: Schacht an der Westwand, Stützmauer, Podest, Treppe, Kellertür und -fenster */
+  (function(){
+    var kWall=new THREE.Shape(),kl=KPZS-KPZN;kWall.moveTo(0,0);kWall.lineTo(kl,0);kWall.lineTo(kl,KD);kWall.lineTo(0,KD);kWall.lineTo(0,0);
+    var dz0=(TOT/2-13.75)-KPZN,dz1=(TOT/2-12.9)-KPZN,wz0=(TOT/2-16.61)-KPZN,wz1=(TOT/2-14.99)-KPZN,wy0=KD-1.25,wy1=KD-0.45;
+    var hd=new THREE.Path();hd.moveTo(dz0,0.01);hd.lineTo(dz1,0.01);hd.lineTo(dz1,2.0);hd.lineTo(dz0,2.0);hd.lineTo(dz0,0.01);kWall.holes.push(hd);
+    var hw=new THREE.Path();hw.moveTo(wz0,wy0);hw.lineTo(wz1,wy0);hw.lineTo(wz1,wy1);hw.lineTo(wz0,wy1);hw.lineTo(wz0,wy0);kWall.holes.push(hw);
+    var kg=new THREE.ShapeGeometry(kWall),ku=kg.attributes.uv,kp=kg.attributes.position;for(var a=0;a<ku.count;a++)ku.setXY(a,kp.getX(a)/2.3,kp.getY(a)/2.3);
+    var kw=new THREE.Mesh(kg,conc);kw.position.set(KPX1,-KD,KPZN);kw.rotation.y=-Math.PI/2;add(kw);
+    /* Leibungen von Tür und Fenster (Wandstärke) */
+    [[dz0,dz1,0,2.0],[wz0,wz1,wy0,wy1]].forEach(function(o){var zc=KPZN+(o[0]+o[1])/2,yl=-KD+o[2],yh=-KD+o[3],lz=o[1]-o[0];
+      var r1=cbox(T0,yh-yl,0.02,conc);r1.position.set(KPX1+T0/2,(yl+yh)/2,KPZN+o[0]);add(r1);var r2=cbox(T0,yh-yl,0.02,conc);r2.position.set(KPX1+T0/2,(yl+yh)/2,KPZN+o[1]);add(r2);
+      var r3=cbox(T0,0.02,lz,conc);r3.position.set(KPX1+T0/2,yh,zc);add(r3);if(o[2]>0){var r4=cbox(T0,0.02,lz,conc);r4.position.set(KPX1+T0/2,yl,zc);add(r4)}});
+    /* Kellertür (Stahl, geschlossen) und Kellerfenster (dunkles Glas im Stahlrahmen) */
+    var kd=new THREE.Mesh(new THREE.BoxGeometry(0.05,2.0,dz1-dz0),doorM);kd.position.set(KPX1+0.06,-KD+1.0,KPZN+(dz0+dz1)/2);add(kd);
+    var kgl=new THREE.Mesh(new THREE.BoxGeometry(0.02,wy1-wy0,wz1-wz0),std({color:0x101315,roughness:0.08,metalness:0.2,envMapIntensity:1.4},{}));kgl.position.set(KPX1+0.08,-KD+(wy0+wy1)/2,KPZN+(wz0+wz1)/2);add(kgl);
+    [[0.05,0.05,wz1-wz0,(wy0+wy1)/2-(wy1-wy0)/2+0.025],[0.05,0.05,wz1-wz0,(wy0+wy1)/2+(wy1-wy0)/2-0.025]].forEach(function(f){var fb=new THREE.Mesh(new THREE.BoxGeometry(f[0],f[1],f[2]),lanF);fb.position.set(KPX1+0.07,-KD+f[3],KPZN+(wz0+wz1)/2);add(fb)});
+    [wz0+0.025,(wz0+wz1)/2,wz1-0.025].forEach(function(zz){var fb=new THREE.Mesh(new THREE.BoxGeometry(0.05,wy1-wy0,0.05),lanF);fb.position.set(KPX1+0.07,-KD+(wy0+wy1)/2,KPZN+zz);add(fb)});
+    /* Nordwand des Zellentrakts unter dem Gelände, Stützmauer, Podest und 13 Stufen */
+    var kn=cbox(KPW+KPT,KD,0.02,conc);kn.position.set(KPX0-KPT+(KPW+KPT)/2,-KD/2,KPZS-0.01);add(kn);
+    var rw=cbox(KPT,KD+0.05,KPZS-KPZN,conc);rw.position.set(KPX0-KPT/2,(0.05-KD)/2,(KPZS+KPZN)/2);add(rw);
+    var lf=cbox(KPW,0.2,KPZS-KPZM,concB);lf.position.set((KPX0+KPX1)/2,-KD-0.1,(KPZS+KPZM)/2);add(lf);
+    var ns=13,run=(KPZM-KPZN)/ns;for(var k=0;k<ns;k++){var top=-KD+(k+1)*KD/ns,st=cbox(KPW,top+KD+0.2,run,concB,1,1);st.position.set((KPX0+KPX1)/2,(top-KD-0.2)/2,KPZM-(k+0.5)*run);add(st)}
+    /* Rundgang: nicht in den Schacht fallen */
+    sb(KPX0-KPT,KPX1,KPZN,KPZS);
+  })();
   /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf niedrigen Betonsockeln (Form und Lage angenähert) */
   exMaterial();
   EXS.forEach(function(sp,i){var tile=EXA.tiles[i],gp=new THREE.Group(),m;
@@ -887,6 +920,8 @@ function buildBuilding(T){
   tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,8 × 3,35 m, 4,3 m hoch'});
   tags.push({m:1,p:new THREE.Vector3(W/2+2.2,0.6,-6),t:'Länge ≈ 42,4 m · Luftbild'});
   tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite ≈ 5,25 m · Plan'});
+  tags.push({m:1,p:new THREE.Vector3(-1.2,-1.3,(zS[2]+TOT/2)/2+2),t:'Untergeschoss (Lager) · ≈ 2,2 m hoch'});
+  tags.push({m:1,p:new THREE.Vector3((KPX0+KPX1)/2,0.9,(KPZS+KPZM)/2),t:'Kellerzugang'});
   var person=new THREE.Group(),skin=std({color:0xc89a78,roughness:0.7},{}),cloth=std({color:0x2d4f73,roughness:0.85},{}),pants=std({color:0x2b2a28,roughness:0.9},{});
   var legs=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.12,0.85,10),pants);legs.position.y=0.43;
   var torso=new THREE.Mesh(new THREE.CylinderGeometry(0.19,0.16,0.66,12),cloth);torso.position.y=1.17;
@@ -1196,7 +1231,7 @@ function bDist(bx,bz){var hx=W/2,hz=TOT/2,dx=Math.max(0,Math.abs(bx)-hx),dz=Math
   var ex=Math.max(0,CX0-bx,bx+hx),ez=Math.max(0,CZ0-bz,bz-hz);return Math.min(d,Math.hypot(ex,ez))}
 /* Wiese laut Luftbild: grünlich, nicht zu dunkel (Wald, Schatten) und nicht zu hell (Kies, Strasse) */
 function grassAt(M,x,z){var b=w2b(x,z),bx=b[0],bz=b[1];
-  if(bDist(bx,bz)<0.15)return 0;if(Math.abs(bx-DOFF)<0.85&&bz<-21&&bz>-31.5)return 0;
+  if(bDist(bx,bz)<0.15)return 0;if(bx>-3.9&&bx<-2.5&&bz>0&&bz<8.6)return 0;if(Math.abs(bx-DOFF)<0.85&&bz<-21&&bz>-31.5)return 0;
   var m=Math.max(Math.abs(x),Math.abs(z)),c;
   /* kein Gras im Flussbett (Wassermaske aus dem Luftbild) */
   if(M.water&&m<399&&maskAt(M.water,400.2,x,z)>0.25)return 0;
@@ -1520,7 +1555,7 @@ var HS=[
  q:'[1] Pireddu 2025; [3] Ticino Turismo; Höhen und Abstände: eigene Messung in [7] swisstopo und [8] OpenStreetMap'},
 {k:'post',x:-9,z:14.6,ry:-Math.PI/2,room:outsideB,t:'Die vier Zellen',
  s:'An der Westseite des dritten Raums liegen vier kleine Zellen nebeneinander, bei Pireddu „piccoli sacelli“, kleine Seitenkapellen. Der Zellentrakt misst laut Grundriss etwa 12,8 × 3,35 m; innen ist jede Zelle damit rund 2,9 × 3,1 m groß und laut Schnitten rund 4,3 m hoch. Die Werke in den Zellen stehen nach Pireddu im Dialog mit den späteren Hochreliefs im dritten Raum.',
- fm:'Unter Raum 3 und den Zellen zeigt der Plan ein Untergeschoss von etwa 2,2 m Tiefe, vermutlich der unterirdische Lagerraum, den Pireddu als einzige Ausnahme beim Fehlen jeder Haustechnik nennt.',
+ fm:'Unter Raum 3 und unter dem ganzen Zellentrakt liegt ein Keller, der unterirdische Lagerraum, den Pireddu als einzige Ausnahme beim Fehlen jeder Haustechnik nennt („deposito interrato“). Laut Kellergrundriss und Schnitten liegt sein Boden 2,44 m unter dem Erdgeschoss (lichte Höhe rund 2,2 m). Man erreicht ihn von aussen: gleich nördlich der Zellen führt an der Westwand eine Treppe in einem schmalen Schacht hinunter zu Kellertür und Kellerfenster.',
  q:'[1] Pireddu 2025, Text, Grundriss und Schnitte S. 126–127; [7] swissBUILDINGS3D'},
 {k:'wall',x:1.3,z:0,y:1.5,ry:Math.PI,room:inRoom(0),t:'Raum 1: Vorraum',
  s:'Der erste Raum ist kürzer als die beiden folgenden und 5,30 m hoch. Sechs abstrakte Flachreliefs von Hans Josephsohn aus den frühen 1950er Jahren hängen symmetrisch an beiden Wänden. Peter Märkli lernte Josephsohn 1975 als Student der ETH in Zürich kennen; daraus wurde eine lange Freundschaft. 1986 kaufte die Stiftung das Grundstück und wurde im selben Jahr eingetragen; geplant und gebaut wurde 1986–1992, mit Stefan Bellwalder als Mitarbeiter.',
@@ -1640,8 +1675,14 @@ function dline(a,b,t){[[a,b],[a.clone().sub(t),a.clone().add(t)],[b.clone().sub(
 function buildDims(){var zc=-TOT/2;L.forEach(function(l,i){dline(new THREE.Vector3(W/2+1.0,0.03,zc+l/2),new THREE.Vector3(W/2+1.0,H[i],zc+l/2),new THREE.Vector3(0.35,0,0));zc+=l});
   dline(new THREE.Vector3(W/2+2.2,0.06,-TOT/2),new THREE.Vector3(W/2+2.2,0.06,TOT/2),new THREE.Vector3(0.4,0,0));
   dline(new THREE.Vector3(-W/2,0.06,TOT/2+1.2),new THREE.Vector3(W/2,0.06,TOT/2+1.2),new THREE.Vector3(0,0,0.4));
-  dline(new THREE.Vector3(CX0,0.06,TOT/2+2.2),new THREE.Vector3(-W/2,0.06,TOT/2+2.2),new THREE.Vector3(0,0,0.3));}
-function theme(){dimSolid.color.set(css('--accent')||'#a8650f')}
+  dline(new THREE.Vector3(CX0,0.06,TOT/2+2.2),new THREE.Vector3(-W/2,0.06,TOT/2+2.2),new THREE.Vector3(0,0,0.3));
+  /* Untergeschoss unter Raum 3 und den Zellen: Umriss gestrichelt, durch Boden und Wände sichtbar */
+  var km=new THREE.LineDashedMaterial({color:0xa8650f,dashSize:0.35,gapSize:0.22,depthTest:false,transparent:true,opacity:0.8,fog:false});kelM=km;km.color.copy(dimSolid.color);
+  var y0=-KD,P=[[CX0,TOT/2],[CX0,CZ0],[-W/2,CZ0],[-W/2,zS[2]],[W/2,zS[2]],[W/2,TOT/2]];
+  [y0,-0.02].forEach(function(yy){var pts=P.map(function(q){return new THREE.Vector3(q[0],yy,q[1])});pts.push(pts[0].clone());var g=new THREE.BufferGeometry().setFromPoints(pts),ln=new THREE.Line(g,km);ln.computeLineDistances();ln.renderOrder=6;dimG.add(ln)});
+  P.forEach(function(q){var g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(q[0],y0,q[1]),new THREE.Vector3(q[0],-0.02,q[1])]),ln=new THREE.Line(g,km);ln.computeLineDistances();ln.renderOrder=6;dimG.add(ln)});}
+var kelM=null;
+function theme(){dimSolid.color.set(css('--accent')||'#a8650f');if(kelM)kelM.color.copy(dimSolid.color)}
 /* ---------- Kamera und Darstellung ---------- */
 var th=0.8,ph=1.1,r=75,tgt=new THREE.Vector3(0,2.5,0),clear=false;
 var fly=false,fp=new THREE.Vector3(),fyaw=0,fpitch=0,keys={},last=0,walk=false,near=-1,found=0,cardOpen=false;
