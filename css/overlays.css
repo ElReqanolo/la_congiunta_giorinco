@@ -1,0 +1,161 @@
+/* Alles über dem 3D-Bild: Ladeanzeige, Beschriftungen, Hinweise, Schildkarte, Steuerkreuz, Kompass, Film, Diagnose */
+
+/* gemeinsame Form der Felder über dem Bild */
+.load > div, .prep, .toast, .hint, .tip, .prog, .card, .compass {
+  background: var(--c-surface);
+  color: var(--c-text);
+  border: 1px solid var(--c-line);
+}
+
+/* ---------- Laden und Aufbau ---------- */
+.load {
+  position: absolute; inset: 0; z-index: var(--z-load);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--sp-4);
+  background: var(--c-bg);
+}
+.load > div {
+  max-width: 34rem; padding: var(--sp-3) var(--sp-4); border-radius: var(--r-panel);
+  font-size: var(--fs-2); text-align: center; box-shadow: var(--shadow-panel);
+}
+.load > div::before {
+  content: ""; display: block; width: 14px; height: 14px; margin: 0 auto var(--sp-2); border-radius: 50%;
+  background: var(--c-amber); animation: lc-sun 2.4s ease-in-out infinite;
+}
+@keyframes lc-sun { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--c-amber) 25%, transparent); } }
+.err { color: var(--c-amber-ink); font-weight: 700; }
+#loadTxt.err::before { animation: none; background: var(--c-amber-ink); }
+.prep {
+  position: absolute; left: 50%; top: var(--sp-3); z-index: var(--z-prep); transform: translateX(-50%);
+  max-width: calc(100% - 24px); padding: var(--sp-1) var(--sp-3); border-radius: var(--r-round);
+  font-size: var(--fs-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+
+/* ---------- Beschriftungen im Bild ---------- */
+.tag {
+  position: absolute; transform: translate(-50%, -50%); pointer-events: none; white-space: nowrap;
+  padding: 2px 6px; border-radius: var(--r-tag);
+  background: var(--c-surface); color: var(--c-text); border: 1px solid var(--c-line);
+  font-size: var(--fs-1); line-height: var(--lh-ui);
+}
+.tag-dim { border-left: 3px solid var(--c-amber); }
+.tag.env { background: var(--c-scrim); color: var(--c-on-scrim); border-color: rgba(255, 255, 255, 0.25); }
+.tag.env::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 14px; background: rgba(255, 255, 255, 0.7); }
+.walking .tag { display: none !important; }
+
+/* ---------- kurze Hinweise ---------- */
+.toast, .tip {
+  position: absolute; left: 50%; top: var(--sp-3); z-index: var(--z-toast); transform: translateX(-50%);
+  width: max-content; max-width: min(440px, calc(100% - 24px));
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-panel);
+  font-size: var(--fs-2); line-height: var(--lh-ui); box-shadow: var(--shadow-panel);
+}
+.tip button { min-height: 30px; margin-left: var(--sp-1); padding: 0 var(--sp-2); font-size: var(--fs-1); }
+.hint {
+  position: absolute; left: var(--sp-3); top: var(--sp-3); max-width: min(340px, 70%);
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-panel);
+  font-size: var(--fs-2); line-height: var(--lh-ui); box-shadow: var(--shadow-panel);
+}
+.prog {
+  position: absolute; right: var(--sp-3); top: var(--sp-3);
+  padding: var(--sp-1) var(--sp-3); border-radius: var(--r-round);
+  font-size: var(--fs-2); font-variant-numeric: tabular-nums;
+}
+.use {
+  position: absolute; left: 50%; bottom: var(--sp-4); transform: translateX(-50%);
+  max-width: calc(100% - 160px); overflow: hidden; text-overflow: ellipsis;
+  background: var(--c-active); border-color: var(--c-active); color: var(--c-on-active); box-shadow: var(--shadow-panel);
+}
+.use:hover { border-color: var(--c-amber); }
+
+/* ---------- Schildkarte ---------- */
+.card {
+  position: absolute; left: 50%; top: 50%; z-index: var(--z-card); transform: translate(-50%, -50%);
+  width: min(36rem, calc(100% - 24px)); max-height: 84%; overflow: auto;
+  padding: var(--sp-4) var(--sp-5) var(--sp-4); border-radius: var(--r-panel); box-shadow: var(--shadow-float);
+  font-size: var(--fs-3); line-height: var(--lh-text);
+}
+.card:focus { outline: none; }
+.card:focus-visible { outline: 2px solid var(--c-amber); outline-offset: 2px; }
+.card h2 { font-size: var(--fs-5); margin-bottom: var(--sp-2); }
+.card p { margin: 0 0 var(--sp-3); }
+.card .fm { padding: var(--sp-2) var(--sp-3); border-left: 3px solid var(--c-amber); background: var(--c-surface-2); border-radius: 0 var(--r-control) var(--r-control) 0; }
+.card .q { font-size: var(--fs-1); color: var(--c-text-muted); }
+.card .q .link { margin-left: var(--sp-1); }
+.card .done { font-weight: 700; }
+
+/* ---------- Steuerkreuz und Kompass ---------- */
+.pad { position: absolute; right: var(--sp-3); bottom: var(--sp-3); display: grid; grid-template-columns: repeat(3, 48px); gap: var(--sp-2); }
+.pad button { min-height: 48px; padding: 0; font-size: 18px; box-shadow: var(--shadow-panel); touch-action: none; user-select: none; -webkit-user-select: none; }
+.pad button:active { background: var(--c-active); color: var(--c-on-active); }
+.pad [data-k=u] { grid-area: 1 / 1; } .pad [data-k=f] { grid-area: 1 / 2; } .pad [data-k=d] { grid-area: 1 / 3; }
+.pad [data-k=l] { grid-area: 2 / 1; } .pad [data-k=b] { grid-area: 2 / 2; } .pad [data-k=r] { grid-area: 2 / 3; }
+.compass {
+  position: absolute; left: var(--sp-3); bottom: var(--sp-3); width: 44px; height: 44px;
+  border-radius: 50%; pointer-events: none; box-shadow: var(--shadow-panel);
+}
+.compass span { position: absolute; left: 50%; top: 50%; width: 2px; height: 17px; margin: -17px 0 0 -1px; background: var(--c-amber); transform-origin: 50% 100%; border-radius: 1px; }
+.compass b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 10px; font-weight: 700; }
+
+/* ---------- Film: Untertitel, Fortschritt und Steuerung ---------- */
+.film {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: var(--z-film);
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+  padding: 0 var(--sp-2) var(--sp-2); pointer-events: none;
+}
+.film > * { pointer-events: auto; }
+.film-cap {
+  width: min(680px, 100%); padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-panel); background: var(--c-scrim); color: var(--c-on-scrim);
+  font-size: var(--fs-3); line-height: var(--lh-text); box-shadow: var(--shadow-float);
+}
+.film-cap b { display: block; margin-bottom: 2px; font: 700 var(--fs-4) / var(--lh-tight) var(--font-serif); color: var(--c-amber); }
+.film-cap.in { animation: lc-cap 0.45s ease-out; }
+@keyframes lc-cap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.film-end { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+.film-end button, .film-bar button { color: var(--c-on-scrim); border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.06); }
+.film-end button:hover, .film-bar button:hover { border-color: var(--c-amber); }
+.film-end button:first-child { background: var(--c-amber); border-color: var(--c-amber); color: var(--c-on-amber); }
+.film-bar {
+  display: flex; align-items: center; gap: var(--sp-3);
+  width: min(680px, 100%); padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--r-round); background: var(--c-scrim);
+}
+.film-bar button { min-width: 40px; min-height: 36px; padding: 0 var(--sp-3); border-radius: var(--r-round); }
+.film-track { position: relative; flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.24); cursor: pointer; touch-action: none; }
+.film-track::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; bottom: -14px; }
+.film-track:focus-visible { outline: 2px solid var(--c-amber); outline-offset: 5px; }
+.film-track i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 3px; background: var(--c-amber); }
+.film-track .tick { position: absolute; top: -3px; width: 2px; height: 12px; margin-left: -1px; border-radius: 1px; background: rgba(255, 255, 255, 0.55); pointer-events: none; }
+.film-key { font-size: var(--fs-2); color: var(--c-on-scrim); white-space: nowrap; }
+.filming { cursor: default; }
+.filming .compass, .filming .prog, .filming .use, .filming .pad, .filming .hint, .filming .tip { display: none !important; }
+
+/* ---------- Diagnose (#diag) und Fehler ---------- */
+.diag {
+  position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: 64px; z-index: var(--z-diag);
+  max-height: 40%; overflow: auto; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-control);
+  background: var(--c-error-bg); color: #fff; font: var(--fs-1) / 1.4 var(--font-mono);
+}
+.diagx { float: right; min-height: 28px; margin: -2px -4px var(--sp-1) var(--sp-2); padding: 0 var(--sp-2); font-size: var(--fs-1); color: #fff; background: transparent; border-color: rgba(255, 255, 255, 0.5); }
+.diagp {
+  position: absolute; left: var(--sp-2); top: var(--sp-2); right: var(--sp-2); z-index: var(--z-diag);
+  max-height: 70%; overflow: auto; margin: 0; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-control);
+  background: rgba(10, 10, 10, 0.84); color: #e8f0e8; font: 11px / 1.35 var(--font-mono); white-space: pre-wrap;
+}
+
+/* ---------- Handy ---------- */
+@media (max-width: 600px) {
+  .hint { top: auto; bottom: 128px; left: var(--sp-2); right: var(--sp-2); max-width: none; }
+  .use {
+    left: var(--sp-2); bottom: 72px; transform: none; max-width: calc(100% - 190px);
+    white-space: normal; text-align: left; line-height: var(--lh-ui); padding-block: var(--sp-1);
+  }
+  .prog { top: var(--sp-2); right: var(--sp-2); font-size: var(--fs-1); }
+  .card { padding: var(--sp-4); max-height: 88%; }
+  .compass { left: var(--sp-2); bottom: var(--sp-2); width: 40px; height: 40px; }
+  .pad { right: var(--sp-2); bottom: var(--sp-2); }
+  .film { padding: 0 var(--sp-2) var(--sp-2); }
+  .film-cap { font-size: var(--fs-2); padding: var(--sp-2) var(--sp-3); }
+  .film-key { display: none; }
+}

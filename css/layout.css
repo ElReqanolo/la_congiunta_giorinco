@@ -1,0 +1,193 @@
+/* Seitengerüst: Kopfzeile mit Werkzeugleiste, 3D-Bühne, Fussbereich. Mobil zuerst; Umbrüche bei 720 px und 1200 px. */
+
+/* ---------- Kopfzeile ---------- */
+.site-header {
+  position: relative;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "title set"
+    "sub   sub"
+    "bar   bar";
+  gap: var(--sp-1) var(--sp-3);
+  padding: 10px var(--gutter-r) var(--sp-3) var(--gutter);
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-line);
+}
+/* mobil: Titel und Knopf in einer Zeile, Untertitel darunter über die ganze Breite */
+.brand { display: contents; }
+.brand h1 { grid-area: title; align-self: center; font-size: var(--fs-5); letter-spacing: 0.005em; }
+.brand .sub { grid-area: sub; font-size: var(--fs-1); line-height: var(--lh-ui); color: var(--c-text-muted); }
+
+/* Licht & Qualität: auf Handy und Tablet ein aufklappbares Feld */
+.setb { grid-area: set; align-self: center; display: inline-flex; align-items: center; gap: var(--sp-2); }
+.setb::before {
+  content: ""; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--c-amber); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-amber) 30%, transparent);
+}
+.setb[aria-expanded="true"] { background: var(--c-active); border-color: var(--c-active); color: var(--c-on-active); }
+
+/* Werkzeugleiste: Ansichten als Segmentleiste, Modi als Umschalter; mobil zwei Zeilen, alles sichtbar */
+.bar { grid-area: bar; display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; margin-top: 6px; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+.seg button { border-radius: 0; margin-left: -1px; padding: 0 var(--sp-2); }
+.seg button:first-child { margin-left: 0; border-radius: var(--r-control) 0 0 var(--r-control); }
+.seg button:last-child { border-radius: 0 var(--r-control) var(--r-control) 0; }
+.seg button[aria-pressed="true"] { position: relative; z-index: 1; }
+.seg button:focus-visible { position: relative; z-index: 2; }
+.modes { display: flex; gap: var(--sp-2); }
+.modes button { flex: 1 1 auto; padding: 0 var(--sp-2); }
+.opt { display: none; }  /* Langform der Knopftexte erst ab 900 px */
+
+.light {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  left: var(--sp-2);
+  right: var(--sp-2);
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  max-height: calc(100dvh - 140px);
+  overflow: auto;
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-panel);
+  box-shadow: var(--shadow-float);
+}
+.site-header.open .light { display: grid; }
+.light .daylight, .light #qualS, .light .toggles { grid-column: 1 / -1; }
+.light select { width: 100%; }
+.toggles { display: flex; flex-wrap: wrap; gap: 0 var(--sp-4); }
+
+/* Tageslicht-Regler: die Spur zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit, der Griff ist die Sonne */
+.daylight { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: var(--sp-1) var(--sp-3); }
+.daylight label { font-size: var(--fs-2); color: var(--c-text-muted); }
+.daylight output { justify-self: end; font-size: var(--fs-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.daylight input { grid-column: 1 / -1; }
+#timeR {
+  --track: linear-gradient(90deg, var(--c-night), var(--c-amber) 15%, var(--c-day) 30%, var(--c-day) 70%, var(--c-amber) 85%, var(--c-night));
+  width: 100%; height: 28px; margin: 0; background: transparent; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+}
+#timeR::-webkit-slider-runnable-track { height: 8px; border-radius: var(--r-round); background: var(--track); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18); }
+#timeR::-moz-range-track { height: 8px; border-radius: var(--r-round); background: var(--track); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18); }
+#timeR::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; margin-top: -7px; border-radius: 50%;
+  background: var(--c-amber); border: 2px solid var(--c-surface); box-shadow: 0 0 0 1px var(--c-line-strong), 0 0 12px 2px color-mix(in srgb, var(--c-amber) 55%, transparent);
+}
+#timeR::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--c-amber); border: 2px solid var(--c-surface); box-shadow: 0 0 0 1px var(--c-line-strong), 0 0 12px 2px color-mix(in srgb, var(--c-amber) 55%, transparent);
+}
+#timeR:focus-visible { outline-offset: 4px; }
+
+/* ---------- 3D-Bühne ---------- */
+main { position: relative; flex: 1; min-height: 0; display: flex; }
+#stage { position: relative; flex: 1; min-width: 0; touch-action: none; cursor: grab; background: var(--c-stage); overflow: hidden; }
+#stage:active { cursor: grabbing; }
+#stage:focus-visible { outline: 3px solid var(--c-amber); outline-offset: -3px; }
+#stage canvas { display: block; width: 100%; height: 100%; }
+
+/* ---------- Fussbereich ---------- */
+.site-footer {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 var(--sp-5);
+  max-height: 40vh; overflow: auto;
+  padding: 0 var(--gutter-r) 0 var(--gutter);
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-line);
+  font-size: var(--fs-2);
+  line-height: var(--lh-text);
+}
+.site-footer details { min-width: 0; }
+.site-footer details[open] { flex: 1 1 100%; padding-bottom: var(--sp-4); }
+.site-footer summary {
+  display: flex; align-items: center; gap: var(--sp-2);
+  width: max-content; max-width: 100%; min-height: 44px;
+  cursor: pointer; list-style: none;
+}
+.site-footer summary::-webkit-details-marker { display: none; }
+.site-footer summary::before {
+  content: ""; width: 7px; height: 7px; flex: none;
+  border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+  transform: rotate(-45deg); transition: transform var(--t-fast);
+}
+.site-footer details[open] > summary::before { transform: rotate(45deg) translate(-2px, -1px); }
+.site-footer summary h2 { font: 700 var(--fs-2) / var(--lh-ui) var(--font-sans); }
+.fbody { display: grid; gap: var(--sp-4); max-width: 1100px; }
+.fbody h3 { font-size: var(--fs-4); margin-top: var(--sp-2); }
+.fbody > p { max-width: 75ch; }
+
+/* Bedienung: Begriff und Erklärung */
+.howto { display: grid; gap: var(--sp-2) var(--sp-4); margin: 0; max-width: 75ch; }
+.howto dt { font-weight: 700; }
+.howto dd { margin: -6px 0 0; }
+.keys b { font-weight: 700; }
+
+/* Legende: Farbfeld, Aussage, Beleg */
+ul.leg { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: var(--sp-3) var(--sp-5); }
+ul.leg li { display: flex; gap: var(--sp-2); align-items: baseline; min-width: 0; }
+ul.leg i { flex: none; width: 12px; height: 12px; border-radius: 2px; border: 1px solid var(--c-line-strong); transform: translateY(1px); }
+.st { display: block; margin-top: 2px; font-size: var(--fs-1); color: var(--c-text-muted); }
+ol.src { margin: 0; padding-left: 26px; display: grid; gap: var(--sp-2); max-width: 90ch; }
+ol.src li { padding-left: 2px; }
+.nojs { margin: var(--sp-3) var(--gutter); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--c-line); border-radius: var(--r-panel); background: var(--c-surface); }
+
+/* ---------- Tablet: eine Werkzeugzeile ---------- */
+@media (min-width: 720px) {
+  .site-header { grid-template-areas: "brand set" "bar bar"; row-gap: var(--sp-3); }
+  .brand { display: block; grid-area: brand; min-width: 0; align-self: center; }
+  .brand h1 { font-size: var(--fs-6); }
+  .brand .sub { margin-top: 2px; font-size: var(--fs-2); }
+  .bar { margin-top: 0; }
+  .bar { flex-direction: row; align-items: center; gap: var(--sp-4); }
+  .seg { grid-auto-columns: auto; }
+  .seg button { padding: 0 var(--sp-3); }
+  .modes { flex: none; }
+  .modes button { flex: none; padding: 0 var(--sp-3); }
+  .light { left: auto; width: 440px; right: var(--gutter-r); }
+  .howto { grid-template-columns: 13rem 1fr; }
+  .howto dd { margin: 0; }
+}
+
+@media (min-width: 900px) {
+  .opt { display: inline; }
+}
+
+/* ---------- Desktop: Ansichten und Modi neben dem Titel, darunter die Lichtzeile ---------- */
+@media (min-width: 1200px) {
+  .site-header {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "brand bar"
+      "light light";
+    row-gap: 10px;
+    padding-block: 10px;
+  }
+  .bar { justify-content: flex-end; }
+  .setb { display: none; }
+  .light, .site-header.open .light {
+    position: static; display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-3) var(--sp-4);
+    grid-area: light; width: auto; max-height: none; overflow: visible;
+    padding: 10px 0 0; border: 0; border-top: 1px solid var(--c-line); border-radius: 0; box-shadow: none; background: none;
+  }
+  .light .daylight { width: clamp(260px, 22vw, 340px); }
+  .light select { width: auto; }
+  .toggles { gap: 0 var(--sp-3); }
+}
+
+/* Querformat mit wenig Höhe (Handy quer): Kopf in einer Zeile */
+@media (max-height: 520px) and (min-width: 560px) and (max-width: 1199px) {
+  .site-header { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "brand bar set"; padding-block: var(--sp-2); }
+  .brand { display: block; grid-area: brand; min-width: 0; align-self: center; }
+  .brand .sub { display: none; }
+  .brand h1 { font-size: var(--fs-4); white-space: nowrap; }
+  .bar { margin-top: 0; }
+  .bar { flex-direction: row; overflow-x: auto; scrollbar-width: none; }
+  .bar::-webkit-scrollbar { display: none; }
+  .seg { grid-auto-columns: auto; }
+  .modes button, .seg button { flex: none; }
+  .opt { display: none; }
+  .light { max-height: calc(100dvh - 70px); }
+}
