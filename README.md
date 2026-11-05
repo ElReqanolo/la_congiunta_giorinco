@@ -96,7 +96,7 @@ git remote add origin https://github.com/BENUTZERNAME/la-congiunta-3d.git
 git push -u origin main
 ```
 
-Für eine Aktualisierung genügt es, die geänderten Dateien hochzuladen; GitHub Pages veröffentlicht sie nach kurzer Zeit.
+Für eine Aktualisierung genügt es, die geänderten Dateien hochzuladen; GitHub Pages veröffentlicht sie nach kurzer Zeit. Ändern sich CSS oder JavaScript, in `index.html` die Zahl hinter `?v=` (an allen fünf Stellen) um eins erhöhen: GitHub Pages lässt Browser Dateien zehn Minuten zwischenspeichern, und mit neuer Zahl holen sie sofort die neuen.
 
 ## Technik
 

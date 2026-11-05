@@ -40,7 +40,7 @@ def main():
         css = read(m.group(1))
         css = re.sub(r'url\("\.\./(assets/[^"]+)"\)', lambda u: 'url("%s")' % data_uri(u.group(1)), css)
         return '<style>\n%s</style>' % css
-    html = re.sub(r'<link rel="stylesheet" href="([^"]+)">', inline_css, html)
+    html = re.sub(r'<link rel="stylesheet" href="([^"?]+)(?:\?[^"]*)?">', inline_css, html)
     html = re.sub(r'<link rel="preload"[^>]*>\n', '', html)
     html = html.replace('href="assets/favicon.svg"', 'href="%s"' % data_uri('assets/favicon.svg'))
 
@@ -53,7 +53,7 @@ def main():
     for rel in app:
         blocks.append('<script type="text/plain" data-lc-src="%s">\n%s</script>' % (rel, no_script_end(read(rel), rel)))
     blocks.append('<script>\n%s</script>' % no_script_end(loader, 'loader.js'))
-    html = html.replace('<script src="js/loader.js" defer></script>\n', '')
+    html = re.sub(r'<script src="js/loader\.js(?:\?[^"]*)?" defer></script>\n', '', html)
     html = html.replace('</body>', '\n'.join(blocks) + '\n</body>')
 
     os.makedirs(os.path.dirname(out), exist_ok=True)

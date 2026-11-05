@@ -15,6 +15,9 @@
     canN: 'assets/img/mask-canopy-near.png', canM: 'assets/img/mask-canopy-mid.png', canF: 'assets/img/mask-canopy-far.png',
     grass: 'assets/img/mask-meadow.png', water: 'assets/img/mask-water.png'
   };
+  /* Version aus dem Aufruf in index.html (js/loader.js?v=…): hängt an alle nachgeladenen Dateien, damit nach einer Änderung nichts Altes aus dem Zwischenspeicher kommt */
+  var VER = (document.currentScript && /[?&]v=([^&#]+)/.exec(document.currentScript.src) || [])[1] || '';
+  function ver(url) { return VER ? url + '?v=' + VER : url; }
   var APP=['js/core.js','js/renderer.js','js/sky.js','js/terrain.js','js/building.js','js/exhibits.js','js/vegetation.js','js/village.js','js/signs.js','js/light-beams.js','js/view.js','js/controls.js','js/film.js','js/aerial-tiles.js','js/start.js'];
 
   function say(text, isError) {
@@ -54,11 +57,12 @@
 
   function loadData() {
     if (window.LC_ASSETS) return Promise.resolve();
-    return fetch(DATA).then(function (r) {
+    return fetch(ver(DATA)).then(function (r) {
       if (!r.ok) throw new Error(DATA + ' (' + r.status + ')');
       return r.json();
     }).then(function (data) {
-      data.img = IMG;
+      data.img = {};
+      Object.keys(IMG).forEach(function (k) { data.img[k] = ver(IMG[k]); });
       window.LC_ASSETS = data;
     });
   }
@@ -79,7 +83,7 @@
       return;
     }
     say('3D-Bibliothek und Modelldaten werden geladen …');
-    var app = inline ? Promise.resolve(inline) : Promise.all(APP.map(fetchText));
+    var app = inline ? Promise.resolve(inline) : Promise.all(APP.map(function (p) { return fetchText(ver(p)); }));
     Promise.all([loadLibs(), loadData(), app]).then(function (res) {
       window.LC_T1 = performance.now();
       if (!window.THREE) {
