@@ -6,12 +6,13 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 **Inhalt des Modells**
 
-- Gebäude nach den Plänen und Schnitten bei Pireddu (2025), Länge und Lage am Luftbild von swisstopo nachgemessen
+- Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,4 × 5,25 m, Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,8 × 3,35 m; Länge, Breite, Drehung (21°), Laternen und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
+- Dachlaternen nach den Fotos: ringsum Plexiglas in Stahlrahmen, oben Blech, über die ganze Raumlänge; das Licht fällt seitlich ein
 - Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
 - Gelände aus den Höhenmodellen und Luftbildern von swisstopo; Dorf entlang des Wegs mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 (Wandfarben nach Street View, Dachfarben aus dem Luftbild); übrige Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
 - Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
 - Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten (Stärke und Wolken im Menü einstellbar)
-- Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (im Menü abschaltbar)
+- Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
 - Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
@@ -80,7 +81,7 @@ Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig f
 - Kartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL 1.0.
 - three.js: MIT-Lizenz.
 - Pläne und Angaben nach A. Pireddu, „Peter Märkli – La Congiunta“, *Firenze Architettura* 29 (2025), doi:10.36253/FiA-16824 (CC BY-SA 4.0); im Modell nur zitiert und nachgezeichnet.
-- **Bitte vor der Veröffentlichung prüfen:** Die Fototexturen für Beton, Boden, Innenwände und Laternenblech stammen aus der Vorlage-Datei „La Congiunta – schematisches 3D-Modell“; ihre Herkunft ist dort nicht angegeben. Vor einer öffentlichen Website sollten die Rechte daran geklärt oder die Texturen durch eigene Fotos bzw. frei lizenzierte (z. B. CC0) Texturen ersetzt werden.
+- **Bitte vor der Veröffentlichung prüfen:** Die Fototexturen für Beton, Boden und Innenwände stammen aus der Vorlage-Datei „La Congiunta – schematisches 3D-Modell“; ihre Herkunft ist dort nicht angegeben. Vor einer öffentlichen Website sollten die Rechte daran geklärt oder die Texturen durch eigene Fotos bzw. frei lizenzierte (z. B. CC0) Texturen ersetzt werden.
 - Die Werke von Hans Josephsohn sind urheberrechtlich geschützt. Das Modell zeigt keine Abbilder einzelner Werke, sondern frei nachempfundene, prozedural erzeugte Formen in Anzahl und Anordnung nach den Quellen.
 
 Für den eigenen Code des Modells ist keine Lizenz festgelegt; wer ihn anderen zur Nutzung freigeben möchte, ergänzt eine Lizenzdatei (zum Beispiel MIT).
