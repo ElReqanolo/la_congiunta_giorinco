@@ -198,4 +198,6 @@ function afterSun(){
 beamsOn.addEventListener('change',function(){if(!beamsOn.checked)return;var c=camera.position;
   if(svB.y<=0.04)toast('Die Sonne steht zu tief: Lichtstrahlen fallen erst bei höherer Sonne durch die Oberlichter.');
   else if(!(clear||inside(c)))toast('Lichtstrahlen fallen durch die Oberlichter in die Räume. Zu sehen in „Innenräume“ oder beim Rundgang.')});
-var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){theme();dayTrack();draw()});
+var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){theme();dayTrack();draw()})
+/* Hell/Dunkel-Schalter (js/loader.js) */
+document.addEventListener('lc-theme',function(){theme();dayTrack();draw()});

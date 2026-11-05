@@ -5,11 +5,11 @@
   position: relative;
   z-index: var(--z-header);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   grid-template-areas:
-    "title set"
-    "sub   sub"
-    "bar   bar";
+    "title theme set"
+    "sub   sub   sub"
+    "bar   bar   bar";
   gap: var(--sp-1) var(--sp-3);
   padding: 10px var(--gutter-r) var(--sp-3) var(--gutter);
   background: var(--c-surface);
@@ -27,6 +27,17 @@
   background: var(--c-amber); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-amber) 30%, transparent);
 }
 .setb[aria-expanded="true"] { background: var(--c-active); border-color: var(--c-active); color: var(--c-on-active); }
+
+/* Hell/Dunkel: runder Knopf mit halb gefüllter Scheibe; gedrückt = dunkel, die Scheibe dreht sich */
+.themeb { grid-area: theme; align-self: center; width: var(--control-h); padding: 0; border-radius: var(--r-round); display: inline-grid; place-items: center; }
+.themeb[aria-pressed="true"] { background: var(--c-surface); border-color: var(--c-line-strong); color: var(--c-text); }
+.themeb-icon {
+  width: 16px; height: 16px; border-radius: 50%; border: 1.6px solid currentColor;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  transition: transform var(--t-fast);
+}
+.themeb[aria-pressed="true"] .themeb-icon { transform: rotate(180deg); }
+
 
 /* Werkzeugleiste: Ansichten als Segmentleiste, Modi als Umschalter; mobil zwei Zeilen, alles sichtbar */
 .bar { grid-area: bar; display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; margin-top: 6px; }
@@ -136,7 +147,7 @@ ol.src li { padding-left: 2px; }
 
 /* ---------- Tablet: eine Werkzeugzeile ---------- */
 @media (min-width: 720px) {
-  .site-header { grid-template-areas: "brand set" "bar bar"; row-gap: var(--sp-3); }
+  .site-header { grid-template-areas: "brand theme set" "bar bar bar"; row-gap: var(--sp-3); }
   .brand { display: block; grid-area: brand; min-width: 0; align-self: center; }
   .brand h1 { font-size: var(--fs-6); }
   .brand .sub { margin-top: 2px; font-size: var(--fs-2); }
@@ -158,10 +169,10 @@ ol.src li { padding-left: 2px; }
 /* ---------- Desktop: Ansichten und Modi neben dem Titel, darunter die Lichtzeile ---------- */
 @media (min-width: 1200px) {
   .site-header {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
-      "brand bar"
-      "light light";
+      "brand bar   theme"
+      "light light light";
     row-gap: 10px;
     padding-block: 10px;
   }
@@ -179,7 +190,7 @@ ol.src li { padding-left: 2px; }
 
 /* Querformat mit wenig Höhe (Handy quer): Kopf in einer Zeile */
 @media (max-height: 520px) and (min-width: 560px) and (max-width: 1199px) {
-  .site-header { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "brand bar set"; padding-block: var(--sp-2); }
+  .site-header { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "brand bar theme set"; padding-block: var(--sp-2); }
   .brand { display: block; grid-area: brand; min-width: 0; align-self: center; }
   .brand .sub { display: none; }
   .brand h1 { font-size: var(--fs-4); white-space: nowrap; }
@@ -190,4 +201,17 @@ ol.src li { padding-left: 2px; }
   .modes button, .seg button { flex: none; }
   .opt { display: none; }
   .light { max-height: calc(100dvh - 70px); }
+}
+
+/* schmale Handys: beide Knöpfe neben dem Titel nur als runde Symbole, damit der Titel in eine Zeile passt */
+@media (max-width: 419px) {
+  .site-header { column-gap: var(--sp-2); }
+  .setb { width: var(--control-h); padding: 0; justify-content: center; border-radius: var(--r-round); }
+  .setb-txt { display: none; }
+}
+/* sehr schmale Handys (unter 360 px) */
+@media (max-width: 359px) {
+  .brand h1 { font-size: var(--fs-4); }
+  .seg { grid-auto-columns: auto; }
+  .seg button, .modes button { padding: 0 var(--sp-1); font-size: var(--fs-1); }
 }

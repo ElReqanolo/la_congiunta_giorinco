@@ -9,6 +9,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f2f2ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1f201d" media="(prefers-color-scheme: dark)">
+<script>/* gespeicherte Hell/Dunkel-Wahl vor dem ersten Zeichnen setzen, sonst gilt die Systemeinstellung */
+(function(){try{var t=localStorage.getItem('lcTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_CH">
 <meta property="og:site_name" content="La Congiunta 3D">
@@ -44,7 +46,8 @@
     <h1>La Congiunta, Giornico</h1>
     <p class="sub">Peter Märkli, 1986–1992 · 3D-Modell mit Gelände und Umgebung</p>
   </div>
-  <button id="setBtn" class="setb" type="button" aria-expanded="false" aria-controls="lightP" aria-label="Licht &amp; Qualität"><span>Licht<span class="opt"> &amp; Qualität</span></span></button>
+  <button id="themeBtn" class="themeb" type="button" aria-pressed="false" aria-label="Dunkle Darstellung" title="Dunkle Darstellung einschalten"><span class="themeb-icon" aria-hidden="true"></span></button>
+  <button id="setBtn" class="setb" type="button" aria-expanded="false" aria-controls="lightP" aria-label="Licht &amp; Qualität" title="Licht &amp; Qualität"><span class="setb-txt">Licht<span class="opt"> &amp; Qualität</span></span></button>
   <div class="bar">
     <div id="viewSeg" class="seg" role="group" aria-label="Ansicht">
       <button type="button" data-v="out" aria-pressed="true">Außen</button>
@@ -104,6 +107,8 @@
       <dl class="howto keys">
         <dt>Ansehen</dt>
         <dd><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Mit der Tastatur: das Bild mit <b>Tab</b> anwählen, dann drehen die <b>Pfeiltasten</b>, <b>+ / −</b> zoomt.</dd>
+        <dt>Hell und dunkel</dt>
+        <dd>Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung. Die Wahl bleibt im Browser gespeichert; ohne Wahl gilt die Einstellung des Systems.</dd>
         <dt>Tablet und Handy</dt>
         <dd>Beim Fliegen und im Rundgang steuern die Pfeiltasten unten rechts; Uhrzeit, Jahreszeit, Wind, Wolken und Qualität stehen unter „Licht &amp; Qualität“.</dd>
         <dt>Maße</dt>

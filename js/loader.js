@@ -92,6 +92,33 @@
     });
   }
 
+  /* Hell/Dunkel-Schalter: die Wahl bleibt im Browser gespeichert; die App färbt Maßlinien und Uhrzeit-Spur nach (Ereignis lc-theme) */
+  var THEME_BAR = { light: '#f2f2ef', dark: '#1f201d' };
+  var darkMq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') || (darkMq && darkMq.matches ? 'dark' : 'light');
+  }
+  function showTheme() {
+    var t = currentTheme(), b = document.getElementById('themeBtn');
+    if (b) {
+      b.setAttribute('aria-pressed', String(t === 'dark'));
+      b.title = t === 'dark' ? 'Helle Darstellung einschalten' : 'Dunkle Darstellung einschalten';
+    }
+    if (document.documentElement.getAttribute('data-theme')) {
+      [].forEach.call(document.querySelectorAll('meta[name="theme-color"]'), function (m) { m.content = THEME_BAR[t]; });
+    }
+  }
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('lcTheme', t); } catch (e) {}
+    showTheme();
+    document.dispatchEvent(new CustomEvent('lc-theme', { detail: t }));
+  }
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', function () { setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); });
+  if (darkMq && darkMq.addEventListener) darkMq.addEventListener('change', showTheme);
+  showTheme();
+
   /* erst nach dem load-Ereignis: Text und Bedienung stehen sofort, die schwere Arbeit folgt danach */
   if (document.readyState === 'complete') setTimeout(start, 0);
   else window.addEventListener('load', function () { setTimeout(start, 30); });
