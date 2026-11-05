@@ -37,9 +37,9 @@ function mb32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>1
 /* ---------- Qualitätsstufen ---------- */
 /* px = Pixelbudget in Megapixeln (bestimmt das Pixelverhältnis), prLo/prMax = Grenzen beim Start, prMin = Untergrenze der automatischen Anpassung */
 /* fx = Ausdehnung des Waldes um das Gebäude (m), tF = Abstand der fernen Bäume; ultra nur auf Wunsch (nie automatisch) */
-var QS={ultra:{px:5.0,prLo:1,prMax:2,prMin:0.85,sh:4096,ms:4,post:1,grid:480,tN:3.0,tM:5.2,tF:9,fx:1600,cards:46,midCards:12,grass:11000,bloom:1,wind:1,shR:80},
-  hoch:{px:3.2,prLo:1,prMax:2,prMin:0.75,sh:3072,ms:4,post:1,grid:400,tN:3.3,tM:5.8,tF:10,fx:1600,cards:40,midCards:12,grass:11000,bloom:1,wind:1,shR:64},
-  mittel:{px:2.1,prLo:1,prMax:2,prMin:0.7,sh:2048,ms:0,post:0,grid:320,tN:3.8,tM:7.2,tF:14,fx:1400,cards:30,midCards:10,grass:5500,bloom:0,wind:1,shR:56},
+var QS={ultra:{px:5.0,prLo:1,prMax:2,prMin:0.85,sh:4096,ms:4,post:1,grid:480,tN:3.0,tM:5.2,tF:9,fx:1600,cards:46,midCards:12,grass:11000,bloom:1,wind:1,shR:160},
+  hoch:{px:3.2,prLo:1,prMax:2,prMin:0.75,sh:3072,ms:4,post:1,grid:400,tN:3.3,tM:5.8,tF:10,fx:1600,cards:40,midCards:12,grass:11000,bloom:1,wind:1,shR:96},
+  mittel:{px:2.1,prLo:1,prMax:2,prMin:0.7,sh:2048,ms:0,post:0,grid:320,tN:3.8,tM:7.2,tF:14,fx:1400,cards:30,midCards:10,grass:5500,bloom:0,wind:1,shR:72},
   niedrig:{px:1.0,prLo:0.85,prMax:1.75,prMin:0.6,sh:1024,ms:0,post:0,grid:220,tN:5.0,tM:10,tF:20,fx:1200,cards:22,midCards:8,grass:1500,bloom:0,wind:0,shR:48}};
 var QL=['niedrig','mittel','hoch','ultra'];
 function lsGet(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}

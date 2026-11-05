@@ -73,8 +73,11 @@ function hF(x,z,fy){
   return hB(x,z)}
 function collide(px,pz,rr,fy){fy=fy||0;for(var it=0;it<3;it++){for(var i=0;i<SO.length;i++){var b=SO[i];if(fy<b[4]-0.3||fy>b[5])continue;var cx=Math.max(b[0],Math.min(px,b[1])),cz=Math.max(b[2],Math.min(pz,b[3])),dx=px-cx,dz=pz-cz,d2=dx*dx+dz*dz;
   if(d2<rr*rr){if(d2>1e-8){var d=Math.sqrt(d2),k=(rr-d)/d;px+=dx*k;pz+=dz*k}else{var l=px-b[0],rt=b[1]-px,tt=pz-b[2],bt=b[3]-pz,m=Math.min(l,rt,tt,bt);if(m===l)px=b[0]-rr;else if(m===rt)px=b[1]+rr;else if(m===tt)pz=b[2]-rr;else pz=b[3]+rr}}}}return [px,pz]}
+/* Gehen 3,4 m/s, nach gut einer Sekunde ohne Pause bis 5 m/s (auch ohne Shift, etwa am Handy); Shift = rennen, 7 m/s */
+var walkHold=0;
 function walkStep(dt){if(cardOpen)return;
-  var sp=((keys.ShiftLeft||keys.ShiftRight)?4.6:2.4)*dt,f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0);
+  var f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0);walkHold=(f||sd)?walkHold+dt:0;
+  var sp=((keys.ShiftLeft||keys.ShiftRight)?7:3.4*(1+0.5*sstep(1,2.5,walkHold)))*dt;
   var fy=fp.y-1.65;
   if(f||sd){var nx=fp.x+(-Math.sin(fyaw)*f+Math.cos(fyaw)*sd)*sp,nz=fp.z+(-Math.cos(fyaw)*f-Math.sin(fyaw)*sd)*sp,c=collide(nx,nz,0.25,fy),d=Math.hypot(c[0],c[1]);
     if(d>150){c[0]*=150/d;c[1]*=150/d}var g1=hF(c[0],c[1],fy),g0=hF(fp.x,fp.z,fy);if(g1-g0<0.7&&g1>-6){fp.x=c[0];fp.z=c[1]}draw()}

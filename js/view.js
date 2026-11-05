@@ -31,11 +31,17 @@ function place(){
   camera.lookAt(tgt);var nr=clamp(r*0.004,0.15,2);if(Math.abs(camera.near-nr)>0.01){camera.near=nr;camera.updateProjectionMatrix()}
 }
 var fsC=new THREE.Vector3();
-/* Schattenbereich: im Flug vor der Kamera und je nach Flughöhe grösser (sonst fehlen weiter vorn die Schatten), im Gebäude klein und scharf */
-function fitShadow(){var c,R;if(FILM.on){c=FILM.focus;R=QP.shR*1.2}else if(fly){if(walk||inside(fp)){c=fp;R=walk?30:26}else{var hg=Math.max(0,fp.y-hB(fp.x,fp.z)),R0=QP.shR*0.75;R=clamp(R0+hg*1.1,R0,QP.shR*2.6);var cp=Math.cos(fpitch);fsC.set(fp.x-Math.sin(fyaw)*R*0.55*cp,0,fp.z-Math.cos(fyaw)*R*0.55*cp);c=fsC}}else{c=tgt;R=QP.shR*(r>160?1.7:1)}
-  R=Math.round(R/4)*4;var sc=sun.shadow.camera,tx=Math.round(c.x/2)*2,tz=Math.round(c.z/2)*2;
-  sun.target.position.set(tx,0,tz);sun.position.set(tx+svB.x*320,svB.y*320,tz+svB.z*320);sun.target.updateMatrixWorld();
-  if(sc.right!==R){sc.left=-R;sc.right=R;sc.top=R;sc.bottom=-R;sc.near=20;sc.far=700;sc.updateProjectionMatrix()}}
+/* Schattenbereich: beim Gehen und Fliegen dieselbe Reichweite (Grundwert QP.shR je Qualität, mit der Höhe über Boden grösser),
+   vor die Kamera geschoben; im Gebäude kleiner und dafür schärfer; im Film um die Figur, sonst um den Drehpunkt */
+function fitShadow(){var c,R,B=QP.shR;
+  if(FILM.on){c=FILM.focus;R=B*1.2}
+  else if(fly&&inside(fp)){c=fp;R=clamp(B*0.6,26,64)}
+  else if(fly){var hg=Math.max(0,fp.y-hB(fp.x,fp.z)-1.65);R=clamp(B+hg*1.1,B,B*2.6);var cp=Math.cos(fpitch);fsC.set(fp.x-Math.sin(fyaw)*R*0.5*cp,0,fp.z-Math.cos(fyaw)*R*0.5*cp);c=fsC}
+  else{c=tgt;R=B*(r>160?1.7:1)}
+  R=Math.round(R/4)*4;var sc=sun.shadow.camera,tx=Math.round(c.x/2)*2,tz=Math.round(c.z/2)*2,sd=Math.max(320,R*1.2);
+  sun.target.position.set(tx,0,tz);sun.position.set(tx+svB.x*sd,svB.y*sd,tz+svB.z*sd);sun.target.updateMatrixWorld();
+  /* Versatz gegen Schattenakne wächst mit der Texelgrösse (grösserer Bereich = gröbere Schattenkarte) */
+  if(sc.right!==R){sc.left=-R;sc.right=R;sc.top=R;sc.bottom=-R;sc.near=20;sc.far=sd+R*1.5;sc.updateProjectionMatrix();sun.shadow.normalBias=clamp(1.6*R/QP.sh,0.02,0.12)}}
 function inside(p){return p.x>CX0-0.1&&p.x<W/2&&p.z>-TOT/2&&p.z<TOT/2&&p.y<6.9&&(p.x>-W/2||p.z>CZ0)}
 /* neu zeichnen, wenn sich etwas ändert; Wind läuft nur 20 s nach der letzten Änderung, danach ruht die Grafikkarte */
 var lastAct=0,animT=0,waterT=0,slowWind=false,slowN=0,aAcc=0,aN=0,lastAnim=0,afterR=[];
