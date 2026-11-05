@@ -8,13 +8,13 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 - Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,4 × 5,25 m, Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,8 × 3,35 m; Länge, Breite, Drehung (21°), Laternen und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
 - Dachlaternen nach den Fotos: ringsum Plexiglas in Stahlrahmen, oben Blech, über die ganze Raumlänge; das Licht fällt seitlich ein
-- Keller (Lager) unter Raum 3 und dem Zellentrakt nach Kellergrundriss und Schnitten: Boden 2,44 m unter dem Erdgeschoss, Zugang über eine Aussentreppe im Schacht an der Westwand mit Kellertür und -fenster; der Umriss erscheint mit „Maße“ gestrichelt
+- Keller (Lager) unter Raum 3 und dem Zellentrakt nach Kellergrundriss und Schnitten: Boden 2,44 m unter dem Erdgeschoss, Zugang über eine Aussentreppe im Schacht an der Westwand mit breiter Öffnung ins Lager und schmaler Tür in den Zellenkeller; im Rundgang begehbar (Anker `#keller`), der Umriss erscheint mit „Maße“ gestrichelt
 - Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
 - Gelände aus den Höhenmodellen und Luftbildern von swisstopo; Dorf entlang des Wegs mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 (Wandfarben nach Street View, Dachfarben aus dem Luftbild); übrige Häuser, Bahn, Strassen und Brücken nach OpenStreetMap
 - Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
 - Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten (Stärke und Wolken im Menü einstellbar)
 - Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
-- Rundgang mit zehn Infoschildern, Maßangaben und Quellenliste
+- Rundgang mit dreizehn Infoschildern (drei am und im begehbaren Keller), Maßangaben und Quellenliste
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
 ## Bedienung
@@ -36,9 +36,10 @@ Uhrzeit, Jahreszeit, Wind, Wolken, Fluss, Lichtstrahlen und Grafikqualität steh
 - `#raum3-t0930-winter` – Raum 3 an einem Wintermorgen
 - `#zelle`, `#raum1`, `#raum2`, `#eingang`, `#decke`
 - `#flachrelief`, `#hochrelief`, `#halbfigur` – direkt vor einem Exponat
+- `#keller`, `#schacht` – im Lager unter Raum 3 bzw. unten im Kellerschacht
 - `#film` – Film starten, `#film-s40` ab Sekunde 40
 - `#tal`, `#aussen`, `#innen`, `#drauf`
-- `#schild4` – direkt vor Infoschild 4
+- `#schild4` – direkt vor Infoschild 4 (`#schild11` bis `#schild13`: am und im Keller)
 - `#ultra`, `#hoch`, `#mittel`, `#niedrig`, `#auto` – Grafikqualität
 - `#diag` – technische Angaben (Grafikchip, Bildrate, Ladezeiten)
 
