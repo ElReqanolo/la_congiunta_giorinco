@@ -132,9 +132,11 @@ main { position: relative; flex: 1; min-height: 0; display: flex; }
 }
 .site-footer details[open] > summary::before { transform: rotate(45deg) translate(-2px, -1px); }
 .site-footer summary h2 { font: 700 var(--fs-2) / var(--lh-ui) var(--font-sans); }
-.fbody { display: grid; gap: var(--sp-4); max-width: 1100px; }
+/* drei Teile (Bedienung, Daten und Genauigkeit, Legende): untereinander, auf breiten Bildschirmen nebeneinander (siehe unten) */
+.fbody { display: grid; gap: var(--sp-4); }
+.fsec { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
 .fbody h3 { font-size: var(--fs-4); margin-top: var(--sp-2); }
-.fbody > p { max-width: 75ch; }
+.fsec > p { max-width: 75ch; }
 
 /* Bedienung: Begriff und Erklärung */
 .howto { display: grid; gap: var(--sp-2) var(--sp-4); margin: 0; max-width: 75ch; }
@@ -220,4 +222,26 @@ ol.src li { padding-left: 2px; }
   .brand h1 { font-size: var(--fs-4); }
   .seg { grid-auto-columns: auto; }
   .seg button, .modes button { padding: 0 var(--sp-1); font-size: var(--fs-1); }
+}
+
+/* ---------- Fussbereich auf breiten Bildschirmen: die Teile nebeneinander, statt alles schmal am linken Rand ---------- */
+@media (min-width: 900px) {
+  /* zwei Spalten: links die Bedienung, rechts Daten und Legende; die zweite Zeile wächst, damit rechts keine Lücke entsteht */
+  .fbody { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: var(--sp-6); }
+  .fsec-howto { grid-row: span 2; }
+  .fsec > p { max-width: none; }
+  .howto { grid-template-columns: 1fr; max-width: none; }
+  .howto dd { margin: -6px 0 0; }
+  ol.src { display: block; columns: 2; column-gap: var(--sp-6); max-width: none; padding-left: 0; }
+  ol.src li { margin: 0 0 var(--sp-2) 26px; padding-left: 2px; break-inside: avoid; }
+}
+@media (min-width: 1500px) {
+  /* drei gleiche Spalten wie bei den Quellen: links die Bedienung, rechts über zwei Spalten der Text und die Legende, je in zwei Spalten gesetzt */
+  .site-footer { --fgap: clamp(32px, 2.5vw, 56px); }
+  .fbody { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--fgap); }
+  .fsec:not(.fsec-howto) { grid-column: span 2; }
+  .fsec > p { columns: 2; column-gap: var(--fgap); }
+  ul.leg { display: block; columns: 2; column-gap: var(--fgap); }
+  ul.leg li { margin-bottom: var(--sp-3); break-inside: avoid; }
+  ol.src { columns: 3; column-gap: var(--fgap); }
 }
