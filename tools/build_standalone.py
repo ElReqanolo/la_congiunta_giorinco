@@ -31,7 +31,7 @@ def no_script_end(text, what):
 
 
 def main():
-    out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'dist', 'La_Congiunta_Giornico_3D.html')
+    out = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, 'dist', 'La_Congiunta_Giornico_3D.html')
     html = read('index.html')
     loader = read('js/loader.js')
 

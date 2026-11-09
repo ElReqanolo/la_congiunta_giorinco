@@ -134,7 +134,7 @@ function applyHash(){var tk=(location.hash||'').replace('#','').toLowerCase().sp
 window.addEventListener('hashchange',applyHash);
 useBtn.addEventListener('click',interact);
 /* ---------- Sonnenstand ---------- */
-var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'),seasonS=document.getElementById('seasonS'),beamsOn=document.getElementById('beamsOn'),qualS=document.getElementById('qualS');
+var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'),sunV=document.getElementById('sunV'),seasonS=document.getElementById('seasonS'),beamsOn=document.getElementById('beamsOn'),qualS=document.getElementById('qualS');
 var windS=document.getElementById('windS'),cloudOn=document.getElementById('cloudOn');
 if(windS){var wo=[].map.call(windS.options||[],function(o){return +o.value}),wb=0;wo.forEach(function(v,i){if(Math.abs(v-windLvl)<Math.abs(wo[wb]-windLvl))wb=i});if(wo.length)windS.selectedIndex=wb;
   windS.addEventListener('change',function(){windLvl=+windS.value;slowWind=false;lsSet('lcWind',String(windLvl));windApply();draw()})}
@@ -192,8 +192,12 @@ function afterSun(){
   if(ringM)ringM.material.color.setRGB(0.09,0.12,0.08).multiplyScalar(gI*0.8+0.02*dl);
   beamsUpdate(svB,k);envQueue();
   var hidden=(s>0.0&&sv<0.5);
-  timeV.textContent=fmt(parseFloat(timeR.value))+' · Sonne '+Math.round(el*180/Math.PI)+'° hoch'+(hidden?' · hinter dem Berg':'');
-  timeR.setAttribute('aria-valuetext',fmt(parseFloat(timeR.value))+' Uhr, Sonne '+Math.round(el*180/Math.PI)+' Grad hoch'+(hidden?', hinter dem Berg':''));
+  /* Uhrzeit und Sonnenstand in getrennten Zeilen, damit die Anzeige beim Ziehen nicht umbricht */
+  var deg=Math.round(el*180/Math.PI),clock=fmt(parseFloat(timeR.value));
+  var sunT=deg>0?'Sonne '+deg+'° hoch':deg<0?'Sonne '+(-deg)+'° unter dem Horizont':'Sonne am Horizont';
+  timeV.textContent=clock;
+  sunV.textContent=sunT+(hidden?' · hinter dem Berg':'');
+  timeR.setAttribute('aria-valuetext',clock+' Uhr, '+sunT.replace('°',' Grad')+(hidden?', hinter dem Berg':''));
   draw();
 }
 [timeR,seasonS,beamsOn].forEach(function(e){e.addEventListener('input',applySun);e.addEventListener('change',applySun)});
