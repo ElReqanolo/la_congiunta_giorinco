@@ -123,6 +123,80 @@
   if (darkMq && darkMq.addEventListener) darkMq.addEventListener('change', showTheme);
   showTheme();
 
+  /* Vollbild: nur das Modell, über den ganzen Bildschirm. Kopf und Fuss werden immer ausgeblendet (Klasse lc-full);
+     wo der Browser es erlaubt, kommt echtes Vollbild dazu, am Handy ins Querformat gedreht. Wo nicht (iPhone,
+     eingebettete Fassung), bleibt es beim Ausblenden, das Bild bekommt trotzdem die ganze Fläche des Fensters. */
+  var root = document.documentElement, fsBtn = document.getElementById('fsBtn'), fsNative = false;
+  function fsEl() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
+  function fsOn() { return root.classList.contains('lc-full'); }
+  function isPhone() {
+    return !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches) && Math.min(screen.width, screen.height) < 600;
+  }
+  function showFs() {
+    if (!fsBtn) return;
+    var on = fsOn();
+    fsBtn.setAttribute('aria-pressed', String(on));
+    fsBtn.setAttribute('aria-label', on ? 'Vollbild beenden' : 'Vollbild');
+    fsBtn.title = on ? 'Vollbild beenden (F oder Esc)' : 'Vollbild (F)';
+  }
+  function portraitHint() {
+    if (window.innerHeight > window.innerWidth && typeof window.toast === 'function') window.toast('Für mehr Sicht das Handy quer halten.');
+  }
+  /* am Handy ins Querformat drehen (geht nur im echten Vollbild); steht das Handy nach gut einer Sekunde noch hochkant, ein Hinweis */
+  var hintDone = false;
+  function phoneHint() { if (!hintDone && fsOn()) { hintDone = true; portraitHint(); } }
+  function landscape() {
+    var so = screen.orientation;
+    if (isPhone() && fsEl() && so && so.lock) so.lock('landscape').catch(phoneHint);
+  }
+  function enterFs() {
+    var hdr = document.querySelector('.site-header.open'), sb = document.getElementById('setBtn');
+    if (hdr) { hdr.classList.remove('open'); if (sb) sb.setAttribute('aria-expanded', 'false'); }
+    root.classList.add('lc-full');
+    showFs();
+    hintDone = false;
+    if (isPhone()) setTimeout(phoneHint, 1500);
+    var req = root.requestFullscreen || root.webkitRequestFullscreen;
+    if (!req || !(document.fullscreenEnabled || document.webkitFullscreenEnabled) || fsEl()) return;
+    try {
+      fsNative = true;
+      var p = req.call(root, { navigationUI: 'hide' });
+      /* wurde inzwischen schon wieder beendet (schnelles Doppeltippen), das echte Vollbild gleich wieder verlassen */
+      if (p && p.then) p.then(function () { if (fsOn()) landscape(); else leaveNative(); }, function () { fsNative = false; });
+      else setTimeout(landscape, 300);
+    } catch (e) { fsNative = false; }
+  }
+  function exitFs() {
+    root.classList.remove('lc-full');
+    showFs();
+    var so = screen.orientation;
+    try { if (so && so.unlock) so.unlock(); } catch (e) {}
+    leaveNative();
+    fsNative = false;
+  }
+  function leaveNative() {
+    var ex = document.exitFullscreen || document.webkitExitFullscreen;
+    if (fsEl() && ex) { try { var p = ex.call(document); if (p && p.catch) p.catch(function () {}); } catch (e) {} }
+  }
+  function toggleFs() { if (fsOn()) exitFs(); else enterFs(); }
+  if (fsBtn) fsBtn.addEventListener('click', toggleFs);
+  /* mit Esc oder der Zurück-Geste beendetes echtes Vollbild: auch Kopf und Fuss wieder zeigen */
+  ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (n) {
+    document.addEventListener(n, function () { if (!fsEl() && fsNative) exitFs(); });
+  });
+  /* Taste F schaltet um; Esc beendet das Ersatz-Vollbild, solange weder Schild noch Film die Taste brauchen */
+  window.addEventListener('keydown', function (e) {
+    var t = e.target, tg = t && t.tagName;
+    if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|SELECT|TEXTAREA)$/.test(tg) || (t && t.isContentEditable)) return;
+    if (e.code === 'KeyF' && !e.repeat) { toggleFs(); e.preventDefault(); return; }
+    if (e.code === 'Escape' && fsOn() && !fsEl()) {
+      var card = document.getElementById('card'), film = document.getElementById('filmUI');
+      if ((card && !card.hidden) || (film && !film.hidden)) return;
+      exitFs();
+    }
+  });
+  showFs();
+
   /* erst nach dem load-Ereignis: Text und Bedienung stehen sofort, die schwere Arbeit folgt danach */
   if (document.readyState === 'complete') setTimeout(start, 0);
   else window.addEventListener('load', function () { setTimeout(start, 30); });

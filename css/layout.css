@@ -100,6 +100,10 @@
 }
 #timeR:focus-visible { outline-offset: 4px; }
 
+/* ---------- Vollbild: nur das Modell; Kopf und Fuss weg, die Bühne füllt den ganzen Bildschirm ---------- */
+.lc-full .site-header, .lc-full .site-footer, .lc-full .skip, .lc-full .nojs { display: none; }
+.lc-full body { background: var(--c-stage); }
+
 /* ---------- 3D-Bühne ---------- */
 main { position: relative; flex: 1; min-height: 0; display: flex; }
 #stage { position: relative; flex: 1; min-width: 0; touch-action: none; cursor: grab; background: var(--c-stage); overflow: hidden; }
