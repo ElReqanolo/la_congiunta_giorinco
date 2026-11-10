@@ -27,17 +27,17 @@
 <link rel="preload" href="assets/fonts/heros-regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/pagella-bold.woff" as="font" type="font/woff" crossorigin>
 <!-- ?v= erhöhen, wenn sich CSS oder JS ändern: sonst zeigen Browser bis zu 10 Minuten lang alte Dateien -->
-<link rel="stylesheet" href="css/tokens.css?v=9">
-<link rel="stylesheet" href="css/base.css?v=9">
-<link rel="stylesheet" href="css/layout.css?v=9">
-<link rel="stylesheet" href="css/overlays.css?v=9">
+<link rel="stylesheet" href="css/tokens.css?v=10">
+<link rel="stylesheet" href="css/base.css?v=10">
+<link rel="stylesheet" href="css/layout.css?v=10">
+<link rel="stylesheet" href="css/overlays.css?v=10">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"La Congiunta, Giornico – interaktives 3D-Modell","inLanguage":"de",
  "about":{"@type":"Museum","name":"La Congiunta","url":"https://lacongiunta.ch/","architect":{"@type":"Person","name":"Peter Märkli"},
   "address":{"@type":"PostalAddress","addressLocality":"Giornico","addressRegion":"Tessin","addressCountry":"CH"},
   "geo":{"@type":"GeoCoordinates","latitude":46.4056231,"longitude":8.8704691}}}
 </script>
-<script src="js/loader.js?v=9" defer></script>
+<script src="js/loader.js?v=10" defer></script>
 </head>
 <body>
 <a class="skip" href="#stage">Zum 3D-Modell springen</a>
@@ -150,6 +150,85 @@
         <li><i style="background:#a29f96"></i><span><b>Keller (Lager)</b> unter Raum 3 und dem Zellentrakt, Boden 2,44 m unter dem Erdgeschoss, lichte Höhe ≈ 2,2 m; Zugang nur von außen über eine Treppe im Schacht an der Westwand nördlich der Zellen: 1,6 m breite Öffnung ins Lager unter Raum 3, schmale Tür in den Zellenkeller; im Rundgang begehbar, mit „Maße“ gestrichelt eingezeichnet <span class="st">Text („deposito interrato“), Kellergrundriss und Schnitte [1]</span></span></li>
         <li><i style="background:transparent;border-style:dashed"></i><span><b>Angenommen bzw. nicht modelliert:</b> Größe der Oblichter in den Zellen (laut Märkli klein, mit senkrechtem Lichteinfall [14]; rund 1,0 × 0,6 m nach dem Videobild geschätzt, Lage aus dem Schnitt), Ausstattung und Licht im Keller (leer, Leuchtstoffröhren angenommen), Schwellen, Weinreben nördlich des Eingangs nur schematisch, Dorfhäuser mit typisierten Fassaden</span></li>
       </ul>
+      </section>
+    </div>
+  </details>
+  <details id="masse">
+    <summary><h2>Wie die Maße entstanden</h2></summary>
+    <div class="mbody">
+      <p class="mintro">Direkt veröffentlicht sind nur wenige Maße: die lichten Raumhöhen (Pireddu), die Innenbreite (Märkli) und die Weglänge. Alles andere ist gemessen, umgerechnet oder geschätzt. Grundlage sind Grundriss und Schnitte bei Pireddu; weil die Pläne keinen brauchbaren Maßstab haben, gibt die Gesamtlänge aus dem Luftbild den Maßstab vor. Wo nur Bilder vorliegen, steht „geschätzt“. Die Zahlen in Klammern verweisen auf die Quellen.</p>
+      <section class="mgrp">
+        <h3>Gebäude</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Länge außen</th><td class="mv">≈ 42,4 m</td><td>Am Luftbild SWISSIMAGE gemessen (±0,5 m) und mit dem Gebäudemodell swissBUILDINGS3D abgeglichen, das 42,3 m ergibt [7]. Diese Länge ist der Maßstab für alle Planmaße.</td></tr>
+            <tr><th scope="row">Planmaßstab</th><td class="mv">1 pt ≈ 0,11 m</td><td>Grundriss und Schnitte bei Pireddu [1] S. 126–127 haben keinen brauchbaren Maßstab. Im Plan ist der Bau 393,7 pt lang; 42,4 m geteilt durch 393,7 pt ergibt den Maßstab. Planmaße sind damit auf rund ±0,1 m genau.</td></tr>
+            <tr><th scope="row">Breite außen</th><td class="mv">5,25 m</td><td>Im Grundriss 48,8 pt: 48,8 / 393,7 × 42,4 m = 5,26 m. swissBUILDINGS3D ergibt 5,27 m [7].</td></tr>
+            <tr><th scope="row">Breite innen</th><td class="mv">≈ 4,6 m</td><td>Direkt angegeben von Peter Märkli im Video [14].</td></tr>
+            <tr><th scope="row">Wandstärke</th><td class="mv">≈ 0,33 m</td><td>Berechnet: (5,25 m − 4,6 m) / 2 = 0,325 m. Im Plan sind das rund 3 pt, also nicht genauer messbar.</td></tr>
+            <tr><th scope="row">Raumlängen (bis Wandmitte)</th><td class="mv">7,33 / 17,45 / 17,55 m</td><td>Im Grundriss als Anteile der Gesamtlänge gemessen (0,1731 / 0,4122 / 0,4147) und mit 42,4 m multipliziert.</td></tr>
+            <tr><th scope="row">Lichte Raumhöhen</th><td class="mv">5,30 / 3,50 / 6,60 m</td><td>Direkt angegeben bei Pireddu [1], Fußnote 10; die Höhensprünge außen stimmen mit swissBUILDINGS3D überein [7].</td></tr>
+            <tr><th scope="row">Drehung der Längsachse</th><td class="mv">≈ 21°</td><td>Richtung der Längsachse im Luftbild und in swissBUILDINGS3D gegen Nord gemessen [7].</td></tr>
+            <tr><th scope="row">Türen</th><td class="mv">0,85 × 2,15 m, 0,47 m westlich der Mitte</td><td>Im Grundriss und im Querschnitt gemessen, Höhe zusätzlich am Foto S. 129 im Verhältnis zur Raumhöhe [1]. Zellentüren 0,7 m breit (Grundriss).</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mgrp">
+        <h3>Dach und Lichtgaden</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Dachstärke</th><td class="mv">≈ 0,2 m</td><td>Doppellinie im Schnitt [1], im Planmaßstab gemessen.</td></tr>
+            <tr><th scope="row">Lichtgaden</th><td class="mv">1,7 m breit, 1,5 m hoch, 0,42 m westlich der Mitte</td><td>In den Querschnitten [1] gemessen; Lage und Höhe mit swissBUILDINGS3D abgeglichen [7]. Dass er über die ganze Länge der Haupträume läuft, sagt Märkli [14].</td></tr>
+            <tr><th scope="row">Pfosten- und Trägerabstand</th><td class="mv">≈ 1,2 m (geschätzt)</td><td>An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt der Abstand ähnlich, ist dort aber nicht sicher messbar.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mgrp">
+        <h3>Zellen</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Zellentrakt</th><td class="mv">12,8 × 3,35 m, Dach 4,5 m, innen 4,3 m hoch</td><td>Grundriss und Querschnitt [1] im Planmaßstab, mit swissBUILDINGS3D abgeglichen [7].</td></tr>
+            <tr><th scope="row">Zelle innen</th><td class="mv">≈ 3,0 × 2,8 m</td><td>Berechnet: Trakt abzüglich der Wände, in vier gleiche Zellen geteilt.</td></tr>
+            <tr><th scope="row">Oblicht</th><td class="mv">≈ 1,0 × 0,6 m (geschätzt)</td><td>Märkli nennt es klein, mit senkrechtem Lichteinfall [14]. Die Größe ist am Videobild im Verhältnis zur Zellendecke geschätzt, die Lage aus dem Schnitt [1].</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mgrp">
+        <h3>Keller</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Kellerboden</th><td class="mv">2,44 m unter dem Erdgeschoss, lichte Höhe ≈ 2,2 m</td><td>Im Kellergrundriss und im Längsschnitt [1] im Planmaßstab gemessen.</td></tr>
+            <tr><th scope="row">Abgang</th><td class="mv">Schacht ≈ 0,87 m breit, 13 Stufen</td><td>Im Kellergrundriss [1] gemessen, Stufen gezählt. Podest 12,8–17,6 m und Treppe bis 21,0 m, jeweils von der Südfront aus gemessen.</td></tr>
+            <tr><th scope="row">Öffnungen unten</th><td class="mv">1,6 m ins Lager, Tür 0,85 m</td><td>Kellergrundriss [1]; welche Öffnung Durchgang und welche Tür ist, ist aus dem Plan gelesen.</td></tr>
+            <tr><th scope="row">Lager und Zellenkeller</th><td class="mv">≈ 17,1 × 4,6 m (79 m²) und 12,2 × 3,0 m (37 m²); zusammen ≈ 115 m², 255 m³</td><td>Berechnet aus Innenbreite, Raumlänge, Wandstärke und 2,2 m Höhe.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mgrp">
+        <h3>Exponate</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Sockel der Halbfiguren</th><td class="mv">≈ 0,66 × 0,6 × 0,7 m (geschätzt)</td><td>Am Videobild [14] gemessen: Der Sockel ist etwa so hoch wie breit, die Figur knapp doppelt so hoch wie der Sockel. Dass er von der Wand abgerückt steht, sagt Märkli [14].</td></tr>
+            <tr><th scope="row">Reliefs und Halbfiguren</th><td class="mv">angenähert</td><td>Veröffentlichte Maße gibt es nicht; Größen nach Fotos [1] und dem Video [14] geschätzt. Die Anzahl stammt von Pireddu [1], die vier späteren Reliefs in Raum 3 aus dem Video [14].</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mgrp">
+        <h3>Umgebung</h3>
+        <table class="mtab">
+          <thead><tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Herleitung</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Höhe über Meer</th><td class="mv">≈ 398 m ü. M.</td><td>Im Höhenmodell swissALTI3D am Gebäude abgelesen [7].</td></tr>
+            <tr><th scope="row">Bahn, Ticino, Feldweg</th><td class="mv">Bahn 40–45 m westlich, 16 m höher; Ticino ≈ 40 m östlich, 9 m tiefer; Feldweg ≈ 18 m</td><td>Eigene Messung im Höhenmodell und Luftbild [7] und in OpenStreetMap [8], jeweils ab der Gebäudeachse.</td></tr>
+            <tr><th scope="row">Osteria, San Nicolao</th><td class="mv">≈ 585 m und 640 m (Luftlinie)</td><td>In OpenStreetMap [8] gemessen.</td></tr>
+            <tr><th scope="row">Fußweg zum Museum</th><td class="mv">≈ 750 m, etwa 10 Minuten</td><td>Länge laut Pireddu [1]; die Gehzeit ist geschätzt (rund 4,5 km/h).</td></tr>
+          </tbody>
+        </table>
       </section>
     </div>
   </details>

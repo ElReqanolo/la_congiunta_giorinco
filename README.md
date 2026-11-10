@@ -111,6 +111,36 @@ Für eine Aktualisierung genügt es, die geänderten Dateien hochzuladen; GitHub
 - Keine Cookies, kein Tracking, keine Formulare.
 - Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
 
+## Wie die Maße entstanden
+
+Direkt veröffentlicht sind nur die lichten Raumhöhen (Pireddu), die Innenbreite (Märkli im Video) und die Weglänge. Alles andere ist gemessen, umgerechnet oder geschätzt; die vollständige Tabelle steht in der Seite unter „Wie die Maße entstanden“. Das Wichtigste:
+
+- **Länge außen** (Gebäude): ≈ 42,4 m – Am Luftbild SWISSIMAGE gemessen (±0,5 m) und mit dem Gebäudemodell swissBUILDINGS3D abgeglichen, das 42,3 m ergibt [7]. Diese Länge ist der Maßstab für alle Planmaße.
+- **Planmaßstab** (Gebäude): 1 pt ≈ 0,11 m – Grundriss und Schnitte bei Pireddu [1] S. 126–127 haben keinen brauchbaren Maßstab. Im Plan ist der Bau 393,7 pt lang; 42,4 m geteilt durch 393,7 pt ergibt den Maßstab. Planmaße sind damit auf rund ±0,1 m genau.
+- **Breite außen** (Gebäude): 5,25 m – Im Grundriss 48,8 pt: 48,8 / 393,7 × 42,4 m = 5,26 m. swissBUILDINGS3D ergibt 5,27 m [7].
+- **Breite innen** (Gebäude): ≈ 4,6 m – Direkt angegeben von Peter Märkli im Video [14].
+- **Wandstärke** (Gebäude): ≈ 0,33 m – Berechnet: (5,25 m − 4,6 m) / 2 = 0,325 m. Im Plan sind das rund 3 pt, also nicht genauer messbar.
+- **Raumlängen (bis Wandmitte)** (Gebäude): 7,33 / 17,45 / 17,55 m – Im Grundriss als Anteile der Gesamtlänge gemessen (0,1731 / 0,4122 / 0,4147) und mit 42,4 m multipliziert.
+- **Lichte Raumhöhen** (Gebäude): 5,30 / 3,50 / 6,60 m – Direkt angegeben bei Pireddu [1], Fußnote 10; die Höhensprünge außen stimmen mit swissBUILDINGS3D überein [7].
+- **Drehung der Längsachse** (Gebäude): ≈ 21° – Richtung der Längsachse im Luftbild und in swissBUILDINGS3D gegen Nord gemessen [7].
+- **Türen** (Gebäude): 0,85 × 2,15 m, 0,47 m westlich der Mitte – Im Grundriss und im Querschnitt gemessen, Höhe zusätzlich am Foto S. 129 im Verhältnis zur Raumhöhe [1]. Zellentüren 0,7 m breit (Grundriss).
+- **Dachstärke** (Dach und Lichtgaden): ≈ 0,2 m – Doppellinie im Schnitt [1], im Planmaßstab gemessen.
+- **Lichtgaden** (Dach und Lichtgaden): 1,7 m breit, 1,5 m hoch, 0,42 m westlich der Mitte – In den Querschnitten [1] gemessen; Lage und Höhe mit swissBUILDINGS3D abgeglichen [7]. Dass er über die ganze Länge der Haupträume läuft, sagt Märkli [14].
+- **Pfosten- und Trägerabstand** (Dach und Lichtgaden): ≈ 1,2 m (geschätzt) – An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt der Abstand ähnlich, ist dort aber nicht sicher messbar.
+- **Zellentrakt** (Zellen): 12,8 × 3,35 m, Dach 4,5 m, innen 4,3 m hoch – Grundriss und Querschnitt [1] im Planmaßstab, mit swissBUILDINGS3D abgeglichen [7].
+- **Zelle innen** (Zellen): ≈ 3,0 × 2,8 m – Berechnet: Trakt abzüglich der Wände, in vier gleiche Zellen geteilt.
+- **Oblicht** (Zellen): ≈ 1,0 × 0,6 m (geschätzt) – Märkli nennt es klein, mit senkrechtem Lichteinfall [14]. Die Größe ist am Videobild im Verhältnis zur Zellendecke geschätzt, die Lage aus dem Schnitt [1].
+- **Kellerboden** (Keller): 2,44 m unter dem Erdgeschoss, lichte Höhe ≈ 2,2 m – Im Kellergrundriss und im Längsschnitt [1] im Planmaßstab gemessen.
+- **Abgang** (Keller): Schacht ≈ 0,87 m breit, 13 Stufen – Im Kellergrundriss [1] gemessen, Stufen gezählt. Podest 12,8–17,6 m und Treppe bis 21,0 m, jeweils von der Südfront aus gemessen.
+- **Öffnungen unten** (Keller): 1,6 m ins Lager, Tür 0,85 m – Kellergrundriss [1]; welche Öffnung Durchgang und welche Tür ist, ist aus dem Plan gelesen.
+- **Lager und Zellenkeller** (Keller): ≈ 17,1 × 4,6 m (79 m²) und 12,2 × 3,0 m (37 m²); zusammen ≈ 115 m², 255 m³ – Berechnet aus Innenbreite, Raumlänge, Wandstärke und 2,2 m Höhe.
+- **Sockel der Halbfiguren** (Exponate): ≈ 0,66 × 0,6 × 0,7 m (geschätzt) – Am Videobild [14] gemessen: Der Sockel ist etwa so hoch wie breit, die Figur knapp doppelt so hoch wie der Sockel. Dass er von der Wand abgerückt steht, sagt Märkli [14].
+- **Reliefs und Halbfiguren** (Exponate): angenähert – Veröffentlichte Maße gibt es nicht; Größen nach Fotos [1] und dem Video [14] geschätzt. Die Anzahl stammt von Pireddu [1], die vier späteren Reliefs in Raum 3 aus dem Video [14].
+- **Höhe über Meer** (Umgebung): ≈ 398 m ü. M. – Im Höhenmodell swissALTI3D am Gebäude abgelesen [7].
+- **Bahn, Ticino, Feldweg** (Umgebung): Bahn 40–45 m westlich, 16 m höher; Ticino ≈ 40 m östlich, 9 m tiefer; Feldweg ≈ 18 m – Eigene Messung im Höhenmodell und Luftbild [7] und in OpenStreetMap [8], jeweils ab der Gebäudeachse.
+- **Osteria, San Nicolao** (Umgebung): ≈ 585 m und 640 m (Luftlinie) – In OpenStreetMap [8] gemessen.
+- **Fußweg zum Museum** (Umgebung): ≈ 750 m, etwa 10 Minuten – Länge laut Pireddu [1]; die Gehzeit ist geschätzt (rund 4,5 km/h).
+
 ## Quellen und Lizenzen
 
 Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig für die Weitergabe:
