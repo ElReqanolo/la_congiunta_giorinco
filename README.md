@@ -126,7 +126,7 @@ Direkt veröffentlicht sind nur die lichten Raumhöhen (Pireddu), die Innenbreit
 - **Türen** (Gebäude): 0,85 × 2,15 m, 0,47 m westlich der Mitte – Im Grundriss und im Querschnitt gemessen, Höhe zusätzlich am Foto S. 129 im Verhältnis zur Raumhöhe [1]. Zellentüren 0,7 m breit (Grundriss).
 - **Dachstärke** (Dach und Lichtgaden): ≈ 0,2 m – Doppellinie im Schnitt [1], im Planmaßstab gemessen.
 - **Lichtgaden** (Dach und Lichtgaden): 1,7 m breit, 1,5 m hoch, 0,42 m westlich der Mitte – In den Querschnitten [1] gemessen; Lage und Höhe mit swissBUILDINGS3D abgeglichen [7]. Dass er über die ganze Länge der Haupträume läuft, sagt Märkli [14].
-- **Pfosten- und Trägerabstand** (Dach und Lichtgaden): ≈ 1,2 m (geschätzt) – An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt der Abstand ähnlich, ist dort aber nicht sicher messbar.
+- **Pfosten- und Trägerabstand** (Dach und Lichtgaden): ≈ 1,2 m (geschätzt) – An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt er eher etwas größer (rund 1,3–1,5 m), ist dort aber nicht sicher messbar.
 - **Zellentrakt** (Zellen): 12,8 × 3,35 m, Dach 4,5 m, innen 4,3 m hoch – Grundriss und Querschnitt [1] im Planmaßstab, mit swissBUILDINGS3D abgeglichen [7].
 - **Zelle innen** (Zellen): ≈ 3,0 × 2,8 m – Berechnet: Trakt abzüglich der Wände, in vier gleiche Zellen geteilt.
 - **Oblicht** (Zellen): ≈ 1,0 × 0,6 m (geschätzt) – Märkli nennt es klein, mit senkrechtem Lichteinfall [14]. Die Größe ist am Videobild im Verhältnis zur Zellendecke geschätzt, die Lage aus dem Schnitt [1].
