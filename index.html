@@ -27,17 +27,17 @@
 <link rel="preload" href="assets/fonts/heros-regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/pagella-bold.woff" as="font" type="font/woff" crossorigin>
 <!-- ?v= erhöhen, wenn sich CSS oder JS ändern: sonst zeigen Browser bis zu 10 Minuten lang alte Dateien -->
-<link rel="stylesheet" href="css/tokens.css?v=7">
-<link rel="stylesheet" href="css/base.css?v=7">
-<link rel="stylesheet" href="css/layout.css?v=7">
-<link rel="stylesheet" href="css/overlays.css?v=7">
+<link rel="stylesheet" href="css/tokens.css?v=8">
+<link rel="stylesheet" href="css/base.css?v=8">
+<link rel="stylesheet" href="css/layout.css?v=8">
+<link rel="stylesheet" href="css/overlays.css?v=8">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"La Congiunta, Giornico – interaktives 3D-Modell","inLanguage":"de",
  "about":{"@type":"Museum","name":"La Congiunta","url":"https://lacongiunta.ch/","architect":{"@type":"Person","name":"Peter Märkli"},
   "address":{"@type":"PostalAddress","addressLocality":"Giornico","addressRegion":"Tessin","addressCountry":"CH"},
   "geo":{"@type":"GeoCoordinates","latitude":46.4056231,"longitude":8.8704691}}}
 </script>
-<script src="js/loader.js?v=7" defer></script>
+<script src="js/loader.js?v=8" defer></script>
 </head>
 <body>
 <a class="skip" href="#stage">Zum 3D-Modell springen</a>
@@ -89,6 +89,7 @@
     <div id="pad" class="pad" hidden role="group" aria-label="Steuerung">
       <button type="button" data-k="u" aria-label="Hoch">▲</button><button type="button" data-k="f" aria-label="Vorwärts">↑</button><button type="button" data-k="d" aria-label="Runter">▼</button>
       <button type="button" data-k="l" aria-label="Links">←</button><button type="button" data-k="b" aria-label="Zurück">↓</button><button type="button" data-k="r" aria-label="Rechts">→</button>
+      <button type="button" id="runBtn" class="run" aria-pressed="false" aria-label="Rennen" title="Rennen an/aus (wie Shift)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l5-5 5 5M5 15.5l5-5 5 5"/></svg></button>
     </div>
     <div id="compass" class="compass" aria-hidden="true"><span id="needle"></span><b>N</b></div>
     <button id="fsBtn" class="fsb" type="button" aria-pressed="false" aria-label="Vollbild" title="Vollbild (F)"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="fs-in" d="M3 7.5V3h4.5M12.5 3H17v4.5M17 12.5V17h-4.5M7.5 17H3v-4.5"/><path class="fs-out" d="M7.5 3v4.5H3M12.5 3v4.5H17M17 12.5h-4.5V17M3 12.5h4.5V17"/></svg></button>
@@ -122,7 +123,7 @@
         <dt>Fliegen</dt>
         <dd>Freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter.</dd>
         <dt>Rundgang (Spiel)</dt>
-        <dd>Zu Fuß um und durch das Gebäude; dreizehn Infoschilder lesen (drei davon am und im Keller, über die Außentreppe an der Westseite erreichbar), indem man hingeht und <b>E</b> drückt oder das Schild anklickt.</dd>
+        <dd>Zu Fuß um und durch das Gebäude; dreizehn Infoschilder lesen (drei davon am und im Keller, über die Außentreppe an der Westseite erreichbar), indem man hingeht und <b>E</b> drückt oder das Schild anklickt. Mit <b>Shift</b> oder dem Doppelpfeil-Knopf links oben am Steuerkreuz rennt man (der Knopf bleibt an, bis man ihn wieder antippt); beim Fliegen macht er schneller.</dd>
         <dt>Film: Weg zum Museum</dt>
         <dd>Zeigt, wie man den Schlüssel in der Osteria holt und zu Fuß zum Gebäude geht (Leertaste = Pause, Pfeiltasten = springen, Esc = beenden).</dd>
         <dt>Wind, Wolken, Fluss</dt>

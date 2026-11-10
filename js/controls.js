@@ -28,7 +28,7 @@ var VIEWS={out:{c:0,th:0.8,ph:1.1,r:75,t:[0,2.5,0]},in:{c:1,th:0.8,ph:1.0,r:62,t
 btns.forEach(function(b){b.addEventListener('click',function(){var v=VIEWS[b.dataset.v];stopFilm(true);stopFly();clear=!!v.c;th=v.th;ph=v.ph;r=v.r;tgt.set(v.t[0],v.t[1],v.t[2]);setPressed(b.dataset.v);draw()})});
 var dimBtn=document.getElementById('dimBtn');dimBtn.addEventListener('click',function(){dims=!dims;dimBtn.setAttribute('aria-pressed',String(dims));draw()});
 var flyBtn=document.getElementById('flyBtn'),pad=document.getElementById('pad'),hint=document.getElementById('hint');
-function flyStep(dt){var agl=fp.y-hB(fp.x,fp.z),sp=((keys.ShiftLeft||keys.ShiftRight)?22:8)*clamp(agl/25,1,12)*dt,f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0),u=(keys.u?1:0)-(keys.d?1:0);
+function flyStep(dt){var agl=fp.y-hB(fp.x,fp.z),sp=(running()?22:8)*clamp(agl/25,1,12)*dt,f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0),u=(keys.u?1:0)-(keys.d?1:0);
   if(f||sd||u){var dv=new THREE.Vector3(-Math.sin(fyaw)*Math.cos(fpitch),Math.sin(fpitch),-Math.cos(fyaw)*Math.cos(fpitch)),rv=new THREE.Vector3(Math.cos(fyaw),0,-Math.sin(fyaw));
     fp.addScaledVector(dv,f*sp).addScaledVector(rv,sd*sp);fp.y+=u*sp;fp.x=clamp(fp.x,-3000,3000);fp.z=clamp(fp.z,-3000,3000);var gy=hB(fp.x,fp.z)+0.3;if(fp.y<gy)fp.y=gy;fp.y=Math.min(fp.y,2600)}
   draw()}
@@ -55,11 +55,11 @@ window.addEventListener('keydown',function(e){
   if((form&&e.code.indexOf('Arrow')===0)||(ctl&&(e.code==='Space'||e.code==='Enter')))return;
   if(kmap[e.code]){keys[kmap[e.code]]=1;e.preventDefault()}if(e.code.indexOf('Shift')===0)keys[e.code]=1});
 window.addEventListener('keyup',function(e){if(kmap[e.code])delete keys[kmap[e.code]];if(e.code.indexOf('Shift')===0)delete keys[e.code]});
-pad.querySelectorAll('button').forEach(function(b){b.addEventListener('pointerdown',function(e){e.stopPropagation();b.setPointerCapture(e.pointerId);keys[b.dataset.k]=1});
+pad.querySelectorAll('button[data-k]').forEach(function(b){b.addEventListener('pointerdown',function(e){e.stopPropagation();b.setPointerCapture(e.pointerId);keys[b.dataset.k]=1});
   ['pointerup','pointercancel','lostpointercapture'].forEach(function(n){b.addEventListener(n,function(){delete keys[b.dataset.k]})})});
 var progEl=document.getElementById('prog'),cardEl=document.getElementById('card'),useBtn=document.getElementById('useBtn'),walkBtn=document.getElementById('walkBtn');
 DEV.fineP=(function(){try{return matchMedia('(any-pointer:fine)').matches}catch(e){return true}})();
-var HINT0=DEV.touch&&!DEV.fineP?'Fliegen: mit den Pfeilen unten rechts bewegen, ▲ / ▼ hoch und runter, Bild ziehen = umsehen. Du kannst auch durch die Wände ins Innere fliegen.':hint.innerHTML,hintT=0;
+var HINT0=DEV.touch&&!DEV.fineP?'Fliegen: mit den Pfeilen unten rechts bewegen, ▲ / ▼ hoch und runter, Doppelpfeil = schneller, Bild ziehen = umsehen. Du kannst auch durch die Wände ins Innere fliegen.':hint.innerHTML,hintT=0;
 /* Hinweis einblenden; auf Touchgeräten nach einigen Sekunden oder per Antippen wieder ausblenden */
 function showHint(){hint.hidden=false;clearTimeout(hintT);if(DEV.touch||stage.clientWidth<=600)hintT=setTimeout(function(){hint.hidden=true},DEV.touch?9000:14000)}
 hint.addEventListener('pointerdown',function(e){e.stopPropagation();hint.hidden=true});
@@ -73,14 +73,23 @@ function hF(x,z,fy){
   return hB(x,z)}
 function collide(px,pz,rr,fy){fy=fy||0;for(var it=0;it<3;it++){for(var i=0;i<SO.length;i++){var b=SO[i];if(fy<b[4]-0.3||fy>b[5])continue;var cx=Math.max(b[0],Math.min(px,b[1])),cz=Math.max(b[2],Math.min(pz,b[3])),dx=px-cx,dz=pz-cz,d2=dx*dx+dz*dz;
   if(d2<rr*rr){if(d2>1e-8){var d=Math.sqrt(d2),k=(rr-d)/d;px+=dx*k;pz+=dz*k}else{var l=px-b[0],rt=b[1]-px,tt=pz-b[2],bt=b[3]-pz,m=Math.min(l,rt,tt,bt);if(m===l)px=b[0]-rr;else if(m===rt)px=b[1]+rr;else if(m===tt)pz=b[2]-rr;else pz=b[3]+rr}}}}return [px,pz]}
-/* Gehen 3,4 m/s, nach gut einer Sekunde ohne Pause bis 5 m/s (auch ohne Shift, etwa am Handy); Shift = rennen, 7 m/s */
+/* Rennen: Shift oder der Umschalter am Steuerkreuz (für Touchscreens); bleibt an, bis man ihn wieder antippt */
+var runOn=false,runBtn=document.getElementById('runBtn');
+function running(){return runOn||!!(keys.ShiftLeft||keys.ShiftRight)}
+function setRun(o){runOn=o;if(runBtn)runBtn.setAttribute('aria-pressed',String(o))}
+if(runBtn)runBtn.addEventListener('click',function(){setRun(!runOn)});
+/* Gehen 4,5 m/s, nach knapp einer Sekunde ohne Pause bis 6 m/s; rennen 9 m/s. Schnelle Schritte in Teilschritten
+   von höchstens 0,2 m, damit man bei wenigen Bildern pro Sekunde nicht durch eine Wand rutscht */
 var walkHold=0;
 function walkStep(dt){if(cardOpen)return;
   var f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0);walkHold=(f||sd)?walkHold+dt:0;
-  var sp=((keys.ShiftLeft||keys.ShiftRight)?7:3.4*(1+0.5*sstep(1,2.5,walkHold)))*dt;
+  var sp=(running()?9:4.5*(1+0.33*sstep(0.6,1.8,walkHold)))*dt;
   var fy=fp.y-1.65;
-  if(f||sd){var nx=fp.x+(-Math.sin(fyaw)*f+Math.cos(fyaw)*sd)*sp,nz=fp.z+(-Math.cos(fyaw)*f-Math.sin(fyaw)*sd)*sp,c=collide(nx,nz,0.25,fy),d=Math.hypot(c[0],c[1]);
-    if(d>150){c[0]*=150/d;c[1]*=150/d}var g1=hF(c[0],c[1],fy),g0=hF(fp.x,fp.z,fy);if(g1-g0<0.7&&g1>-6){fp.x=c[0];fp.z=c[1]}draw()}
+  if(f||sd){var n=Math.max(1,Math.ceil(sp/0.2)),st=sp/n,mx=-Math.sin(fyaw)*f+Math.cos(fyaw)*sd,mz=-Math.cos(fyaw)*f-Math.sin(fyaw)*sd;
+    for(var k=0;k<n;k++){var c=collide(fp.x+mx*st,fp.z+mz*st,0.25,fy),d=Math.hypot(c[0],c[1]);
+      if(d>150){c[0]*=150/d;c[1]*=150/d}var g1=hF(c[0],c[1],fy),g0=hF(fp.x,fp.z,fy);if(g1-g0<0.7&&g1>-6){fp.x=c[0];fp.z=c[1]}else break;
+      fy=hF(fp.x,fp.z,fy)}
+    draw()}
   fp.y=1.65+hF(fp.x,fp.z,fy);fy=fp.y-1.65;
   var nd=2.4,pn=near;near=-1;
   HS.forEach(function(h,i){var d=Math.hypot(fp.x-h.x,fp.z-h.z);if(d<nd&&Math.abs((h.lv||0)-fy)<1.2&&(!h.room||h.room(fp))){nd=d;near=i}});
@@ -100,10 +109,10 @@ function showSources(){closeCard();stopFilm();var qs=document.getElementById('qu
 function startWalk(){fly=true;walk=true;clear=false;keys={};
   flyBtn.setAttribute('aria-pressed','false');walkBtn.setAttribute('aria-pressed','true');setPressed(null);
   fp.set(DOFF,1.65+hB(DOFF,-TOT/2-12.5),-TOT/2-12.5);fyaw=Math.PI;fpitch=-0.05;
-  hint.textContent=DEV.touch&&!DEV.fineP?'Rundgang: mit den Pfeilen unten rechts laufen, Bild ziehen = umsehen. Lies die '+HS.length+' Infoschilder: hingehen und „Schild lesen“ oder das Schild antippen.':'Rundgang: W A S D laufen, Maus ziehen = umsehen, Shift = schneller. Lies die '+HS.length+' Infoschilder: hingehen und E drücken oder das Schild anklicken.';showHint();
+  hint.textContent=DEV.touch&&!DEV.fineP?'Rundgang: mit den Pfeilen unten rechts laufen, Doppelpfeil = rennen, Bild ziehen = umsehen. Lies die '+HS.length+' Infoschilder: hingehen und „Schild lesen“ oder das Schild antippen.':'Rundgang: W A S D laufen, Maus ziehen = umsehen, Shift = schneller. Lies die '+HS.length+' Infoschilder: hingehen und E drücken oder das Schild anklicken.';showHint();
   pad.hidden=false;pad.querySelectorAll('[data-k=u],[data-k=d]').forEach(function(b){b.hidden=true});
   progEl.hidden=false;progEl.textContent='Schilder gelesen: '+found+' / '+HS.length;stage.classList.add('walking');hsG.forEach(function(o){o.g.visible=true});last=performance.now();draw()}
-function stopFly(){if(!fly&&!walk)return;fly=false;walk=false;keys={};
+function stopFly(){if(!fly&&!walk)return;fly=false;walk=false;keys={};setRun(false);
   flyBtn.setAttribute('aria-pressed','false');walkBtn.setAttribute('aria-pressed','false');
   pad.hidden=hint.hidden=true;pad.querySelectorAll('[data-k=u],[data-k=d]').forEach(function(b){b.hidden=false});
   progEl.hidden=true;useBtn.hidden=true;closeCard();stage.classList.remove('walking');hsG.forEach(function(o){o.g.visible=false});hint.innerHTML=HINT0;draw()}
