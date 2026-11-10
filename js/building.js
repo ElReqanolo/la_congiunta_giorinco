@@ -5,7 +5,7 @@
    Breite 5,25 m (Plan 48,8 : 393,7 pt; swisstopo 5,27 m), Raumlängen bis Wandmitte 7,33 / 17,45 / 17,55 m (Anteile 0,1731 / 0,4122 / 0,4147),
    Türen 0,85 × 2,15 m, 0,47 m westlich der Mitte (Plan, Querschnitt und Foto S. 129); Laternen 1,7 m breit, rund 0,42 m westlich der Mitte
    über die ganze Raumlänge (Querschnitte, swisstopo), 1,5 m über dem Dach; Dachstärke rund 0,2 m (Doppellinie im Schnitt); lichte Höhen nach [1] Fußnote 10 */
-var W=5.25,TOT=42.4,L=[0.1731*TOT,0.41224*TOT,0.41466*TOT],H=[5.3,3.5,6.6],LW=1.6,LH=1.42,LOFF=-0.42,DOFF=-0.47,T0=0.25,DW=0.85,DH=2.15,CDW=0.7,RT=0.2,EAV=0;
+var W=5.25,TOT=42.4,L=[0.1731*TOT,0.41224*TOT,0.41466*TOT],H=[5.3,3.5,6.6],LW=1.6,LH=1.42,LOFF=-0.42,DOFF=-0.47,T0=0.325,DW=0.85,DH=2.15,CDW=0.7,RT=0.2,EAV=0;
 var Wi=W-2*T0,zS=[],zq=-TOT/2;L.forEach(function(l){zS.push(zq);zq+=l});
 function zA(i){return zS[i]+(i===0?T0:T0/2)}
 function zB(i){return zS[i]+L[i]-(i===2?T0:T0/2)}
@@ -17,7 +17,8 @@ function cellZ(k){return zE-(k+0.5)*CP}
    unten ein Podest mit Kellertür (0,85 m) und Kellerfenster (1,6 m), dann eine Treppe, die nach Norden zum Gelände steigt
    (Masse aus dem Kellergrundriss, Abstände von der Südfront: Podest 12,8–17,6 m, Treppe bis 21,0 m) */
 var KEL={},KD=2.44,KPX1=-W/2,KPW=0.87,KPT=0.15,KPX0=KPX1-KPW,KPZS=TOT/2-12.82,KPZM=TOT/2-17.64,KPZN=TOT/2-21.04;
-var SKX0=(CX0+T0-W/2)/2-0.675,SKX1=SKX0+1.35,SKZ=0.7,CEIL_C=CHH-0.2,SKH=0.3;
+/* Oblicht je Zelle: klein, mit senkrechtem Lichteinfall (Märkli im Video [14]); Lage aus dem Schnitt, Grösse rund 1,0 × 0,6 m nach dem Videobild geschätzt */
+var SKX0=(CX0+T0-W/2)/2-0.5,SKX1=SKX0+1.0,SKZ=0.3,CEIL_C=CHH-0.2,SKH=0.3;
 ROOMS={cx1:-W/2,cz0:CZ0+T0/2,cp:CP,sx0:SKX0,sx1:SKX1,sz:SKZ,ch:CEIL_C,xa:Math.max(LOFF-LW/2,-Wi/2),xb:LOFF+LW/2,r:[]};
 for(var ri0=0;ri0<3;ri0++){ROOMS.r.push({y:H[ri0],za:zA(ri0),zb:zB(ri0),zEnd:zS[ri0]+L[ri0]})}
 WEATHER_CODE='{float ht_=(vWP.x<'+(-W/2).toFixed(3)+')?'+CHH.toFixed(2)+':((vWP.z<'+f6(zS[1])+')?5.3:((vWP.z<'+f6(zS[2])+')?3.5:6.6));float dt_=max(ht_-vWP.y,0.0);'+
@@ -70,14 +71,16 @@ function buildBuilding(T){
   var I={interior:1};
   var intM=std({color:0xf2f0ea,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
   var floorM=std({color:0xe4e2dc,map:tF,normalMap:nF,normalScale:new THREE.Vector2(0.3,0.3),roughness:0.62,envMapIntensity:0.05},{interior:1,notile:1});
-  var ceilM=std({color:0x3a3530,roughness:0.85,envMapIntensity:0.02},I);
-  var steelI=std({color:0x5f6366,roughness:0.5,metalness:0.6,envMapIntensity:0.08},I);
-  var roofM=std({color:0x5b5752,roughness:0.82,metalness:0.25,envMapIntensity:0.9},{});
+  /* Decke: Unterseite der Holz-Dreischichtplatten, im Video [14] grau; Stahlträger heller grau */
+  var ceilM=std({color:0x56595b,roughness:0.85,envMapIntensity:0.02},I);
+  var steelI=std({color:0x9a9ea1,roughness:0.55,metalness:0.3,envMapIntensity:0.08},I);
+  /* Dachhaut: beschichtete Bitumenbahn (Märkli [14]), dunkel und matt; auch Dachrand und Deckel des Lichtgadens */
+  var roofM=std({color:0x2c2c2b,roughness:0.92,metalness:0,envMapIntensity:0.6},{});
   /* Glas der Oberlichter: durchsichtig mit Spiegelung des Himmels; von innen hell wie der Himmel */
   var plexiM=std({color:0x0b0f10,roughness:0.04,metalness:0,envMapIntensity:3.0,side:THREE.DoubleSide,transparent:true,opacity:0.22,depthWrite:false},{plexi:1});
   var steel=std({color:0x6c7276,roughness:0.45,metalness:0.7,envMapIntensity:1},{});
   /* Laternen: Stahlrahmen dunkel gestrichen; Seitenglas durchscheinend bernsteinfarben (von aussen hell, von innen leuchtend) */
-  var lanF=std({color:0x3a3d3f,roughness:0.5,metalness:0.55,envMapIntensity:0.9},{});
+  var lanF=std({color:0x7d8184,roughness:0.5,metalness:0.45,envMapIntensity:0.9},{});
   var plexiS=std({color:0xe2d4b2,roughness:0.32,metalness:0,envMapIntensity:1.5,side:THREE.DoubleSide,transparent:true,opacity:0.84,depthWrite:false},{plexi:1});
   var doorM=std({color:0x585c5f,roughness:0.55,metalness:0.55,envMapIntensity:1},{});
   clearMats=[conc,concB,concTop,lanF,roofM];
@@ -94,6 +97,10 @@ function buildBuilding(T){
     var oa=LOFF-LW/2,ob=LOFF+LW/2,zo0=zA(i),zo1=zB(i),ol=zo1-zo0;zc0=(zo0+zo1)/2;
     function strip(xa,xb,za,zb){var sp=cbox(xb-xa,RT,zb-za,[hid,hid,roofM,ceilM,hid,hid],1,1);sp.position.set((xa+xb)/2,H[i]+RT/2,(za+zb)/2);add(sp)}
     strip(xmin,oa,z0,z1);strip(ob,xmax,z0,z1);strip(oa,ob,z0,zo0);strip(oa,ob,zo1,z1);
+    /* Dachrand: dunkler Rand der Bitumenabdeckung über der Wandkrone, 3 cm vorstehend (Video [14]); an einem höheren Nachbarraum keiner */
+    var hN0=i===0?0:H[i-1],hS0=i===2?0:H[i+1],re=0.03,ry0=H[i]+RT-0.15,ry1=H[i]+RT+0.03,rh=ry1-ry0,ryc=(ry0+ry1)/2;
+    [-1,1].forEach(function(sd){var e=cbox(re,rh,l,roofM,1,1);e.position.set(sd*(W/2+re/2),ryc,z+l/2);add(e)});
+    [[z,-1,hN0],[z+l,1,hS0]].forEach(function(e){if(e[2]>H[i])return;var b=cbox(W+2*re,rh,re,roofM,1,1);b.position.set(0,ryc,e[0]+e[1]*re/2);add(b)});
     /* Laterne nach den Fotos (Pireddu S. 126 und 129) und dem Längsschnitt (S. 127): ringsum durchscheinendes Plexiglas in einem
        Stahlrahmen (Pfosten rund alle 1,2 m, Schwelle und Rähm), oben ein Blechdeckel, innen je Feld eine diagonale Zugstange (die
        Diagonale im Laternenkasten der Querschnitte). Die Verglasung läuft über die ganze Raumlänge; an der Aussenwand und über der
@@ -133,7 +140,10 @@ function buildBuilding(T){
   var crs=new THREE.Shape();crs.moveTo(CX0,-TOT/2);crs.lineTo(-W/2,-TOT/2);crs.lineTo(-W/2,-CZ0);crs.lineTo(CX0,-CZ0);crs.lineTo(CX0,-TOT/2);
   for(var ch3=0;ch3<4;ch3++){var cz3=cellZ(ch3),hp3=new THREE.Path();hp3.moveTo(SKX0,-(cz3+SKZ));hp3.lineTo(SKX1,-(cz3+SKZ));hp3.lineTo(SKX1,-(cz3-SKZ));hp3.lineTo(SKX0,-(cz3-SKZ));hp3.lineTo(SKX0,-(cz3+SKZ));crs.holes.push(hp3)}
   var crg=new THREE.ShapeGeometry(crs),cru=crg.attributes.uv;for(var cu=0;cu<cru.count;cu++)cru.setXY(cu,cru.getX(cu)/2.3,cru.getY(cu)/2.3);crg.rotateX(-Math.PI/2);
-  var crf=new THREE.Mesh(crg,concTop);crf.position.y=CHH;add(crf);
+  var crf=new THREE.Mesh(crg,roofM);crf.position.y=CHH;add(crf);
+  /* Dachrand des Zellentrakts: Westseite und beide Stirnen */
+  (function(){var re=0.03,ry0=CHH-0.15,ry1=CHH+0.03,rh=ry1-ry0,ryc=(ry0+ry1)/2,e=cbox(re,rh,cl+2*re,roofM,1,1);e.position.set(CX0-re/2,ryc,czm);add(e);
+    [[CZ0,-1],[TOT/2,1]].forEach(function(q){var b=cbox(cw+re,rh,re,roofM,1,1);b.position.set((CX0-re-W/2)/2,ryc,q[0]+q[1]*re/2);add(b)})})();
   for(var ck=0;ck<4;ck++){
     var cz=cellZ(ck),iw=cw-T0,il=CP-T0;
     var ci=new THREE.Mesh(inward(new THREE.BoxGeometry(iw,CEIL_C,il)),[hid,intM,hid,hid,intM,intM]);
@@ -206,7 +216,7 @@ function buildBuilding(T){
     /* Türen: Doppeltür zum Lager nach innen ganz aufgeschlagen, schmale Tür in den Schacht aufgeschlagen (an der Gebäudewand) */
     var hw=(oz1-oz0)/2;[[oz0-hw/2],[oz1+hw/2]].forEach(function(o){var d=new THREE.Mesh(new THREE.BoxGeometry(0.05,oh-0.02,hw-0.02),doorM);d.position.set(-Wi/2+0.04,-KD+oh/2,o[0]);add(d)});
     var nd=new THREE.Mesh(new THREE.BoxGeometry(0.05,oh-0.02,dx1-dx0-0.02),doorM);nd.position.set(KPX1-0.04,-KD+oh/2,KPZS-(dx1-dx0)/2);add(nd);
-    /* Lager unter Raum 3: innen 4,75 m breit, von der Wand zu Raum 2 bis zur Südwand */
+    /* Lager unter Raum 3: innen so breit wie der Raum darüber (4,6 m), von der Wand zu Raum 2 bis zur Südwand */
     var mz0=zS[2]+T0/2,mz1=TOT/2-T0,ml=mz1-mz0;
     plane(Wi,ml,kFM,-Wi/2,-KD+0.002,mz1,0,-Math.PI/2);
     plane(Wi,ml,kCM,-Wi/2,ceil,mz0,0,Math.PI/2);
@@ -231,18 +241,19 @@ function buildBuilding(T){
     sb(W/2-T0,W/2,zS[2],TOT/2,KB,KT);sb(CX0,W/2,TOT/2-T0,TOT/2,KB,KT);sb(-W/2,W/2,zS[2]-T0/2,zS[2]+T0/2,KB,KT);
     sb(CX0,CX0+T0,KPZS,TOT/2,KB,KT);sb(CX0,dx0,KPZS,KPZS+T0,KB,KT);sb(dx1,-W/2,KPZS,KPZS+T0,KB,KT);
   })();
-  /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf niedrigen Betonsockeln (Form und Lage angenähert) */
+  /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf Betonsockeln, rund 0,7 m hoch und von der Wand abgerückt (Video [14]; Form und Lage angenähert) */
   exMaterial();
   EXS.forEach(function(sp,i){var tile=EXA.tiles[i],gp=new THREE.Group(),m;
     if(sp.k==='fig'){m=new THREE.Mesh(figGeo(sp,tile),exM);gp.position.set(sp.x,sp.base,sp.z);
       var bs=cbox(0.66,sp.base,0.54,intM);bs.position.set(sp.x,sp.base/2,sp.z);bs.rotation.y=sp.ry;add(bs);sb(sp.x-0.4,sp.x+0.4,sp.z-0.4,sp.z+0.4)}
     else{m=new THREE.Mesh(relGeo(sp,tile),exM);gp.position.set(sp.x,sp.y,sp.z)}
-    gp.rotation.y=sp.ry;gp.add(m);m.castShadow=(sp.k==='fig'||qName==='hoch'||qName==='ultra');m.receiveShadow=true;bldG.add(gp)});
+    /* innen gibt es kein direktes Sonnenlicht, also werfen die Exponate keinen Sonnenschatten */
+    gp.rotation.y=sp.ry;gp.add(m);m.castShadow=false;m.receiveShadow=false;bldG.add(gp)});
   /* Beschriftungen */
   tags.push({p:new THREE.Vector3(DOFF,3.4,-TOT/2-1.6),t:'Eingang (Nordseite)'});
   tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,8 × 3,35 m, 4,3 m hoch'});
   tags.push({m:1,p:new THREE.Vector3(W/2+2.2,0.6,-6),t:'Länge ≈ 42,4 m · Luftbild'});
-  tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite ≈ 5,25 m · Plan'});
+  tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite 5,25 m außen · innen ≈ 4,6 m'});
   tags.push({m:1,p:new THREE.Vector3(-1.2,-1.3,(zS[2]+TOT/2)/2+2),t:'Untergeschoss (Lager) · ≈ 2,2 m hoch'});
   tags.push({m:1,p:new THREE.Vector3((KPX0+KPX1)/2,0.9,(KPZS+KPZM)/2),t:'Kellerzugang'});
   var person=new THREE.Group(),skin=std({color:0xc89a78,roughness:0.7},{}),cloth=std({color:0x2d4f73,roughness:0.85},{}),pants=std({color:0x2b2a28,roughness:0.9},{});

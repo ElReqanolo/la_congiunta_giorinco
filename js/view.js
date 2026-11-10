@@ -2,6 +2,8 @@
 'use strict';
 /* kurze Hinweise oben im Bild */
 var toastEl=null,toastT=0;
+/* auch vom Lader genutzt (Hinweis „Handy quer halten“ im Vollbild) */
+// eslint-disable-next-line no-unused-vars
 function toast(t){if(!toastEl){toastEl=document.createElement('div');toastEl.className='toast';toastEl.setAttribute('role','status');stage.appendChild(toastEl)}toastEl.textContent=t;toastEl.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){toastEl.hidden=true},5200)}
 /* ---------- Maßlinien ---------- */
 var dims=true,dimG=new THREE.Group();scene.add(dimG);
@@ -49,10 +51,13 @@ var lastAct=0,animT=0,waterT=0,slowWind=false,slowN=0,aAcc=0,aN=0,lastAnim=0,aft
    (Telefon 40 s) weiter, dann ruht die Grafikkarte */
 var windLvl=QP.wind?1:0,cloudsOn=qName!=='niedrig',waterOn=!DEV.rm&&qName!=='niedrig',IDLE=DEV.phone?40000:120000;
 (function(){var w=lsGet('lcWind'),c=lsGet('lcCloud'),f=lsGet('lcWater');if(w!==''&&!isNaN(+w))windLvl=+w;if(c)cloudsOn=c==='1';if(f)waterOn=f==='1'})();
-function windApply(){U.uWind.value.x=windLvl;U.uCloud.value.x=cloudsOn?1:0;if(BMU.k0!==undefined)BMU.uK.value=BMU.k0*cloudB()}
-/* Wolkenmuster wie im Shader (cloudV, 4 Oktaven): Schatten am Bau, damit die Lichtstrahlen innen mit den Wolken kommen und gehen */
+function windApply(){U.uWind.value.x=windLvl;U.uCloud.value.x=cloudsOn?1:0;intLUpd()}
+/* Wolkenmuster wie im Shader (cloudV, 4 Oktaven): Schatten am Bau; drinnen wird es dann dunkler, ohne Schatten (diffuses Licht) */
 function cloudB(){var c=U.uCloud.value;if(c.x<=0)return 1;var sb=U.uSunB.value,f=CLH/Math.max(sb.y,0.08),px=sb.x*f,pz=sb.z*f;
   return 1-c.x*0.62*sstep(c.w,c.w+0.07,cloudAt(px*CT+pz*ST,-px*ST+pz*CT))}
+/* Innenhelligkeit: Himmelsanteil plus Sonnenanteil, den die Platten des Lichtgadens streuen; ziehen Wolken vor die Sonne, wird es drinnen dunkler */
+var INTL={b:0,s:0},INT_SUN=3.0;
+function intLUpd(){U.uIntL.value.setRGB(1.0,0.92,0.80).multiplyScalar(INTL.b+INTL.s*cloudB())}
 windApply();
 function draw(){needs=true;lastAct=performance.now()}
 function onRendered(f){afterR.push(f);needs=true}
@@ -100,7 +105,7 @@ function frame(t){requestAnimationFrame(frame);if(document.hidden)return;
   var anim=windOn&&(t-lastR>38),fplay=FILM.on&&!FILM.paused;
   if(FILM.on){var fdt=FILM.lt?Math.min(0.1,(t-FILM.lt)/1000):0;FILM.lt=t;FILM.pdt=fdt;if(fplay)fmTick(fdt)}
   if(!needs&&!anim&&!fly&&!fplay)return;
-  if(windOn){var adt=Math.min(0.06,(t-lastR)/1000),cs=10*windLvl+3;animT+=adt;if(waterOn)waterT+=adt;U.uWind.value.w=0.62+0.10*Math.sin(animT*0.19)+0.06*Math.sin(animT*0.53+1.0);U.uCloud.value.y-=U.uWind.value.y*cs*adt;U.uCloud.value.z-=U.uWind.value.z*cs*adt;if(cloudsOn&&BMU.k0)BMU.uK.value=BMU.k0*cloudB()}
+  if(windOn){var adt=Math.min(0.06,(t-lastR)/1000),cs=10*windLvl+3;animT+=adt;if(waterOn)waterT+=adt;U.uWind.value.w=0.62+0.10*Math.sin(animT*0.19)+0.06*Math.sin(animT*0.53+1.0);U.uCloud.value.y-=U.uWind.value.y*cs*adt;U.uCloud.value.z-=U.uWind.value.z*cs*adt;if(cloudsOn&&INTL.s>0)intLUpd()}
   var inter=needs||fly||fplay;needs=false;lastR=t;render(t);prTick(t,inter);
   /* zu langsame Grafik: Windanimation abschalten, damit die Seite bedienbar bleibt */
   if(anim&&!document.hidden){if(lastAnim&&t-lastAnim<250){aAcc+=t-lastAnim;aN++;if(aN>=30){if(aAcc/aN>115){slowN++;if(slowN>=2){slowWind=true;logPush('zeit','Windanimation aus (Bildabstand '+(aAcc/aN).toFixed(0)+' ms)')}}else slowN=0;aAcc=0;aN=0}}lastAnim=t}else lastAnim=0;

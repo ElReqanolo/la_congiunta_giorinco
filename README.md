@@ -6,13 +6,13 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 **Inhalt des Modells**
 
-- Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,4 × 5,25 m, Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,8 × 3,35 m; Länge, Breite, Drehung (21°), Laternen und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
-- Dachlaternen nach den Fotos: ringsum Plexiglas in Stahlrahmen, oben Blech, über die ganze Raumlänge; das Licht fällt seitlich ein
+- Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,4 × 5,25 m außen (innen etwa 4,6 m nach Peter Märkli, Wände daraus rund 0,33 m), Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,8 × 3,35 m; Länge, Breite, Drehung (21°), Lichtgaden und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
+- Dach und Lichtgaden nach Peter Märkli (Interview, VernissageTV 2011): Flachdach aus Holz-Dreischichtplatten auf Stahlträgern mit beschichteter Bitumenbahn, über den drei Haupträumen aufgeschnitten für den Lichtgaden; seitlich lichtstreuende Platten (Plexiglas) im Stahlrahmen, oben geschlossen. Innen fällt kein direktes Sonnenlicht und kein Schatten; die Räume sind diffus beleuchtet, die Helligkeit folgt Sonnenstand und Wolken. Die Zellen haben je ein kleines Oblicht mit senkrechtem Lichteinfall
 - Keller (Lager) unter Raum 3 und dem Zellentrakt nach Kellergrundriss und Schnitten: Boden 2,44 m unter dem Erdgeschoss, Zugang über eine Außentreppe im Schacht an der Westwand mit breiter Öffnung ins Lager und schmaler Tür in den Zellenkeller; im Rundgang begehbar (Anker `#keller`), der Umriss erscheint mit „Maße“ gestrichelt
-- Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke)
+- Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke); die Halbfiguren stehen auf Betonsockeln, die von der Wand abgerückt sind
 - Gelände aus den Höhenmodellen und Luftbildern von swisstopo; Dorf entlang des Wegs mit echten Grundrissen, Höhen und Dachformen aus swissBUILDINGS3D 2.0 (Wandfarben nach Street View, Dachfarben aus dem Luftbild); übrige Häuser, Bahn, Straßen und Brücken nach OpenStreetMap
-- Sonnenstand für Giornico nach Uhrzeit und Jahreszeit, Licht durch die Dachlaternen
-- Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten (Stärke und Wolken im Menü einstellbar)
+- Sonnenstand für Giornico nach Uhrzeit und Jahreszeit; innen diffuses Licht durch den Lichtgaden
+- Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten aufs Tal, drinnen wird es dann dunkler (Stärke und Wolken im Menü einstellbar)
 - Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
 - Rundgang mit dreizehn Infoschildern (drei am und im begehbaren Keller), Maßangaben und Quellenliste
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
@@ -28,7 +28,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
 | Hell / dunkel | runder Knopf oben rechts | runder Knopf oben rechts |
 
-Uhrzeit, Jahreszeit, Wind, Wolken, Fluss, Lichtstrahlen und Grafikqualität stehen am Rechner in der zweiten Zeile der Kopfzeile, auf Tablet und Handy unter „Licht & Qualität“. Die Spur des Uhrzeit-Reglers zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit. Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung; ohne Wahl gilt die Einstellung des Systems, eine Wahl bleibt im Browser gespeichert. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen. Der runde Knopf oben rechts im Bild (oder die Taste F) schaltet ins Vollbild: nur das Modell über den ganzen Bildschirm, am Handy, wo der Browser es zulässt, im Querformat; erlaubt der Browser kein Vollbild (iPhone, eingebettete Fassung), blendet die Seite Kopf und Fuss aus. Derselbe Knopf oder Esc beendet es.
+Uhrzeit, Jahreszeit, Wind, Wolken, Fluss und Grafikqualität stehen am Rechner in der zweiten Zeile der Kopfzeile, auf Tablet und Handy unter „Licht & Qualität“. Die Spur des Uhrzeit-Reglers zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit. Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung; ohne Wahl gilt die Einstellung des Systems, eine Wahl bleibt im Browser gespeichert. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen. Der runde Knopf oben rechts im Bild (oder die Taste F) schaltet ins Vollbild: nur das Modell über den ganzen Bildschirm, am Handy, wo der Browser es zulässt, im Querformat; erlaubt der Browser kein Vollbild (iPhone, eingebettete Fassung), blendet die Seite Kopf und Fuss aus. Derselbe Knopf oder Esc beendet es.
 
 **Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Die Stufe „ultra“ (noch weitere Sicht für Gras und ausführliche Bäume, dichterer Wald, größere Schatten- und Luftbildbereiche) wählt die Automatik nie; sie ist für schnelle Grafikkarten gedacht und lässt sich von Hand einstellen. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
 
@@ -57,12 +57,11 @@ js/core.js            Diagnose (#diag), Koordinaten, Qualitätsstufen, Höhenmod
 js/renderer.js        Renderer, Szene, Kamera, Shader-Bausteine
 js/sky.js             Himmel, Wolken, Nachbearbeitung
 js/terrain.js         Gelände, Fluss
-js/building.js        Gebäude, Laternen, Zellen, Keller
+js/building.js        Gebäude, Lichtgaden, Zellen, Keller
 js/exhibits.js        Exponate
 js/vegetation.js      Bäume, Wiese, Reben
 js/village.js         Dorf, Bahn, Brücken, Leitungen
 js/signs.js           Infoschilder
-js/light-beams.js     Lichtstrahlen
 js/view.js            Kamera, Maßlinien, Bildschleife
 js/controls.js        Bedienung, Rundgang, Links (#…), Einstellungen, Sonnenstand
 js/film.js            Film „Weg zum Museum“

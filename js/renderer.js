@@ -42,7 +42,7 @@ var camera=new THREE.PerspectiveCamera(40,1,0.3,22000);
 scene.fog=new THREE.FogExp2(0xb8c4cf,0.00009);
 var env=new THREE.Group();env.rotation.y=-TH;scene.add(env);env.updateMatrixWorld(true);
 /* ---------- gemeinsame Shader-Uniforms ---------- */
-var U={uTime:{value:0},uNearCut:{value:0},uFocus:{value:new THREE.Vector3()},uFocusR:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},
+var U={uTime:{value:0},uNearCut:{value:0},uFocus:{value:new THREE.Vector3()},uFocusR:{value:0},tTS1:{value:null},tTS2:{value:null},uAmber:{value:new THREE.Color(1.0,0.80,0.55)},uSkyL:{value:new THREE.Color(0,0,0)},uIntL:{value:new THREE.Color(0,0,0)},
   uSnow:{value:5000},uSeason:{value:1},uSunB:{value:new THREE.Vector3(0,1,0)},uSunC:{value:new THREE.Color(1,1,1)},uClear:{value:0},
   uWind:{value:new THREE.Vector4(0,-0.4512,-0.8924,0.62)},uWT:{value:0},uCloud:{value:new THREE.Vector4(0,0,0,0.60)}};
 function rep(s,a,b,tag){if(s.indexOf(a)<0){console.warn('[LC] Shader-Anpassung nicht gefunden:',tag||a.slice(0,50));return s}return s.split(a).join(b)}
@@ -57,7 +57,7 @@ var VWP_CALC='\n{vec4 q_=vec4(transformed,1.0);\n#ifdef USE_INSTANCING\nq_=insta
    lokale Koordinaten der Instanz zurückgerechnet, so biegen sich grosse und kleine Bäume richtig. */
 var CLH=2400; // Wolkenuntergrenze über dem Talboden (rund 2800 m ü. M.)
 /* Wolkenmuster: kachelbares Wertrauschen (5 Oktaven, 10 bis 160 Zellen auf 10,24 km), einmal beim Start berechnet.
-   Boden und Himmel lesen dieselbe Textur (verschoben um uCloud.yz), die Lichtstrahlen innen dieselben Werte in JS. */
+   Boden und Himmel lesen dieselbe Textur (verschoben um uCloud.yz), die Innenhelligkeit (cloudB) dieselben Werte in JS. */
 var CLS=10240,CLN=512,CLD=new Uint8Array(CLN*CLN*4);
 (function(){var t0=performance.now(),r=mb32(7),acc=new Float32Array(CLN*CLN),tot=0;
   [[10,1],[20,0.5],[40,0.25],[80,0.125],[160,0.0625]].forEach(function(o){var c=o[0],a=o[1],g=new Float32Array(c*c),i,x,y;for(i=0;i<g.length;i++)g[i]=r();
@@ -146,9 +146,9 @@ function patch(mat,o){
       vs=rep(vs,'#include <common>','#include <common>\nuniform vec3 uLodC;\nuniform vec2 uLodR;\nvarying float vLodF;\n');
       vs=rep(vs,'#include <project_vertex>','#include <project_vertex>\n{vec4 lq_=vec4(0.0,0.0,0.0,1.0);\n#ifdef USE_INSTANCING\nlq_=instanceMatrix*lq_;\n#endif\nfloat ld_=distance((modelMatrix*lq_).xyz,uLodC);vLodF='+fe_+';if(vLodF<'+(o.lodA&&!o.depth?'0.004':'0.5')+')gl_Position=vec4(0.0,0.0,-2.0,1.0);}\n','lod')}
     if(o.depth){sh.vertexShader=vs;return}
-    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+WIND_DECL+(o.gust?'varying float vGs;\n':'')+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:'')+(o.water?WATER_DECL:''));
+    fs=rep(fs,'#include <common>','#include <common>\nvarying vec3 vWP;\nuniform float uTime;\nuniform vec3 uAmber,uSunB,uSunC,uSkyL,uIntL;\nuniform float uSnow,uSeason,uClear,uLeafK,uSeasonK,uAlphaK,uNearCut,uFocusR;\nuniform vec3 uFocus;\n'+WIND_DECL+(o.gust?'varying float vGs;\n':'')+GLSL_TS+((o.notile||o.notileu)?NT_GLSL:'')+(o.interior?glslSky():'')+(o.terrain?TERRAIN_DECL:'')+(o.facade?FACADE_DECL:'')+(o.water?WATER_DECL:''));
     var lb=THREE.ShaderChunk.lights_fragment_begin;
-    lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*=terrSun(vWP)'+(o.interior?'*uAmber':'')+';','dir-light');
+    lb=rep(lb,'getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );','getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\tdirectLight.color*='+(o.interior?'0.0':'terrSun(vWP)')+';','dir-light');
     fs=rep(fs,'#include <lights_fragment_begin>',lb);
     if(o.terrain){fs=rep(fs,'#include <map_fragment>',TERRAIN_MAP);fs=rep(fs,'#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(roughnessFactor,0.06,wet_);');
       fs=rep(fs,'#include <normal_fragment_maps>','#include <normal_fragment_maps>\nif(wet_>0.01){vec2 rp_=vW.xz;float t_=uWT;vec3 wn_=vec3(sin(rp_.x*1.7+t_*2.1)+sin(rp_.y*2.3-t_*1.7)*0.7,0.0,cos(rp_.y*1.9+t_*1.9)+sin(rp_.x*2.9+t_*2.6)*0.6)*0.06*wet_;normal=normalize(normal+(viewMatrix*vec4(wn_,0.0)).xyz);}');}
@@ -161,9 +161,11 @@ function patch(mat,o){
       if(THREE.ShaderChunk.normal_fragment_maps.indexOf('texture2D( normalMap, vUv )')>=0)fs=rep(fs,'#include <normal_fragment_maps>',THREE.ShaderChunk.normal_fragment_maps.replace('texture2D( normalMap, vUv )','texNT( normalMap, vUv, '+nd_+' )'))}
     if(o.weather)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n'+WEATHER_CODE);
     if(o.gust)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>'+gustSheen(+o.gust,!!o.terrain),'gust');
-    /* Innenraum: Licht der Oberlichter (Formfaktor) diffus und gespiegelt – so glänzen Messing und Stahl dort, wo sie das Oberlicht sehen */
-    if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uSkyL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
-      'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uSkyL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');
+    /* Innenraum: kein direktes Sonnenlicht. Die Platten des Lichtgadens und der Oblichter streuen das Licht, es gibt keinen Schattenwurf
+       (Märkli im Video [14]); die Räume bekommen nur dieses diffuse Licht (Formfaktor der Öffnungen, Helligkeit uIntL nach Sonne und Wolken),
+       diffus und gespiegelt – so glänzen Messing und Stahl dort, wo sie den Lichtgaden sehen */
+    if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uIntL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
+      'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uIntL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');
     if(o.leaf)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 vd_=normalize(vWP-cameraPosition);float bl_=pow(max(dot(vd_,uSunB),0.0),3.0);reflectedLight.indirectDiffuse+=diffuseColor.rgb*uSunC*bl_*uLeafK*terrSun(vWP);}');
     /* Laub: in der Ferne dichter; im Film nahe der Kamera und auf der Sichtlinie zur Figur ausgeblendet (uFocus, Radius uFocusR) */
     /* Dorf im Film: Dächer und Wände auf der Sichtlinie zur Figur ausschneiden (enge Gassen, die Figur bleibt sichtbar) */
@@ -171,7 +173,7 @@ function patch(mat,o){
     if(o.lod&&o.lodA){fs=rep(fs,'#include <common>','#include <common>\nvarying float vLodF;\n');fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\ndiffuseColor.a*=vLodF;')}
     if(o.foliage)fs=rep(fs,'#include <alphamap_fragment>','#include <alphamap_fragment>\n{float cd_=distance(vWP,cameraPosition);float k_=clamp((cd_-uNearCut)/max(uNearCut,0.001),0.0,1.0);\nif(uFocusR>0.0){vec3 ab_=uFocus-cameraPosition;float h_=dot(vWP-cameraPosition,ab_)/max(dot(ab_,ab_),0.0001);\nif(h_>0.0&&h_<0.98)k_*=smoothstep(uFocusR*0.5,uFocusR,length(vWP-cameraPosition-ab_*h_));}\ndiffuseColor.a=min(1.0,diffuseColor.a*uAlphaK*(1.0+0.012*cd_))*k_;}');
     if(o.foliage)fs=rep(fs,'#include <normal_fragment_begin>','#include <normal_fragment_begin>\n#ifdef DOUBLE_SIDED\nnormal=normal*(float(gl_FrontFacing)*2.0-1.0);\n#endif');
-    if(o.plexi)fs=rep(fs,'#include <emissivemap_fragment>','#include <emissivemap_fragment>\nif(!gl_FrontFacing){totalEmissiveRadiance+=uSkyL*0.9;diffuseColor.rgb*=0.15;}');
+    if(o.plexi)fs=rep(fs,'#include <emissivemap_fragment>','#include <emissivemap_fragment>\nif(!gl_FrontFacing){totalEmissiveRadiance+=uIntL*0.9;diffuseColor.rgb*=0.15;}');
     if(o.season)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n{float lm_=dot(diffuseColor.rgb,vec3(0.3,0.59,0.11));vec3 dry_=vec3(lm_*1.25,lm_*1.05,lm_*0.62);diffuseColor.rgb=mix(diffuseColor.rgb,dry_,uSeasonK*clamp(uSeason,0.0,1.0));}');
     sh.vertexShader=vs;sh.fragmentShader=fs;
   };

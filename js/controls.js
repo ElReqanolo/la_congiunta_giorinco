@@ -143,7 +143,7 @@ function applyHash(){var tk=(location.hash||'').replace('#','').toLowerCase().sp
 window.addEventListener('hashchange',applyHash);
 useBtn.addEventListener('click',interact);
 /* ---------- Sonnenstand ---------- */
-var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'),sunV=document.getElementById('sunV'),seasonS=document.getElementById('seasonS'),beamsOn=document.getElementById('beamsOn'),qualS=document.getElementById('qualS');
+var timeR=document.getElementById('timeR'),timeV=document.getElementById('timeV'),sunV=document.getElementById('sunV'),seasonS=document.getElementById('seasonS'),qualS=document.getElementById('qualS');
 var windS=document.getElementById('windS'),cloudOn=document.getElementById('cloudOn');
 if(windS){var wo=[].map.call(windS.options||[],function(o){return +o.value}),wb=0;wo.forEach(function(v,i){if(Math.abs(v-windLvl)<Math.abs(wo[wb]-windLvl))wb=i});if(wo.length)windS.selectedIndex=wb;
   windS.addEventListener('change',function(){windLvl=+windS.value;slowWind=false;lsSet('lcWind',String(windLvl));windApply();draw()})}
@@ -194,12 +194,14 @@ function afterSun(){
   amb.intensity=0.05*(1-dl);
   var k=sv*sstep(-0.01,0.08,s);
   var sk=0.10+1.25*dl;U.uSkyL.value.setRGB(1.0,0.86,0.66).multiplyScalar(sk*0.85+1.6*Math.max(0,s)*k);
+  /* innen nur gestreutes Licht: der Sonnenanteil kommt diffus durch die Platten (kein Sonnenfleck), Wolken dämpfen ihn */
+  INTL.b=sk*0.85;INTL.s=INT_SUN*Math.max(0,s)*k;intLUpd();
   var fc=new THREE.Color().setRGB(0.46,0.54,0.64).lerp(new THREE.Color(0.80,0.58,0.42),warm*0.55*dl).multiplyScalar(0.05+0.95*dl);scene.fog.color.copy(fc);
   expoBase=clamp(0.66/(0.07+0.93*dl),0.64,3.2);
   var gI=sun.intensity*Math.max(0,s)*k+0.32*dl+0.004;
   if(groundE)groundE.material.color.setRGB(0.15,0.19,0.10).multiplyScalar(gI);
   if(ringM)ringM.material.color.setRGB(0.09,0.12,0.08).multiplyScalar(gI*0.8+0.02*dl);
-  beamsUpdate(svB,k);envQueue();
+  envQueue();
   var hidden=(s>0.0&&sv<0.5);
   /* Uhrzeit und Sonnenstand in getrennten Zeilen, damit die Anzeige beim Ziehen nicht umbricht */
   var deg=Math.round(el*180/Math.PI),clock=fmt(parseFloat(timeR.value));
@@ -209,11 +211,7 @@ function afterSun(){
   timeR.setAttribute('aria-valuetext',clock+' Uhr, '+sunT.replace('°',' Grad')+(hidden?', hinter dem Berg':''));
   draw();
 }
-[timeR,seasonS,beamsOn].forEach(function(e){e.addEventListener('input',applySun);e.addEventListener('change',applySun)});
-/* Lichtstrahlen sieht man nur drinnen und nur bei genügend hoher Sonne: das sagen, statt scheinbar nichts zu tun */
-beamsOn.addEventListener('change',function(){if(!beamsOn.checked)return;var c=camera.position;
-  if(svB.y<=0.04)toast('Die Sonne steht zu tief: Lichtstrahlen fallen erst bei höherer Sonne durch die Oberlichter.');
-  else if(!(clear||inside(c)))toast('Lichtstrahlen fallen durch die Oberlichter in die Räume. Zu sehen in „Innenräume“ oder beim Rundgang.')});
+[timeR,seasonS].forEach(function(e){e.addEventListener('input',applySun);e.addEventListener('change',applySun)});
 var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){theme();dayTrack();draw()})
 /* Hell/Dunkel-Schalter (js/loader.js) */
 document.addEventListener('lc-theme',function(){theme();dayTrack();draw()});

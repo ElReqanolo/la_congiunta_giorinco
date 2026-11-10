@@ -41,7 +41,7 @@ function reveal(k){if(k>=STG.length){prep('');prOn=true;if(FILM.pend){FILM.pend=
   setTimeout(function(){try{hrStart()}catch(e){console.error(e)}},300);return}
   var st=STG[k],t0=performance.now();if(!k)stageT0=t0;
   try{if(st[1]==='post'){if(bloomPass)bloomPass.enabled=true}
-    /* noch unsichtbare Teile (Schilder, Lichtstrahlen) vorab übersetzen, damit der Rundgang ohne Ruckler startet */
+    /* noch unsichtbare Teile (Schilder) vorab übersetzen, damit der Rundgang ohne Ruckler startet */
     else if(st[1]==='compile'){renderer.setRenderTarget(composer?composer.readBuffer:null);renderer.compile(scene,camera);renderer.setRenderTarget(null)}
     else st[1].forEach(function(g){g.visible=true})}catch(e){console.error(e)}
   prep('Grafik wird vorbereitet: '+st[0]+' ('+(k+1)+'/'+STG.length+') …');
@@ -59,7 +59,7 @@ function init(){
         (HRT2?['Rt','R2']:HRT?['Rt']:[]).forEach(function(k){TU['t'+k]={value:new THREE.DataTexture(new Uint8Array(4),1,1,THREE.RGBAFormat)};TU['u'+k+'B']={value:new THREE.Vector4(0,0,1,1)};TU['u'+k+'On']={value:0}});
         buildTerrain()}],
       ['Exponate werden modelliert (1/3) …',function(){exBuild(0,3)}],['Exponate werden modelliert (2/3) …',function(){exBuild(1,3)}],['Exponate werden modelliert (3/3) …',function(){exBuild(2,3)}],
-      ['Gebäude …',function(){buildBuilding(IM);buildHS();buildBeams();buildDims()}],
+      ['Gebäude …',function(){buildBuilding(IM);buildHS();buildDims()}],
       ['Bäume nach dem Luftbild …',function(){MK={canN:imgData(IM.canN),canM:imgData(IM.canM),canF:imgData(IM.canF),grass:imgData(IM.grass),o19:imgData(IM.o19)};buildTrees(MK);
         TREEC.forEach(function(p){sb(p[0]-0.45,p[0]+0.45,p[1]-0.45,p[1]+0.45)})}],
       ['Wiese und Reben …',function(){buildGrass(MK);buildVines()}],

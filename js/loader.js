@@ -18,7 +18,7 @@
   /* Version aus dem Aufruf in index.html (js/loader.js?v=…): hängt an alle nachgeladenen Dateien, damit nach einer Änderung nichts Altes aus dem Zwischenspeicher kommt */
   var VER = (document.currentScript && /[?&]v=([^&#]+)/.exec(document.currentScript.src) || [])[1] || '';
   function ver(url) { return VER ? url + '?v=' + VER : url; }
-  var APP=['js/core.js','js/renderer.js','js/sky.js','js/terrain.js','js/building.js','js/exhibits.js','js/vegetation.js','js/village.js','js/signs.js','js/light-beams.js','js/view.js','js/controls.js','js/film.js','js/aerial-tiles.js','js/start.js'];
+  var APP=['js/core.js','js/renderer.js','js/sky.js','js/terrain.js','js/building.js','js/exhibits.js','js/vegetation.js','js/village.js','js/signs.js','js/view.js','js/controls.js','js/film.js','js/aerial-tiles.js','js/start.js'];
 
   function say(text, isError) {
     var el = document.getElementById('loadTxt');

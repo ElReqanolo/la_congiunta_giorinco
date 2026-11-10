@@ -8,16 +8,16 @@ var EXQ=({ultra:{t:256,rel:[60,76],fig:[68,76]},hoch:{t:256,rel:[56,70],fig:[64,
 var EXS=[],EXA=null,exM=null;
 (function(){
   var VN={};function R(k,w,h,d,s,x,y,z,ry){VN[k]=(VN[k]||0)+1;EXS.push({k:k,w:w,h:h,d:d,s:s,x:x,y:y,z:z,ry:ry,seed:101+EXS.length*37,v:VN[k]-1})}
-  var l0=zB(0)-zA(0),l1=zB(1)-zA(1),l2=zB(2)-zA(2),k;
+  var l0=zB(0)-zA(0),l1=zB(1)-zA(1),k;
   /* Raum 1: sechs abstrakte Flachreliefs (frühe 1950er), symmetrisch an beiden Wänden */
   for(k=0;k<3;k++){R('flach',0.95,1.15,0.032,0.035,-Wi/2+0.004,1.55,zA(0)+(k+0.5)*l0/3,Math.PI/2);R('flach',0.95,1.15,0.032,0.035,Wi/2-0.004,1.55,zA(0)+(k+0.5)*l0/3,-Math.PI/2)}
   /* Raum 2: acht Hochreliefs (1960er/70er) entlang einer Seite */
   for(k=0;k<8;k++)R('hoch',1.2,1.5,0.13,0.05,Wi/2-0.004,1.6,zA(1)+1.2+k*(l1-2.4)/7,-Math.PI/2);
-  /* Raum 3: spätere Hochreliefs (Anzahl angenommen) und drei grosse Halbfiguren */
-  for(k=0;k<5;k++)R('spaet',1.5,1.9,0.15,0.06,Wi/2-0.004,1.85,zA(2)+1.6+k*(l2-3.2)/4,-Math.PI/2);
+  /* Raum 3: vier spätere Hochreliefs an der Ostwand in der Nordhälfte, drei grosse Halbfiguren auf Betonsockeln (nach dem Video [14]) */
+  for(k=0;k<4;k++)R('spaet',1.5,1.9,0.15,0.06,Wi/2-0.004,1.85,zA(2)+1.4+k*2.2,-Math.PI/2);
   /* Zellen: je ein Relief (angenommen) */
   for(k=0;k<4;k++)R('zelle',1.0,1.3,0.12,0.05,CX0+T0+0.004,1.6,cellZ(k),Math.PI/2);
-  [[4.2,1.3,0.25],[8.9,1.48,-0.2],[13.6,1.22,0.4]].forEach(function(f){EXS.push({k:'fig',H:f[1],x:0.55,z:zA(2)+f[0],ry:Math.PI+f[2],base:0.22,seed:701+EXS.length*53})});
+  [[4.2,1.3,0.25],[8.9,1.48,-0.2],[13.6,1.22,0.4]].forEach(function(f){EXS.push({k:'fig',H:f[1],x:0.55,z:zA(2)+f[0],ry:Math.PI+f[2],base:0.7,seed:701+EXS.length*53})});
 })();
 /* schnelles Wertrauschen; P = Periode in x (für nahtlose Figurenoberflächen) */
 var NZT=(function(){var a=new Float32Array(65536),r=mb32(4711);for(var i=0;i<65536;i++)a[i]=r();return a})();
