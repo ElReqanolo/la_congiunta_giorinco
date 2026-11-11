@@ -22,8 +22,8 @@ var SKX0=(CX0+T0-W/2)/2-0.5,SKX1=SKX0+1.0,SKZ=0.3,CEIL_C=CHH-0.2,SKH=0.3;
 ROOMS={cx1:-W/2,cz0:CZ0+T0/2,cp:CP,sx0:SKX0,sx1:SKX1,sz:SKZ,ch:CEIL_C,xa:Math.max(LOFF-LW/2,-Wi/2),xb:LOFF+LW/2,r:[]};
 for(var ri0=0;ri0<3;ri0++){ROOMS.r.push({y:H[ri0],za:zA(ri0),zb:zB(ri0),zEnd:zS[ri0]+L[ri0]})}
 WEATHER_CODE='{float ht_=(vWP.x<'+(-W/2).toFixed(3)+')?'+CHH.toFixed(2)+':((vWP.z<'+f6(zS[1])+')?5.3:((vWP.z<'+f6(zS[2])+')?3.5:6.6));float dt_=max(ht_-vWP.y,0.0);'+
-  'float u_=(vWP.x+vWP.z)*4.0;float c_=floor(u_);float r_=fract(sin(c_*12.9898)*43758.5453);float r2_=fract(sin((c_+1.0)*12.9898)*43758.5453);'+
-  'float sr_=mix(r_,r2_,smoothstep(0.0,1.0,fract(u_)));float st_=smoothstep(0.5,0.95,sr_)*exp(-dt_*(0.3+0.6*r_))*0.30;'+
+  'float u_=(vWP.x+vWP.z)*2.6;float c_=floor(u_);float r_=fract(sin(c_*12.9898)*43758.5453);float r2_=fract(sin((c_+1.0)*12.9898)*43758.5453);'+
+  'float sr_=mix(r_,r2_,smoothstep(0.0,1.0,fract(u_)));float st_=smoothstep(0.68,0.97,sr_)*exp(-dt_*(0.06+0.2*r_))*0.58+exp(-dt_*1.6)*0.10;'+
   'float bs_=(1.0-smoothstep(0.0,0.5,vWP.y))*0.2;diffuseColor.rgb*=1.0-st_-bs_;diffuseColor.rgb*=mix(vec3(1.0),vec3(0.93,0.98,0.88),bs_*2.0);}\n';
 var LANS=[],concs=[],clearMats=[],shells=[],lans=[],tags=[],SO=[],TREEC=[],plexis=[];
 /* alle Gebäudeteile liegen in einer Gruppe und werden am Ende pro Material zu wenigen Netzen zusammengeführt */
@@ -64,13 +64,13 @@ function buildBuilding(T){
   var tA=tx(T.TA),tB=tx(T.TB),tI=tx(T.TI),tF=tx(T.TF);
   var nA=T.TA?normalFrom(T.TA,7,10):null,nB=T.TB?normalFrom(T.TB,7,10):null,nI=T.TI?normalFrom(T.TI,6,8):null,nF=T.TF?normalFrom(T.TF,3,12):null;
   function std(p,o){var m=new THREE.MeshStandardMaterial(p);return patch(m,o||{})}
-  var conc=std({color:new THREE.Color(1.32,1.31,1.28),map:tA,normalMap:nA,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
-  var concB=std({color:new THREE.Color(1.32,1.31,1.28),map:tB,normalMap:nB,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
+  var conc=std({color:new THREE.Color(1.52,1.51,1.49),map:tA,normalMap:nA,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
+  var concB=std({color:new THREE.Color(1.52,1.51,1.49),map:tB,normalMap:nB,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
   var concTop=std({color:0x9c9a94,map:tA,roughness:0.97,envMapIntensity:0.8},{});
   concs.push(conc,concB);
   var I={interior:1};
-  var intM=std({color:0xf2f0ea,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
-  var floorM=std({color:0xe4e2dc,map:tF,normalMap:nF,normalScale:new THREE.Vector2(0.3,0.3),roughness:0.62,envMapIntensity:0.05},{interior:1,notile:1});
+  var intM=std({color:0xf0f0ee,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
+  var floorM=std({color:0xe2e2e0,map:tF,normalMap:nF,normalScale:new THREE.Vector2(0.3,0.3),roughness:0.62,envMapIntensity:0.05},{interior:1,notile:1});
   /* Decke: Unterseite der Holz-Dreischichtplatten, im Video [14] grau; Stahlträger heller grau */
   var ceilM=std({color:0x56595b,roughness:0.85,envMapIntensity:0.02},I);
   var steelI=std({color:0x9a9ea1,roughness:0.55,metalness:0.3,envMapIntensity:0.08},I);

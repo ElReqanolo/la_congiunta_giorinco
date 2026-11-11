@@ -88,7 +88,7 @@ function exBlur(S,T,r,wrap){var O=new Float32Array(T*T),M=new Float32Array(T*T),
   for(i=0;i<T;i++){s=0;for(j=-r;j<=r;j++)s+=M[cy(j)*T+i];for(j=0;j<T;j++){O[j*T+i]=s/w;s+=M[cy(j+r+1)*T+i]-M[cy(j-r)*T+i]}}
   return O}
 /* Messing mit Patina: tiefe Stellen dunkel, Grate abgegriffen hell, selten olivgrün in Vertiefungen */
-var BR=[[30,22,15],[78,55,31],[132,96,52],[180,140,80]];
+var BR=[[24,22,18],[56,51,44],[92,82,67],[136,118,90]];   /* dunkle Patina wie auf den Fotos (Video [14]), Kanten heller */
 function brass(t,out,o){t=t<0?0:(t>1?1:t);var s=t*3,k=Math.min(2,s|0),f=s-k,a=BR[k],b=BR[k+1];out[o]=a[0]+(b[0]-a[0])*f;out[o+1]=a[1]+(b[1]-a[1])*f;out[o+2]=a[2]+(b[2]-a[2])*f;out[o+3]=255}
 function exTile(i){var sp=EXS[i],T=EXA.T,g=EXA.g,n=T-2*g,F=new Float32Array(T*T),M=new Float32Array(T*T),fig=sp.k==='fig',r=mb32(sp.seed),ox=r()*40,oy=r()*40,u,v,j,ii,q;
   if(fig){for(j=0;j<T;j++){v=Math.max(0,Math.min(1,1-(j-g+0.5)/n));for(ii=0;ii<T;ii++){u=(ii-g+0.5)/n;F[j*T+ii]=figBase(u,v,ox)}}

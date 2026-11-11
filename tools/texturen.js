@@ -3,7 +3,8 @@
      concrete_wall_006 (Dario Barresi, Charlotte Baglioni)  – glatter Sichtbeton als Grund
      wood_textured_concrete (Dimitrios Savva)              – Holzmaserung der Schalung, nur schwach, 90° gedreht (Bretter waagrecht)
      concrete_floor_worn_001 (Dimitrios Savva, Rico Cilliers) – Betonboden
-   Dazu gezeichnet: Brettfugen (dunkle Kante, heller Grat, leicht wellig) und Bretter mit leicht verschiedener Helligkeit.
+   Dazu gezeichnet: Schalungsfugen wie an La Congiunta (Bilder im Video [14]): waagrechte Fugen etwa alle 0,57 m, je Kachel eine
+   senkrechte Stoßfuge der Schaltafeln, Tafeln mit leicht verschiedener Helligkeit; Holzmaserung nur angedeutet.
    Helligkeit und Farbton sind an die bisherigen Texturen angeglichen, damit das Licht im Modell gleich bleibt.
    Aufruf in einer Seite ohne strenge CSP, z. B. auf der eigenen Website: await laTexturen() liefert {A, B, I, F} als JPEG-Blobs
    (A, B = assets/img/tex-concrete-a/-b.jpg, I = tex-interior-wall.jpg, F = tex-floor.jpg). */
@@ -33,8 +34,8 @@ async function laTexturen() {
   }
   function rnd(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   var woodSoft = (function () { var r = rot(IMG.wood, 90), c = cv(512, 512), x = c.getContext('2d'); x.filter = 'blur(1.2px)'; x.drawImage(r, 0, 0, 512, 512); return c; })();
-  /* Schalungsbeton: ny Kacheln senkrecht, je „boards“ Bretter; grain = Anteil der Maserung, jA = Stärke der Fugen */
-  function board(w, h, ny, boards, ox, oy, grain, seed, jA) {
+  /* Schalungsbeton: ny Kacheln senkrecht, je „boards“ Tafelreihen; grain = Anteil der Maserung, jA = Stärke der Fugen, vx = Lage der Stoßfuge (Anteil der Breite) */
+  function board(w, h, ny, boards, ox, oy, grain, seed, jA, vx) {
     var c = cv(w, h), x = c.getContext('2d'), r = rnd(seed); x.imageSmoothingQuality = 'high';
     tileInto(x, IMG.wall, w, h, 1, ny, ox, oy);
     x.globalCompositeOperation = 'overlay'; x.globalAlpha = grain; tileInto(x, woodSoft, w, h, 1, ny, ox * 0.7, oy * 0.3);
@@ -50,14 +51,17 @@ async function laTexturen() {
       for (u = 0; u <= w; u += 4) { y = y0 + lw * 1.3 + a1 * Math.sin(u / w * 6.283 * 2 + ph); if (u) x.lineTo(u, y); else x.moveTo(u, y); }
       x.stroke();
     }
+    /* senkrechte Stoßfuge, über die ganze Höhe der Kachel */
+    x.globalAlpha = jA * 0.8; x.strokeStyle = '#000'; x.lineWidth = lw * 0.9; x.beginPath(); x.moveTo(vx * w, 0); x.lineTo(vx * w, h); x.stroke();
+    x.globalAlpha = jA * 0.3; x.strokeStyle = '#fff'; x.beginPath(); x.moveTo(vx * w + lw * 1.2, 0); x.lineTo(vx * w + lw * 1.2, h); x.stroke();
     x.globalAlpha = 1; return c;
   }
   function floorTex() { var c = cv(512, 512), x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; tileInto(x, IMG.floor, 512, 512, 1, 1, 0, 0); return c; }
   var out = {
-    A: match(board(512, 512, 1, 5, 0, 0, 0.12, 11, 0.6), [[126.2, 124.6, 120.5], [17.7, 17.5, 17.7]], 1.8, 2.6),
-    B: match(board(512, 512, 1, 5, 0.5, 0.31, 0.12, 23, 0.6), [[124.6, 121.2, 113.8], [15.2, 15.3, 15.1]], 1.8, 2.6),
-    I: match(board(256, 448, 2, 4, 0.25, 0, 0.1, 37, 0.5), [[166, 165, 158], [8, 8.5, 9.5]], 1.6, 2.4),
-    F: match(floorTex(), [[176.8, 166.8, 158.3], [13.9, 13.8, 14.8]], 1.5, 2.2)
+    A: match(board(512, 512, 1, 4, 0, 0, 0.05, 11, 0.62, 0.62), [[127, 126.5, 123.5], [15.5, 15.5, 15.5]], 1.8, 2.6),
+    B: match(board(512, 512, 1, 4, 0.5, 0.31, 0.05, 23, 0.62, 0.27), [[124.5, 123.5, 119.5], [14, 14, 14]], 1.8, 2.6),
+    I: match(board(256, 448, 2, 3, 0.25, 0, 0.04, 37, 0.5, 0.45), [[178, 178, 175], [8, 8, 8.5]], 1.6, 2.4),
+    F: match(floorTex(), [[160, 158.5, 154.5], [15, 15, 15.5]], 1.5, 2.2)
   };
   var res = {};
   for (var key in out) res[key] = await new Promise(function (r) { out[key].toBlob(r, 'image/jpeg', 0.86); });

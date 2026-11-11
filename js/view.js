@@ -57,7 +57,7 @@ function cloudB(){var c=U.uCloud.value;if(c.x<=0)return 1;var sb=U.uSunB.value,f
   return 1-c.x*0.62*sstep(c.w,c.w+0.07,cloudAt(px*CT+pz*ST,-px*ST+pz*CT))}
 /* Innenhelligkeit: Himmelsanteil plus Sonnenanteil, den die Platten des Lichtgadens streuen; ziehen Wolken vor die Sonne, wird es drinnen dunkler */
 var INTL={b:0,s:0},INT_SUN=3.0;
-function intLUpd(){U.uIntL.value.setRGB(1.0,0.92,0.80).multiplyScalar(INTL.b+INTL.s*cloudB())}
+function intLUpd(){U.uIntL.value.setRGB(1.0,0.99,0.97).multiplyScalar(INTL.b+INTL.s*cloudB())}
 windApply();
 function draw(){needs=true;lastAct=performance.now()}
 function onRendered(f){afterR.push(f);needs=true}

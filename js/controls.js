@@ -195,12 +195,14 @@ function afterSun(){
   var k=sv*sstep(-0.01,0.08,s);
   var sk=0.10+1.25*dl;U.uSkyL.value.setRGB(1.0,0.86,0.66).multiplyScalar(sk*0.85+1.6*Math.max(0,s)*k);
   /* innen nur gestreutes Licht: der Sonnenanteil kommt diffus durch die Platten (kein Sonnenfleck), Wolken dämpfen ihn */
-  INTL.b=sk*0.85;INTL.s=INT_SUN*Math.max(0,s)*k;intLUpd();
+  INTL.b=sk*1.4;INTL.s=INT_SUN*Math.max(0,s)*k;intLUpd();
   var fc=new THREE.Color().setRGB(0.46,0.54,0.64).lerp(new THREE.Color(0.80,0.58,0.42),warm*0.55*dl).multiplyScalar(0.05+0.95*dl);scene.fog.color.copy(fc);
   expoBase=clamp(0.66/(0.07+0.93*dl),0.64,3.2);
   var gI=sun.intensity*Math.max(0,s)*k+0.32*dl+0.004;
-  if(groundE)groundE.material.color.setRGB(0.15,0.19,0.10).multiplyScalar(gI);
-  if(ringM)ringM.material.color.setRGB(0.09,0.12,0.08).multiplyScalar(gI*0.8+0.02*dl);
+  /* Boden und Berghänge im Umgebungslicht: neutral grau-oliv statt satt grün (sonst färben sie die Betonwände grünlich;
+     auf den Fotos ist der Beton hell und neutral grau) */
+  if(groundE)groundE.material.color.setRGB(0.12,0.12,0.10).multiplyScalar(gI);
+  if(ringM)ringM.material.color.setRGB(0.13,0.13,0.115).multiplyScalar(gI*0.8+0.02*dl);
   envQueue();
   var hidden=(s>0.0&&sv<0.5);
   /* Uhrzeit und Sonnenstand in getrennten Zeilen, damit die Anzeige beim Ziehen nicht umbricht */

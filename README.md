@@ -154,7 +154,7 @@ Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig f
 - three.js: MIT-Lizenz.
 - Schriften TeX Gyre Heros und Pagella: GUST Font License (siehe `assets/fonts/`).
 - Pläne und Angaben nach A. Pireddu, „Peter Märkli – La Congiunta“, *Firenze Architettura* 29 (2025), doi:10.36253/FiA-16824 (CC BY-SA 4.0); im Modell nur zitiert und nachgezeichnet.
-- Texturen für Betonwände, Innenwände und Boden: aus frei lizenzierten Vorlagen von Poly Haven (CC0, gemeinfrei, keine Namensnennung nötig; „Concrete Wall 006“ von Dario Barresi und Charlotte Baglioni, „Wood Textured Concrete“ von Dimitrios Savva, „Concrete Floor Worn 001“ von Dimitrios Savva und Rico Cilliers), die Brettfugen dazugezeichnet, erzeugt mit `tools/texturen.js`. Die früheren Fototexturen aus der Vorlage-Datei, deren Herkunft unbekannt war, sind nicht mehr enthalten.
+- Texturen für Betonwände, Innenwände und Boden: aus frei lizenzierten Vorlagen von Poly Haven (CC0, gemeinfrei, keine Namensnennung nötig; „Concrete Wall 006“ von Dario Barresi und Charlotte Baglioni, „Wood Textured Concrete“ von Dimitrios Savva, „Concrete Floor Worn 001“ von Dimitrios Savva und Rico Cilliers), die Schalungsfugen nach den Bildern im Video dazugezeichnet, erzeugt mit `tools/texturen.js`. Die früheren Fototexturen aus der Vorlage-Datei, deren Herkunft unbekannt war, sind nicht mehr enthalten.
 - Die Werke von Hans Josephsohn sind urheberrechtlich geschützt. Das Modell zeigt keine Abbilder einzelner Werke, sondern frei nachempfundene, prozedural erzeugte Formen in Anzahl und Anordnung nach den Quellen.
 
 Für den eigenen Code des Modells ist keine Lizenz festgelegt; wer ihn anderen zur Nutzung freigeben möchte, ergänzt eine Lizenzdatei (zum Beispiel MIT).
