@@ -184,9 +184,34 @@
   ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (n) {
     document.addEventListener(n, function () { if (!fsEl() && fsNative) exitFs(); });
   });
+  /* Grundrisse groß anzeigen: das Blatt liegt über der ganzen Seite und lässt sich durch Scrollen verschieben */
+  var planFig = document.getElementById('planFig'), planBigBtn = document.getElementById('planBig'), planCloseBtn = document.getElementById('planClose');
+  function planOpen() { return !!(planFig && planFig.classList.contains('big')); }
+  function planShow(on) {
+    if (!planFig) return;
+    planFig.classList.toggle('big', on);
+    root.classList.toggle('lc-plan', on);
+    if (planBigBtn) planBigBtn.setAttribute('aria-expanded', String(on));
+    var sheet = document.getElementById('planSheet');
+    if (on && sheet) { sheet.scrollTop = 0; sheet.scrollLeft = 0; sheet.focus({ preventScroll: true }); }
+    else if (planBigBtn) planBigBtn.focus({ preventScroll: true });
+  }
+  if (planBigBtn) planBigBtn.addEventListener('click', function () { planShow(true); });
+  if (planCloseBtn) planCloseBtn.addEventListener('click', function () { planShow(false); });
+  /* Drucken: nur das Blatt, A3 quer in Originalgröße (dann stimmt der Maßstab 1:200); die Klasse lc-print gilt bis nach dem Druckdialog */
+  var planPrintBtn = document.getElementById('planPrint');
+  if (planPrintBtn) planPrintBtn.addEventListener('click', function () { root.classList.add('lc-print'); window.print(); });
+  window.addEventListener('afterprint', function () { root.classList.remove('lc-print'); });
+
   /* Taste F schaltet um; Esc beendet das Ersatz-Vollbild, solange weder Schild noch Film die Taste brauchen */
   window.addEventListener('keydown', function (e) {
     var t = e.target, tg = t && t.tagName;
+    if (planOpen()) {
+      /* die Tasten gehören dem Blatt (Pfeiltasten scrollen), nicht dem Modell dahinter */
+      e.stopImmediatePropagation();
+      if (e.code === 'Escape') { planShow(false); e.preventDefault(); }
+      return;
+    }
     if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|SELECT|TEXTAREA)$/.test(tg) || (t && t.isContentEditable)) return;
     if (e.code === 'KeyF' && !e.repeat) { toggleFs(); e.preventDefault(); return; }
     if (e.code === 'Escape' && fsOn() && !fsEl()) {

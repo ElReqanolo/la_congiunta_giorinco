@@ -270,3 +270,53 @@ ol.src li { padding-left: 2px; }
   ul.leg li { margin-bottom: var(--sp-3); break-inside: avoid; }
   ol.src { columns: 3; column-gap: var(--fgap); }
 }
+
+/* ---------- Grundrisse: Blatt A3 als Zeichnung auf weißem Papier, in beiden Darstellungen; groß über der ganzen Seite ---------- */
+.pbody { display: grid; gap: var(--sp-3); }
+.pintro { max-width: 75ch; }
+.pki {
+  justify-self: start; margin: 0; padding: 2px var(--sp-2);
+  border: 1px solid var(--c-text); border-radius: var(--r-tag);
+  font-size: var(--fs-1); font-weight: 700;
+}
+.ptools { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: 0; }
+.pbtn {
+  display: inline-flex; align-items: center; min-height: var(--control-h); padding: 0 var(--sp-3);
+  border: 1px solid var(--c-line-strong); border-radius: var(--r-control);
+  color: var(--c-text); text-decoration: none; white-space: nowrap;
+}
+.pbtn:hover { border-color: var(--c-text); }
+.plan { margin: 0; min-width: 0; }
+.plan-bar { display: none; }
+.plan-sheet {
+  max-width: 1400px; overflow: auto; overscroll-behavior: contain;
+  background: #fff; border: 1px solid var(--c-line-strong); border-radius: var(--r-control);
+}
+.plan-sheet svg { display: block; width: 100%; min-width: 680px; height: auto; }
+.plan.big {
+  position: fixed; inset: 0; z-index: calc(var(--z-header) + 1);
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: max(var(--sp-2), env(safe-area-inset-top, 0px)) max(var(--sp-2), env(safe-area-inset-right, 0px)) max(var(--sp-2), env(safe-area-inset-bottom, 0px)) max(var(--sp-2), env(safe-area-inset-left, 0px));
+  background: var(--c-surface);
+}
+.plan.big .plan-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); font-weight: 700; }
+.plan.big .plan-sheet { flex: 1 1 auto; max-width: none; }
+.plan.big .plan-sheet svg { width: max(100%, 1700px); min-width: 0; }
+.lc-plan, .lc-plan body { overflow: hidden; }
+@media (max-width: 599px) {
+  .plan.big .plan-bar span { font-size: var(--fs-1); }
+}
+
+/* ---------- Grundrisse drucken: nur das Blatt, A3 quer in Originalgröße (Maßstab 1:200) ---------- */
+@media print {
+  @page { size: 420mm 297mm; margin: 0; }
+  .lc-print, .lc-print body { height: auto !important; overflow: visible !important; background: #fff !important; }
+  .lc-print body { display: block; }
+  .lc-print body > *:not(.site-footer), .lc-print .site-footer > *:not(#plaene),
+  .lc-print #plaene > summary, .lc-print .pbody > *:not(.plan), .lc-print .plan-bar { display: none !important; }
+  .lc-print .site-footer, .lc-print #plaene, .lc-print .pbody, .lc-print .plan {
+    display: block !important; position: static !important; max-height: none; overflow: visible; margin: 0; padding: 0; border: 0; background: #fff;
+  }
+  .lc-print .plan-sheet { max-width: none; overflow: visible; border: 0; border-radius: 0; }
+  .lc-print .plan-sheet svg { width: 420mm !important; height: 297mm !important; min-width: 0; }
+}

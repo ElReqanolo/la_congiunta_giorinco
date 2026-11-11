@@ -1,0 +1,537 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 297" width="420mm" height="297mm" role="img" aria-labelledby="gr-t gr-d" class="plan-svg">
+<title id="gr-t">Grundrisse La Congiunta, Erdgeschoss und Untergeschoss, M 1:200</title>
+<desc id="gr-d">Von Claude (KI von Anthropic) gezeichnete Rekonstruktion nach den Maßen des 3D-Modells, Darstellung nach DIN 1356-1. Erdgeschoss: drei Räume hintereinander, 42,40 × 5,25 m außen, vier Zellen an der Westseite von Raum 3, Eingang an der Nordseite, Kellerabgang außen an der Westwand. Untergeschoss: Lager unter Raum 3 und Keller unter den Zellen, Zugang nur über die Außentreppe. Kein amtlicher Plan.</desc>
+<style>.plan-svg{background:#fff;font-family:'LC Heros', 'TeX Gyre Heros', Helvetica, Arial, sans-serif;color:#000}.plan-svg text{fill:#000;paint-order:stroke;stroke:#fff;stroke-width:0.55;stroke-linejoin:round}.plan-svg text.p-kit{stroke:none}.plan-svg text.p-st{stroke-width:1.1}.plan-svg .p-cut{fill:#000;stroke:#000;stroke-width:0.05}.plan-svg .p-vis,.plan-svg .p-leaf{fill:none;stroke:#000;stroke-width:0.35}.plan-svg .p-arc,.plan-svg .p-thin,.plan-svg .p-equip,.plan-svg .p-ll{fill:none;stroke:#000;stroke-width:0.25}.plan-svg .p-above{fill:none;stroke:#000;stroke-width:0.35;stroke-dasharray:0.01 0.9;stroke-linecap:round}.plan-svg .p-dim{stroke:#000;stroke-width:0.25}.plan-svg .p-tick{stroke:#000;stroke-width:0.5}.plan-svg .p-arrow,.plan-svg .p-kote,.plan-svg .p-ki{fill:#000}.plan-svg .p-kit{fill:#fff}.plan-svg .p-frame{fill:none;stroke:#000;stroke-width:0.7}.plan-svg .p-box,.plan-svg .p-brk{fill:none;stroke:#000;stroke-width:0.35}.plan-svg .p-boxt{fill:none;stroke:#000;stroke-width:0.25}</style>
+<rect x="0" y="0" width="420" height="297" fill="#fff"/>
+<rect class="p-frame" x="20" y="10" width="390" height="277"/>
+<g class="p-eg">
+<text x="52" y="21" font-size="5" text-anchor="start" font-weight="700">Grundriss Erdgeschoss</text>
+<text x="114" y="21" font-size="2.5" text-anchor="start">M 1:200 · Schnitthöhe 1,00 m über Fußboden</text>
+<rect class="p-cut" x="52" y="48" width="212" height="1.63"/>
+<rect class="p-cut" x="52" y="72.63" width="154.77" height="1.63"/>
+<rect class="p-cut" x="210.27" y="72.63" width="12.12" height="1.63"/>
+<rect class="p-cut" x="225.89" y="72.63" width="12.12" height="1.63"/>
+<rect class="p-cut" x="241.51" y="72.63" width="12.12" height="1.63"/>
+<rect class="p-cut" x="257.13" y="72.63" width="6.87" height="1.63"/>
+<rect class="p-cut" x="52" y="65.6" width="1.63" height="8.65"/>
+<rect class="p-cut" x="52" y="48" width="1.63" height="13.35"/>
+<rect class="p-cut" x="87.88" y="65.6" width="1.62" height="8.65"/>
+<rect class="p-cut" x="87.88" y="48" width="1.62" height="13.35"/>
+<rect class="p-cut" x="175.28" y="65.6" width="1.63" height="8.65"/>
+<rect class="p-cut" x="175.28" y="48" width="1.63" height="13.35"/>
+<rect class="p-cut" x="262.38" y="48" width="1.63" height="42.95"/>
+<rect class="p-cut" x="199.9" y="89.33" width="64.1" height="1.63"/>
+<rect class="p-cut" x="199.9" y="74.25" width="1.63" height="16.7"/>
+<rect class="p-cut" x="246.76" y="74.25" width="1.63" height="16.7"/>
+<rect class="p-cut" x="231.14" y="74.25" width="1.63" height="16.7"/>
+<rect class="p-cut" x="215.52" y="74.25" width="1.62" height="16.7"/>
+<rect class="p-vis" x="157.8" y="78.6" width="42.1" height="0.75"/>
+<line class="p-vis" x1="158.8" y1="78.6" x2="158.8" y2="74.25"/>
+<line class="p-vis" x1="175.8" y1="78.6" x2="175.8" y2="74.25"/>
+<line class="p-vis" x1="174.49" y1="78.6" x2="174.49" y2="74.25"/>
+<line class="p-vis" x1="173.18" y1="78.6" x2="173.18" y2="74.25"/>
+<line class="p-vis" x1="171.88" y1="78.6" x2="171.88" y2="74.25"/>
+<line class="p-vis" x1="170.57" y1="78.6" x2="170.57" y2="74.25"/>
+<line class="p-vis" x1="169.26" y1="78.6" x2="169.26" y2="74.25"/>
+<line class="p-vis" x1="167.95" y1="78.6" x2="167.95" y2="74.25"/>
+<line class="p-vis" x1="166.65" y1="78.6" x2="166.65" y2="74.25"/>
+<line class="p-vis" x1="165.34" y1="78.6" x2="165.34" y2="74.25"/>
+<line class="p-vis" x1="164.03" y1="78.6" x2="164.03" y2="74.25"/>
+<line class="p-vis" x1="162.72" y1="78.6" x2="162.72" y2="74.25"/>
+<line class="p-vis" x1="161.42" y1="78.6" x2="161.42" y2="74.25"/>
+<line class="p-vis" x1="160.11" y1="78.6" x2="160.11" y2="74.25"/>
+<line class="p-vis" x1="158.8" y1="78.6" x2="158.8" y2="74.25"/>
+<circle class="p-ll" cx="175.15" cy="76.43" r="0.75"/>
+<line class="p-ll" x1="174.4" y1="76.43" x2="160.4" y2="76.43"/>
+<path class="p-arrow" d="M158.8 76.43 l2 -0.75 v1.5 z"/>
+<rect class="p-vis" x="50" y="61.1" width="2" height="4.75"/>
+<line class="p-leaf" x1="52" y1="61.35" x2="47.75" y2="61.35"/>
+<path class="p-arc" d="M47.75 61.35 A4.25 4.25 0 0 0 52 65.6"/>
+<rect class="p-above" x="53.63" y="58.98" width="34.26" height="8.5"/>
+<rect class="p-above" x="89.51" y="58.98" width="85.77" height="8.5"/>
+<rect class="p-above" x="176.9" y="58.98" width="85.47" height="8.5"/>
+<rect class="p-above" x="253.88" y="79.29" width="3" height="5"/>
+<rect class="p-above" x="238.26" y="79.29" width="3" height="5"/>
+<rect class="p-above" x="222.64" y="79.29" width="3" height="5"/>
+<rect class="p-above" x="207.02" y="79.29" width="3" height="5"/>
+<polygon class="p-equip" points="197,60.31 196.19,57.11 198.8,56.44 199.62,59.64"/>
+<polygon class="p-equip" points="219.75,59.72 220.41,56.49 223.06,57.03 222.4,60.26"/>
+<polygon class="p-equip" points="244.3,60.42 243.02,57.38 245.51,56.33 246.79,59.37"/>
+<text x="70.75" y="54.38" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">0.01 Raum 1</text>
+<text x="70.75" y="57.63" font-size="2.5" text-anchor="middle" class="p-st">Vorraum, Eingang</text>
+<text x="70.75" y="60.88" font-size="2.5" text-anchor="middle" class="p-st">NRF 31,5 m²</text>
+<text x="70.75" y="64.13" font-size="2.5" text-anchor="middle" class="p-st">LH 5,30 m</text>
+<path class="p-kote" d="M55.75 52.38 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="54.15" y1="52.38" x2="57.35" y2="52.38"/>
+<text x="57.35" y="51.98" font-size="1.8" text-anchor="start">±0,00</text>
+<text x="126.39" y="56" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">0.02 Raum 2</text>
+<text x="126.39" y="59.25" font-size="2.5" text-anchor="middle" class="p-st">NRF 78,9 m²</text>
+<text x="126.39" y="62.5" font-size="2.5" text-anchor="middle" class="p-st">LH 3,50 m</text>
+<path class="p-kote" d="M139.39 52.38 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="137.79" y1="52.38" x2="140.99" y2="52.38"/>
+<text x="140.99" y="51.98" font-size="1.8" text-anchor="start">±0,00</text>
+<text x="209.65" y="56" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">0.03 Raum 3</text>
+<text x="209.65" y="59.25" font-size="2.5" text-anchor="middle" class="p-st">NRF 78,6 m²</text>
+<text x="209.65" y="62.5" font-size="2.5" text-anchor="middle" class="p-st">LH 6,60 m</text>
+<path class="p-kote" d="M222.65 52.38 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="221.05" y1="52.38" x2="224.25" y2="52.38"/>
+<text x="224.25" y="51.98" font-size="1.8" text-anchor="start">±0,00</text>
+<text x="208.52" y="86.32" font-size="1.6" text-anchor="middle" font-weight="700" class="p-st">0.04 Zelle 1</text>
+<text x="208.52" y="88.4" font-size="1.6" text-anchor="middle" class="p-st">8,4 m², LH 4,30</text>
+<text x="224.14" y="86.32" font-size="1.6" text-anchor="middle" font-weight="700" class="p-st">0.05 Zelle 2</text>
+<text x="224.14" y="88.4" font-size="1.6" text-anchor="middle" class="p-st">8,4 m², LH 4,30</text>
+<text x="239.76" y="86.32" font-size="1.6" text-anchor="middle" font-weight="700" class="p-st">0.06 Zelle 3</text>
+<text x="239.76" y="88.4" font-size="1.6" text-anchor="middle" class="p-st">8,4 m², LH 4,30</text>
+<text x="255.38" y="86.32" font-size="1.6" text-anchor="middle" font-weight="700" class="p-st">0.07 Zelle 4</text>
+<text x="255.38" y="88.4" font-size="1.6" text-anchor="middle" class="p-st">8,4 m², LH 4,30</text>
+<text x="167.3" y="82.75" font-size="1.8" text-anchor="middle">Kellerabgang außen, 13 Stg. 18,8/26,2</text>
+<line class="p-dim" x1="50.5" y1="41" x2="265.5" y2="41"/>
+<line class="p-dim" x1="52" y1="47" x2="52" y2="39.5"/>
+<line class="p-tick" x1="50.9" y1="42.1" x2="53.1" y2="39.9"/>
+<line class="p-dim" x1="53.63" y1="47" x2="53.63" y2="39.5"/>
+<line class="p-tick" x1="52.52" y1="42.1" x2="54.73" y2="39.9"/>
+<line class="p-dim" x1="87.88" y1="47" x2="87.88" y2="39.5"/>
+<line class="p-tick" x1="86.78" y1="42.1" x2="88.97" y2="39.9"/>
+<line class="p-dim" x1="89.5" y1="47" x2="89.5" y2="39.5"/>
+<line class="p-tick" x1="88.4" y1="42.1" x2="90.6" y2="39.9"/>
+<line class="p-dim" x1="175.28" y1="47" x2="175.28" y2="39.5"/>
+<line class="p-tick" x1="174.18" y1="42.1" x2="176.38" y2="39.9"/>
+<line class="p-dim" x1="176.9" y1="47" x2="176.9" y2="39.5"/>
+<line class="p-tick" x1="175.8" y1="42.1" x2="178" y2="39.9"/>
+<line class="p-dim" x1="262.38" y1="47" x2="262.38" y2="39.5"/>
+<line class="p-tick" x1="261.27" y1="42.1" x2="263.48" y2="39.9"/>
+<line class="p-dim" x1="264" y1="47" x2="264" y2="39.5"/>
+<line class="p-tick" x1="262.9" y1="42.1" x2="265.1" y2="39.9"/>
+<text x="52.81" y="38" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="70.75" y="40.2" font-size="1.8" text-anchor="middle" class="p-dimt">6,85</text>
+<text x="88.69" y="38" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="132.39" y="40.2" font-size="1.8" text-anchor="middle" class="p-dimt">17,15<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="176.09" y="38" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="219.64" y="40.2" font-size="1.8" text-anchor="middle" class="p-dimt">17,09<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="263.19" y="38" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="50.5" y1="34" x2="265.5" y2="34"/>
+<line class="p-dim" x1="52" y1="47" x2="52" y2="32.5"/>
+<line class="p-tick" x1="50.9" y1="35.1" x2="53.1" y2="32.9"/>
+<line class="p-dim" x1="264" y1="47" x2="264" y2="32.5"/>
+<line class="p-tick" x1="262.9" y1="35.1" x2="265.1" y2="32.9"/>
+<text x="158" y="33.2" font-size="1.8" text-anchor="middle" class="p-dimt">42,40</text>
+<line class="p-dim" x1="198.4" y1="97.95" x2="265.5" y2="97.95"/>
+<line class="p-dim" x1="199.9" y1="91.95" x2="199.9" y2="99.45"/>
+<line class="p-tick" x1="198.8" y1="99.05" x2="201" y2="96.85"/>
+<line class="p-dim" x1="201.52" y1="91.95" x2="201.52" y2="99.45"/>
+<line class="p-tick" x1="200.42" y1="99.05" x2="202.62" y2="96.85"/>
+<line class="p-dim" x1="215.52" y1="91.95" x2="215.52" y2="99.45"/>
+<line class="p-tick" x1="214.42" y1="99.05" x2="216.62" y2="96.85"/>
+<line class="p-dim" x1="217.15" y1="91.95" x2="217.15" y2="99.45"/>
+<line class="p-tick" x1="216.05" y1="99.05" x2="218.25" y2="96.85"/>
+<line class="p-dim" x1="231.15" y1="91.95" x2="231.15" y2="99.45"/>
+<line class="p-tick" x1="230.05" y1="99.05" x2="232.25" y2="96.85"/>
+<line class="p-dim" x1="232.77" y1="91.95" x2="232.77" y2="99.45"/>
+<line class="p-tick" x1="231.67" y1="99.05" x2="233.87" y2="96.85"/>
+<line class="p-dim" x1="246.75" y1="91.95" x2="246.75" y2="99.45"/>
+<line class="p-tick" x1="245.65" y1="99.05" x2="247.85" y2="96.85"/>
+<line class="p-dim" x1="248.37" y1="91.95" x2="248.37" y2="99.45"/>
+<line class="p-tick" x1="247.27" y1="99.05" x2="249.47" y2="96.85"/>
+<line class="p-dim" x1="262.38" y1="91.95" x2="262.38" y2="99.45"/>
+<line class="p-tick" x1="261.27" y1="99.05" x2="263.48" y2="96.85"/>
+<line class="p-dim" x1="264" y1="91.95" x2="264" y2="99.45"/>
+<line class="p-tick" x1="262.9" y1="99.05" x2="265.1" y2="96.85"/>
+<text x="200.71" y="94.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="208.52" y="97.15" font-size="1.8" text-anchor="middle" class="p-dimt">2,80</text>
+<text x="216.34" y="94.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="224.15" y="97.15" font-size="1.8" text-anchor="middle" class="p-dimt">2,80</text>
+<text x="231.96" y="94.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="239.76" y="97.15" font-size="1.8" text-anchor="middle" class="p-dimt">2,79<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="247.56" y="94.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="255.38" y="97.15" font-size="1.8" text-anchor="middle" class="p-dimt">2,80</text>
+<text x="263.19" y="94.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="50.5" y1="104.95" x2="265.5" y2="104.95"/>
+<line class="p-dim" x1="52" y1="91.95" x2="52" y2="106.45"/>
+<line class="p-tick" x1="50.9" y1="106.05" x2="53.1" y2="103.85"/>
+<line class="p-dim" x1="158.8" y1="91.95" x2="158.8" y2="106.45"/>
+<line class="p-tick" x1="157.7" y1="106.05" x2="159.9" y2="103.85"/>
+<line class="p-dim" x1="199.9" y1="91.95" x2="199.9" y2="106.45"/>
+<line class="p-tick" x1="198.8" y1="106.05" x2="201" y2="103.85"/>
+<line class="p-dim" x1="264" y1="91.95" x2="264" y2="106.45"/>
+<line class="p-tick" x1="262.9" y1="106.05" x2="265.1" y2="103.85"/>
+<text x="105.4" y="104.15" font-size="1.8" text-anchor="middle" class="p-dimt">21,36</text>
+<text x="179.35" y="104.15" font-size="1.8" text-anchor="middle" class="p-dimt">8,22</text>
+<text x="231.95" y="104.15" font-size="1.8" text-anchor="middle" class="p-dimt">12,82</text>
+<line class="p-dim" x1="42" y1="46.5" x2="42" y2="75.75"/>
+<line class="p-dim" x1="33" y1="48" x2="43.5" y2="48"/>
+<line class="p-tick" x1="43.1" y1="49.1" x2="40.9" y2="46.9"/>
+<line class="p-dim" x1="33" y1="49.63" x2="43.5" y2="49.63"/>
+<line class="p-tick" x1="43.1" y1="50.73" x2="40.9" y2="48.52"/>
+<line class="p-dim" x1="33" y1="61.35" x2="43.5" y2="61.35"/>
+<line class="p-tick" x1="43.1" y1="62.45" x2="40.9" y2="60.25"/>
+<line class="p-dim" x1="33" y1="65.6" x2="43.5" y2="65.6"/>
+<line class="p-tick" x1="43.1" y1="66.7" x2="40.9" y2="64.5"/>
+<line class="p-dim" x1="33" y1="72.63" x2="43.5" y2="72.63"/>
+<line class="p-tick" x1="43.1" y1="73.72" x2="40.9" y2="71.53"/>
+<line class="p-dim" x1="33" y1="74.25" x2="43.5" y2="74.25"/>
+<line class="p-tick" x1="43.1" y1="75.35" x2="40.9" y2="73.15"/>
+<text x="39" y="48.81" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 39 48.81)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="41.2" y="55.49" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 41.2 55.49)">2,34<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="41.2" y="63.47" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 41.2 63.47)">85</text>
+<text x="44.6" y="63.47" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 44.6 63.47)">2,15</text>
+<text x="41.2" y="69.11" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 41.2 69.11)">1,40<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="39" y="73.44" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 39 73.44)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="35" y1="46.5" x2="35" y2="75.75"/>
+<line class="p-dim" x1="19" y1="48" x2="36.5" y2="48"/>
+<line class="p-tick" x1="36.1" y1="49.1" x2="33.9" y2="46.9"/>
+<line class="p-dim" x1="19" y1="74.25" x2="36.5" y2="74.25"/>
+<line class="p-tick" x1="36.1" y1="75.35" x2="33.9" y2="73.15"/>
+<text x="34.2" y="61.13" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 34.2 61.13)">5,25</text>
+<line class="p-dim" x1="271" y1="46.5" x2="271" y2="92.45"/>
+<line class="p-dim" x1="274" y1="48" x2="269.5" y2="48"/>
+<line class="p-tick" x1="272.1" y1="49.1" x2="269.9" y2="46.9"/>
+<line class="p-dim" x1="274" y1="49.63" x2="269.5" y2="49.63"/>
+<line class="p-tick" x1="272.1" y1="50.73" x2="269.9" y2="48.52"/>
+<line class="p-dim" x1="274" y1="72.63" x2="269.5" y2="72.63"/>
+<line class="p-tick" x1="272.1" y1="73.72" x2="269.9" y2="71.53"/>
+<line class="p-dim" x1="274" y1="74.25" x2="269.5" y2="74.25"/>
+<line class="p-tick" x1="272.1" y1="75.35" x2="269.9" y2="73.15"/>
+<line class="p-dim" x1="274" y1="89.33" x2="269.5" y2="89.33"/>
+<line class="p-tick" x1="272.1" y1="90.42" x2="269.9" y2="88.23"/>
+<line class="p-dim" x1="274" y1="90.95" x2="269.5" y2="90.95"/>
+<line class="p-tick" x1="272.1" y1="92.05" x2="269.9" y2="89.85"/>
+<text x="268" y="48.81" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 48.81)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="270.2" y="61.13" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 270.2 61.13)">4,60</text>
+<text x="268" y="73.44" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 73.44)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="270.2" y="81.79" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 270.2 81.79)">3,01<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="268" y="90.14" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 90.14)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="278" y1="46.5" x2="278" y2="92.45"/>
+<line class="p-dim" x1="281" y1="48" x2="276.5" y2="48"/>
+<line class="p-tick" x1="279.1" y1="49.1" x2="276.9" y2="46.9"/>
+<line class="p-dim" x1="281" y1="74.25" x2="276.5" y2="74.25"/>
+<line class="p-tick" x1="279.1" y1="75.35" x2="276.9" y2="73.15"/>
+<line class="p-dim" x1="281" y1="90.95" x2="276.5" y2="90.95"/>
+<line class="p-tick" x1="279.1" y1="92.05" x2="276.9" y2="89.85"/>
+<text x="277.2" y="61.13" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 277.2 61.13)">5,25</text>
+<text x="277.2" y="82.6" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 277.2 82.6)">3,34</text>
+<line class="p-dim" x1="285" y1="46.5" x2="285" y2="92.45"/>
+<line class="p-dim" x1="288" y1="48" x2="283.5" y2="48"/>
+<line class="p-tick" x1="286.1" y1="49.1" x2="283.9" y2="46.9"/>
+<line class="p-dim" x1="288" y1="90.95" x2="283.5" y2="90.95"/>
+<line class="p-tick" x1="286.1" y1="92.05" x2="283.9" y2="89.85"/>
+<text x="284.2" y="69.47" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 284.2 69.47)">8,59</text>
+<line class="p-dim" x1="175.4" y1="68.38" x2="263.88" y2="68.38"/>
+<line class="p-dim" x1="176.9" y1="72.58" x2="176.9" y2="66.88"/>
+<line class="p-tick" x1="175.8" y1="69.47" x2="178" y2="67.28"/>
+<line class="p-dim" x1="206.78" y1="72.58" x2="206.78" y2="66.88"/>
+<line class="p-tick" x1="205.68" y1="69.47" x2="207.88" y2="67.28"/>
+<line class="p-dim" x1="210.28" y1="72.58" x2="210.28" y2="66.88"/>
+<line class="p-tick" x1="209.18" y1="69.47" x2="211.38" y2="67.28"/>
+<line class="p-dim" x1="222.38" y1="72.58" x2="222.38" y2="66.88"/>
+<line class="p-tick" x1="221.28" y1="69.47" x2="223.48" y2="67.28"/>
+<line class="p-dim" x1="225.88" y1="72.58" x2="225.88" y2="66.88"/>
+<line class="p-tick" x1="224.78" y1="69.47" x2="226.98" y2="67.28"/>
+<line class="p-dim" x1="238" y1="72.58" x2="238" y2="66.88"/>
+<line class="p-tick" x1="236.9" y1="69.47" x2="239.1" y2="67.28"/>
+<line class="p-dim" x1="241.5" y1="72.58" x2="241.5" y2="66.88"/>
+<line class="p-tick" x1="240.4" y1="69.47" x2="242.6" y2="67.28"/>
+<line class="p-dim" x1="253.63" y1="72.58" x2="253.63" y2="66.88"/>
+<line class="p-tick" x1="252.53" y1="69.47" x2="254.73" y2="67.28"/>
+<line class="p-dim" x1="257.13" y1="72.58" x2="257.13" y2="66.88"/>
+<line class="p-tick" x1="256.03" y1="69.47" x2="258.23" y2="67.28"/>
+<line class="p-dim" x1="262.38" y1="72.58" x2="262.38" y2="66.88"/>
+<line class="p-tick" x1="261.28" y1="69.47" x2="263.48" y2="67.28"/>
+<text x="191.84" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">5,97<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="208.53" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">70</text>
+<text x="208.53" y="70.97" font-size="1.8" text-anchor="middle" class="p-dimt">2,15</text>
+<text x="216.33" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">2,42</text>
+<text x="224.13" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">70</text>
+<text x="224.13" y="70.97" font-size="1.8" text-anchor="middle" class="p-dimt">2,15</text>
+<text x="231.94" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">2,42<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="239.75" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">70</text>
+<text x="239.75" y="70.97" font-size="1.8" text-anchor="middle" class="p-dimt">2,15</text>
+<text x="247.57" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">2,42<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="255.38" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">70</text>
+<text x="255.38" y="70.97" font-size="1.8" text-anchor="middle" class="p-dimt">2,15</text>
+<text x="259.75" y="67.58" font-size="1.8" text-anchor="middle" class="p-dimt">1,05</text>
+<line class="p-dim" x1="99.51" y1="48.13" x2="99.51" y2="74.13"/>
+<line class="p-dim" x1="98.01" y1="49.63" x2="101.01" y2="49.63"/>
+<line class="p-tick" x1="100.61" y1="50.73" x2="98.41" y2="48.52"/>
+<line class="p-dim" x1="98.01" y1="58.98" x2="101.01" y2="58.98"/>
+<line class="p-tick" x1="100.61" y1="60.08" x2="98.41" y2="57.88"/>
+<line class="p-dim" x1="98.01" y1="67.47" x2="101.01" y2="67.47"/>
+<line class="p-tick" x1="100.61" y1="68.57" x2="98.41" y2="66.38"/>
+<line class="p-dim" x1="98.01" y1="72.63" x2="101.01" y2="72.63"/>
+<line class="p-tick" x1="100.61" y1="73.72" x2="98.41" y2="71.53"/>
+<text x="98.71" y="54.3" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 98.71 54.3)">1,87</text>
+<text x="98.71" y="63.22" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 98.71 63.22)">1,70</text>
+<text x="98.71" y="70.05" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 98.71 70.05)">1,03</text>
+</g>
+<g class="p-ug">
+<text x="52" y="127" font-size="5" text-anchor="start" font-weight="700">Grundriss Untergeschoss</text>
+<text x="117" y="127" font-size="2.5" text-anchor="start">M 1:200 · Schnitthöhe 1,00 m über Kellerboden</text>
+<polyline class="p-above" points="175.28,154 52,154 52,180.25 158.8,180.25"/>
+<text x="114.05" y="168.03" font-size="2.5" text-anchor="middle">Raum 1 und 2 darüber, nicht unterkellert</text>
+<rect class="p-cut" x="175.28" y="154" width="88.72" height="1.63"/>
+<rect class="p-cut" x="175.28" y="154" width="1.63" height="26.25"/>
+<rect class="p-cut" x="262.38" y="154" width="1.63" height="42.95"/>
+<rect class="p-cut" x="158.8" y="178.63" width="22.15" height="1.63"/>
+<rect class="p-cut" x="189.05" y="178.63" width="74.95" height="1.63"/>
+<rect class="p-cut" x="199.9" y="195.32" width="64.1" height="1.63"/>
+<rect class="p-cut" x="199.9" y="184.55" width="1.63" height="12.4"/>
+<rect class="p-cut" x="199.9" y="180.25" width="1.63" height="0.05"/>
+<rect class="p-cut" x="157.8" y="184.6" width="42.1" height="0.75"/>
+<line class="p-vis" x1="175.8" y1="184.6" x2="175.8" y2="180.25"/>
+<line class="p-vis" x1="174.49" y1="184.6" x2="174.49" y2="180.25"/>
+<line class="p-vis" x1="173.18" y1="184.6" x2="173.18" y2="180.25"/>
+<line class="p-vis" x1="171.88" y1="184.6" x2="171.88" y2="180.25"/>
+<line class="p-vis" x1="170.57" y1="184.6" x2="170.57" y2="180.25"/>
+<line class="p-vis" x1="169.26" y1="184.6" x2="169.26" y2="180.25"/>
+<line class="p-above" x1="167.95" y1="184.6" x2="167.95" y2="180.25"/>
+<line class="p-above" x1="166.65" y1="184.6" x2="166.65" y2="180.25"/>
+<line class="p-above" x1="165.34" y1="184.6" x2="165.34" y2="180.25"/>
+<line class="p-above" x1="164.03" y1="184.6" x2="164.03" y2="180.25"/>
+<line class="p-above" x1="162.72" y1="184.6" x2="162.72" y2="180.25"/>
+<line class="p-above" x1="161.42" y1="184.6" x2="161.42" y2="180.25"/>
+<line class="p-above" x1="160.11" y1="184.6" x2="160.11" y2="180.25"/>
+<line class="p-above" x1="158.8" y1="184.6" x2="158.8" y2="180.25"/>
+<line class="p-brk" x1="170.36" y1="184.6" x2="166.86" y2="180.25"/>
+<circle class="p-ll" cx="175.15" cy="182.43" r="0.75"/>
+<line class="p-ll" x1="174.4" y1="182.43" x2="168.61" y2="182.43"/>
+<line class="p-ll p-above" x1="168.61" y1="182.43" x2="160.4" y2="182.43"/>
+<path class="p-arrow" d="M158.8 182.43 l2 -0.75 v1.5 z"/>
+<line class="p-leaf" x1="180.95" y1="178.63" x2="180.95" y2="174.57"/>
+<path class="p-arc" d="M180.95 174.57 A4.05 4.05 0 0 1 185 178.63"/>
+<line class="p-leaf" x1="189.05" y1="178.63" x2="189.05" y2="174.57"/>
+<path class="p-arc" d="M189.05 174.57 A4.05 4.05 0 0 0 185 178.63"/>
+<line class="p-leaf" x1="199.9" y1="180.3" x2="195.65" y2="180.3"/>
+<path class="p-arc" d="M195.65 180.3 A4.25 4.25 0 0 0 199.9 184.55"/>
+<text x="242.5" y="162" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">-1.01 Lager</text>
+<text x="242.5" y="165.25" font-size="2.5" text-anchor="middle" class="p-st">NRF 78,6 m²</text>
+<text x="242.5" y="168.5" font-size="2.5" text-anchor="middle" class="p-st">LH ≈ 2,20 m</text>
+<path class="p-kote" d="M201 159.38 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="199.4" y1="159.38" x2="202.6" y2="159.38"/>
+<text x="202.6" y="158.97" font-size="1.8" text-anchor="start">−2,44</text>
+<text x="233" y="185.41" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">-1.02 Zellenkeller</text>
+<text x="233" y="188.66" font-size="2.5" text-anchor="middle" class="p-st">NRF 36,7 m²</text>
+<text x="233" y="191.91" font-size="2.5" text-anchor="middle" class="p-st">LH ≈ 2,20 m</text>
+<path class="p-kote" d="M248 188.39 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="246.4" y1="188.39" x2="249.6" y2="188.39"/>
+<text x="249.6" y="187.99" font-size="1.8" text-anchor="start">−2,44</text>
+<text x="187.85" y="188.75" font-size="1.8" text-anchor="middle">Podest −2,44</text>
+<text x="167.3" y="188.75" font-size="1.8" text-anchor="middle">13 Stg. 18,8/26,2</text>
+<line class="p-dim" x1="173.78" y1="147" x2="265.5" y2="147"/>
+<line class="p-dim" x1="175.28" y1="153" x2="175.28" y2="145.5"/>
+<line class="p-tick" x1="174.18" y1="148.1" x2="176.38" y2="145.9"/>
+<line class="p-dim" x1="176.9" y1="153" x2="176.9" y2="145.5"/>
+<line class="p-tick" x1="175.8" y1="148.1" x2="178" y2="145.9"/>
+<line class="p-dim" x1="262.38" y1="153" x2="262.38" y2="145.5"/>
+<line class="p-tick" x1="261.28" y1="148.1" x2="263.48" y2="145.9"/>
+<line class="p-dim" x1="264" y1="153" x2="264" y2="145.5"/>
+<line class="p-tick" x1="262.9" y1="148.1" x2="265.1" y2="145.9"/>
+<text x="176.09" y="144" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="219.64" y="146.2" font-size="1.8" text-anchor="middle" class="p-dimt">17,09<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="263.19" y="144" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="50.5" y1="140" x2="265.5" y2="140"/>
+<line class="p-dim" x1="52" y1="153" x2="52" y2="138.5"/>
+<line class="p-tick" x1="50.9" y1="141.1" x2="53.1" y2="138.9"/>
+<line class="p-dim" x1="175.28" y1="153" x2="175.28" y2="138.5"/>
+<line class="p-tick" x1="174.18" y1="141.1" x2="176.38" y2="138.9"/>
+<line class="p-dim" x1="264" y1="153" x2="264" y2="138.5"/>
+<line class="p-tick" x1="262.9" y1="141.1" x2="265.1" y2="138.9"/>
+<text x="113.64" y="139.2" font-size="1.8" text-anchor="middle" class="p-dimt">24,65<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="219.64" y="139.2" font-size="1.8" text-anchor="middle" class="p-dimt">17,74<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="157.3" y1="203.95" x2="265.5" y2="203.95"/>
+<line class="p-dim" x1="158.8" y1="197.95" x2="158.8" y2="205.45"/>
+<line class="p-tick" x1="157.7" y1="205.05" x2="159.9" y2="202.85"/>
+<line class="p-dim" x1="175.8" y1="197.95" x2="175.8" y2="205.45"/>
+<line class="p-tick" x1="174.7" y1="205.05" x2="176.9" y2="202.85"/>
+<line class="p-dim" x1="199.9" y1="197.95" x2="199.9" y2="205.45"/>
+<line class="p-tick" x1="198.8" y1="205.05" x2="201" y2="202.85"/>
+<line class="p-dim" x1="201.53" y1="197.95" x2="201.53" y2="205.45"/>
+<line class="p-tick" x1="200.43" y1="205.05" x2="202.63" y2="202.85"/>
+<line class="p-dim" x1="262.38" y1="197.95" x2="262.38" y2="205.45"/>
+<line class="p-tick" x1="261.27" y1="205.05" x2="263.48" y2="202.85"/>
+<line class="p-dim" x1="264" y1="197.95" x2="264" y2="205.45"/>
+<line class="p-tick" x1="262.9" y1="205.05" x2="265.1" y2="202.85"/>
+<text x="167.3" y="203.15" font-size="1.8" text-anchor="middle" class="p-dimt">3,40</text>
+<text x="187.85" y="203.15" font-size="1.8" text-anchor="middle" class="p-dimt">4,82</text>
+<text x="200.71" y="200.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="231.95" y="203.15" font-size="1.8" text-anchor="middle" class="p-dimt">12,17</text>
+<text x="263.19" y="200.95" font-size="1.8" text-anchor="middle" class="p-dimt">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="50.5" y1="210.95" x2="265.5" y2="210.95"/>
+<line class="p-dim" x1="52" y1="197.95" x2="52" y2="212.45"/>
+<line class="p-tick" x1="50.9" y1="212.05" x2="53.1" y2="209.85"/>
+<line class="p-dim" x1="158.8" y1="197.95" x2="158.8" y2="212.45"/>
+<line class="p-tick" x1="157.7" y1="212.05" x2="159.9" y2="209.85"/>
+<line class="p-dim" x1="264" y1="197.95" x2="264" y2="212.45"/>
+<line class="p-tick" x1="262.9" y1="212.05" x2="265.1" y2="209.85"/>
+<text x="105.4" y="210.15" font-size="1.8" text-anchor="middle" class="p-dimt">21,36</text>
+<text x="211.4" y="210.15" font-size="1.8" text-anchor="middle" class="p-dimt">21,04</text>
+<line class="p-dim" x1="271" y1="152.5" x2="271" y2="198.45"/>
+<line class="p-dim" x1="274" y1="154" x2="269.5" y2="154"/>
+<line class="p-tick" x1="272.1" y1="155.1" x2="269.9" y2="152.9"/>
+<line class="p-dim" x1="274" y1="155.63" x2="269.5" y2="155.63"/>
+<line class="p-tick" x1="272.1" y1="156.72" x2="269.9" y2="154.53"/>
+<line class="p-dim" x1="274" y1="178.63" x2="269.5" y2="178.63"/>
+<line class="p-tick" x1="272.1" y1="179.72" x2="269.9" y2="177.53"/>
+<line class="p-dim" x1="274" y1="180.25" x2="269.5" y2="180.25"/>
+<line class="p-tick" x1="272.1" y1="181.35" x2="269.9" y2="179.15"/>
+<line class="p-dim" x1="274" y1="195.32" x2="269.5" y2="195.32"/>
+<line class="p-tick" x1="272.1" y1="196.42" x2="269.9" y2="194.22"/>
+<line class="p-dim" x1="274" y1="196.95" x2="269.5" y2="196.95"/>
+<line class="p-tick" x1="272.1" y1="198.05" x2="269.9" y2="195.85"/>
+<text x="268" y="154.81" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 154.81)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="270.2" y="167.13" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 270.2 167.13)">4,60</text>
+<text x="268" y="179.44" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 179.44)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="270.2" y="187.79" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 270.2 187.79)">3,01<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="268" y="196.14" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 268 196.14)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="278" y1="152.5" x2="278" y2="198.45"/>
+<line class="p-dim" x1="281" y1="154" x2="276.5" y2="154"/>
+<line class="p-tick" x1="279.1" y1="155.1" x2="276.9" y2="152.9"/>
+<line class="p-dim" x1="281" y1="180.25" x2="276.5" y2="180.25"/>
+<line class="p-tick" x1="279.1" y1="181.35" x2="276.9" y2="179.15"/>
+<line class="p-dim" x1="281" y1="196.95" x2="276.5" y2="196.95"/>
+<line class="p-tick" x1="279.1" y1="198.05" x2="276.9" y2="195.85"/>
+<text x="277.2" y="167.13" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 277.2 167.13)">5,25</text>
+<text x="277.2" y="188.6" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 277.2 188.6)">3,34</text>
+<line class="p-dim" x1="285" y1="152.5" x2="285" y2="198.45"/>
+<line class="p-dim" x1="288" y1="154" x2="283.5" y2="154"/>
+<line class="p-tick" x1="286.1" y1="155.1" x2="283.9" y2="152.9"/>
+<line class="p-dim" x1="288" y1="196.95" x2="283.5" y2="196.95"/>
+<line class="p-tick" x1="286.1" y1="198.05" x2="283.9" y2="195.85"/>
+<text x="284.2" y="175.47" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 284.2 175.47)">8,59</text>
+<line class="p-dim" x1="175.4" y1="170.13" x2="263.88" y2="170.13"/>
+<line class="p-dim" x1="176.9" y1="178.43" x2="176.9" y2="168.63"/>
+<line class="p-tick" x1="175.8" y1="171.22" x2="178" y2="169.03"/>
+<line class="p-dim" x1="180.95" y1="178.43" x2="180.95" y2="168.63"/>
+<line class="p-tick" x1="179.85" y1="171.22" x2="182.05" y2="169.03"/>
+<line class="p-dim" x1="189.05" y1="178.43" x2="189.05" y2="168.63"/>
+<line class="p-tick" x1="187.95" y1="171.22" x2="190.15" y2="169.03"/>
+<line class="p-dim" x1="262.38" y1="178.43" x2="262.38" y2="168.63"/>
+<line class="p-tick" x1="261.28" y1="171.22" x2="263.48" y2="169.03"/>
+<text x="178.93" y="169.32" font-size="1.8" text-anchor="middle" class="p-dimt">81</text>
+<text x="185" y="169.32" font-size="1.8" text-anchor="middle" class="p-dimt">1,62</text>
+<text x="185" y="172.73" font-size="1.8" text-anchor="middle" class="p-dimt">2,00</text>
+<text x="225.72" y="169.32" font-size="1.8" text-anchor="middle" class="p-dimt">14,66<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<line class="p-dim" x1="151.8" y1="177.13" x2="151.8" y2="186.85"/>
+<line class="p-dim" x1="148.8" y1="178.63" x2="153.3" y2="178.63"/>
+<line class="p-tick" x1="152.9" y1="179.72" x2="150.7" y2="177.53"/>
+<line class="p-dim" x1="148.8" y1="180.25" x2="153.3" y2="180.25"/>
+<line class="p-tick" x1="152.9" y1="181.35" x2="150.7" y2="179.15"/>
+<line class="p-dim" x1="148.8" y1="184.6" x2="153.3" y2="184.6"/>
+<line class="p-tick" x1="152.9" y1="185.7" x2="150.7" y2="183.5"/>
+<line class="p-dim" x1="148.8" y1="185.35" x2="153.3" y2="185.35"/>
+<line class="p-tick" x1="152.9" y1="186.45" x2="150.7" y2="184.25"/>
+<text x="148.8" y="179.44" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 148.8 179.44)">32<tspan class="p-sup" dy="-0.75" font-size="0.7em">5</tspan></text>
+<text x="151" y="182.43" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 151 182.43)">87</text>
+<text x="148.8" y="184.97" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 148.8 184.97)">15</text>
+<line class="p-dim" x1="206.03" y1="178.8" x2="206.03" y2="186.05"/>
+<line class="p-dim" x1="209.03" y1="180.3" x2="204.53" y2="180.3"/>
+<line class="p-tick" x1="207.13" y1="181.4" x2="204.93" y2="179.2"/>
+<line class="p-dim" x1="209.03" y1="184.55" x2="204.53" y2="184.55"/>
+<line class="p-tick" x1="207.13" y1="185.65" x2="204.93" y2="183.45"/>
+<text x="205.22" y="182.43" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 205.22 182.43)">85</text>
+<text x="208.63" y="182.43" font-size="1.8" text-anchor="middle" class="p-dimt" transform="rotate(-90 208.63 182.43)">2,00</text>
+</g>
+<g class="p-legend">
+<rect class="p-ki" x="300" y="15" width="105" height="15"/>
+<text x="303" y="21" font-size="2.5" text-anchor="start" font-weight="700" class="p-kit">Gezeichnet von Claude (KI von Anthropic)</text>
+<text x="303" y="26.5" font-size="1.8" text-anchor="start" class="p-kit">Rekonstruktion aus Plänen und Modell, kein amtlicher Plan</text>
+<text x="300" y="38" font-size="3.5" text-anchor="start" font-weight="700">Zeichenerklärung</text>
+<rect class="p-cut" x="300" y="43.8" width="10" height="2.4"/>
+<text x="314" y="45.6" font-size="1.8" text-anchor="start">Ortbeton, geschnitten (bei M 1:200 geschwärzt)</text>
+<line class="p-vis" x1="300" y1="51.2" x2="310" y2="51.2"/>
+<text x="314" y="51.8" font-size="1.8" text-anchor="start">Sichtbare Kanten unter der Schnittebene</text>
+<line class="p-above" x1="300" y1="57.4" x2="310" y2="57.4"/>
+<text x="314" y="58" font-size="1.8" text-anchor="start">Bauteile über der Schnittebene: Lichtgaden,</text>
+<text x="314" y="60.6" font-size="1.8" text-anchor="start">Oblichter der Zellen; im UG das Erdgeschoss</text>
+<rect class="p-equip" x="303.3" y="63.45" width="3.3" height="2.7"/>
+<text x="314" y="65.4" font-size="1.8" text-anchor="start">Sockel der Halbfiguren (≈ 0,66 × 0,54 m, Lage angenähert)</text>
+<line class="p-leaf" x1="302" y1="72.5" x2="302" y2="68.5"/>
+<path class="p-arc" d="M302 68.5 A4 4 0 0 1 306 72.5"/>
+<line class="p-cut" x1="300" y1="72.5" x2="302" y2="72.5" style="stroke-width:0.8"/>
+<line class="p-cut" x1="306" y1="72.5" x2="310" y2="72.5" style="stroke-width:0.8"/>
+<text x="314" y="71.6" font-size="1.8" text-anchor="start">Tür mit Aufschlag; ohne Bogen: offene Durchgänge</text>
+<circle class="p-ll" cx="300.75" cy="77.2" r="0.75"/>
+<line class="p-ll" x1="301.5" y1="77.2" x2="309" y2="77.2"/>
+<path class="p-arrow" d="M310 77.2 l-2 -0.75 v1.5 z"/>
+<text x="314" y="77.8" font-size="1.8" text-anchor="start">Lauflinie: Kreis an der ersten, Pfeil an der letzten</text>
+<text x="314" y="80.4" font-size="1.8" text-anchor="start">Stufe, immer aufwärts; Stg. = Steigungen h/a in cm</text>
+<path class="p-kote" d="M302 85.4 l-1.1 -1.6 h2.2 z"/>
+<line class="p-thin" x1="300.4" y1="85.4" x2="303.6" y2="85.4"/>
+<text x="303.6" y="85" font-size="1.8" text-anchor="start">±0,00</text>
+<text x="314" y="85.2" font-size="1.8" text-anchor="start">Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,</text>
+<text x="314" y="87.8" font-size="1.8" text-anchor="start">rund 398 m ü. M. (swissALTI3D)</text>
+<text x="305" y="91.4" font-size="1.8" text-anchor="middle" font-weight="700">0.01</text>
+<text x="305" y="93.8" font-size="1.6" text-anchor="middle">NRF · LH</text>
+<text x="314" y="92.6" font-size="1.8" text-anchor="start">Raumnummer (0 = EG, -1 = UG), Netto-Raumfläche</text>
+<text x="314" y="95.2" font-size="1.8" text-anchor="start">nach DIN 277, lichte Raumhöhe</text>
+<line class="p-dim" x1="298.5" y1="100.4" x2="311.5" y2="100.4"/>
+<line class="p-dim" x1="300" y1="101.9" x2="300" y2="98.9"/>
+<line class="p-tick" x1="298.9" y1="101.5" x2="301.1" y2="99.3"/>
+<line class="p-dim" x1="310" y1="101.9" x2="310" y2="98.9"/>
+<line class="p-tick" x1="308.9" y1="101.5" x2="311.1" y2="99.3"/>
+<text x="305" y="99.6" font-size="1.8" text-anchor="middle" class="p-dimt">2,00</text>
+<text x="314" y="100" font-size="1.8" text-anchor="start">Maße in m, unter 1 m in cm, hochgestellt mm:</text>
+<text x="314" y="102.6" font-size="1.8" text-anchor="start">32<tspan dy="-0.7" font-size="0.7em">5</tspan><tspan dy="0.7"> = 32,5 cm.</tspan> Öffnungen: Breite über, Höhe</text>
+<text x="314" y="105.2" font-size="1.8" text-anchor="start">unter der Maßlinie. Gerundet auf 5 mm.</text>
+<circle class="p-box" cx="315" cy="122.4" r="9"/>
+<g transform="translate(315 122.4) rotate(-158.9)"><line x1="-9" y1="0" x2="9" y2="0" stroke="#000" stroke-width="0.35"/><path d="M9 0 L-4 -2.8 L-4 0 Z" fill="#000" stroke="#000" stroke-width="0.25" stroke-linejoin="round"/><path d="M9 0 L-4 2.8 L-4 0 Z" fill="#fff" stroke="#000" stroke-width="0.25" stroke-linejoin="round"/><text x="12.6" y="1.25" font-size="3.5" font-weight="700" text-anchor="middle" transform="rotate(158.9 12.6 0)">N</text></g>
+<text x="330" y="119.4" font-size="1.8" text-anchor="start">Nord (geografisch)</text>
+<text x="330" y="122.2" font-size="1.8" text-anchor="start">Gebäudeachse 21° gegen Nord gedreht</text>
+<text x="330" y="125" font-size="1.8" text-anchor="start">nach swissBUILDINGS3D</text>
+<text x="300" y="138.4" font-size="1.8" text-anchor="start" font-weight="700">Maßstabsleiste</text>
+<rect x="300" y="141.4" width="5" height="1.6" fill="#000" stroke="#000" stroke-width="0.25"/>
+<rect x="305" y="141.4" width="5" height="1.6" fill="#fff" stroke="#000" stroke-width="0.25"/>
+<rect x="310" y="141.4" width="5" height="1.6" fill="#000" stroke="#000" stroke-width="0.25"/>
+<rect x="315" y="141.4" width="5" height="1.6" fill="#fff" stroke="#000" stroke-width="0.25"/>
+<rect x="320" y="141.4" width="5" height="1.6" fill="#000" stroke="#000" stroke-width="0.25"/>
+<rect x="325" y="141.4" width="5" height="1.6" fill="#fff" stroke="#000" stroke-width="0.25"/>
+<rect x="330" y="141.4" width="5" height="1.6" fill="#000" stroke="#000" stroke-width="0.25"/>
+<rect x="335" y="141.4" width="5" height="1.6" fill="#fff" stroke="#000" stroke-width="0.25"/>
+<rect x="340" y="141.4" width="5" height="1.6" fill="#000" stroke="#000" stroke-width="0.25"/>
+<rect x="345" y="141.4" width="5" height="1.6" fill="#fff" stroke="#000" stroke-width="0.25"/>
+<text x="300" y="146" font-size="1.8" text-anchor="middle">0</text>
+<text x="305" y="146" font-size="1.8" text-anchor="middle">1</text>
+<text x="325" y="146" font-size="1.8" text-anchor="middle">5</text>
+<text x="350" y="146" font-size="1.8" text-anchor="middle">10</text>
+<text x="353" y="143" font-size="1.8" text-anchor="start">m</text>
+<text x="300" y="150.4" font-size="1.8" text-anchor="start" font-weight="700">Flächen (DIN 277, aus der Rekonstruktion)</text>
+<text x="300" y="153.1" font-size="1.8" text-anchor="start">NRF EG ≈ 222,8 m², UG ≈ 115,3 m²</text>
+</g>
+<rect class="p-box" x="20" y="232" width="210" height="55"/>
+<text x="24" y="238" font-size="2.5" text-anchor="start" font-weight="700">Hinweise</text>
+<text x="24" y="243.5" font-size="2" text-anchor="start">Diese Grundrisse hat Claude, ein KI-Modell von Anthropic, am 11.11.2026 gezeichnet. Es ist eine Rekonstruktion</text>
+<text x="24" y="248.7" font-size="2" text-anchor="start">für die Website, keine Bauaufnahme und kein Plan des Architekten. Nicht für Ausführung oder Vermessung verwenden.</text>
+<text x="24" y="253.9" font-size="2" text-anchor="start">Grundlage sind die Maße des 3D-Modells: Grundriss, Kellergrundriss und Schnitte bei Pireddu 2025 [1], im Maßstab</text>
+<text x="24" y="259.1" font-size="2" text-anchor="start">der Gesamtlänge vermessen (±0,1 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel</text>
+<text x="24" y="264.3" font-size="2" text-anchor="start">nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10. Zellen-Oblichter und Sockel geschätzt.</text>
+<text x="24" y="269.5" font-size="2" text-anchor="start">Darstellung nach DIN 1356-1 (Bauzeichnungen) mit Linienbreiten der Gruppe 0,5 für M 1:100 bis 1:500, Bemaßung</text>
+<text x="24" y="274.7" font-size="2" text-anchor="start">nach DIN 406-11 und DIN 1356-1, Blattgröße A3 nach DIN EN ISO 5457, Schriftfeld in Anlehnung an DIN EN ISO 7200,</text>
+<text x="24" y="279.9" font-size="2" text-anchor="start">Schriftgrößen nach DIN EN ISO 3098, Flächen nach DIN 277. Quellennummern wie auf der Website.</text>
+<rect class="p-box" x="235" y="232" width="175" height="55"/>
+<line class="p-boxt" x1="235" y1="246" x2="410" y2="246"/>
+<line class="p-boxt" x1="235" y1="258" x2="410" y2="258"/>
+<line class="p-boxt" x1="235" y1="270" x2="410" y2="270"/>
+<line class="p-boxt" x1="325" y1="258" x2="325" y2="270"/>
+<line class="p-boxt" x1="305" y1="270" x2="305" y2="287"/>
+<line class="p-boxt" x1="340" y1="270" x2="340" y2="287"/>
+<line class="p-boxt" x1="375" y1="270" x2="375" y2="287"/>
+<text x="237" y="235.2" font-size="1.8" text-anchor="start">Bauvorhaben</text>
+<text x="237" y="239.8" font-size="2.5" text-anchor="start" font-weight="700">La Congiunta, Haus für Reliefs und Halbfiguren von Hans Josephsohn</text>
+<text x="237" y="244" font-size="2" text-anchor="start">Via Stazione Vecchia 2, 6745 Giornico TI, Schweiz</text>
+<text x="237" y="249.2" font-size="1.8" text-anchor="start">Planinhalt</text>
+<text x="237" y="255" font-size="3.5" text-anchor="start" font-weight="700">Grundriss Erdgeschoss und Untergeschoss</text>
+<text x="237" y="261.2" font-size="1.8" text-anchor="start">Entwurf</text>
+<text x="237" y="266.5" font-size="2" text-anchor="start">Peter Märkli, 1986–1992 (Mitarbeit Stefan Bellwalder)</text>
+<text x="327" y="261.2" font-size="1.8" text-anchor="start">Planart</text>
+<text x="327" y="266.5" font-size="2" text-anchor="start">Rekonstruktion des Bestands, nicht maßverbindlich</text>
+<rect class="p-ki" x="235" y="270" width="70" height="17"/>
+<text x="237" y="273.4" font-size="1.8" text-anchor="start" class="p-kit">Gezeichnet</text>
+<text x="237" y="278.6" font-size="2.5" text-anchor="start" font-weight="700" class="p-kit">Claude (KI von Anthropic)</text>
+<text x="237" y="283.6" font-size="1.8" text-anchor="start" class="p-kit">KI-generiert, aus dem 3D-Modell</text>
+<text x="307" y="273.4" font-size="1.8" text-anchor="start">Datum</text>
+<text x="307" y="280" font-size="2.5" text-anchor="start">11.11.2026</text>
+<text x="342" y="273.4" font-size="1.8" text-anchor="start">Maßstab</text>
+<text x="342" y="280" font-size="2.5" text-anchor="start">1:200 (A3)</text>
+<text x="342" y="284.6" font-size="1.8" text-anchor="start">Maße in m / cm</text>
+<text x="377" y="273.4" font-size="1.8" text-anchor="start">Blatt</text>
+<text x="377" y="280" font-size="2.5" text-anchor="start" font-weight="700">LC-GR-01</text>
+<text x="377" y="284.6" font-size="1.8" text-anchor="start">Index a</text>
+</svg>

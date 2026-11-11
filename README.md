@@ -15,6 +15,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 - Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten aufs Tal, drinnen wird es dann dunkler (Stärke und Wolken im Menü einstellbar)
 - Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
 - Rundgang mit dreizehn Infoschildern (drei am und im begehbaren Keller), Maßangaben und Quellenliste
+- Grundrisse Erdgeschoss und Untergeschoss im Maßstab 1:200 (Blatt A3, Darstellung nach DIN 1356-1), von Claude (KI von Anthropic) aus den Maßen des Modells gezeichnet: auf der Seite unter „Grundrisse“ aufklappbar, auch groß anzeigbar und auf A3 quer im Maßstab 1:200 druckbar, dazu als SVG in `assets/plans/`. Es sind Rekonstruktionen (etwa ±0,1 m), keine Pläne des Architekten.
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
 ## Bedienung
@@ -70,7 +71,9 @@ js/start.js           Aufbau in Stufen
 assets/img/           Luftbilder, Texturen, Masken
 assets/data/          Höhenmodell, OpenStreetMap, swissBUILDINGS3D (JSON)
 assets/fonts/         TeX Gyre Heros und Pagella (GUST Font License)
+assets/plans/         Grundrisse als SVG (Blatt A3, M 1:200), gezeichnet von Claude (KI)
 tools/build_standalone.py   baut alles zu einer einzigen HTML-Datei zusammen
+tools/grundrisse.js   zeichnet die Grundrisse (SVG) aus den Modellmaßen: node tools/grundrisse.js assets/plans/la-congiunta-grundrisse.svg
 ```
 
 Die App-Dateien teilen sich einen gemeinsamen Bereich (wie früher innerhalb einer Funktion) und laufen in der Reihenfolge, die `js/loader.js` in `APP` festlegt. Eine neue Datei wird dort an der passenden Stelle eingetragen.
