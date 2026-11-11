@@ -22,8 +22,10 @@ var SKX0=(CX0+T0-W/2)/2-0.5,SKX1=SKX0+1.0,SKZ=0.3,CEIL_C=CHH-0.2,SKH=0.3;
 ROOMS={cx1:-W/2,cz0:CZ0+T0/2,cp:CP,sx0:SKX0,sx1:SKX1,sz:SKZ,ch:CEIL_C,xa:Math.max(LOFF-LW/2,-Wi/2),xb:LOFF+LW/2,r:[]};
 for(var ri0=0;ri0<3;ri0++){ROOMS.r.push({y:H[ri0],za:zA(ri0),zb:zB(ri0),zEnd:zS[ri0]+L[ri0]})}
 WEATHER_CODE='{float ht_=(vWP.x<'+(-W/2).toFixed(3)+')?'+CHH.toFixed(2)+':((vWP.z<'+f6(zS[1])+')?5.3:((vWP.z<'+f6(zS[2])+')?3.5:6.6));float dt_=max(ht_-vWP.y,0.0);'+
-  'float u_=(vWP.x+vWP.z)*2.6;float c_=floor(u_);float r_=fract(sin(c_*12.9898)*43758.5453);float r2_=fract(sin((c_+1.0)*12.9898)*43758.5453);'+
-  'float sr_=mix(r_,r2_,smoothstep(0.0,1.0,fract(u_)));float st_=smoothstep(0.68,0.97,sr_)*exp(-dt_*(0.06+0.2*r_))*0.58+exp(-dt_*1.6)*0.10;'+
+  /* Wasserschlieren wie auf den Fotos: schmale dunkle Bahnen unter der Dachkante, verschieden lang (je Feld von 0,6 m eine oder keine) */
+  'float u_=(vWP.x+vWP.z)*1.7;float c_=floor(u_);float f_=fract(u_);float r_=fract(sin(c_*12.9898)*43758.5453);float r2_=fract(sin(c_*78.233)*43758.5453);'+
+  'float wd_=0.06+0.16*fract(r_*7.13);float pr_=1.0-smoothstep(wd_*0.45,wd_,abs(f_-0.25-0.5*r2_));float len_=1.0+7.5*fract(r_*3.71);'+
+  'float st_=step(0.42,r_)*pr_*(0.78+0.22*sin(vWP.y*2.3+c_*1.7))*(1.0-smoothstep(len_*0.55,len_,dt_))*0.55+exp(-dt_*1.6)*0.10;'+
   'float bs_=(1.0-smoothstep(0.0,0.5,vWP.y))*0.2;diffuseColor.rgb*=1.0-st_-bs_;diffuseColor.rgb*=mix(vec3(1.0),vec3(0.93,0.98,0.88),bs_*2.0);}\n';
 var LANS=[],concs=[],clearMats=[],shells=[],lans=[],tags=[],SO=[],TREEC=[],plexis=[];
 /* alle Gebäudeteile liegen in einer Gruppe und werden am Ende pro Material zu wenigen Netzen zusammengeführt */
@@ -64,12 +66,14 @@ function buildBuilding(T){
   var tA=tx(T.TA),tB=tx(T.TB),tI=tx(T.TI),tF=tx(T.TF);
   var nA=T.TA?normalFrom(T.TA,7,10):null,nB=T.TB?normalFrom(T.TB,7,10):null,nI=T.TI?normalFrom(T.TI,6,8):null,nF=T.TF?normalFrom(T.TF,3,12):null;
   function std(p,o){var m=new THREE.MeshStandardMaterial(p);return patch(m,o||{})}
-  var conc=std({color:new THREE.Color(1.52,1.51,1.49),map:tA,normalMap:nA,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
-  var concB=std({color:new THREE.Color(1.52,1.51,1.49),map:tB,normalMap:nB,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
+  var conc=std({color:new THREE.Color(1.86,1.85,1.82),map:tA,normalMap:nA,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
+  var concB=std({color:new THREE.Color(1.86,1.85,1.82),map:tB,normalMap:nB,normalScale:new THREE.Vector2(0.7,0.7),roughness:0.93,envMapIntensity:1.15},{weather:1,notileu:1});
   var concTop=std({color:0x9c9a94,map:tA,roughness:0.97,envMapIntensity:0.8},{});
   concs.push(conc,concB);
   var I={interior:1};
   var intM=std({color:0xf0f0ee,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
+  /* Sockel der Halbfiguren: Beton wie die Wände, auf den Fotos aber deutlich dunkler grau */
+  var plinthM=std({color:0x7c7c78,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
   var floorM=std({color:0xe2e2e0,map:tF,normalMap:nF,normalScale:new THREE.Vector2(0.3,0.3),roughness:0.62,envMapIntensity:0.05},{interior:1,notile:1});
   /* Decke: Unterseite der Holz-Dreischichtplatten, im Video [14] grau; Stahlträger heller grau */
   var ceilM=std({color:0x56595b,roughness:0.85,envMapIntensity:0.02},I);
@@ -245,7 +249,7 @@ function buildBuilding(T){
   exMaterial();
   EXS.forEach(function(sp,i){var tile=EXA.tiles[i],gp=new THREE.Group(),m;
     if(sp.k==='fig'){m=new THREE.Mesh(figGeo(sp,tile),exM);gp.position.set(sp.x,sp.base,sp.z);
-      var bs=cbox(0.66,sp.base,0.54,intM);bs.position.set(sp.x,sp.base/2,sp.z);bs.rotation.y=sp.ry;add(bs);sb(sp.x-0.4,sp.x+0.4,sp.z-0.4,sp.z+0.4)}
+      var bs=cbox(0.66,sp.base,0.54,plinthM);bs.position.set(sp.x,sp.base/2,sp.z);bs.rotation.y=sp.ry;add(bs);sb(sp.x-0.4,sp.x+0.4,sp.z-0.4,sp.z+0.4)}
     else{m=new THREE.Mesh(relGeo(sp,tile),exM);gp.position.set(sp.x,sp.y,sp.z)}
     /* innen gibt es kein direktes Sonnenlicht, also werfen die Exponate keinen Sonnenschatten */
     gp.rotation.y=sp.ry;gp.add(m);m.castShadow=false;m.receiveShadow=false;bldG.add(gp)});
