@@ -102,7 +102,7 @@ function fmChapters(){var m=Math.round(fmL/10)*10,min=Math.max(1,Math.round(fmL/
     {t:fmTimeOfS(fmB.b1-12),h:'3 · Zwei alte Steinbrücken',x:'Zwei alte Steinbrücken führen über den Ticino, dazwischen liegt eine kleine Insel mit dem Grotto dei Due Ponti.'},
     {t:fmTimeOfS(fmB.b2+20),h:'4 · Talaufwärts',x:'Am anderen Ufer geht es talaufwärts, zwischen Fluss und Bahnlinie. Als Wegmarke nennt die Stiftung die frühromanische Kirche San Nicolao; sie steht etwas südlich der Brücken.'},
     {t:fmTimeOfS(fmL-250),h:'5 · Ankunft',x:'Von weitem sieht man den fensterlosen, hohen Betonbau mit seinem Lichtgaden. Der Eingang liegt an der Nordseite.'},
-    {t:FMT.arrive,h:'Angekommen',x:'Weg im Modell rund '+m.toFixed(2).replace('.',',')+' m, zu Fuß etwa '+min+' Minuten. Route nach OpenStreetMap, im Modell angenähert. Quellen: [1] Pireddu, [2] Stiftung La Congiunta, [3] Ticino Turismo, [8] OpenStreetMap.',end:1}]}
+    {t:FMT.arrive,h:'Angekommen',x:'Weg im Modell ≈ '+m.toFixed(2).replace('.',',')+' m, zu Fuß ≈ '+min+' Minuten. Route nach OpenStreetMap, im Modell angenähert. Quellen: [1] Pireddu, [2] Stiftung La Congiunta, [3] Ticino Turismo, [8] OpenStreetMap.',end:1}]}
 var fmUI=null,fmCH=[];
 function fmBuildUI(){if(fmUI)return;
   fmUI=document.getElementById('filmUI');fmCH=fmChapters();

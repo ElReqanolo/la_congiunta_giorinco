@@ -185,14 +185,14 @@ function grundrisse() {
   for (i = 0; i < 3; i++) {
     var ln = [[names[i][0], 700]];
     if (names[i][1]) ln.push([names[i][1], null]);
-    ln.push(['NRF ' + area(lens[i], Wi) + ' m²', null], ['LH ' + de(H[i], 2) + ' m', null]);
+    ln.push(['NRF ≈ ' + area(lens[i], Wi) + ' m²', null], ['LH ' + de(H[i], 2) + ' m', null]);
     stamp(p.X(posz[i]), p.Y(0.55), ln);
     kote(p.X(posz[i]) + (i ? 13 : -15), p.Y(1.75), '±0,00');
   }
   [3, 2, 1, 0].forEach(function (k, n) {
-    stamp(p.X(cellZ(k)), p.Y(-5.135), [['0.0' + (4 + n) + ' Zelle ' + (n + 1), 700], [area(cellL, cellW) + ' m², LH 4,30', null]], 1.6);
+    stamp(p.X(cellZ(k)), p.Y(-5.135), [['0.0' + (4 + n) + ' Zelle ' + (n + 1), 700], ['≈ ' + area(cellL, cellW) + ' m², LH ≈ 4,30', null]], 1.6);
   });
-  txt(p.X((KPZN + KPZM) / 2), p.Y(KPX0 - KPT) + 3.4, 'Kellerabgang außen, 13 Stg. 18,8/26,2', 1.8, 'middle');
+  txt(p.X((KPZN + KPZM) / 2), p.Y(KPX0 - KPT) + 3.4, 'Kellerabgang außen, 13 Stg. ≈ 18,8/26,2', 1.8, 'middle');
   // Bemaßung außen
   var top = OYE - 7, wb = p.Y(CX0), xl = p.X(-TOT / 2), xr = p.X(TOT / 2);
   chain_b(p, 'h', top, [-TOT / 2, -TOT / 2 + T0, zS[1] - T0 / 2, zS[1] + T0 / 2, zS[2] - T0 / 2, zS[2] + T0 / 2, TOT / 2 - T0, TOT / 2], null, 1, 6);
@@ -240,12 +240,12 @@ function grundrisse() {
   door(p, [dx1, KPZS], [dx0, KPZS], [dx1, KPZS - (dx1 - dx0)]);
   // Raumstempel
   var mz0 = zS[2] + T0 / 2, mz1 = TOT / 2 - T0, cz0 = KPZS + T0, cz1 = TOT / 2 - T0;
-  stamp(p.X(16.9), p.Y(0.55), [['-1.01 Lager', 700], ['NRF ' + area(mz1 - mz0, Wi) + ' m²', null], ['LH 2,21 m', null]]);
+  stamp(p.X(16.9), p.Y(0.55), [['-1.01 Lager', 700], ['NRF ≈ ' + area(mz1 - mz0, Wi) + ' m²', null], ['LH ≈ 2,21 m', null]]);
   kote(p.X(8.6), p.Y(1.55), '−2,44');
-  stamp(p.X(15.0), p.Y((CX0 + T0 - W / 2) / 2), [['-1.02 Zellenkeller', 700], ['NRF ' + area(cz1 - cz0, cellW) + ' m²', null], ['LH 2,21 m', null]]);
+  stamp(p.X(15.0), p.Y((CX0 + T0 - W / 2) / 2), [['-1.02 Zellenkeller', 700], ['NRF ≈ ' + area(cz1 - cz0, cellW) + ' m²', null], ['LH ≈ 2,21 m', null]]);
   kote(p.X(15.0) + 15, p.Y((CX0 + T0 - W / 2) / 2) + 0.6, '−2,44');
   txt(p.X((KPZM + KPZS) / 2), p.Y(KPX0 - KPT) + 3.4, 'Podest −2,44', 1.8, 'middle');
-  txt(p.X((KPZN + KPZM) / 2), p.Y(KPX0 - KPT) + 3.4, '13 Stg. 18,8/26,2', 1.8, 'middle');
+  txt(p.X((KPZN + KPZM) / 2), p.Y(KPX0 - KPT) + 3.4, '13 Stg. ≈ 18,8/26,2', 1.8, 'middle');
   // Bemaßung
   top = OYU - 7; wb = p.Y(CX0); xr = p.X(TOT / 2);
   chain_b(p, 'h', top, [zS[2] - T0 / 2, zS[2] + T0 / 2, TOT / 2 - T0, TOT / 2], null, 1, 6);
@@ -287,7 +287,7 @@ function grundrisse() {
     line('p-ll', x + 1.5, yy, x + 9, yy);
     o('<path class="p-arrow" d="M' + f(x + 10) + ' ' + f(yy) + ' l-2 -0.75 v1.5 z"/>');
   }, ['Lauflinie: Kreis an der ersten, Pfeil an der letzten', 'Stufe, immer aufwärts; Stg. = Steigungen h/a in cm']);
-  leg(function (x, yy) { kote(x + 2, yy + 0.8, '±0,00'); }, ['Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,', 'rund 398,10 m ü. M. (swissALTI3D)']);
+  leg(function (x, yy) { kote(x + 2, yy + 0.8, '±0,00'); }, ['Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,', '≈ 398,10 m ü. M. (swissALTI3D)']);
   leg(function (x, yy) { txt(x + 5, yy - 0.6, '0.01', 1.8, 'middle', null, null, 700); txt(x + 5, yy + 1.8, 'NRF · LH', 1.6, 'middle'); },
     ['Raumnummer (0 = EG, -1 = UG), Netto-Raumfläche', 'nach DIN 277, lichte Raumhöhe']);
   leg(function (x, yy) { chain('h', yy + 1, [x, x + 10], null, 1, null, 1.5); },
@@ -324,7 +324,7 @@ function grundrisse() {
    'für die Website, keine Bauaufnahme und kein Plan des Architekten. Nicht für Ausführung oder Vermessung verwenden.',
    'Grundlage sind die Maße des 3D-Modells: Grundriss, Kellergrundriss und Schnitte bei Pireddu 2025 [1], im Maßstab',
    'der Gesamtlänge vermessen (±0,10 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel',
-   'nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10. Zellen-Oblichter und Sockel geschätzt.',
+   'nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10; alle übrigen Maße berechnet oder geschätzt (≈).',
    'Darstellung nach DIN 1356-1 (Bauzeichnungen) mit Linienbreiten der Gruppe 0,5 für M 1:100 bis 1:500, Bemaßung',
    'nach DIN 406-11 und DIN 1356-1, Blattgröße A3 nach DIN EN ISO 5457, Schriftfeld in Anlehnung an DIN EN ISO 7200,',
    'Schriftgrößen nach DIN EN ISO 3098, Flächen nach DIN 277. Quellennummern wie auf der Website.'

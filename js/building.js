@@ -251,10 +251,10 @@ function buildBuilding(T){
     gp.rotation.y=sp.ry;gp.add(m);m.castShadow=false;m.receiveShadow=false;bldG.add(gp)});
   /* Beschriftungen */
   tags.push({p:new THREE.Vector3(DOFF,3.4,-TOT/2-1.6),t:'Eingang (Nordseite)'});
-  tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,82 × 3,34 m, 4,30 m hoch'});
+  tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,82 × 3,34 m, ≈ 4,30 m hoch'});
   tags.push({m:1,p:new THREE.Vector3(W/2+2.2,0.6,-6),t:'Länge ≈ 42,40 m · Luftbild'});
-  tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite 5,25 m außen · innen 4,60 m'});
-  tags.push({m:1,p:new THREE.Vector3(-1.2,-1.3,(zS[2]+TOT/2)/2+2),t:'Untergeschoss (Lager) · 2,21 m hoch'});
+  tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite ≈ 5,25 m außen · innen 4,60 m'});
+  tags.push({m:1,p:new THREE.Vector3(-1.2,-1.3,(zS[2]+TOT/2)/2+2),t:'Untergeschoss (Lager) · ≈ 2,21 m hoch'});
   tags.push({m:1,p:new THREE.Vector3((KPX0+KPX1)/2,0.9,(KPZS+KPZM)/2),t:'Kellerzugang'});
   var person=new THREE.Group(),skin=std({color:0xc89a78,roughness:0.7},{}),cloth=std({color:0x2d4f73,roughness:0.85},{}),pants=std({color:0x2b2a28,roughness:0.9},{});
   var legs=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.12,0.85,10),pants);legs.position.y=0.43;
