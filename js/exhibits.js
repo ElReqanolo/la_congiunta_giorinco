@@ -1,7 +1,7 @@
 /* La Congiunta 3D – Exponate nach Hans Josephsohn: Reliefs und Halbfiguren (Form angenähert) */
 'use strict';
 /* ---------- Exponate nach Hans Josephsohn: Reliefs und Halbfiguren (Form angenähert) ----------
-   Josephsohn formte in Gips und liess in Messing giessen; die Oberflächen blieben grob bearbeitet [13].
+   Josephsohn formte in Gips und liess in Messing giessen; die Oberflächen blieben grob bearbeitet [9].
    Prozedurale Höhenfelder liefern Geometrie, Patina und Feinstruktur; alle Werke teilen sich einen Texturatlas
    (ein Material, ein Shaderprogramm, nach dem Zusammenführen ein bis zwei Zeichenaufrufe). */
 var EXQ=({ultra:{t:256,rel:[60,76],fig:[68,76]},hoch:{t:256,rel:[56,70],fig:[64,72]},mittel:{t:256,rel:[38,48],fig:[48,56]},niedrig:{t:128,rel:[24,30],fig:[32,40]}})[qName];
@@ -13,7 +13,7 @@ var EXS=[],EXA=null,exM=null;
   for(k=0;k<3;k++){R('flach',0.95,1.15,0.032,0.035,-Wi/2+0.004,1.55,zA(0)+(k+0.5)*l0/3,Math.PI/2);R('flach',0.95,1.15,0.032,0.035,Wi/2-0.004,1.55,zA(0)+(k+0.5)*l0/3,-Math.PI/2)}
   /* Raum 2: acht Hochreliefs (1960er/70er) entlang einer Seite */
   for(k=0;k<8;k++)R('hoch',1.2,1.5,0.13,0.05,Wi/2-0.004,1.6,zA(1)+1.2+k*(l1-2.4)/7,-Math.PI/2);
-  /* Raum 3: vier spätere Hochreliefs an der Ostwand in der Nordhälfte, drei grosse Halbfiguren auf Betonsockeln (nach dem Video [14]) */
+  /* Raum 3: vier spätere Hochreliefs an der Ostwand in der Nordhälfte, drei grosse Halbfiguren auf Betonsockeln (nach dem Video [2]) */
   for(k=0;k<4;k++)R('spaet',1.5,1.9,0.15,0.06,Wi/2-0.004,1.85,zA(2)+1.4+k*2.2,-Math.PI/2);
   /* Zellen: je ein Relief (angenommen) */
   for(k=0;k<4;k++)R('zelle',1.0,1.3,0.12,0.05,CX0+T0+0.004,1.6,cellZ(k),Math.PI/2);
@@ -88,7 +88,7 @@ function exBlur(S,T,r,wrap){var O=new Float32Array(T*T),M=new Float32Array(T*T),
   for(i=0;i<T;i++){s=0;for(j=-r;j<=r;j++)s+=M[cy(j)*T+i];for(j=0;j<T;j++){O[j*T+i]=s/w;s+=M[cy(j+r+1)*T+i]-M[cy(j-r)*T+i]}}
   return O}
 /* Messing mit Patina: tiefe Stellen dunkel, Grate abgegriffen hell, selten olivgrün in Vertiefungen */
-var BR=[[14,14,13],[32,31,29],[54,52,47],[92,88,78]];   /* dunkle Patina wie auf den Fotos (Video [14]), Kanten heller */
+var BR=[[14,14,13],[32,31,29],[54,52,47],[92,88,78]];   /* dunkle Patina wie auf den Fotos (Video [2]), Kanten heller */
 function brass(t,out,o){t=t<0?0:(t>1?1:t);var s=t*3,k=Math.min(2,s|0),f=s-k,a=BR[k],b=BR[k+1];out[o]=a[0]+(b[0]-a[0])*f;out[o+1]=a[1]+(b[1]-a[1])*f;out[o+2]=a[2]+(b[2]-a[2])*f;out[o+3]=255}
 function exTile(i){var sp=EXS[i],T=EXA.T,g=EXA.g,n=T-2*g,F=new Float32Array(T*T),M=new Float32Array(T*T),fig=sp.k==='fig',r=mb32(sp.seed),ox=r()*40,oy=r()*40,u,v,j,ii,q;
   if(fig){for(j=0;j<T;j++){v=Math.max(0,Math.min(1,1-(j-g+0.5)/n));for(ii=0;ii<T;ii++){u=(ii-g+0.5)/n;F[j*T+ii]=figBase(u,v,ox)}}

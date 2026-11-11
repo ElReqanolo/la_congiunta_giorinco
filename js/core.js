@@ -27,7 +27,7 @@ if(DIAG)setInterval(diagPanel,2000);
 
 /* ---------- Koordinaten: Szene = Gebäudesystem B (Längsachse = z, Eingang bei -z),
    Welt W: x Ost, z Süd, Ursprung Gebäudemitte (46.4056231 N, 8.8704691 E), y = Höhe über 398,1 m ü. M.
-   Die Gebäudeachse ist um TH = 21,1° gegen Nord-Süd gedreht (nach swissBUILDINGS3D [7]): W = R(TH)·B ---------- */
+   Die Gebäudeachse ist um TH = 21,1° gegen Nord-Süd gedreht (nach swissBUILDINGS3D [3]): W = R(TH)·B ---------- */
 var TH=0.36826,CT=Math.cos(TH),ST=Math.sin(TH),BASE=398.1;
 function b2w(x,z){return [x*CT+z*ST,-x*ST+z*CT]}
 function w2b(x,z){return [x*CT-z*ST,x*ST+z*CT]}

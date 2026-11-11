@@ -1,7 +1,7 @@
 /* La Congiunta 3D – Gebäude nach Plänen und swissBUILDINGS3D: Räume, Laternen, Zellen, Keller, Beschriftungen */
 'use strict';
 /* ---------- Gebäude: Maße ---------- */
-/* Grundriss und Schnitte bei Pireddu [1] S. 126–127 pixelgenau vermessen (Maßstab über die Gesamtlänge), abgeglichen mit swissBUILDINGS3D [7]:
+/* Grundriss und Schnitte bei Pireddu [1] S. 126–127 pixelgenau vermessen (Maßstab über die Gesamtlänge), abgeglichen mit swissBUILDINGS3D [3]:
    Breite 5,25 m (Plan 48,8 : 393,7 pt; swisstopo 5,27 m), Raumlängen bis Wandmitte 7,33 / 17,45 / 17,55 m (Anteile 0,1731 / 0,4122 / 0,4147),
    Türen 0,85 × 2,15 m, 0,47 m westlich der Mitte (Plan, Querschnitt und Foto S. 129); Laternen 1,7 m breit, rund 0,42 m westlich der Mitte
    über die ganze Raumlänge (Querschnitte, swisstopo), 1,5 m über dem Dach; Dachstärke rund 0,2 m (Doppellinie im Schnitt); lichte Höhen nach [1] Fußnote 10 */
@@ -17,7 +17,7 @@ function cellZ(k){return zE-(k+0.5)*CP}
    unten ein Podest mit Kellertür (0,85 m) und Kellerfenster (1,6 m), dann eine Treppe, die nach Norden zum Gelände steigt
    (Masse aus dem Kellergrundriss, Abstände von der Südfront: Podest 12,8–17,6 m, Treppe bis 21,0 m) */
 var KEL={},KD=2.44,KPX1=-W/2,KPW=0.87,KPT=0.15,KPX0=KPX1-KPW,KPZS=TOT/2-12.82,KPZM=TOT/2-17.64,KPZN=TOT/2-21.04;
-/* Oblicht je Zelle: klein, mit senkrechtem Lichteinfall (Märkli im Video [14]); Lage aus dem Schnitt, Grösse rund 1,0 × 0,6 m nach dem Videobild geschätzt */
+/* Oblicht je Zelle: klein, mit senkrechtem Lichteinfall (Märkli im Video [2]); Lage aus dem Schnitt, Grösse rund 1,0 × 0,6 m nach dem Videobild geschätzt */
 var SKX0=(CX0+T0-W/2)/2-0.5,SKX1=SKX0+1.0,SKZ=0.3,CEIL_C=CHH-0.2,SKH=0.3;
 ROOMS={cx1:-W/2,cz0:CZ0+T0/2,cp:CP,sx0:SKX0,sx1:SKX1,sz:SKZ,ch:CEIL_C,xa:Math.max(LOFF-LW/2,-Wi/2),xb:LOFF+LW/2,r:[]};
 for(var ri0=0;ri0<3;ri0++){ROOMS.r.push({y:H[ri0],za:zA(ri0),zb:zB(ri0),zEnd:zS[ri0]+L[ri0]})}
@@ -75,10 +75,10 @@ function buildBuilding(T){
   /* Sockel der Halbfiguren: Beton wie die Wände, auf den Fotos aber deutlich dunkler grau */
   var plinthM=std({color:0x7c7c78,map:tI,normalMap:nI,normalScale:new THREE.Vector2(0.6,0.6),roughness:0.92,envMapIntensity:0.03},{interior:1,notileu:1});
   var floorM=std({color:0xe2e2e0,map:tF,normalMap:nF,normalScale:new THREE.Vector2(0.3,0.3),roughness:0.62,envMapIntensity:0.05},{interior:1,notile:1});
-  /* Decke: Unterseite der Holz-Dreischichtplatten, im Video [14] grau; Stahlträger heller grau */
+  /* Decke: Unterseite der Holz-Dreischichtplatten, im Video [2] grau; Stahlträger heller grau */
   var ceilM=std({color:0x56595b,roughness:0.85,envMapIntensity:0.02},I);
   var steelI=std({color:0x9a9ea1,roughness:0.55,metalness:0.3,envMapIntensity:0.08},I);
-  /* Dachhaut: beschichtete Bitumenbahn (Märkli [14]), dunkel und matt; auch Dachrand und Deckel des Lichtgadens */
+  /* Dachhaut: beschichtete Bitumenbahn (Märkli [2]), dunkel und matt; auch Dachrand und Deckel des Lichtgadens */
   var roofM=std({color:0x2c2c2b,roughness:0.92,metalness:0,envMapIntensity:0.6},{});
   /* Glas der Oberlichter: durchsichtig mit Spiegelung des Himmels; von innen hell wie der Himmel */
   var plexiM=std({color:0x0b0f10,roughness:0.04,metalness:0,envMapIntensity:3.0,side:THREE.DoubleSide,transparent:true,opacity:0.22,depthWrite:false},{plexi:1});
@@ -101,7 +101,7 @@ function buildBuilding(T){
     var oa=LOFF-LW/2,ob=LOFF+LW/2,zo0=zA(i),zo1=zB(i),ol=zo1-zo0;zc0=(zo0+zo1)/2;
     function strip(xa,xb,za,zb){var sp=cbox(xb-xa,RT,zb-za,[hid,hid,roofM,ceilM,hid,hid],1,1);sp.position.set((xa+xb)/2,H[i]+RT/2,(za+zb)/2);add(sp)}
     strip(xmin,oa,z0,z1);strip(ob,xmax,z0,z1);strip(oa,ob,z0,zo0);strip(oa,ob,zo1,z1);
-    /* Dachrand: dunkler Rand der Bitumenabdeckung über der Wandkrone, 3 cm vorstehend (Video [14]); an einem höheren Nachbarraum keiner */
+    /* Dachrand: dunkler Rand der Bitumenabdeckung über der Wandkrone, 3 cm vorstehend (Video [2]); an einem höheren Nachbarraum keiner */
     var hN0=i===0?0:H[i-1],hS0=i===2?0:H[i+1],re=0.03,ry0=H[i]+RT-0.15,ry1=H[i]+RT+0.03,rh=ry1-ry0,ryc=(ry0+ry1)/2;
     [-1,1].forEach(function(sd){var e=cbox(re,rh,l,roofM,1,1);e.position.set(sd*(W/2+re/2),ryc,z+l/2);add(e)});
     [[z,-1,hN0],[z+l,1,hS0]].forEach(function(e){if(e[2]>H[i])return;var b=cbox(W+2*re,rh,re,roofM,1,1);b.position.set(0,ryc,e[0]+e[1]*re/2);add(b)});
@@ -245,7 +245,7 @@ function buildBuilding(T){
     sb(W/2-T0,W/2,zS[2],TOT/2,KB,KT);sb(CX0,W/2,TOT/2-T0,TOT/2,KB,KT);sb(-W/2,W/2,zS[2]-T0/2,zS[2]+T0/2,KB,KT);
     sb(CX0,CX0+T0,KPZS,TOT/2,KB,KT);sb(CX0,dx0,KPZS,KPZS+T0,KB,KT);sb(dx1,-W/2,KPZS,KPZS+T0,KB,KT);
   })();
-  /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf Betonsockeln, rund 0,7 m hoch und von der Wand abgerückt (Video [14]; Form und Lage angenähert) */
+  /* Exponate nach Josephsohn: Reliefs an den Wänden, Halbfiguren auf Betonsockeln, rund 0,7 m hoch und von der Wand abgerückt (Video [2]; Form und Lage angenähert) */
   exMaterial();
   EXS.forEach(function(sp,i){var tile=EXA.tiles[i],gp=new THREE.Group(),m;
     if(sp.k==='fig'){m=new THREE.Mesh(figGeo(sp,tile),exM);gp.position.set(sp.x,sp.base,sp.z);

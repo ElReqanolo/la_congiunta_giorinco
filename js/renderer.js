@@ -162,7 +162,7 @@ function patch(mat,o){
     if(o.weather)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>\n'+WEATHER_CODE);
     if(o.gust)fs=rep(fs,'#include <color_fragment>','#include <color_fragment>'+gustSheen(+o.gust,!!o.terrain),'gust');
     /* Innenraum: kein direktes Sonnenlicht. Die Platten des Lichtgadens und der Oblichter streuen das Licht, es gibt keinen Schattenwurf
-       (Märkli im Video [14]); die Räume bekommen nur dieses diffuse Licht (Formfaktor der Öffnungen, Helligkeit uIntL nach Sonne und Wolken),
+       (Märkli im Video [2]); die Räume bekommen nur dieses diffuse Licht (Formfaktor der Öffnungen, Helligkeit uIntL nach Sonne und Wolken),
        diffus und gespiegelt – so glänzen Messing und Stahl dort, wo sie den Lichtgaden sehen */
     if(o.interior)fs=rep(fs,'#include <aomap_fragment>','#include <aomap_fragment>\n{vec3 nW_=inverseTransformDirection(normal,viewMatrix);reflectedLight.indirectDiffuse+=material.diffuseColor*(uIntL*skyFF(vWP,nW_)+uClear*0.22*vec3(1.0,0.97,0.92));'+
       'vec3 rW_=reflect(normalize(vWP-cameraPosition),nW_);reflectedLight.indirectSpecular+=material.specularColor*uIntL*(skyFF(vWP,rW_)*(1.25-material.specularRoughness)+0.035);}');

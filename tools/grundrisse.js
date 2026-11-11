@@ -323,8 +323,8 @@ function grundrisse() {
   ['Diese Grundrisse hat Claude, ein KI-Modell von Anthropic, am 11.11.2026 gezeichnet. Es ist eine Rekonstruktion',
    'für die Website, keine Bauaufnahme und kein Plan des Architekten. Nicht für Ausführung oder Vermessung verwenden.',
    'Grundlage sind die Maße des 3D-Modells: Grundriss, Kellergrundriss und Schnitte bei Pireddu 2025 [1], im Maßstab',
-   'der Gesamtlänge vermessen (±0,10 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel',
-   'nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10; alle übrigen Maße berechnet oder geschätzt (≈).',
+   'der Gesamtlänge vermessen (±0,10 m) und mit swissBUILDINGS3D [3] abgeglichen; Innenbreite 4,60 m und Sockel',
+   'nach Peter Märkli im Video [2]; lichte Höhen nach Pireddu [1], Fußnote 10; alle übrigen Maße berechnet oder geschätzt (≈).',
    'Darstellung nach DIN 1356-1 (Bauzeichnungen) mit Linienbreiten der Gruppe 0,5 für M 1:100 bis 1:500, Bemaßung',
    'nach DIN 406-11 und DIN 1356-1, Blattgröße A3 nach DIN EN ISO 5457, Schriftfeld in Anlehnung an DIN EN ISO 7200,',
    'Schriftgrößen nach DIN EN ISO 3098, Flächen nach DIN 277. Quellennummern wie auf der Website.'

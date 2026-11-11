@@ -1,8 +1,8 @@
 /* La Congiunta 3D – Film: Schlüssel in der Osteria holen, dann zu Fuss zum Museum */
 'use strict';
 /* ---------- Film: Schlüssel in der Osteria holen, dann zu Fuß zum Museum ----------
-   Weg nach der Beschreibung der Stiftung [2]: Schlüssel in der Osteria im Dorfzentrum (Via San Gottardo 37 [3]),
-   über zwei alte Steinbrücken über den Ticino, talaufwärts zum Bau. Linienführung aus OpenStreetMap [8]
+   Weg nach der Beschreibung der Stiftung [5]: Schlüssel in der Osteria im Dorfzentrum (Via San Gottardo 37 [6]),
+   über zwei alte Steinbrücken über den Ticino, talaufwärts zum Bau. Linienführung aus OpenStreetMap [12]
    (Gebäude, Brücken, Feldweg), zwischen den Häusern ausgewichen – im Modell angenähert. Koordinaten: Welt (x Ost, z Süd). */
 var FMR=[[452,370,0],[450,368,0],[447,367,0],[436,367,0],[433,369,0],[427,369,0],[421,370,0],[393,381,0],[386,386,0],[384,386,1],[351,390,1],[349,390,0],[344,386,0],[340,386,0],[336,382,0],[313,372,0],[309,368,0],[303,367,0],[300,361.5,2],[297,362.5,2],[274,378.5,2],[260,356,0],[161,257,0],[152,253,0],[129,253,0],[118,242,0],[115.5,237.5,0],[112.5,233.5,0],[100,221.5,0],[98,219,0],[83,177,0],[77,164,0],[71,155.5,0],[52.5,108,0],[11,71,0],[1.5,52,0],[-24,-11,0],[-27.2,-21,0],[-22.5,-21.7,0],[-17.4,-22.1,0],[-12.3,-21.5,0],[-8.4,-21.4,0]];
 var FMB={1:[[384,386],[351,390]],2:[[274,378.5],[297,362.5],[300,361.5]]};
@@ -102,7 +102,7 @@ function fmChapters(){var m=Math.round(fmL/10)*10,min=Math.max(1,Math.round(fmL/
     {t:fmTimeOfS(fmB.b1-12),h:'3 · Zwei alte Steinbrücken',x:'Zwei alte Steinbrücken führen über den Ticino, dazwischen liegt eine kleine Insel mit dem Grotto dei Due Ponti.'},
     {t:fmTimeOfS(fmB.b2+20),h:'4 · Talaufwärts',x:'Am anderen Ufer geht es talaufwärts, zwischen Fluss und Bahnlinie. Als Wegmarke nennt die Stiftung die frühromanische Kirche San Nicolao; sie steht etwas südlich der Brücken.'},
     {t:fmTimeOfS(fmL-250),h:'5 · Ankunft',x:'Von weitem sieht man den fensterlosen, hohen Betonbau mit seinem Lichtgaden. Der Eingang liegt an der Nordseite.'},
-    {t:FMT.arrive,h:'Angekommen',x:'Weg im Modell ≈ '+m.toFixed(2).replace('.',',')+' m, zu Fuß ≈ '+min+' Minuten. Route nach OpenStreetMap, im Modell angenähert. Quellen: [1] Pireddu, [2] Stiftung La Congiunta, [3] Ticino Turismo, [8] OpenStreetMap.',end:1}]}
+    {t:FMT.arrive,h:'Angekommen',x:'Weg im Modell ≈ '+m.toFixed(2).replace('.',',')+' m, zu Fuß ≈ '+min+' Minuten. Route nach OpenStreetMap, im Modell angenähert. Quellen: [1] Pireddu, [5] Stiftung La Congiunta, [6] Ticino Turismo, [12] OpenStreetMap.',end:1}]}
 var fmUI=null,fmCH=[];
 function fmBuildUI(){if(fmUI)return;
   fmUI=document.getElementById('filmUI');fmCH=fmChapters();

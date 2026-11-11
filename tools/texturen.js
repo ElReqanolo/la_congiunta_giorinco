@@ -3,7 +3,7 @@
      concrete_wall_006 (Dario Barresi, Charlotte Baglioni)  – glatter Sichtbeton als Grund
      wood_textured_concrete (Dimitrios Savva)              – Holzmaserung der Schalung, nur schwach, 90° gedreht (Bretter waagrecht)
      concrete_floor_worn_001 (Dimitrios Savva, Rico Cilliers) – Betonboden
-   Dazu gezeichnet: Schalungsfugen wie an La Congiunta (Bilder im Video [14]): waagrechte Fugen etwa alle 0,57 m, je Kachel eine
+   Dazu gezeichnet: Schalungsfugen wie an La Congiunta (Bilder im Video [2]): waagrechte Fugen etwa alle 0,57 m, je Kachel eine
    senkrechte Stoßfuge der Schaltafeln, Tafeln mit leicht verschiedener Helligkeit; Holzmaserung nur angedeutet.
    Helligkeit und Farbton sind an die bisherigen Texturen angeglichen, damit das Licht im Modell gleich bleibt.
    Aufruf in einer Seite ohne strenge CSP, z. B. auf der eigenen Website: await laTexturen() liefert {A, B, I, F} als JPEG-Blobs

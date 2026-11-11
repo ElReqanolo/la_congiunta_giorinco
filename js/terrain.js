@@ -89,7 +89,7 @@ function buildTerrain(){
   terrain=new THREE.Mesh(g,m);terrain.receiveShadow=true;terrain.castShadow=false;terrain.frustumCulled=false;env.add(terrain);
   buildRiver();
 }
-/* Fluss: Band über dem Ticino entlang der Flussachse aus OpenStreetMap [8] (Punkte in Fließrichtung, also talabwärts), alle 3 m
+/* Fluss: Band über dem Ticino entlang der Flussachse aus OpenStreetMap [12] (Punkte in Fließrichtung, also talabwärts), alle 3 m
    abgetastet und geglättet, 2 × 14 m breit, auf der gezeichneten Geländefläche (hT) knapp darüber; der Nebenarm bei der Insel
    läuft an beiden Enden schmal aus, damit sich die Flächen nicht doppeln. Wasser und Schaum zeichnet der Shader (WATER_CODE). */
 var river=null;

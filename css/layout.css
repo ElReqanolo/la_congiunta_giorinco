@@ -320,3 +320,8 @@ ol.src li { padding-left: 2px; }
   .lc-print .plan-sheet { max-width: none; overflow: visible; border: 0; border-radius: 0; }
   .lc-print .plan-sheet svg { width: 420mm !important; height: 297mm !important; min-width: 0; }
 }
+
+/* ---------- Quellen nach Themen ---------- */
+.srcnote { max-width: 75ch; margin: 0 0 var(--sp-2); color: var(--c-text-muted); font-size: var(--fs-1); }
+.srcgrp + .srcgrp { margin-top: var(--sp-3); }
+.srcgrp h3 { margin: 0 0 var(--sp-2); font: 700 var(--fs-2) / var(--lh-ui) var(--font-sans); }
