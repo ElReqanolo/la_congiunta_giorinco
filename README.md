@@ -6,7 +6,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 
 **Inhalt des Modells**
 
-- Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,4 × 5,25 m außen (innen etwa 4,6 m nach Peter Märkli, Wände daraus rund 0,33 m), Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,8 × 3,35 m; Länge, Breite, Drehung (21°), Lichtgaden und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
+- Gebäude nach Grundriss und Schnitten bei Pireddu (2025), pixelgenau vermessen: 42,40 × 5,25 m außen (innen 4,60 m nach Peter Märkli, Wände daraus rund 0,33 m), Raumlängen 7,33 / 17,45 / 17,55 m, Türen 0,85 × 2,15 m, Zellentrakt 12,82 × 3,34 m; Länge, Breite, Drehung (21°), Lichtgaden und Höhensprünge mit dem Gebäudemodell swissBUILDINGS3D von swisstopo abgeglichen
 - Dach und Lichtgaden nach Peter Märkli (Interview, VernissageTV 2011): Flachdach aus Holz-Dreischichtplatten auf Stahlträgern mit beschichteter Bitumenbahn, über den drei Haupträumen aufgeschnitten für den Lichtgaden; seitlich lichtstreuende Platten (Plexiglas) im Stahlrahmen, oben geschlossen. Innen fällt kein direktes Sonnenlicht und kein Schatten; die Räume sind diffus beleuchtet, die Helligkeit folgt Sonnenstand und Wolken. Die Zellen haben je ein kleines Oblicht mit senkrechtem Lichteinfall
 - Keller (Lager) unter Raum 3 und dem Zellentrakt nach Kellergrundriss und Schnitten: Boden 2,44 m unter dem Erdgeschoss, Zugang über eine Außentreppe im Schacht an der Westwand mit breiter Öffnung ins Lager und schmaler Tür in den Zellenkeller; im Rundgang begehbar (Anker `#keller`), der Umriss erscheint mit „Maße“ gestrichelt
 - Exponate nach Hans Josephsohn: Flachreliefs, Hochreliefs und Halbfiguren aus Messing mit grob bearbeiteter Oberfläche (Formen frei nachempfunden, keine Abbilder der einzelnen Werke); die Halbfiguren stehen auf Betonsockeln, die von der Wand abgerückt sind
@@ -15,7 +15,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 - Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten aufs Tal, drinnen wird es dann dunkler (Stärke und Wolken im Menü einstellbar)
 - Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
 - Rundgang mit dreizehn Infoschildern (drei am und im begehbaren Keller), Maßangaben und Quellenliste
-- Grundrisse Erdgeschoss und Untergeschoss im Maßstab 1:200 (Blatt A3, Darstellung nach DIN 1356-1), von Claude (KI von Anthropic) aus den Maßen des Modells gezeichnet: auf der Seite unter „Grundrisse“ aufklappbar, auch groß anzeigbar und auf A3 quer im Maßstab 1:200 druckbar, dazu als SVG in `assets/plans/`. Es sind Rekonstruktionen (etwa ±0,1 m), keine Pläne des Architekten.
+- Grundrisse Erdgeschoss und Untergeschoss im Maßstab 1:200 (Blatt A3, Darstellung nach DIN 1356-1), von Claude (KI von Anthropic) aus den Maßen des Modells gezeichnet: auf der Seite unter „Grundrisse“ aufklappbar, auch groß anzeigbar und auf A3 quer im Maßstab 1:200 druckbar, dazu als SVG in `assets/plans/`. Es sind Rekonstruktionen (etwa ±0,10 m), keine Pläne des Architekten.
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
 ## Bedienung
@@ -106,11 +106,11 @@ Für eine Aktualisierung genügt es, die geänderten Dateien hochzuladen; GitHub
 - Ohne Build-Schritt: HTML, CSS und JavaScript liegen getrennt; Luftbilder und Texturen als JPG/PNG (rund 1,2 MB), Höhenmodell und Kartendaten als JSON (0,3 MB, komprimiert übertragen rund 0,15 MB). Der Browser kann alles einzeln zwischenspeichern.
 - Schriften selbst gehostet (TeX Gyre Heros und Pagella, rund 30 kB), damit beim Laden keine Anfrage an Google o. ä. geht.
 - 3D mit [three.js](https://threejs.org) r128; die Bibliothek wird beim Start von `cdn.jsdelivr.net` geladen. Dafür ist eine Internetverbindung nötig, und jsDelivr sieht dabei die IP-Adresse der Besucher. Wer das vermeiden will, legt die neun Dateien, die in `js/loader.js` unter `LIBS` aufgeführt sind (`build/three.min.js` und acht Dateien aus `examples/js/`), in denselben Ordnerstrukturen ins Repository und ersetzt dort die Adresse `https://cdn.jsdelivr.net/npm/three@0.128.0/` durch `./three/`.
-- Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (ab mittlerer Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,2 m pro Pixel statt bisher 0,8 bis 3 m (Umgebung bei „mittel“ und „hoch“ ±600 m, bei „ultra“ ±800 m um das Gebäude). Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den mitgelieferten Luftbildern.
-- Dorf: 352 Gebäude im Umkreis von 200 m um den Weg stammen aus swissBUILDINGS3D 2.0 (in `assets/data/model-data.json`, etwa 90 kB). Im Film werden Dächer und Wände, die in den engen Gassen die Sicht auf die Figur verdecken, auf der Sichtlinie ausgeschnitten.
-- Gras, Bäume und Schatten werden um den Blickpunkt in Detailstufen geladen; die Reichweite hängt von der Grafikqualität ab. Schatten reichen beim Gehen und Fliegen gleich weit: vom Bildmittelpunkt aus rund 48 m (niedrig), 72 m (mittel), 96 m (hoch) und 160 m (ultra) in jede Richtung, der Bereich liegt vor der Kamera und wächst mit der Flughöhe bis aufs 2,6-Fache; im Gebäude ist er kleiner und die Schatten dafür schärfer.
-- Rundgang: Gehen mit 4,5 m/s, nach knapp einer Sekunde ohne Pause bis 6 m/s, rennen mit Shift oder am Touchscreen mit dem Doppelpfeil-Knopf am Steuerkreuz (9 m/s); schnelle Schritte werden in Teilschritte von höchstens 0,2 m zerlegt, damit man nicht durch Wände rutscht. Beim Fliegen macht derselbe Knopf schneller (wie Shift).
-- Fluss: ein Band entlang der Flussachse aus OpenStreetMap (alle 3 m abgetastet, 28 m breit), auf dem der Shader Wasser und Schaum zeichnet. Wo Wasser ist, sagt rund um den Bau die Wassermaske aus dem Luftbild, weiter weg die Breite um die Achse. Schaum und Wellen ziehen mit rund 2 bis 3 m/s flussabwärts.
+- Schärfere Luftbilder: Beim Start lädt die Seite für Dorf, Brücken und Weg zum Museum (ab mittlerer Qualität auch für die Umgebung) Luftbildkacheln SWISSIMAGE vom Kacheldienst von swisstopo (`wmts.geo.admin.ch`) nach, mit bis zu 0,20 m pro Pixel statt bisher 0,80 bis 3,00 m (Umgebung bei „mittel“ und „hoch“ ±600,00 m, bei „ultra“ ±800,00 m um das Gebäude). Dabei sieht swisstopo die IP-Adresse der Besucher. Ohne Verbindung, im Datensparmodus oder auf sehr alten Geräten bleibt es bei den mitgelieferten Luftbildern.
+- Dorf: 352 Gebäude im Umkreis von 200,00 m um den Weg stammen aus swissBUILDINGS3D 2.0 (in `assets/data/model-data.json`, etwa 90 kB). Im Film werden Dächer und Wände, die in den engen Gassen die Sicht auf die Figur verdecken, auf der Sichtlinie ausgeschnitten.
+- Gras, Bäume und Schatten werden um den Blickpunkt in Detailstufen geladen; die Reichweite hängt von der Grafikqualität ab. Schatten reichen beim Gehen und Fliegen gleich weit: vom Bildmittelpunkt aus rund 48,00 m (niedrig), 72,00 m (mittel), 96,00 m (hoch) und 160,00 m (ultra) in jede Richtung, der Bereich liegt vor der Kamera und wächst mit der Flughöhe bis aufs 2,6-Fache; im Gebäude ist er kleiner und die Schatten dafür schärfer.
+- Rundgang: Gehen mit 4,5 m/s, nach knapp einer Sekunde ohne Pause bis 6 m/s, rennen mit Shift oder am Touchscreen mit dem Doppelpfeil-Knopf am Steuerkreuz (9 m/s); schnelle Schritte werden in Teilschritte von höchstens 0,20 m zerlegt, damit man nicht durch Wände rutscht. Beim Fliegen macht derselbe Knopf schneller (wie Shift).
+- Fluss: ein Band entlang der Flussachse aus OpenStreetMap (alle 3,00 m abgetastet, 28,00 m breit), auf dem der Shader Wasser und Schaum zeichnet. Wo Wasser ist, sagt rund um den Bau die Wassermaske aus dem Luftbild, weiter weg die Breite um die Achse. Schaum und Wellen ziehen mit rund 2 bis 3 m/s flussabwärts.
 - Wind und Wolken: Die Pflanzen werden im Vertex-Shader gebogen (Böenfeld in Weltkoordinaten, Biegung nach Höhe, Flattern der Blätter). Die Wolken sind ein kachelbares Rauschmuster (10,24 km), das einmal beim Start berechnet wird; Himmel und Wolkenschatten lesen dieselbe Textur. Ohne Bedienung läuft die Animation zwei Minuten (Handy 40 s) weiter, dann ruht die Grafikkarte. Bei „niedrig“ und bei der Systemeinstellung „Bewegung reduzieren“ ist der Wind anfangs aus.
 - Keine Cookies, kein Tracking, keine Formulare.
 - Getestet in Chromium am Rechner sowie in Tablet- und Handy-Ansicht. Aktuelle Versionen von Firefox und Safari (auch auf iOS) unterstützen die verwendete Technik (WebGL) ebenfalls; vor der Veröffentlichung lohnt ein kurzer Blick auf dem eigenen Handy.
@@ -119,31 +119,31 @@ Für eine Aktualisierung genügt es, die geänderten Dateien hochzuladen; GitHub
 
 Direkt veröffentlicht sind nur die lichten Raumhöhen (Pireddu), die Innenbreite (Märkli im Video) und die Weglänge. Alles andere ist gemessen, umgerechnet oder geschätzt; die vollständige Tabelle steht in der Seite unter „Wie die Maße entstanden“. Das Wichtigste:
 
-- **Länge außen** (Gebäude): ≈ 42,4 m – Am Luftbild SWISSIMAGE gemessen (±0,5 m) und mit dem Gebäudemodell swissBUILDINGS3D abgeglichen, das 42,3 m ergibt [7]. Diese Länge ist der Maßstab für alle Planmaße.
-- **Planmaßstab** (Gebäude): 1 pt ≈ 0,11 m – Grundriss und Schnitte bei Pireddu [1] S. 126–127 haben keinen brauchbaren Maßstab. Im Plan ist der Bau 393,7 pt lang; 42,4 m geteilt durch 393,7 pt ergibt den Maßstab. Planmaße sind damit auf rund ±0,1 m genau.
-- **Breite außen** (Gebäude): 5,25 m – Im Grundriss 48,8 pt: 48,8 / 393,7 × 42,4 m = 5,26 m. swissBUILDINGS3D ergibt 5,27 m [7].
-- **Breite innen** (Gebäude): ≈ 4,6 m – Direkt angegeben von Peter Märkli im Video [14].
-- **Wandstärke** (Gebäude): ≈ 0,33 m – Berechnet: (5,25 m − 4,6 m) / 2 = 0,325 m. Im Plan sind das rund 3 pt, also nicht genauer messbar.
-- **Raumlängen (bis Wandmitte)** (Gebäude): 7,33 / 17,45 / 17,55 m – Im Grundriss als Anteile der Gesamtlänge gemessen (0,1731 / 0,4122 / 0,4147) und mit 42,4 m multipliziert.
+- **Länge außen** (Gebäude): ≈ 42,40 m – Am Luftbild SWISSIMAGE gemessen (±0,50 m) und mit dem Gebäudemodell swissBUILDINGS3D abgeglichen, das 42,30 m ergibt [7]. Diese Länge ist der Maßstab für alle Planmaße.
+- **Planmaßstab** (Gebäude): 1 pt ≈ 0,11 m – Grundriss und Schnitte bei Pireddu [1] S. 126–127 haben keinen brauchbaren Maßstab. Im Plan ist der Bau 393,7 pt lang; 42,40 m geteilt durch 393,7 pt ergibt den Maßstab. Planmaße sind damit auf rund ±0,10 m genau.
+- **Breite außen** (Gebäude): 5,25 m – Im Grundriss 48,8 pt: 48,8 / 393,7 × 42,40 m = 5,26 m. swissBUILDINGS3D ergibt 5,27 m [7].
+- **Breite innen** (Gebäude): 4,60 m – Direkt angegeben von Peter Märkli im Video [14].
+- **Wandstärke** (Gebäude): ≈ 0,33 m – Berechnet: (5,25 m − 4,60 m) / 2 ≈ 0,33 m. Im Plan sind das rund 3 pt, also nicht genauer messbar.
+- **Raumlängen (bis Wandmitte)** (Gebäude): 7,33 / 17,45 / 17,55 m – Im Grundriss als Anteile der Gesamtlänge gemessen (0,1731 / 0,4122 / 0,4147) und mit 42,40 m multipliziert.
 - **Lichte Raumhöhen** (Gebäude): 5,30 / 3,50 / 6,60 m – Direkt angegeben bei Pireddu [1], Fußnote 10; die Höhensprünge außen stimmen mit swissBUILDINGS3D überein [7].
 - **Drehung der Längsachse** (Gebäude): ≈ 21° – Richtung der Längsachse im Luftbild und in swissBUILDINGS3D gegen Nord gemessen [7].
-- **Türen** (Gebäude): 0,85 × 2,15 m, 0,47 m westlich der Mitte – Im Grundriss und im Querschnitt gemessen, Höhe zusätzlich am Foto S. 129 im Verhältnis zur Raumhöhe [1]. Zellentüren 0,7 m breit (Grundriss).
-- **Dachstärke** (Dach und Lichtgaden): ≈ 0,2 m – Doppellinie im Schnitt [1], im Planmaßstab gemessen.
-- **Lichtgaden** (Dach und Lichtgaden): 1,7 m breit, 1,5 m hoch, 0,42 m westlich der Mitte – In den Querschnitten [1] gemessen; Lage und Höhe mit swissBUILDINGS3D abgeglichen [7]. Dass er über die ganze Länge der Haupträume läuft, sagt Märkli [14].
-- **Pfosten- und Trägerabstand** (Dach und Lichtgaden): ≈ 1,2 m (geschätzt) – An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt er eher etwas größer (rund 1,3–1,5 m), ist dort aber nicht sicher messbar.
-- **Zellentrakt** (Zellen): 12,8 × 3,35 m, Dach 4,5 m, innen 4,3 m hoch – Grundriss und Querschnitt [1] im Planmaßstab, mit swissBUILDINGS3D abgeglichen [7].
-- **Zelle innen** (Zellen): ≈ 3,0 × 2,8 m – Berechnet: Trakt abzüglich der Wände, in vier gleiche Zellen geteilt.
-- **Oblicht** (Zellen): ≈ 1,0 × 0,6 m (geschätzt) – Märkli nennt es klein, mit senkrechtem Lichteinfall [14]. Die Größe ist am Videobild im Verhältnis zur Zellendecke geschätzt, die Lage aus dem Schnitt [1].
-- **Kellerboden** (Keller): 2,44 m unter dem Erdgeschoss, lichte Höhe ≈ 2,2 m – Im Kellergrundriss und im Längsschnitt [1] im Planmaßstab gemessen.
-- **Abgang** (Keller): Schacht ≈ 0,87 m breit, 13 Stufen – Im Kellergrundriss [1] gemessen, Stufen gezählt. Podest 12,8–17,6 m und Treppe bis 21,0 m, jeweils von der Südfront aus gemessen.
-- **Öffnungen unten** (Keller): 1,6 m ins Lager, Tür 0,85 m – Kellergrundriss [1]; welche Öffnung Durchgang und welche Tür ist, ist aus dem Plan gelesen.
-- **Lager und Zellenkeller** (Keller): ≈ 17,1 × 4,6 m (79 m²) und 12,2 × 3,0 m (37 m²); zusammen ≈ 115 m², 255 m³ – Berechnet aus Innenbreite, Raumlänge, Wandstärke und 2,2 m Höhe.
-- **Sockel der Halbfiguren** (Exponate): ≈ 0,66 × 0,6 × 0,7 m (geschätzt) – Am Videobild [14] gemessen: Der Sockel ist etwa so hoch wie breit, die Figur knapp doppelt so hoch wie der Sockel. Dass er von der Wand abgerückt steht, sagt Märkli [14].
+- **Türen** (Gebäude): 0,85 × 2,15 m, 0,47 m westlich der Mitte – Im Grundriss und im Querschnitt gemessen, Höhe zusätzlich am Foto S. 129 im Verhältnis zur Raumhöhe [1]. Zellentüren 0,70 m breit (Grundriss).
+- **Dachstärke** (Dach und Lichtgaden): ≈ 0,20 m – Doppellinie im Schnitt [1], im Planmaßstab gemessen.
+- **Lichtgaden** (Dach und Lichtgaden): 1,70 m breit, 1,50 m hoch, 0,42 m westlich der Mitte – In den Querschnitten [1] gemessen; Lage und Höhe mit swissBUILDINGS3D abgeglichen [7]. Dass er über die ganze Länge der Haupträume läuft, sagt Märkli [14].
+- **Pfosten- und Trägerabstand** (Dach und Lichtgaden): ≈ 1,20 m (geschätzt) – An Fotos der Vorlage [11] und bei Pireddu [1] abgezählt. Im Video [14] wirkt er eher etwas größer (rund 1,30–1,50 m), ist dort aber nicht sicher messbar.
+- **Zellentrakt** (Zellen): 12,82 × 3,34 m, Dach 4,50 m, innen 4,30 m hoch – Grundriss und Querschnitt [1] im Planmaßstab, mit swissBUILDINGS3D abgeglichen [7].
+- **Zelle innen** (Zellen): ≈ 3,02 × 2,80 m – Berechnet: Trakt abzüglich der Wände, in vier gleiche Zellen geteilt.
+- **Oblicht** (Zellen): ≈ 1,00 × 0,60 m (geschätzt) – Märkli nennt es klein, mit senkrechtem Lichteinfall [14]. Die Größe ist am Videobild im Verhältnis zur Zellendecke geschätzt, die Lage aus dem Schnitt [1].
+- **Kellerboden** (Keller): 2,44 m unter dem Erdgeschoss, lichte Höhe 2,21 m – Im Kellergrundriss und im Längsschnitt [1] im Planmaßstab gemessen.
+- **Abgang** (Keller): Schacht ≈ 0,87 m breit, 13 Stufen – Im Kellergrundriss [1] gemessen, Stufen gezählt. Podest 12,82–17,64 m und Treppe bis 21,04 m, jeweils von der Südfront aus gemessen.
+- **Öffnungen unten** (Keller): 1,62 m ins Lager, Tür 0,85 m – Kellergrundriss [1]; welche Öffnung Durchgang und welche Tür ist, ist aus dem Plan gelesen.
+- **Lager und Zellenkeller** (Keller): ≈ 17,09 × 4,60 m (79 m²) und 12,17 × 3,02 m (37 m²); zusammen ≈ 115 m², 255 m³ – Berechnet aus Innenbreite, Raumlänge, Wandstärke und 2,21 m Höhe.
+- **Sockel der Halbfiguren** (Exponate): ≈ 0,66 × 0,54 × 0,70 m (geschätzt) – Am Videobild [14] gemessen: Der Sockel ist etwa so hoch wie breit, die Figur knapp doppelt so hoch wie der Sockel. Dass er von der Wand abgerückt steht, sagt Märkli [14].
 - **Reliefs und Halbfiguren** (Exponate): angenähert – Veröffentlichte Maße gibt es nicht; Größen nach Fotos [1] und dem Video [14] geschätzt. Die Anzahl stammt von Pireddu [1], die vier späteren Reliefs in Raum 3 aus dem Video [14].
-- **Höhe über Meer** (Umgebung): ≈ 398 m ü. M. – Im Höhenmodell swissALTI3D am Gebäude abgelesen [7].
-- **Bahn, Ticino, Feldweg** (Umgebung): Bahn 40–45 m westlich, 16 m höher; Ticino ≈ 40 m östlich, 9 m tiefer; Feldweg ≈ 18 m – Eigene Messung im Höhenmodell und Luftbild [7] und in OpenStreetMap [8], jeweils ab der Gebäudeachse.
-- **Osteria, San Nicolao** (Umgebung): ≈ 585 m und 640 m (Luftlinie) – In OpenStreetMap [8] gemessen.
-- **Fußweg zum Museum** (Umgebung): ≈ 750 m, etwa 10 Minuten – Länge laut Pireddu [1]; die Gehzeit ist geschätzt (rund 4,5 km/h).
+- **Höhe über Meer** (Umgebung): ≈ 398,10 m ü. M. – Im Höhenmodell swissALTI3D am Gebäude abgelesen [7].
+- **Bahn, Ticino, Feldweg** (Umgebung): Bahn 40,00–45,00 m westlich, 16,00 m höher; Ticino ≈ 40,00 m östlich, 9,00 m tiefer; Feldweg ≈ 18,00 m – Eigene Messung im Höhenmodell und Luftbild [7] und in OpenStreetMap [8], jeweils ab der Gebäudeachse.
+- **Osteria, San Nicolao** (Umgebung): ≈ 585,00 m und 640,00 m (Luftlinie) – In OpenStreetMap [8] gemessen.
+- **Fußweg zum Museum** (Umgebung): ≈ 750,00 m, etwa 10 Minuten – Länge laut Pireddu [1]; die Gehzeit ist geschätzt (rund 4,5 km/h).
 
 ## Quellen und Lizenzen
 

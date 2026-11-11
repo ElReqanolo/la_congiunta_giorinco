@@ -240,9 +240,9 @@ function grundrisse() {
   door(p, [dx1, KPZS], [dx0, KPZS], [dx1, KPZS - (dx1 - dx0)]);
   // Raumstempel
   var mz0 = zS[2] + T0 / 2, mz1 = TOT / 2 - T0, cz0 = KPZS + T0, cz1 = TOT / 2 - T0;
-  stamp(p.X(16.9), p.Y(0.55), [['-1.01 Lager', 700], ['NRF ' + area(mz1 - mz0, Wi) + ' m²', null], ['LH ≈ 2,20 m', null]]);
+  stamp(p.X(16.9), p.Y(0.55), [['-1.01 Lager', 700], ['NRF ' + area(mz1 - mz0, Wi) + ' m²', null], ['LH 2,21 m', null]]);
   kote(p.X(8.6), p.Y(1.55), '−2,44');
-  stamp(p.X(15.0), p.Y((CX0 + T0 - W / 2) / 2), [['-1.02 Zellenkeller', 700], ['NRF ' + area(cz1 - cz0, cellW) + ' m²', null], ['LH ≈ 2,20 m', null]]);
+  stamp(p.X(15.0), p.Y((CX0 + T0 - W / 2) / 2), [['-1.02 Zellenkeller', 700], ['NRF ' + area(cz1 - cz0, cellW) + ' m²', null], ['LH 2,21 m', null]]);
   kote(p.X(15.0) + 15, p.Y((CX0 + T0 - W / 2) / 2) + 0.6, '−2,44');
   txt(p.X((KPZM + KPZS) / 2), p.Y(KPX0 - KPT) + 3.4, 'Podest −2,44', 1.8, 'middle');
   txt(p.X((KPZN + KPZM) / 2), p.Y(KPX0 - KPT) + 3.4, '13 Stg. 18,8/26,2', 1.8, 'middle');
@@ -287,11 +287,11 @@ function grundrisse() {
     line('p-ll', x + 1.5, yy, x + 9, yy);
     o('<path class="p-arrow" d="M' + f(x + 10) + ' ' + f(yy) + ' l-2 -0.75 v1.5 z"/>');
   }, ['Lauflinie: Kreis an der ersten, Pfeil an der letzten', 'Stufe, immer aufwärts; Stg. = Steigungen h/a in cm']);
-  leg(function (x, yy) { kote(x + 2, yy + 0.8, '±0,00'); }, ['Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,', 'rund 398 m ü. M. (swissALTI3D)']);
+  leg(function (x, yy) { kote(x + 2, yy + 0.8, '±0,00'); }, ['Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,', 'rund 398,10 m ü. M. (swissALTI3D)']);
   leg(function (x, yy) { txt(x + 5, yy - 0.6, '0.01', 1.8, 'middle', null, null, 700); txt(x + 5, yy + 1.8, 'NRF · LH', 1.6, 'middle'); },
     ['Raumnummer (0 = EG, -1 = UG), Netto-Raumfläche', 'nach DIN 277, lichte Raumhöhe']);
   leg(function (x, yy) { chain('h', yy + 1, [x, x + 10], null, 1, null, 1.5); },
-    ['Maße in m, unter 1 m in cm, hochgestellt mm:', '32<tspan dy="-0.7" font-size="0.7em">5</tspan><tspan dy="0.7"> = 32,5 cm.</tspan> Öffnungen: Breite über, Höhe', 'unter der Maßlinie. Gerundet auf 5 mm.']);
+    ['Maße in m, unter 1,00 m in cm, hochgestellt mm:', '32<tspan dy="-0.7" font-size="0.7em">5</tspan><tspan dy="0.7"> = 32,5 cm.</tspan> Öffnungen: Breite über, Höhe', 'unter der Maßlinie. Gerundet auf 5 mm.']);
   y += 1;
   // Nordpfeil: Gebäudeachse 21,1° gegen Nord gedreht (swissBUILDINGS3D); Nord zeigt im Plan nach links oben
   var TH = 0.36826, nx = Math.sin(TH), nz = -Math.cos(TH);   // Nordrichtung in Gebäudekoordinaten (x Ost, z Süd)
@@ -323,7 +323,7 @@ function grundrisse() {
   ['Diese Grundrisse hat Claude, ein KI-Modell von Anthropic, am 11.11.2026 gezeichnet. Es ist eine Rekonstruktion',
    'für die Website, keine Bauaufnahme und kein Plan des Architekten. Nicht für Ausführung oder Vermessung verwenden.',
    'Grundlage sind die Maße des 3D-Modells: Grundriss, Kellergrundriss und Schnitte bei Pireddu 2025 [1], im Maßstab',
-   'der Gesamtlänge vermessen (±0,1 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel',
+   'der Gesamtlänge vermessen (±0,10 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel',
    'nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10. Zellen-Oblichter und Sockel geschätzt.',
    'Darstellung nach DIN 1356-1 (Bauzeichnungen) mit Linienbreiten der Gruppe 0,5 für M 1:100 bis 1:500, Bemaßung',
    'nach DIN 406-11 und DIN 1356-1, Blattgröße A3 nach DIN EN ISO 5457, Schriftfeld in Anlehnung an DIN EN ISO 7200,',

@@ -303,13 +303,13 @@
 <path class="p-arc" d="M195.65 180.3 A4.25 4.25 0 0 0 199.9 184.55"/>
 <text x="242.5" y="162" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">-1.01 Lager</text>
 <text x="242.5" y="165.25" font-size="2.5" text-anchor="middle" class="p-st">NRF 78,6 m²</text>
-<text x="242.5" y="168.5" font-size="2.5" text-anchor="middle" class="p-st">LH ≈ 2,20 m</text>
+<text x="242.5" y="168.5" font-size="2.5" text-anchor="middle" class="p-st">LH 2,21 m</text>
 <path class="p-kote" d="M201 159.38 l-1.1 -1.6 h2.2 z"/>
 <line class="p-thin" x1="199.4" y1="159.38" x2="202.6" y2="159.38"/>
 <text x="202.6" y="158.97" font-size="1.8" text-anchor="start">−2,44</text>
 <text x="233" y="185.41" font-size="2.5" text-anchor="middle" font-weight="700" class="p-st">-1.02 Zellenkeller</text>
 <text x="233" y="188.66" font-size="2.5" text-anchor="middle" class="p-st">NRF 36,7 m²</text>
-<text x="233" y="191.91" font-size="2.5" text-anchor="middle" class="p-st">LH ≈ 2,20 m</text>
+<text x="233" y="191.91" font-size="2.5" text-anchor="middle" class="p-st">LH 2,21 m</text>
 <path class="p-kote" d="M248 188.39 l-1.1 -1.6 h2.2 z"/>
 <line class="p-thin" x1="246.4" y1="188.39" x2="249.6" y2="188.39"/>
 <text x="249.6" y="187.99" font-size="1.8" text-anchor="start">−2,44</text>
@@ -457,7 +457,7 @@
 <line class="p-thin" x1="300.4" y1="85.4" x2="303.6" y2="85.4"/>
 <text x="303.6" y="85" font-size="1.8" text-anchor="start">±0,00</text>
 <text x="314" y="85.2" font-size="1.8" text-anchor="start">Höhe Oberkante Fußboden; ±0,00 = Fußboden EG,</text>
-<text x="314" y="87.8" font-size="1.8" text-anchor="start">rund 398 m ü. M. (swissALTI3D)</text>
+<text x="314" y="87.8" font-size="1.8" text-anchor="start">rund 398,10 m ü. M. (swissALTI3D)</text>
 <text x="305" y="91.4" font-size="1.8" text-anchor="middle" font-weight="700">0.01</text>
 <text x="305" y="93.8" font-size="1.6" text-anchor="middle">NRF · LH</text>
 <text x="314" y="92.6" font-size="1.8" text-anchor="start">Raumnummer (0 = EG, -1 = UG), Netto-Raumfläche</text>
@@ -468,7 +468,7 @@
 <line class="p-dim" x1="310" y1="101.9" x2="310" y2="98.9"/>
 <line class="p-tick" x1="308.9" y1="101.5" x2="311.1" y2="99.3"/>
 <text x="305" y="99.6" font-size="1.8" text-anchor="middle" class="p-dimt">2,00</text>
-<text x="314" y="100" font-size="1.8" text-anchor="start">Maße in m, unter 1 m in cm, hochgestellt mm:</text>
+<text x="314" y="100" font-size="1.8" text-anchor="start">Maße in m, unter 1,00 m in cm, hochgestellt mm:</text>
 <text x="314" y="102.6" font-size="1.8" text-anchor="start">32<tspan dy="-0.7" font-size="0.7em">5</tspan><tspan dy="0.7"> = 32,5 cm.</tspan> Öffnungen: Breite über, Höhe</text>
 <text x="314" y="105.2" font-size="1.8" text-anchor="start">unter der Maßlinie. Gerundet auf 5 mm.</text>
 <circle class="p-box" cx="315" cy="122.4" r="9"/>
@@ -500,7 +500,7 @@
 <text x="24" y="243.5" font-size="2" text-anchor="start">Diese Grundrisse hat Claude, ein KI-Modell von Anthropic, am 11.11.2026 gezeichnet. Es ist eine Rekonstruktion</text>
 <text x="24" y="248.7" font-size="2" text-anchor="start">für die Website, keine Bauaufnahme und kein Plan des Architekten. Nicht für Ausführung oder Vermessung verwenden.</text>
 <text x="24" y="253.9" font-size="2" text-anchor="start">Grundlage sind die Maße des 3D-Modells: Grundriss, Kellergrundriss und Schnitte bei Pireddu 2025 [1], im Maßstab</text>
-<text x="24" y="259.1" font-size="2" text-anchor="start">der Gesamtlänge vermessen (±0,1 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel</text>
+<text x="24" y="259.1" font-size="2" text-anchor="start">der Gesamtlänge vermessen (±0,10 m) und mit swissBUILDINGS3D [7] abgeglichen; Innenbreite 4,60 m und Sockel</text>
 <text x="24" y="264.3" font-size="2" text-anchor="start">nach Peter Märkli im Video [14]; lichte Höhen nach Pireddu [1], Fußnote 10. Zellen-Oblichter und Sockel geschätzt.</text>
 <text x="24" y="269.5" font-size="2" text-anchor="start">Darstellung nach DIN 1356-1 (Bauzeichnungen) mit Linienbreiten der Gruppe 0,5 für M 1:100 bis 1:500, Bemaßung</text>
 <text x="24" y="274.7" font-size="2" text-anchor="start">nach DIN 406-11 und DIN 1356-1, Blattgröße A3 nach DIN EN ISO 5457, Schriftfeld in Anlehnung an DIN EN ISO 7200,</text>
