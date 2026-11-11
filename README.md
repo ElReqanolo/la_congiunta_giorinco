@@ -74,6 +74,7 @@ assets/fonts/         TeX Gyre Heros und Pagella (GUST Font License)
 assets/plans/         Grundrisse als SVG (Blatt A3, M 1:200), gezeichnet von Claude (KI)
 tools/build_standalone.py   baut alles zu einer einzigen HTML-Datei zusammen
 tools/grundrisse.js   zeichnet die Grundrisse (SVG) aus den Modellmaßen: node tools/grundrisse.js assets/plans/la-congiunta-grundrisse.svg
+tools/texturen.js     erzeugt die Beton- und Bodentexturen aus CC0-Vorlagen (im Browser)
 ```
 
 Die App-Dateien teilen sich einen gemeinsamen Bereich (wie früher innerhalb einer Funktion) und laufen in der Reihenfolge, die `js/loader.js` in `APP` festlegt. Eine neue Datei wird dort an der passenden Stelle eingetragen.
@@ -153,7 +154,7 @@ Die vollständige Quellenliste steht in der Seite unter „Quellen“. Wichtig f
 - three.js: MIT-Lizenz.
 - Schriften TeX Gyre Heros und Pagella: GUST Font License (siehe `assets/fonts/`).
 - Pläne und Angaben nach A. Pireddu, „Peter Märkli – La Congiunta“, *Firenze Architettura* 29 (2025), doi:10.36253/FiA-16824 (CC BY-SA 4.0); im Modell nur zitiert und nachgezeichnet.
-- **Bitte vor der Veröffentlichung prüfen:** Die Fototexturen für Beton, Boden und Innenwände stammen aus der Vorlage-Datei „La Congiunta – schematisches 3D-Modell“; ihre Herkunft ist dort nicht angegeben. Vor einer öffentlichen Website sollten die Rechte daran geklärt oder die Texturen durch eigene Fotos bzw. frei lizenzierte (z. B. CC0) Texturen ersetzt werden.
+- Texturen für Betonwände, Innenwände und Boden: aus frei lizenzierten Vorlagen von Poly Haven (CC0, gemeinfrei, keine Namensnennung nötig; „Concrete Wall 006“ von Dario Barresi und Charlotte Baglioni, „Wood Textured Concrete“ von Dimitrios Savva, „Concrete Floor Worn 001“ von Dimitrios Savva und Rico Cilliers), die Brettfugen dazugezeichnet, erzeugt mit `tools/texturen.js`. Die früheren Fototexturen aus der Vorlage-Datei, deren Herkunft unbekannt war, sind nicht mehr enthalten.
 - Die Werke von Hans Josephsohn sind urheberrechtlich geschützt. Das Modell zeigt keine Abbilder einzelner Werke, sondern frei nachempfundene, prozedural erzeugte Formen in Anzahl und Anordnung nach den Quellen.
 
 Für den eigenen Code des Modells ist keine Lizenz festgelegt; wer ihn anderen zur Nutzung freigeben möchte, ergänzt eine Lizenzdatei (zum Beispiel MIT).
