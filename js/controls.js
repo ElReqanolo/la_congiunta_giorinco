@@ -27,6 +27,8 @@ function setPressed(v){btns.forEach(function(b){b.setAttribute('aria-pressed',St
 var VIEWS={out:{c:0,th:0.8,ph:1.1,r:75,t:[0,2.5,0]},in:{c:1,th:0.8,ph:1.0,r:62,t:[0,2.5,0]},top:{c:1,th:0,ph:0.05,r:85,t:[0,0,0]},val:{c:0,th:3.49,ph:1.27,r:500,t:[110,0,250]}};
 btns.forEach(function(b){b.addEventListener('click',function(){var v=VIEWS[b.dataset.v];stopFilm(true);stopFly();clear=!!v.c;th=v.th;ph=v.ph;r=v.r;tgt.set(v.t[0],v.t[1],v.t[2]);setPressed(b.dataset.v);draw()})});
 var dimBtn=document.getElementById('dimBtn');dimBtn.addEventListener('click',function(){dims=!dims;dimBtn.setAttribute('aria-pressed',String(dims));draw()});
+/* Beschriftung „Eingang (Nordseite)“ ein/aus; die Wahl bleibt im Browser gespeichert */
+var entBtn=document.getElementById('entBtn');entBtn.setAttribute('aria-pressed',String(entLbl));entBtn.addEventListener('click',function(){entLbl=!entLbl;entBtn.setAttribute('aria-pressed',String(entLbl));lsSet('lcEntLbl',entLbl?'':'0');draw()});
 var flyBtn=document.getElementById('flyBtn'),pad=document.getElementById('pad'),hint=document.getElementById('hint');
 function flyStep(dt){var agl=fp.y-hB(fp.x,fp.z),sp=(running()?22:8)*clamp(agl/25,1,12)*dt,f=(keys.f?1:0)-(keys.b?1:0),sd=(keys.r?1:0)-(keys.l?1:0),u=(keys.u?1:0)-(keys.d?1:0);
   if(f||sd||u){var dv=new THREE.Vector3(-Math.sin(fyaw)*Math.cos(fpitch),Math.sin(fpitch),-Math.cos(fyaw)*Math.cos(fpitch)),rv=new THREE.Vector3(Math.cos(fyaw),0,-Math.sin(fyaw));

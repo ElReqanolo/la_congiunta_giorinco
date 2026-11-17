@@ -27,17 +27,17 @@
 <link rel="preload" href="assets/fonts/heros-regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/pagella-bold.woff" as="font" type="font/woff" crossorigin>
 <!-- ?v= erhöhen, wenn sich CSS oder JS ändern: sonst zeigen Browser bis zu 10 Minuten lang alte Dateien -->
-<link rel="stylesheet" href="css/tokens.css?v=20">
-<link rel="stylesheet" href="css/base.css?v=20">
-<link rel="stylesheet" href="css/layout.css?v=20">
-<link rel="stylesheet" href="css/overlays.css?v=20">
+<link rel="stylesheet" href="css/tokens.css?v=21">
+<link rel="stylesheet" href="css/base.css?v=21">
+<link rel="stylesheet" href="css/layout.css?v=21">
+<link rel="stylesheet" href="css/overlays.css?v=21">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"La Congiunta, Giornico – interaktives 3D-Modell","inLanguage":"de",
  "about":{"@type":"Museum","name":"La Congiunta","url":"https://lacongiunta.ch/","architect":{"@type":"Person","name":"Peter Märkli"},
   "address":{"@type":"PostalAddress","addressLocality":"Giornico","addressRegion":"Tessin","addressCountry":"CH"},
   "geo":{"@type":"GeoCoordinates","latitude":46.4056231,"longitude":8.8704691}}}
 </script>
-<script src="js/loader.js?v=20" defer></script>
+<script src="js/loader.js?v=21" defer></script>
 </head>
 <body>
 <a class="skip" href="#stage">Zum 3D-Modell springen</a>
@@ -58,6 +58,7 @@
     </div>
     <div class="modes" role="group" aria-label="Anzeige">
       <button type="button" id="dimBtn" aria-pressed="true">Maße</button>
+      <button type="button" id="entBtn" aria-pressed="true" aria-label="Beschriftung Eingang" title="Beschriftung „Eingang (Nordseite)“ ein- und ausblenden"><span class="opt-xl">Beschriftung </span>Eingang</button>
       <button type="button" id="flyBtn" aria-pressed="false">Fliegen</button>
       <button type="button" id="walkBtn" aria-pressed="false">Rundgang<span class="opt"> (Spiel)</span></button>
       <button type="button" id="filmBtn" aria-pressed="false">Film<span class="opt">: Weg zum Museum</span></button>
@@ -120,6 +121,8 @@
         <dd>Der Knopf oben rechts im Bild oder die Taste <b>F</b> zeigt nur das Modell, über den ganzen Bildschirm – gut zum Fliegen, für den Rundgang und den Film. Am Handy dreht sich das Bild dabei ins Querformat, wo der Browser das zulässt (sonst das Handy quer halten). Derselbe Knopf oder <b>Esc</b> beendet das Vollbild.</dd>
         <dt>Maße</dt>
         <dd>Blendet Maßlinien und alle Maßangaben ein und aus.</dd>
+        <dt>Beschriftung Eingang</dt>
+        <dd>Blendet die Beschriftung „Eingang (Nordseite)“ am Gebäude ein und aus (bleibt im Browser gespeichert).</dd>
         <dt>Fliegen</dt>
         <dd>Freie Kamera mit <b>W A S D</b>, <b>E / Q</b> hoch und runter.</dd>
         <dt>Rundgang (Spiel)</dt>

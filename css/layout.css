@@ -50,6 +50,7 @@
 .modes { display: flex; gap: var(--sp-2); }
 .modes button { flex: 1 1 auto; padding: 0 var(--sp-2); }
 .opt { display: none; }  /* Langform der Knopftexte erst ab 900 px */
+.opt-xl { display: none; }  /* „Beschriftung Eingang“ erst ab 1440 px, darunter nur „Eingang“ */
 
 .light {
   position: absolute;
@@ -200,6 +201,14 @@ ol.src li { padding-left: 2px; }
   .toggles { gap: 0 var(--sp-3); }
 }
 
+/* Desktop bis 1439 px: Knöpfe kurz beschriftet, damit die Leiste nicht in Titel und Untertitel hineinragt */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .opt { display: none; }
+}
+@media (min-width: 1440px) {
+  .opt-xl { display: inline; }
+}
+
 /* Querformat mit wenig Höhe (Handy quer): Kopf in einer Zeile */
 @media (max-height: 520px) and (min-width: 560px) and (max-width: 1199px) {
   .site-header { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "brand bar theme set"; padding-block: var(--sp-2); }
@@ -220,6 +229,7 @@ ol.src li { padding-left: 2px; }
   .site-header { column-gap: var(--sp-2); }
   .setb { width: var(--control-h); padding: 0; justify-content: center; border-radius: var(--r-round); }
   .setb-txt { display: none; }
+  .modes { gap: var(--sp-1); }  /* fünf Umschalter in einer Zeile */
 }
 /* sehr schmale Handys (unter 360 px) */
 @media (max-width: 359px) {

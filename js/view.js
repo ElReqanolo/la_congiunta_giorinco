@@ -6,7 +6,7 @@ var toastEl=null,toastT=0;
 // eslint-disable-next-line no-unused-vars
 function toast(t){if(!toastEl){toastEl=document.createElement('div');toastEl.className='toast';toastEl.setAttribute('role','status');stage.appendChild(toastEl)}toastEl.textContent=t;toastEl.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){toastEl.hidden=true},5200)}
 /* ---------- Maßlinien ---------- */
-var dims=true,dimG=new THREE.Group();scene.add(dimG);
+var dims=true,entLbl=lsGet('lcEntLbl')!=='0',dimG=new THREE.Group();scene.add(dimG);
 var dimSolid=new THREE.LineBasicMaterial({color:0xa8650f,fog:false});
 function dline(a,b,t){[[a,b],[a.clone().sub(t),a.clone().add(t)],[b.clone().sub(t),b.clone().add(t)]].forEach(function(seg){dimG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg),dimSolid))})}
 function buildDims(){var zc=-TOT/2;L.forEach(function(l,i){dline(new THREE.Vector3(W/2+1.0,0.03,zc+l/2),new THREE.Vector3(W/2+1.0,H[i],zc+l/2),new THREE.Vector3(0.35,0,0));zc+=l});
@@ -78,7 +78,7 @@ function render(t){
   var w=stage.clientWidth,h=stage.clientHeight,v=new THREE.Vector3();
   /* Beschriftungen: überdeckt eine Marke eine bereits gesetzte, wird sie ausgeblendet (wichtig auf schmalen Bildschirmen) */
   var placed=[];
-  tags.forEach(function(tg,i){var el=tagEls[i];if(!el)return;v.copy(tg.p).project(camera);var hide=v.z>1||(tg.m&&!dims)||(fly?camera.position.distanceTo(tg.p)>260:r>260)||walk||FILM.on||inB;
+  tags.forEach(function(tg,i){var el=tagEls[i];if(!el)return;v.copy(tg.p).project(camera);var hide=v.z>1||(tg.m&&!dims)||(tg.e&&!entLbl)||(fly?camera.position.distanceTo(tg.p)>260:r>260)||walk||FILM.on||inB;
     if(!hide){var x=(v.x*0.5+0.5)*w,y=(-v.y*0.5+0.5)*h;if(el.hidden)el.hidden=false;if(!tg.bw){tg.bw=el.offsetWidth||90;tg.bh=el.offsetHeight||20}
       if(tg.bw+8<w)x=Math.max(tg.bw/2+4,Math.min(w-tg.bw/2-4,x));
       var a0=x-tg.bw/2-3,a1=x+tg.bw/2+3,b0=y-tg.bh/2-2,b1=y+tg.bh/2+2;for(var q=0;q<placed.length;q++){var P=placed[q];if(a0<P[2]&&a1>P[0]&&b0<P[3]&&b1>P[1]){hide=true;break}}

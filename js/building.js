@@ -254,7 +254,7 @@ function buildBuilding(T){
     /* innen gibt es kein direktes Sonnenlicht, also werfen die Exponate keinen Sonnenschatten */
     gp.rotation.y=sp.ry;gp.add(m);m.castShadow=false;m.receiveShadow=false;bldG.add(gp)});
   /* Beschriftungen */
-  tags.push({p:new THREE.Vector3(DOFF,3.4,-TOT/2-1.6),t:'Eingang (Nordseite)'});
+  tags.push({e:1,p:new THREE.Vector3(DOFF,3.4,-TOT/2-1.6),t:'Eingang (Nordseite)'});
   tags.push({m:1,p:new THREE.Vector3((CX0-W/2)/2,CHH+1.6,cellZ(1.5)),t:'4 Zellen · Trakt ≈ 12,82 × 3,34 m, ≈ 4,30 m hoch'});
   tags.push({m:1,p:new THREE.Vector3(W/2+2.2,0.6,-6),t:'Länge ≈ 42,40 m · Luftbild'});
   tags.push({m:1,p:new THREE.Vector3(0,0.6,TOT/2+2.4),t:'Breite ≈ 5,25 m außen · innen 4,60 m'});
