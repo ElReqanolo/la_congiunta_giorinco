@@ -50,7 +50,7 @@
 .modes { display: flex; gap: var(--sp-2); }
 .modes button { flex: 1 1 auto; padding: 0 var(--sp-2); }
 .opt { display: none; }  /* Langform der Knopftexte erst ab 900 px */
-.opt-xl { display: none; }  /* „Beschriftung Eingang“ erst ab 1440 px, darunter nur „Eingang“ */
+.opt-xl { display: none; }  /* „Beschriftung Eingang“ erst ab 1600 px, darunter nur „Eingang“ */
 
 .light {
   position: absolute;
@@ -205,7 +205,7 @@ ol.src li { padding-left: 2px; }
 @media (min-width: 1200px) and (max-width: 1439px) {
   .opt { display: none; }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   .opt-xl { display: inline; }
 }
 
@@ -335,3 +335,34 @@ ol.src li { padding-left: 2px; }
 .srcnote { max-width: 75ch; margin: 0 0 var(--sp-2); color: var(--c-text-muted); font-size: var(--fs-1); }
 .srcgrp + .srcgrp { margin-top: var(--sp-3); }
 .srcgrp h3 { margin: 0 0 var(--sp-2); font: 700 var(--fs-2) / var(--lh-ui) var(--font-sans); }
+
+/* Ein/Aus-Schalter (Maße, Eingang) sehen anders aus als gewählte Ansichten: Kästchen mit Haken statt dunkler Fläche,
+   danach etwas Abstand zu den Modi Fliegen, Rundgang, Film */
+.modes .tgl { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.modes .tgl::before {
+  content: ""; flex: none; width: 14px; height: 14px; border: 1.5px solid var(--c-line-strong); border-radius: var(--r-tag);
+  background: var(--c-surface) no-repeat center / 10px 8px;
+}
+.modes .tgl[aria-pressed="true"] { background: var(--c-surface); border-color: var(--c-line-strong); color: var(--c-text); }
+.modes .tgl[aria-pressed="true"]::before {
+  background-color: var(--c-amber); border-color: var(--c-amber);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' fill='none' stroke='%231e1f1c' stroke-width='1.8'/%3E%3C/svg%3E");
+}
+.modes .tgl + :not(.tgl) { margin-left: var(--sp-2); }
+@media (max-width: 419px) {
+  .modes button { padding: 0 6px; }
+  .modes .tgl { gap: 4px; }
+  .modes .tgl::before { width: 12px; height: 12px; background-size: 8px 7px; }
+  .modes .tgl + :not(.tgl) { margin-left: 0; }
+}
+@media (max-width: 379px) {
+  .modes button { padding: 0 var(--sp-1); }
+  .modes .tgl { gap: 3px; }
+}
+
+/* Licht & Qualität: Sonne statt Punkt, damit das Symbol auch ohne Text verständlich ist */
+.setb::before {
+  width: 18px; height: 18px; border-radius: 0; box-shadow: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4'/%3E%3Cg stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4'/%3E%3Cg stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}

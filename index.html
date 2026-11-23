@@ -57,11 +57,11 @@
       <button type="button" data-v="val" aria-pressed="false">Tal</button>
     </div>
     <div class="modes" role="group" aria-label="Anzeige">
-      <button type="button" id="dimBtn" aria-pressed="true">Maße</button>
-      <button type="button" id="entBtn" aria-pressed="true" aria-label="Beschriftung Eingang" title="Beschriftung „Eingang (Nordseite)“ ein- und ausblenden"><span class="opt-xl">Beschriftung </span>Eingang</button>
-      <button type="button" id="flyBtn" aria-pressed="false">Fliegen</button>
-      <button type="button" id="walkBtn" aria-pressed="false">Rundgang<span class="opt"> (Spiel)</span></button>
-      <button type="button" id="filmBtn" aria-pressed="false">Film<span class="opt">: Weg zum Museum</span></button>
+      <button type="button" id="dimBtn" class="tgl" aria-pressed="true" title="Maßlinien und Maßangaben ein- und ausblenden">Maße</button>
+      <button type="button" id="entBtn" class="tgl" aria-pressed="true" aria-label="Beschriftung Eingang" title="Beschriftung „Eingang (Nordseite)“ ein- und ausblenden"><span class="opt-xl">Beschriftung </span>Eingang</button>
+      <button type="button" id="flyBtn" aria-pressed="false" title="Frei durch die Landschaft und das Gebäude fliegen">Fliegen</button>
+      <button type="button" id="walkBtn" aria-pressed="false" title="Zu Fuß durch das Gebäude gehen und Infoschilder lesen">Rundgang<span class="opt"> (Spiel)</span></button>
+      <button type="button" id="filmBtn" aria-pressed="false" title="Film abspielen: vom Dorf zu Fuß zum Museum">Film<span class="opt">: Weg zum Museum</span></button>
     </div>
   </div>
   <div class="light" id="lightP" role="group" aria-label="Licht und Qualität">
@@ -91,6 +91,7 @@
       <button type="button" data-k="l" aria-label="Links">←</button><button type="button" data-k="b" aria-label="Zurück">↓</button><button type="button" data-k="r" aria-label="Rechts">→</button>
       <button type="button" id="runBtn" class="run" aria-pressed="false" aria-label="Rennen" title="Rennen an/aus (wie Shift)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l5-5 5 5M5 15.5l5-5 5 5"/></svg></button>
     </div>
+    <p id="navTip" class="navtip" hidden aria-hidden="true"><span class="nt-mouse"><b>Ziehen</b> = drehen · <b>Mausrad</b> = zoomen</span><span class="nt-touch"><b>Wischen</b> = drehen · <b>zwei Finger</b> = zoomen</span></p>
     <p id="texNote" class="texnote">Oberflächen und Kunstwerke nachempfunden<span class="tn-long">, nicht originalgetreu</span></p>
     <div id="compass" class="compass" aria-hidden="true"><span id="needle"></span><b>N</b></div>
     <button id="fsBtn" class="fsb" type="button" aria-pressed="false" aria-label="Vollbild" title="Vollbild (F)"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="fs-in" d="M3 7.5V3h4.5M12.5 3H17v4.5M17 12.5V17h-4.5M7.5 17H3v-4.5"/><path class="fs-out" d="M7.5 3v4.5H3M12.5 3v4.5H17M17 12.5h-4.5V17M3 12.5h4.5V17"/></svg></button>

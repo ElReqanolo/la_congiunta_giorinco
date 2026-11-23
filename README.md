@@ -27,8 +27,9 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Fliegen, Rundgang | W A S D, E / Q, Shift | Pfeiltasten unten rechts |
 | Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
 | Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
+| Erste Schritte | Hinweis unten im Bild: „Ziehen = drehen · Mausrad = zoomen“, verschwindet bei der ersten Bewegung | „Wischen = drehen · zwei Finger = zoomen“ |
 | Hell / dunkel | runder Knopf oben rechts | runder Knopf oben rechts |
-| Beschriftung „Eingang“ | Knopf „Eingang“ in der Kopfzeile (ab 1440 px „Beschriftung Eingang“), Wahl bleibt gespeichert | Knopf „Eingang“ |
+| Beschriftung „Eingang“ | Knopf „Eingang“ in der Kopfzeile (ab 1600 px „Beschriftung Eingang“), Wahl bleibt gespeichert | Knopf „Eingang“ |
 
 Uhrzeit, Jahreszeit, Wind, Wolken, Fluss und Grafikqualität stehen am Rechner in der zweiten Zeile der Kopfzeile, auf Tablet und Handy unter „Licht & Qualität“. Die Spur des Uhrzeit-Reglers zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit. Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung; ohne Wahl gilt die Einstellung des Systems, eine Wahl bleibt im Browser gespeichert. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen. Der runde Knopf oben rechts im Bild (oder die Taste F) schaltet ins Vollbild: nur das Modell über den ganzen Bildschirm, am Handy, wo der Browser es zulässt, im Querformat; erlaubt der Browser kein Vollbild (iPhone, eingebettete Fassung), blendet die Seite Kopf und Fuss aus. Derselbe Knopf oder Esc beendet es.
 

@@ -45,7 +45,10 @@ function reveal(k){if(k>=STG.length){prep('');prOn=true;if(FILM.pend){FILM.pend=
     else if(st[1]==='compile'){renderer.setRenderTarget(composer?composer.readBuffer:null);renderer.compile(scene,camera);renderer.setRenderTarget(null)}
     else st[1].forEach(function(g){g.visible=true})}catch(e){console.error(e)}
   prep('Grafik wird vorbereitet: '+st[0]+' ('+(k+1)+'/'+STG.length+') …');
-  onRendered(function(){logPush('zeit','Stufe '+(k+1)+' ('+st[0]+'): '+(performance.now()-t0).toFixed(0)+' ms');if(!k)loadEl.hidden=true;setTimeout(function(){reveal(k+1)},40)})}
+  onRendered(function(){logPush('zeit','Stufe '+(k+1)+' ('+st[0]+'): '+(performance.now()-t0).toFixed(0)+' ms');if(!k){loadEl.hidden=true;navTip()}setTimeout(function(){reveal(k+1)},40)})}
+/* Einstiegshinweis zur Bedienung; verschwindet bei der ersten Bewegung oder nach 20 s, nicht bei Ansichten per Link */
+function navTip(){var t=document.getElementById('navTip'),ev=['pointerdown','wheel','keydown'];if(!t||location.hash)return;t.hidden=false;
+  function off(){t.hidden=true;ev.forEach(function(e){stage.removeEventListener(e,off)})}ev.forEach(function(e){stage.addEventListener(e,off,{passive:true})});setTimeout(off,20000)}
 function init(){
   setStatus('Luftbilder und Texturen werden geladen …');
   var K=['o19','o17','o15','o13','TA','TB','TI','TF','canN','canM','canF','grass','water'],src=A.img||{};
