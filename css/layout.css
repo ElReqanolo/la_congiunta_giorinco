@@ -49,7 +49,7 @@
 .seg button:focus-visible { position: relative; z-index: 2; }
 .modes { display: flex; gap: var(--sp-2); }
 .modes button { flex: 1 1 auto; padding: 0 var(--sp-2); }
-.opt { display: none; }  /* Langform der Knopftexte erst ab 900 px */
+.opt { display: none; }  /* Langform der Knopftexte erst ab 930 px */
 .opt-xl { display: none; }  /* „Beschriftung Eingang“ erst ab 1600 px, darunter nur „Eingang“ */
 
 .light {
@@ -179,7 +179,7 @@ ol.src li { padding-left: 2px; }
   .brand h1 { font-size: var(--fs-6); }
   .brand .sub { margin-top: 2px; font-size: var(--fs-2); }
   .bar { margin-top: 0; }
-  .bar { flex-direction: row; align-items: center; gap: var(--sp-4); }
+  .bar { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); }  /* passt sie nicht, bricht sie um statt in den Titel zu ragen */
   .seg { grid-auto-columns: auto; }
   .seg button { padding: 0 var(--sp-3); }
   .modes { flex: none; }
@@ -189,7 +189,7 @@ ol.src li { padding-left: 2px; }
   .howto dd { margin: 0; }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 930px) {
   .opt { display: inline; }
 }
 
@@ -215,6 +215,10 @@ ol.src li { padding-left: 2px; }
   .toggles { gap: 0 var(--sp-3); }
 }
 
+/* Desktop bis 1499 px: Untertitel zweizeilig, damit Menü-Knopf, Titel und Leiste in eine Zeile passen */
+@media (min-width: 1200px) and (max-width: 1499px) {
+  .brand .sub { max-width: 20rem; }
+}
 /* Desktop bis 1439 px: Knöpfe kurz beschriftet, damit die Leiste nicht in Titel und Untertitel hineinragt */
 @media (min-width: 1200px) and (max-width: 1439px) {
   .opt { display: none; }
@@ -230,7 +234,7 @@ ol.src li { padding-left: 2px; }
   .brand .sub { display: none; }
   .brand h1 { font-size: var(--fs-4); white-space: nowrap; }
   .bar { margin-top: 0; }
-  .bar { flex-direction: row; overflow-x: auto; scrollbar-width: none; }
+  .bar { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .bar::-webkit-scrollbar { display: none; }
   .seg { grid-auto-columns: auto; }
   .modes button, .seg button { flex: none; }
