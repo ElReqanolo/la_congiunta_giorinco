@@ -106,8 +106,8 @@ function interact(idx){if(cardOpen){closeCard();return}var si=(typeof idx==='num
   cardEl.innerHTML='<h2 id="cardTitle">'+h.t+'</h2><p>'+h.s+'</p>'+(h.fm?'<p class="fm"><b>FM-Blick:</b> '+h.fm+'</p>':'')+'<p class="q">Quellen: '+h.q+'. <button type="button" id="cardSrc" class="link">Alle Quellen anzeigen</button></p>'+(found===HS.length?'<p class="done">Geschafft! Du hast alle Schilder gelesen.</p>':'')+'<button type="button" id="cardClose">Schließen (Esc)</button>';
   cardEl.hidden=false;cardOpen=true;try{cardEl.focus({preventScroll:true})}catch(e){}document.getElementById('cardClose').addEventListener('click',closeCard);
   document.getElementById('cardSrc').addEventListener('click',showSources)}
-/* Quellenliste im Fußbereich öffnen und hinscrollen */
-function showSources(){closeCard();stopFilm();var qs=document.getElementById('quellen');if(qs)qs.open=true;if(qs)setTimeout(function(){try{qs.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){qs.scrollIntoView()}},60)}
+/* Quellenliste im Menü öffnen und hinscrollen */
+function showSources(){closeCard();stopFilm();var qs=document.getElementById('quellen');if(window.lcMenu)lcMenu(true,true);if(qs)qs.open=true;if(qs)setTimeout(function(){try{qs.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){qs.scrollIntoView()}},60)}
 function startWalk(){fly=true;walk=true;clear=false;keys={};
   flyBtn.setAttribute('aria-pressed','false');walkBtn.setAttribute('aria-pressed','true');setPressed(null);
   fp.set(DOFF,1.65+hB(DOFF,-TOT/2-12.5),-TOT/2-12.5);fyaw=Math.PI;fpitch=-0.05;

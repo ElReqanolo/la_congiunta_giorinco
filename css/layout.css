@@ -1,4 +1,4 @@
-/* Seitengerüst: Kopfzeile mit Werkzeugleiste, 3D-Bühne, Fussbereich. Mobil zuerst; Umbrüche bei 720 px und 1200 px. */
+/* Seitengerüst: Kopfzeile mit Werkzeugleiste, 3D-Bühne, Menü (Seitenleiste). Mobil zuerst; Umbrüche bei 720 px und 1200 px. */
 
 /* ---------- Kopfzeile ---------- */
 .site-header {
@@ -112,31 +112,45 @@ main { position: relative; flex: 1; min-height: 0; display: flex; }
 #stage:focus-visible { outline: 3px solid var(--c-amber); outline-offset: -3px; }
 #stage canvas { display: block; width: 100%; height: 100%; }
 
-/* ---------- Fussbereich ---------- */
+/* ---------- Menü: Seitenleiste von links über dem Modell (früher der Fussbereich) ---------- */
 .site-footer {
-  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 var(--sp-5);
-  max-height: 40vh; overflow: auto;
-  padding: 0 var(--gutter-r) 0 var(--gutter);
-  background: var(--c-surface);
-  border-top: 1px solid var(--c-line);
-  font-size: var(--fs-2);
-  line-height: var(--lh-text);
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: calc(var(--z-header) + 2);
+  width: min(960px, 100%); overflow: auto; overscroll-behavior: contain;
+  padding: 0 var(--gutter-r) var(--sp-6) var(--gutter);
+  background: var(--c-surface); border-right: 1px solid var(--c-line); box-shadow: var(--shadow-float);
+  font-size: var(--fs-2); line-height: var(--lh-text);
+  transform: translateX(-100%); visibility: hidden; transition: transform 0.2s, visibility 0s 0.2s;
 }
-.site-footer details { min-width: 0; }
-.site-footer details[open] { flex: 1 1 100%; padding-bottom: var(--sp-4); }
+/* beim Öffnen sofort sichtbar, damit der Fokus hineinspringen kann; beim Schließen erst nach dem Hinausgleiten unsichtbar */
+.lc-menu .site-footer { transform: none; visibility: visible; transition: transform 0.2s, visibility 0s; }
+.menu-scrim { position: fixed; inset: 0; z-index: calc(var(--z-header) + 1); background: var(--c-scrim); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
+.lc-menu .menu-scrim { opacity: 0.6; visibility: visible; }
+.lc-full .menu-scrim { display: none; }
+.info-head {
+  position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  margin: 0 calc(-1 * var(--gutter-r)) var(--sp-2) calc(-1 * var(--gutter)); padding: var(--sp-3) var(--gutter-r) var(--sp-3) var(--gutter);
+  background: var(--c-surface); border-bottom: 1px solid var(--c-line);
+}
+.info-title { font: 700 var(--fs-5) / var(--lh-tight) var(--font-serif); }
+.site-footer details { min-width: 0; border-bottom: 1px solid var(--c-line); }
+.site-footer details[open] { padding-bottom: var(--sp-5); }
+/* Menüeinträge: Titel mit kurzer Erklärung darunter, Pfeil links */
 .site-footer summary {
-  display: flex; align-items: center; gap: var(--sp-2);
-  width: max-content; max-width: 100%; min-height: 44px;
-  cursor: pointer; list-style: none;
+  display: grid; grid-template-columns: 7px minmax(0, 1fr); align-items: center; gap: 2px var(--sp-3);
+  min-height: 56px; padding: var(--sp-3) var(--sp-1); margin: 0 calc(-1 * var(--sp-1));
+  border-radius: var(--r-control); cursor: pointer; list-style: none;
 }
+@media (hover: hover) { .site-footer summary:hover { background: var(--c-surface-2); } }
 .site-footer summary::-webkit-details-marker { display: none; }
 .site-footer summary::before {
-  content: ""; width: 7px; height: 7px; flex: none;
+  content: ""; width: 7px; height: 7px;
   border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
   transform: rotate(-45deg); transition: transform var(--t-fast);
 }
 .site-footer details[open] > summary::before { transform: rotate(45deg) translate(-2px, -1px); }
-.site-footer summary h2 { font: 700 var(--fs-2) / var(--lh-ui) var(--font-sans); }
+.site-footer summary h2 { font: 700 var(--fs-4) / var(--lh-ui) var(--font-sans); }
+.site-footer summary small { grid-column: 2; color: var(--c-text-muted); font-size: var(--fs-2); line-height: var(--lh-ui); }
+
 /* drei Teile (Bedienung, Daten und Genauigkeit, Legende): untereinander, auf breiten Bildschirmen nebeneinander (siehe unten) */
 .fbody { display: grid; gap: var(--sp-4); }
 .fsec { display: grid; gap: var(--sp-3); align-content: start; min-width: 0; }
@@ -259,7 +273,7 @@ ol.src li { padding-left: 2px; }
   .mintro { grid-column: 1 / -1; }
 }
 
-/* ---------- Fussbereich auf breiten Bildschirmen: die Teile nebeneinander, statt alles schmal am linken Rand ---------- */
+/* ---------- Menü auf breiten Bildschirmen: die Teile nebeneinander ---------- */
 @media (min-width: 900px) {
   /* zwei Spalten: links die Bedienung, rechts Daten und Legende; die zweite Zeile wächst, damit rechts keine Lücke entsteht */
   .fbody { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: var(--sp-6); }
@@ -269,16 +283,6 @@ ol.src li { padding-left: 2px; }
   .howto dd { margin: -6px 0 0; }
   ol.src { display: block; columns: 2; column-gap: var(--sp-6); max-width: none; padding-left: 0; }
   ol.src li { margin: 0 0 var(--sp-2) 26px; padding-left: 2px; break-inside: avoid; }
-}
-@media (min-width: 1500px) {
-  /* drei gleiche Spalten wie bei den Quellen: links die Bedienung, rechts über zwei Spalten der Text und die Legende, je in zwei Spalten gesetzt */
-  .site-footer { --fgap: clamp(32px, 2.5vw, 56px); }
-  .fbody { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--fgap); }
-  .fsec:not(.fsec-howto) { grid-column: span 2; }
-  .fsec > p { columns: 2; column-gap: var(--fgap); }
-  ul.leg { display: block; columns: 2; column-gap: var(--fgap); }
-  ul.leg li { margin-bottom: var(--sp-3); break-inside: avoid; }
-  ol.src { columns: 3; column-gap: var(--fgap); }
 }
 
 /* ---------- Grundrisse: Blatt A3 als Zeichnung auf weißem Papier, in beiden Darstellungen; groß über der ganzen Seite ---------- */
@@ -299,7 +303,7 @@ ol.src li { padding-left: 2px; }
 .plan { margin: 0; min-width: 0; }
 .plan-bar { display: none; }
 .plan-sheet {
-  max-width: 1400px; overflow: auto; overscroll-behavior: contain;
+  max-width: 1400px; overflow: auto; cursor: grab;
   background: #fff; border: 1px solid var(--c-line-strong); border-radius: var(--r-control);
 }
 .plan-sheet svg { display: block; width: 100%; min-width: 680px; height: auto; }
@@ -310,7 +314,8 @@ ol.src li { padding-left: 2px; }
   background: var(--c-surface);
 }
 .plan.big .plan-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); font-weight: 700; }
-.plan.big .plan-sheet { flex: 1 1 auto; max-width: none; }
+.plan.big .plan-sheet { flex: 1 1 auto; max-width: none; overscroll-behavior: contain; }
+.plan-sheet.drag { cursor: grabbing; user-select: none; }
 .plan.big .plan-sheet svg { width: max(100%, 1700px); min-width: 0; }
 .lc-plan, .lc-plan body { overflow: hidden; }
 @media (max-width: 599px) {
@@ -326,6 +331,7 @@ ol.src li { padding-left: 2px; }
   .lc-print #plaene > summary, .lc-print .pbody > *:not(.plan), .lc-print .plan-bar { display: none !important; }
   .lc-print .site-footer, .lc-print #plaene, .lc-print .pbody, .lc-print .plan {
     display: block !important; position: static !important; max-height: none; overflow: visible; margin: 0; padding: 0; border: 0; background: #fff;
+    width: auto !important; transform: none !important; visibility: visible !important; box-shadow: none !important; transition: none !important;
   }
   .lc-print .plan-sheet { max-width: none; overflow: visible; border: 0; border-radius: 0; }
   .lc-print .plan-sheet svg { width: 420mm !important; height: 297mm !important; min-width: 0; }
@@ -365,4 +371,24 @@ ol.src li { padding-left: 2px; }
   width: 18px; height: 18px; border-radius: 0; box-shadow: none;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4'/%3E%3Cg stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4'/%3E%3Cg stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Menü-Knopf: drei Striche, ab 420 px mit Text */
+.menub { grid-area: menu; align-self: center; display: inline-flex; align-items: center; gap: var(--sp-2); }
+.menub-icon { width: 16px; height: 12px; border-block: 1.8px solid currentColor; background: linear-gradient(currentColor, currentColor) center / 100% 1.8px no-repeat; }
+.lc-menu .menub { background: var(--c-active); border-color: var(--c-active); color: var(--c-on-active); }
+.site-header { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "menu title theme set" "sub sub sub sub" "bar bar bar bar"; }
+@media (max-width: 419px) {
+  .menub { width: var(--control-h); padding: 0; justify-content: center; border-radius: var(--r-round); }
+  .menub-txt { display: none; }
+  .brand h1 { font-size: var(--fs-4); }
+}
+@media (min-width: 720px) {
+  .site-header { grid-template-areas: "menu brand theme set" "bar bar bar bar"; }
+}
+@media (min-width: 1200px) {
+  .site-header { grid-template-columns: auto auto minmax(0, 1fr) auto; grid-template-areas: "menu brand bar theme" "light light light light"; }
+}
+@media (max-height: 520px) and (min-width: 560px) and (max-width: 1199px) {
+  .site-header { grid-template-columns: auto auto minmax(0, 1fr) auto auto; grid-template-areas: "menu brand bar theme set"; }
 }

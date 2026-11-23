@@ -86,7 +86,7 @@ function drawSign(h,i,done){
     x.fillStyle='#3a352c';x.font=(fs-1)+'px '+SIGN_F;L2.forEach(function(l){x.fillText(l,M+18,y);y+=lh2});y+=14}
   y+=12;x.fillStyle='#6b665c';x.font=f3+'px '+SIGN_F;L3.forEach(function(l){x.fillText(l,M,y);y+=Math.round(f3*1.3)});
   x.textBaseline='alphabetic';x.fillStyle='#8a857a';x.font='18px '+SIGN_F;x.fillText('Rundgang La Congiunta · Schild '+(i+1)+' von '+HS.length,M,CH-22);
-  x.textAlign='right';x.fillText(done?'Quellen im Fußbereich der Seite':'Lesen: E drücken oder Schild anklicken',CW-M,CH-22);x.textAlign='left';
+  x.textAlign='right';x.fillText(done?'Quellen im Menü oben links':'Lesen: E drücken oder Schild anklicken',CW-M,CH-22);x.textAlign='left';
   if(h.tex)h.tex.needsUpdate=true;return c}
 var flatN=null;
 function buildHS(){

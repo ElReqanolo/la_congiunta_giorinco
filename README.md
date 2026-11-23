@@ -15,7 +15,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 - Wind: Böen ziehen talaufwärts durch Bäume, Gras und Reben; Wolken ziehen mit und werfen Schatten aufs Tal, drinnen wird es dann dunkler (Stärke und Wolken im Menü einstellbar)
 - Fluss: Der Ticino fließt; Schaumstreifen und Wellen ziehen flussabwärts, Glanzlichter wandern mit der Strömung (Schalter „Fluss“ hält das Wasser an, unabhängig vom Wind)
 - Rundgang mit dreizehn Infoschildern (drei am und im begehbaren Keller), Maßangaben und Quellenliste
-- Grundrisse Erdgeschoss und Untergeschoss im Maßstab 1:200 (Blatt A3, Darstellung nach DIN 1356-1), von Claude (KI von Anthropic) aus den Maßen des Modells gezeichnet: auf der Seite unter „Grundrisse“ aufklappbar, auch groß anzeigbar und auf A3 quer im Maßstab 1:200 druckbar, dazu als SVG in `assets/plans/`. Es sind Rekonstruktionen (etwa ±0,10 m), keine Pläne des Architekten.
+- Grundrisse Erdgeschoss und Untergeschoss im Maßstab 1:200 (Blatt A3, Darstellung nach DIN 1356-1), von Claude (KI von Anthropic) aus den Maßen des Modells gezeichnet: im „Menü“ unter „Grundrisse“, auch groß anzeigbar (mit der Maus ziehen zum Verschieben) und auf A3 quer im Maßstab 1:200 druckbar, dazu als SVG in `assets/plans/`. Es sind Rekonstruktionen (etwa ±0,10 m), keine Pläne des Architekten.
 - Film „Weg zum Museum“: Schlüssel in der Osteria holen und zu Fuß über die zwei alten Steinbrücken talaufwärts zum Bau (Weg nach den Angaben der Stiftung, Linienführung nach OpenStreetMap angenähert)
 
 ## Bedienung
@@ -28,10 +28,11 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
 | Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
 | Erste Schritte | Hinweis unten im Bild: „Ziehen = drehen · Mausrad = zoomen“, verschwindet bei der ersten Bewegung | „Wischen = drehen · zwei Finger = zoomen“ |
+| Menü (Bedienung, Grundrisse, Maße, Quellen) | Knopf „Menü“ oben links, schließen mit Esc oder Klick daneben | Knopf mit den drei Strichen oben links |
 | Hell / dunkel | runder Knopf oben rechts | runder Knopf oben rechts |
 | Beschriftung „Eingang“ | Knopf „Eingang“ in der Kopfzeile (ab 1600 px „Beschriftung Eingang“), Wahl bleibt gespeichert | Knopf „Eingang“ |
 
-Uhrzeit, Jahreszeit, Wind, Wolken, Fluss und Grafikqualität stehen am Rechner in der zweiten Zeile der Kopfzeile, auf Tablet und Handy unter „Licht & Qualität“. Die Spur des Uhrzeit-Reglers zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit. Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung; ohne Wahl gilt die Einstellung des Systems, eine Wahl bleibt im Browser gespeichert. Unter dem Modell lassen sich „Bedienung und Legende“ und „Quellen“ getrennt aufklappen. Der runde Knopf oben rechts im Bild (oder die Taste F) schaltet ins Vollbild: nur das Modell über den ganzen Bildschirm, am Handy, wo der Browser es zulässt, im Querformat; erlaubt der Browser kein Vollbild (iPhone, eingebettete Fassung), blendet die Seite Kopf und Fuss aus. Derselbe Knopf oder Esc beendet es.
+Uhrzeit, Jahreszeit, Wind, Wolken, Fluss und Grafikqualität stehen am Rechner in der zweiten Zeile der Kopfzeile, auf Tablet und Handy unter „Licht & Qualität“. Die Spur des Uhrzeit-Reglers zeigt Nacht, Dämmerung und Tag der gewählten Jahreszeit. Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung; ohne Wahl gilt die Einstellung des Systems, eine Wahl bleibt im Browser gespeichert. Der Knopf „Menü“ oben links öffnet eine Seitenleiste mit „Bedienung und Legende“, „Grundrisse“, „Wie die Maße entstanden“ und „Quellen“; es ist immer ein Bereich offen. Der runde Knopf oben rechts im Bild (oder die Taste F) schaltet ins Vollbild: nur das Modell über den ganzen Bildschirm, am Handy, wo der Browser es zulässt, im Querformat; erlaubt der Browser kein Vollbild (iPhone, eingebettete Fassung), blendet die Seite Kopf und Fuss aus. Derselbe Knopf oder Esc beendet es.
 
 **Grafikqualität:** Voreingestellt ist „automatisch“. Die Seite erkennt Gerät (Rechner, Tablet, Handy), Grafikchip, Arbeitsspeicher und Datensparmodus und wählt danach „hoch“, „mittel“ oder „niedrig“. Die Stufe „ultra“ (noch weitere Sicht für Gras und ausführliche Bäume, dichterer Wald, größere Schatten- und Luftbildbereiche) wählt die Automatik nie; sie ist für schnelle Grafikkarten gedacht und lässt sich von Hand einstellen. Ruckelt die Darstellung beim Bewegen, senkt sie die Auflösung von selbst; ist es auch dann noch zu langsam, beginnt sie beim nächsten Besuch eine Stufe tiefer. Eine fest gewählte Stufe bleibt im Browser gespeichert (nur im lokalen Speicher des Browsers, keine Cookies).
 
@@ -50,10 +51,10 @@ Uhrzeit, Jahreszeit, Wind, Wolken, Fluss und Grafikqualität stehen am Rechner i
 ## Aufbau der Dateien
 
 ```
-index.html            Seite: Kopf mit Beschreibung für Suchmaschinen, Kopfzeile, 3D-Bühne, Fußbereich
+index.html            Seite: Kopf mit Beschreibung für Suchmaschinen, Kopfzeile, 3D-Bühne, Menü (Seitenleiste)
 css/tokens.css        Design-Variablen: Farben (hell/dunkel), Schriften, Abstände, Radien, Schatten
 css/base.css          Schriften, Grundtypografie, Knöpfe, Formularelemente, Fokus
-css/layout.css        Kopfzeile, Werkzeugleiste, Bühne, Fußbereich, Umbrüche (mobil zuerst)
+css/layout.css        Kopfzeile, Werkzeugleiste, Bühne, Menü, Umbrüche (mobil zuerst)
 css/overlays.css      alles über dem 3D-Bild: Laden, Beschriftungen, Schildkarte, Steuerkreuz, Film
 js/loader.js          lädt three.js, die Modelldaten und die App-Dateien und startet sie
 js/core.js            Diagnose (#diag), Koordinaten, Qualitätsstufen, Höhenmodell

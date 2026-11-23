@@ -203,6 +203,32 @@
   if (planPrintBtn) planPrintBtn.addEventListener('click', function () { root.classList.add('lc-print'); window.print(); });
   window.addEventListener('afterprint', function () { root.classList.remove('lc-print'); });
 
+  /* Grundriss mit der Maus ziehen (das Mausrad scrollt nur senkrecht, das große Blatt ist aber breiter als der Bildschirm) */
+  var planSheet = document.getElementById('planSheet');
+  if (planSheet) planSheet.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    var x = e.clientX, y = e.clientY, l = planSheet.scrollLeft, t = planSheet.scrollTop;
+    function move(ev) { planSheet.scrollLeft = l - (ev.clientX - x); planSheet.scrollTop = t - (ev.clientY - y); }
+    function up() { planSheet.classList.remove('drag'); ['pointermove', 'pointerup', 'pointercancel'].forEach(function (n, i) { planSheet.removeEventListener(n, i ? up : move); }); }
+    planSheet.setPointerCapture(e.pointerId); planSheet.classList.add('drag'); e.preventDefault();
+    planSheet.addEventListener('pointermove', move); planSheet.addEventListener('pointerup', up); planSheet.addEventListener('pointercancel', up);
+  });
+
+  /* Menü: Bedienung, Grundrisse, Maße und Quellen in einer Seitenleiste von links; immer nur ein Bereich offen (details name="info") */
+  var menuBtn = document.getElementById('menuBtn'), info = document.getElementById('info');
+  function menuOpen() { return root.classList.contains('lc-menu'); }
+  function menuShow(on, keepFocus) {
+    if (!info) return;
+    root.classList.toggle('lc-menu', on);
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', String(on));
+    if (keepFocus) return;
+    if (on) { var s = info.querySelector('details[open] > summary') || info.querySelector('summary'); if (s) s.focus({ preventScroll: true }); }
+    else if (menuBtn) menuBtn.focus({ preventScroll: true });
+  }
+  window.lcMenu = menuShow;
+  if (menuBtn) menuBtn.addEventListener('click', function () { menuShow(!menuOpen()); });
+  ['menuClose', 'menuScrim'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('click', function () { menuShow(false); }); });
+
   /* Taste F schaltet um; Esc beendet das Ersatz-Vollbild, solange weder Schild noch Film die Taste brauchen */
   window.addEventListener('keydown', function (e) {
     var t = e.target, tg = t && t.tagName;
@@ -210,6 +236,12 @@
       /* die Tasten gehören dem Blatt (Pfeiltasten scrollen), nicht dem Modell dahinter */
       e.stopImmediatePropagation();
       if (e.code === 'Escape') { planShow(false); e.preventDefault(); }
+      return;
+    }
+    if (menuOpen()) {
+      /* im Menü gehören die Tasten der Seitenleiste, nicht dem Modell dahinter */
+      e.stopImmediatePropagation();
+      if (e.code === 'Escape') { menuShow(false); e.preventDefault(); }
       return;
     }
     if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|SELECT|TEXTAREA)$/.test(tg) || (t && t.isContentEditable)) return;

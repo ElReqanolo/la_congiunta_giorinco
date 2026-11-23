@@ -27,22 +27,23 @@
 <link rel="preload" href="assets/fonts/heros-regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/pagella-bold.woff" as="font" type="font/woff" crossorigin>
 <!-- ?v= erhöhen, wenn sich CSS oder JS ändern: sonst zeigen Browser bis zu 10 Minuten lang alte Dateien -->
-<link rel="stylesheet" href="css/tokens.css?v=22">
-<link rel="stylesheet" href="css/base.css?v=22">
-<link rel="stylesheet" href="css/layout.css?v=22">
-<link rel="stylesheet" href="css/overlays.css?v=22">
+<link rel="stylesheet" href="css/tokens.css?v=23">
+<link rel="stylesheet" href="css/base.css?v=23">
+<link rel="stylesheet" href="css/layout.css?v=23">
+<link rel="stylesheet" href="css/overlays.css?v=23">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"La Congiunta, Giornico – interaktives 3D-Modell","inLanguage":"de",
  "about":{"@type":"Museum","name":"La Congiunta","url":"https://lacongiunta.ch/","architect":{"@type":"Person","name":"Peter Märkli"},
   "address":{"@type":"PostalAddress","addressLocality":"Giornico","addressRegion":"Tessin","addressCountry":"CH"},
   "geo":{"@type":"GeoCoordinates","latitude":46.4056231,"longitude":8.8704691}}}
 </script>
-<script src="js/loader.js?v=22" defer></script>
+<script src="js/loader.js?v=23" defer></script>
 </head>
 <body>
 <a class="skip" href="#stage">Zum 3D-Modell springen</a>
 
 <header class="site-header">
+  <button id="menuBtn" class="menub" type="button" aria-expanded="false" aria-controls="info" title="Menü: Bedienung, Grundrisse, Maße, Quellen"><span class="menub-icon" aria-hidden="true"></span><span class="menub-txt">Menü</span></button>
   <div class="brand">
     <h1>La Congiunta, Giornico</h1>
     <p class="sub">Peter Märkli, 1986–1992 · 3D-Modell mit Gelände und Umgebung</p>
@@ -105,15 +106,19 @@
   </div>
 </main>
 
-<footer class="site-footer">
-  <details id="legend">
-    <summary><h2>Bedienung und Legende</h2></summary>
+<div class="menu-scrim" id="menuScrim" aria-hidden="true"></div>
+<footer class="site-footer" id="info" aria-label="Menü">
+  <div class="info-head"><p class="info-title">Menü</p><button type="button" id="menuClose">Schließen</button></div>
+  <details id="legend" name="info">
+    <summary><h2>Bedienung und Legende</h2><small>So steuerst du das Modell, was die Zeichen im Bild bedeuten</small></summary>
     <div class="fbody">
       <section class="fsec fsec-howto">
       <h3>Bedienung</h3>
       <dl class="howto keys">
         <dt>Ansehen</dt>
         <dd><b>Ziehen</b> dreht, <b>Scrollen</b> oder Zwei-Finger-Geste zoomt, „Tal“ zeigt die Umgebung bis zum Dorf. Mit der Tastatur: das Bild mit <b>Tab</b> anwählen, dann drehen die <b>Pfeiltasten</b>, <b>+ / −</b> zoomt.</dd>
+        <dt>Menü</dt>
+        <dd>Der Knopf „Menü“ oben links öffnet diese Bedienung, die Grundrisse, die Herleitung der Maße und die Quellen. Schließen mit „Schließen“, <b>Esc</b> oder einem Klick neben das Menü.</dd>
         <dt>Hell und dunkel</dt>
         <dd>Der runde Knopf oben rechts schaltet zwischen heller und dunkler Darstellung. Die Wahl bleibt im Browser gespeichert; ohne Wahl gilt die Einstellung des Systems.</dd>
         <dt>Tablet und Handy</dt>
@@ -160,8 +165,8 @@
       </section>
     </div>
   </details>
-  <details id="plaene">
-    <summary><h2>Grundrisse</h2></summary>
+  <details id="plaene" name="info">
+    <summary><h2>Grundrisse</h2><small>Erdgeschoss und Keller als Plan, 1:200</small></summary>
     <div class="pbody">
       <p class="pki">Gezeichnet von Claude (KI von Anthropic)</p>
       <p class="pintro">Erdgeschoss und Untergeschoss im Maßstab 1:200 auf einem Blatt A3, dargestellt nach DIN 1356-1 (Bauzeichnungen) und DIN 406-11 (Maßeintragung) [15]. Claude hat die Pläne aus den Maßen des 3D-Modells gezeichnet: Grundriss und Schnitte bei Pireddu [1], abgeglichen mit swissBUILDINGS3D [3], Innenbreite nach Peter Märkli [2]. Es sind Rekonstruktionen, keine Pläne des Architekten; die Maße stimmen auf etwa ±0,10 m. Schwarz sind die geschnittenen Betonwände, gepunktet Lichtgaden und Oblichter über der Schnittebene; Maße in m, unter 1,00 m in cm. Außer den lichten Raumhöhen und der Innenbreite sind alle Maße berechnet; die Maßketten tragen nach DIN 406 trotzdem kein ≈-Zeichen, die Raumstempel schon.</p>
@@ -172,7 +177,7 @@
       </p>
       <figure class="plan" id="planFig">
         <div class="plan-bar"><span>Grundrisse, gezeichnet von Claude (KI)</span><button type="button" id="planClose">Schließen (Esc)</button></div>
-        <div class="plan-sheet" id="planSheet" tabindex="0" role="region" aria-label="Grundrisse Erdgeschoss und Untergeschoss, zum Verschieben scrollen">
+        <div class="plan-sheet" id="planSheet" tabindex="0" role="region" aria-label="Grundrisse Erdgeschoss und Untergeschoss, zum Verschieben scrollen oder mit der Maus ziehen">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 297" role="img" aria-labelledby="gr-t gr-d" class="plan-svg">
 <title id="gr-t">Grundrisse La Congiunta, Erdgeschoss und Untergeschoss, M 1:200</title>
 <desc id="gr-d">Von Claude (KI von Anthropic) gezeichnete Rekonstruktion nach den Maßen des 3D-Modells, Darstellung nach DIN 1356-1. Erdgeschoss: drei Räume hintereinander, 42,40 × 5,25 m außen, vier Zellen an der Westseite von Raum 3, Eingang an der Nordseite, Kellerabgang außen an der Westwand. Untergeschoss: Lager unter Raum 3 und Keller unter den Zellen, Zugang nur über die Außentreppe. Kein amtlicher Plan.</desc>
@@ -714,8 +719,8 @@
       </figure>
     </div>
   </details>
-  <details id="masse">
-    <summary><h2>Wie die Maße entstanden</h2></summary>
+  <details id="masse" name="info">
+    <summary><h2>Wie die Maße entstanden</h2><small>Woher jede Zahl im Modell kommt</small></summary>
     <div class="mbody">
       <p class="mintro">Direkt veröffentlicht sind nur wenige Maße: die lichten Raumhöhen (Pireddu), die Innenbreite (Märkli) und die Weglänge. Alle anderen Werte sind berechnet, gemessen oder geschätzt und deshalb mit ≈ gekennzeichnet. Alles andere ist gemessen, umgerechnet oder geschätzt. Grundlage sind Grundriss und Schnitte bei Pireddu; weil die Pläne keinen brauchbaren Maßstab haben, gibt die Gesamtlänge aus dem Luftbild den Maßstab vor. Wo nur Bilder vorliegen, steht „geschätzt“. Die Zahlen in Klammern verweisen auf die Quellen.</p>
       <section class="mgrp">
@@ -793,8 +798,8 @@
       </section>
     </div>
   </details>
-  <details id="quellen">
-    <summary><h2>Quellen</h2></summary>
+  <details id="quellen" name="info">
+    <summary><h2>Quellen</h2><small>Bücher, Pläne, Karten und Bilder</small></summary>
     <p class="srcnote">Nach Themen geordnet; die Zahlen in eckigen Klammern auf der Seite, in den Infoschildern und im Plan verweisen auf diese Nummern.</p>
     <section class="srcgrp" aria-labelledby="src-h1">
       <h3 id="src-h1">Pläne und Maße</h3>
