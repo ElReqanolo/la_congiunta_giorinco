@@ -217,4 +217,4 @@
 }
 .nt-touch { display: none; }
 @media (pointer: coarse) { .nt-mouse { display: none; } .nt-touch { display: inline; } }
-.filming .navtip { display: none; }
+.filming .navtip, #pad:not([hidden]) ~ .navtip { display: none; }
