@@ -26,7 +26,7 @@ var fly=false,fp=new THREE.Vector3(),fyaw=0,fpitch=0,keys={},last=0,walk=false,n
 var tagEls=[],envTagEls=[],lastR=0,needs=true,expo=0.65,expoT=0.65,svB=new THREE.Vector3(0,1,0),svW=new THREE.Vector3(0,1,0),sunEl=0.5;
 var needle=document.getElementById('needle'),NORTH=w2b(0,-1);
 function place(){
-  if(FILM.on){fmPlace(FILM.pdt||0);return}
+  if(FILM.on){fmPlace((FILM.pdt||0)*FILM.speed);return}
   if(fly){camera.position.copy(fp);camera.rotation.set(fpitch,fyaw,0,'YXZ');if(camera.near!==0.08){camera.near=0.08;camera.updateProjectionMatrix()}return}
   camera.position.set(tgt.x+r*Math.sin(ph)*Math.sin(th),tgt.y+r*Math.cos(ph),tgt.z+r*Math.sin(ph)*Math.cos(th));
   var gy=hB(camera.position.x,camera.position.z)+1.6;if(camera.position.y<gy)camera.position.y=gy;

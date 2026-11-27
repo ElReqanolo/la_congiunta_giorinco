@@ -8,7 +8,7 @@ var FMR=[[452,370,0],[450,368,0],[447,367,0],[436,367,0],[433,369,0],[427,369,0]
 var FMB={1:[[384,386],[351,390]],2:[[274,378.5],[297,362.5],[300,361.5]]};
 /* Zeitplan in Sekunden: Überblick, Osteria, Weg (Zeitraffer), Ankunft, Ende */
 var FMT={ost:6,key:11,walk:15,walkEnd:72,arrive:72,end:82};
-var FILM={on:false,t:0,paused:false,lt:0,snap:true,chap:-1,focus:new THREE.Vector3(),save:null,ph:0},fmS=null,fmL=0,fmG=null,fmW=null,fmKey=null,fmPin=null,fmRib=null,fmSeg=0,fmB={};
+var FILM={on:false,t:0,speed:1,paused:false,lt:0,snap:true,chap:-1,focus:new THREE.Vector3(),save:null,ph:0},fmS=null,fmL=0,fmG=null,fmW=null,fmKey=null,fmPin=null,fmRib=null,fmSeg=0,fmB={};
 var fmRN=null,FMU={uRT:{value:0},uWS:{value:0}};
 /* Breite der Routenlinie wächst mit dem Abstand zur Kamera, damit sie auch aus der Luft zu sehen ist */
 function fmRibUpd(){var a=fmRib.geometry.attributes.position,A=a.array,cx=fmCam.x,cy=fmCam.y,cz=fmCam.z;
@@ -112,6 +112,8 @@ function fmBuildUI(){if(fmUI)return;
   tr.addEventListener('pointerup',function(){tr.onpointermove=null});
   tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){fmSeek(FILM.t+5);e.preventDefault();e.stopPropagation()}else if(e.key==='ArrowLeft'){fmSeek(FILM.t-5);e.preventDefault();e.stopPropagation()}});
   document.getElementById('filmPlay').addEventListener('click',function(){fmPause(!FILM.paused)});
+  /* Geschwindigkeit: 1× → 1,5× → 2× → 1× */
+  var spB=document.getElementById('filmSpeed');spB.addEventListener('click',function(){FILM.speed=FILM.speed===1?1.5:FILM.speed===1.5?2:1;var x=String(FILM.speed).replace('.',',');spB.textContent=x+'×';spB.setAttribute('aria-label','Geschwindigkeit: '+x+'-fach');draw()});
   document.getElementById('filmClose').addEventListener('click',function(){stopFilm()});
   fmUI.addEventListener('pointerdown',function(e){e.stopPropagation()});
   fmUI.addEventListener('wheel',function(e){e.stopPropagation()},{passive:true})}
@@ -132,7 +134,7 @@ function stopFilm(keepView){if(!FILM.on)return;var ae=document.activeElement,los
   if(s){if(s.time!==timeR.value){timeR.value=s.time;applySun()}if(!keepView){th=s.th;ph=s.ph;r=s.r;tgt.copy(s.tgt);clear=s.clear;btns.forEach(function(b,i){b.setAttribute('aria-pressed',s.pressed[i])})}}
   draw()}
 /* Kamera und Figuren für den Zeitpunkt t */
-function fmTick(dt){FILM.t=Math.min(FMT.end,FILM.t+dt);if(FILM.t>=FMT.end&&!FILM.paused)fmPause(true)}
+function fmTick(dt){FILM.t=Math.min(FMT.end,FILM.t+dt*FILM.speed);if(FILM.t>=FMT.end&&!FILM.paused)fmPause(true)}
 function fmPlace(dt){var t=FILM.t,s=fmSAt(t),W=fmAt(s,fmV),D=fmDir(s,6,14,fmV2),des=new THREE.Vector3(),look=new THREE.Vector3(),ost=fmS[0];
   if(t<FMT.ost){/* Überblick von Osten über das Dorf auf die ganze Route */
     var u=sm01(t/FMT.ost),ux=900+(540-900)*u,uz=330+(320-330)*u;fmW2S(ux,0,uz,des);des.y=hT(ux,uz)+320+(110-320)*u;

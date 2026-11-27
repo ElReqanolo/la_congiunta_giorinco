@@ -218,3 +218,4 @@
 .nt-touch { display: none; }
 @media (pointer: coarse) { .nt-mouse { display: none; } .nt-touch { display: inline; } }
 .filming .navtip, #pad:not([hidden]) ~ .navtip { display: none; }
+.film-bar .film-speed { min-width: 52px; font-variant-numeric: tabular-nums; }  /* feste Breite: 1× / 1,5× / 2× springen nicht */

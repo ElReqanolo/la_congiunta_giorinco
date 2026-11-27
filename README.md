@@ -26,7 +26,7 @@ Ein begehbares 3D-Modell von **La Congiunta** in Giornico (Tessin), dem Haus fü
 | Zoomen | Mausrad, oder + / − | zwei Finger |
 | Fliegen, Rundgang | W A S D, E / Q, Shift | Pfeiltasten unten rechts |
 | Schild lesen | hingehen und E drücken oder anklicken | „Schild lesen“ oder das Schild antippen |
-| Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden | Knöpfe unter dem Bild |
+| Film | Leertaste = Pause, Pfeiltasten = 5 s springen, Esc = beenden, Knopf „1×“ = 1,5- / 2-fache Geschwindigkeit | Knöpfe unter dem Bild, „1×“ für schneller |
 | Erste Schritte | Hinweis unten im Bild: „Ziehen = drehen · Mausrad = zoomen“, verschwindet bei der ersten Bewegung | „Wischen = drehen · zwei Finger = zoomen“ |
 | Menü (Bedienung, Grundrisse, Maße, Quellen) | Knopf „Menü“ oben links, schließen mit Esc oder Klick daneben | Knopf mit den drei Strichen oben links |
 | Hell / dunkel | runder Knopf oben rechts | runder Knopf oben rechts |
